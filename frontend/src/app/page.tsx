@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      <h2> home 화면!! </h2>
+      <h2> main </h2>
     </div>
   );
 }
