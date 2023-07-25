@@ -1,7 +1,8 @@
+import MainPage from "@/pageComponents/mainPage";
 export default function Home() {
   return (
     <div>
-      <h2> main </h2>
+      <MainPage></MainPage>
     </div>
   );
 }
