@@ -2,8 +2,16 @@ import { DefaultTheme } from "styled-components";
 
 const theme: DefaultTheme = {
   colors: {
-    yellowmain: "#FFF129",
-    purplemain: "#8E69FF",
+    yellow: "#FFF129",
+    purple: "#8E69FF",
+    lightpurple: "#A88CFF",
+
+    orange: "#FFAA29",
+
+    white: "#FAFAFA",
+    black: "#363636",
+    lightgray: "#E4E7EC", // disable에 쓰이는 color
+    gray: "rgba(0, 0, 0, 0.50)", // 진한 회색 글씨
   },
   fonts: {
     HangeulFontMedium: "HangeulFontMedium",
