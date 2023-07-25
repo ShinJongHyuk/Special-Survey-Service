@@ -5,6 +5,30 @@
   transition: all ease 0.3s 0s;
 }
 
+@font-face {
+  font-family: "HangeulFontMedium";
+  src: url("./fonts/SUIT-Medium.ttf");
+}
+
+@font-face {
+  font-family: "HangeulFontRegular";
+  src: url("./fonts/SUIT-Regular.ttf");
+}
+
+@font-face {
+  font-family: "HangeulFontSemiBold";
+  src: url("./fonts/SUIT-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "EnglishFontBold";
+  src: url("./fonts/PPNeueMachina-InktrapUltrabold.otf");
+}
+
+@font-face {
+  font-family: "EnglishFontLight";
+  src: url("./fonts/PPNeueMachina-PlainLight.otf");
+}
 
 ::-webkit-scrollbar {
   display: none;
