@@ -39,9 +39,9 @@ const CardComponent = (props: CardType) => {
       <StyledRemainTime {...props}>
         <div className="time-text">
           {props.type === "타임어택" ? (
-            <Image src="/whiteclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+            <Image src="/purpleclock.svg" priority={true} width={22} height={22} alt="remaintime" />
           ) : (
-            <Image src="/blackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+            <Image src="/yellowclock.svg" priority={true} width={22} height={22} alt="remaintime" />
           )}
           <div className="text">남은 시간</div>
         </div>
