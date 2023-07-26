@@ -13,7 +13,7 @@ const StyledContent = styled.div`
   gap: 50px;
 
   position: absolute;
-  top: 110%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 

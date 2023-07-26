@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const Content = () => {
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <img src="/Content1.png" style={{ width: "100%" }}></img>
       <StyledContent>
         <div className="title">
