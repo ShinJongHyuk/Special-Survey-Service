@@ -44,7 +44,7 @@ const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
       font-size: ${size};
       text-align: center;
       ${props.isKo && `
-    text-shadow: 1px 0 ${black}, -1px 0 ${black}, 0 1px ${black}, 0 -1px ${black}, 0 2px ${gray};
+      text-shadow: 1px 0 ${black};
   `}
     `;
   }};
