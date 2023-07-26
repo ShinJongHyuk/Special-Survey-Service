@@ -6,17 +6,13 @@ const StyledInput = styeld.input.attrs<any>((props) => ({
 }))`
     ${(props) => {
         const inputState = props.inputstate
-        let color = "black"
-        {if (!inputState) {
-            color = "red"
-        }}
         return css`
             padding-left: 10px;
             width: 100%;
             height: 100%;
             border: 1px solid black;
             background-color: white;
-            border: 1px solid ${color};
+            border: 1px solid ${(() => (inputState ? "black" : "red"))};
         `
     }}
 `
