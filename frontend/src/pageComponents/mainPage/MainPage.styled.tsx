@@ -26,6 +26,7 @@ const StyledTextbox = styled.div`
   width: 500px;
 `;
 
+
 interface TextType {
   isKo?: boolean;
   isSub?: boolean;
@@ -83,5 +84,6 @@ const StyledContent = styled.div`
   align-items: center;
 
   gap: 50px;
+
 `
 export { StyledTextbox, StyledBanner, StyledBannerText, StyledBannerBox, StyledContent, StyledContentTitle, StyledContentText };

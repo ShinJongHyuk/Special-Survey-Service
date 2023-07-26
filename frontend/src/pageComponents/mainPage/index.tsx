@@ -2,6 +2,7 @@
 import React from "react";
 import { StyledTextbox, StyledBannerBox, StyledBanner, StyledBannerText, StyledContentTitle, StyledContent, StyledContentText } from "./MainPage.styled";
 import Image from "next/image"
+import CardList from "./components/cardlist";
 const MainPage = () => {
   return (
     <>
@@ -18,14 +19,13 @@ const MainPage = () => {
           </div>
         </StyledBannerBox>
       </StyledBanner>
-
       <StyledContent>
         <StyledContentTitle>
           <Image src="/casino.svg" priority={true} width={50} height={51} alt="casino"></Image>
           <StyledContentText> SSS pick </StyledContentText>
           <StyledContentText isSub={true}> SSS 가 추천하는 Survey </StyledContentText>
         </StyledContentTitle>
-        <div> Card Lists </div>
+        <CardList></CardList>
         <button> 더보기 </button>
       </StyledContent>
 

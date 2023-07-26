@@ -5,7 +5,7 @@ const theme: DefaultTheme = {
     yellow: "#FFF129",
     purple: "#8E69FF",
     lightpurple: "#A88CFF",
-
+    blue: "#6951FF",
     orange: "#FFAA29",
 
     white: "#FAFAFA",
