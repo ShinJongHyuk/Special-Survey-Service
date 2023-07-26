@@ -27,7 +27,7 @@ const StyledContent = styled.div`
 
 const StyledContentText = styled.div.attrs<TextType>((props) => ({}))`
   ${(props) => {
-    const font = props.theme.fonts.HangeulFontSemiBold;
+    const font = props.isSub ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontLight;
     const color = props.isSub ? props.theme.colors.gray : props.theme.colors.black;
     const size = props.isSub ? props.theme.fontSizes.medium : props.theme.fontSizes.large;
 
