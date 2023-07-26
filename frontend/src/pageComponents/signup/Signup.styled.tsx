@@ -6,6 +6,11 @@ const SignUpPage = styled.div.attrs<any>((props) => ({}))`
   flex-direction: column;
   align-items: center;
   position: relative;
+  background-image: url("/BGimg.png");
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: center center; 
+  background-color: #F9FAFB;
 `
 
 const InputBox = styled.div.attrs<any>((props) => ({}))`
@@ -24,7 +29,7 @@ const WomanBGStyles = styled.div.attrs<any>((props) => ({}))`
   left: 0;
   width: 460px;
   height: 400px;
-  background-image: url("/womanBG.png");
+  /* background-image: url("/womanBG.png"); */
 `
 const ManBGStyles = styled.div.attrs<any>((props) => ({}))` 
   position: absolute;
@@ -32,7 +37,7 @@ const ManBGStyles = styled.div.attrs<any>((props) => ({}))`
   right: 0;
   width: 390px;
   height: 350px;
-  background-image: url("/manBG.png");
+  /* background-image: url("/manBG.png"); */
 `
 
 const SignUpContainer = styled.form.attrs<any>((props) => ({}))`

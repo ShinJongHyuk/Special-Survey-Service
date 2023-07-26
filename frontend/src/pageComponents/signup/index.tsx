@@ -121,8 +121,8 @@ const Signup = () => {
 
     return (
         <SignUpPage>
-            <WomanBGStyles></WomanBGStyles>
-            <ManBGStyles></ManBGStyles>
+            {/* <WomanBGStyles></WomanBGStyles>
+            <ManBGStyles></ManBGStyles> */}
             <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px"}}></Image>
         <SignUpContainer onSubmit={onSubmit}>
             <SignUpItem>
