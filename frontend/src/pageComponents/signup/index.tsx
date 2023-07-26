@@ -2,9 +2,9 @@
 import Input from '@/components/Input'
 import Button from '@/components/Button'
 import { InputBox } from "../login/Login.styled"
-import { SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem } from './Signup.styled'
+import { SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles } from './Signup.styled'
 import { useState } from 'react'
-
+import Image from 'next/image'
 const Signup = () => {
     const [gender, setGender] = useState('')
 
@@ -14,6 +14,9 @@ const Signup = () => {
 
     return (
         <SignUpPage>
+            <WomanBGStyles></WomanBGStyles>
+            <ManBGStyles></ManBGStyles>
+            <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px"}}></Image>
         <SignUpContainer>
             <SignUpItem>
             <SignUpText>이메일</SignUpText>
@@ -72,7 +75,7 @@ const Signup = () => {
             </InputBox>
             </SignUpItem>
         
-            <div style={{height:"32px", width:"500px", marginLeft:"auto", marginRight:"auto"}}>
+            <div style={{height:"32px", width:"520px", marginTop:"10px"}}>
                 <Button label="가입하기" type="submit"/>
             </div>
         </SignUpContainer>

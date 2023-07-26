@@ -1,30 +1,45 @@
 import styled from 'styled-components'
 
 const SignUpPage = styled.div.attrs<any>((props) => ({}))`
-    min-width: 1320px;
-    display: flex;
-    justify-content: center;
+  min-width: 1340px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`
+
+const WomanBGStyles = styled.div.attrs<any>((props) => ({}))` 
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 460px;
+  height: 400px;
+  background-image: url("/womanBG.png");
+`
+const ManBGStyles = styled.div.attrs<any>((props) => ({}))` 
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 390px;
+  height: 350px;
+  background-image: url("/manBG.png");
 `
 
 const SignUpContainer = styled.form.attrs<any>((props) => ({}))`
     width: 540px;
     height: auto;
-    border: 1px solid black;
     border-radius: 5px;
     padding: 10px 0px;
 `
 
 const SignUpText = styled.div.attrs<any>((props) => ({}))`
     display: flex;
-    justify-content: center;
     width: 100px;
     height: 100%;
     font-size: 16px;
-    font-family: 'Suit';
-    @font-face {
-        font-family: 'Suit';
-        src: url('/fonts/SUIT-Regular.ttf');
-    }
+    font-family: ${(props) => props.theme.fonts.HangeulFontRegular}
+   
 `
 
 const SignUpItem = styled.div.attrs<any>((props) => ({}))`
@@ -42,4 +57,4 @@ const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
 
 `
 
-export { SignUpPage, SignUpContainer, InputRadioBox, SignUpText, SignUpItem }
+export { SignUpPage, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles }
