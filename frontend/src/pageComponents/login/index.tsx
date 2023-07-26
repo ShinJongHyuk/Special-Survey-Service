@@ -5,23 +5,57 @@ import Image from 'next/image'
 import { LoginPage, InputBox, LoginFont, LoginFont2 } from './Login.styled'
 import { SignUpText, SignUpItem, SignUpContainer, WomanBGStyles, ManBGStyles } from '../signup/Signup.styled'
 import { useState } from 'react'
-
+import { useRouter } from 'next/navigation'
 const Login = () => {
+    const router = useRouter()
     const [user, setUser] = useState({
-        email : null,
-        password : null
+        email : "",
+        password : ""
     })
+
+    const [inputState, setInputState] = useState({
+        email: 1,
+        password: 1      
+    })
+
 
     const onChange = (e:any) => {
         setUser({
             ...user,
             [e.target.name]: e.target.value
         })
+
+        setInputState({
+            ...inputState,
+            [e.target.name] : 1
+        })
     }
 
     const onSubmit = (e:any) => {
         e.preventDefault()
         
+        if (user.email === "") {
+            setInputState({
+                ...inputState,
+                ["email"] : 0
+            })
+            alert('이메일을 입력해주세요.')
+            return
+        } 
+        
+        else if (user.password === "") {
+            setInputState({
+                ...inputState,
+                ["password"] : 0
+            })
+            alert('비밀번호를 입력해주세요')
+            return
+        } 
+
+        else {
+            // 여기서 이메일, 비밀번호 담아서 axios
+            router.push('/')
+        }
 
     }
     return (
@@ -34,14 +68,14 @@ const Login = () => {
                 <SignUpItem>
                     <SignUpText>이메일</SignUpText> 
                     <InputBox>
-                        <Input type="email" name="email" onChange={onChange}/>
+                        <Input type="email" name="email" onChange={onChange} inputstate={inputState.email}/>
                     </InputBox>
                 </SignUpItem>
 
                 <SignUpItem>
                     <SignUpText>비밀번호</SignUpText> 
                     <InputBox>
-                        <Input type="password" name="password" onChange={onChange}/>
+                        <Input type="password" name="password" onChange={onChange} inputstate={inputState.password}/>
                     </InputBox>
                 </SignUpItem>
                 

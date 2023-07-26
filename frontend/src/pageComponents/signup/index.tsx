@@ -4,7 +4,9 @@ import Button from '@/components/Button'
 import { InputBox, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles } from './Signup.styled'
 import { useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 const Signup = () => {
+    const router = useRouter()
     const [gender, setGender] = useState('')
     const [user, setUser] = useState({
         email: "",
@@ -25,6 +27,10 @@ const Signup = () => {
         
     })
 
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
+    const nameRegex =  /^[가-힣]{2,4}$/
+    const phoneNumberRegex = /^\d{3}-\d{3,4}-\d{4}$/
+
     const onChange = (e:any) => {
         setUser({
             ...user,
@@ -40,7 +46,7 @@ const Signup = () => {
     const onSubmit = (e:any) => {
         e.preventDefault()
 
-        if (user["email"] === "") {
+        if (user.email === "") {
             setInputState({
                 ...inputState,
                 ["email"] : 0
@@ -49,16 +55,16 @@ const Signup = () => {
             return
         } 
         
-        else if (user["password"] === "") {
+        else if (!passwordRegex.test(user.password)) {
             setInputState({
                 ...inputState,
                 ["password"] : 0
             })
-            alert('비밀번호를 입력해주세요')
+            alert('비밀번호 형식을 맞춰주세요')
             return
         } 
         
-        else if (user["password2"] === "") {
+        else if (user.password2 === "") {
             setInputState({
                 ...inputState,
                 ["password2"] : 0
@@ -67,12 +73,12 @@ const Signup = () => {
             return
         } 
         
-        else if (user["password"] !== user["password2"]) {
+        else if (user.password !== user.password2) {
             alert("비밀번호를 다시 확인해주세요")
             return
         } 
         
-        else if (user['name'] === "") {
+        else if (user.name === "") {
             setInputState({
                 ...inputState,
                 ["name"] : 0
@@ -81,7 +87,7 @@ const Signup = () => {
             return
         } 
         
-        else if (user["birth"] === "") {
+        else if (user.birth === "") {
             setInputState({
                 ...inputState,
                 ["birth"] : 0
@@ -90,7 +96,7 @@ const Signup = () => {
             return
         } 
         
-        else if (user["phoneNumber"] === "") {
+        else if (!phoneNumberRegex.test(user.phoneNumber)) {
             setInputState({
                 ...inputState,
                 ["phoneNumber"] : 0
@@ -105,7 +111,7 @@ const Signup = () => {
         }
 
         else {
-            console.log(user)
+            router.push('/')
         }
     }
 
@@ -122,35 +128,35 @@ const Signup = () => {
             <SignUpItem>
             <SignUpText>이메일</SignUpText>
             <InputBox>
-                <Input type="email" name="email" onChange={onChange} inputstate={inputState["email"]}/>
+                <Input type="email" name="email" onChange={onChange} inputstate={inputState.email}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>비밀번호</SignUpText>
             <InputBox>
-                <Input type="password" name="password" onChange={onChange} inputstate={inputState["password"]}/>
+                <Input type="password" name="password" onChange={onChange} inputstate={inputState.password}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>비밀번호 확인</SignUpText>
             <InputBox>
-                <Input type="password" name="password2" onChange={onChange} inputstate={inputState["password2"]}/>
+                <Input type="password" name="password2" onChange={onChange} inputstate={inputState.password2}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>이름</SignUpText>
             <InputBox>
-                <Input type="text" name="name" onChange={onChange} inputstate={inputState["name"]}/>
+                <Input type="text" name="name" onChange={onChange} inputstate={inputState.name}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>생년월일</SignUpText>
             <InputBox>
-                <Input type="date" name="birth" onChange={onChange} inputstate={inputState["birth"]}/>
+                <Input type="date" name="birth" onChange={onChange} inputstate={inputState.birth}/>
             </InputBox>
             </SignUpItem>
 
@@ -172,7 +178,7 @@ const Signup = () => {
             <SignUpItem>
             <SignUpText>휴대폰 번호</SignUpText>
             <InputBox>
-                <Input type="number" name="phoneNumber" onChange={onChange} inputstate={inputState["phoneNumber"]}/>
+                <Input type="number" name="phoneNumber" onChange={onChange} inputstate={inputState.phoneNumber}/>
             </InputBox>
             </SignUpItem>
         
