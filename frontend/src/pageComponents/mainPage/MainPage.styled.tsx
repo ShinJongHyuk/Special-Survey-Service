@@ -27,14 +27,14 @@ const StyledTextbox = styled.div`
 `;
 
 interface TextType {
-  isKo: boolean;
+  isKo?: boolean;
+  isSub?: boolean;
 }
 
 const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
   ${(props) => {
     const font = props.isKo ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontLight;
     const black = props.theme.colors.black;
-    const gray = props.theme.colors.gray;
     const size = props.isKo ? props.theme.fontSizes.xlarge : props.theme.fontSizes.large;
 
     return css`
@@ -50,4 +50,38 @@ const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
   }};
 `;
 
-export { StyledTextbox, StyledBanner, StyledBannerText, StyledBannerBox };
+const StyledContentTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+`
+const StyledContentText = styled.div.attrs<TextType>((props) => ({}))`
+  ${(props) => {
+    const font = props.theme.fonts.HangeulFontSemiBold;
+    const color = props.isSub ? props.theme.colors.gray : props.theme.colors.black;
+    const size = props.isSub ? props.theme.fontSizes.medium : props.theme.fontSizes.large;
+
+    return css`
+      width: 100%;
+      color: ${color};
+      font-family: ${font};
+      font-size: ${size};
+      text-align: center;
+      
+    `;
+  }};
+`;
+
+const StyledContent = styled.div`
+  width: 100%;
+  padding: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 50px;
+`
+export { StyledTextbox, StyledBanner, StyledBannerText, StyledBannerBox, StyledContent, StyledContentTitle, StyledContentText };
