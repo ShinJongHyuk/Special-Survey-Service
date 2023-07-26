@@ -1,11 +1,6 @@
 import styled, { css } from "styled-components";
+import { TextType } from "./MainPage.type";
 
-const StyledBanner = styled.div`
-  img {
-    width: 100%;
-    height: 500px;
-  }
-`;
 const StyledBannerBox = styled.div`
   display: inline-flex;
   flex-direction: column;
@@ -16,19 +11,15 @@ const StyledBannerBox = styled.div`
   transform: translate(-50%, -50%);
 
   gap: 48px;
-`;
-const StyledTextbox = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  gap: 16px;
-  width: 500px;
-`;
 
-interface TextType {
-  isKo?: boolean;
-  isSub?: boolean;
-}
+  .textbox {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+    width: 500px;
+  }
+`;
 
 const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
   ${(props) => {
@@ -42,45 +33,9 @@ const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
       font-family: ${font};
       font-size: ${size};
       text-align: center;
-      ${props.isKo &&
-      `
-      text-shadow: 1px 0 ${black};
-  `}
+      ${props.isKo && ` text-shadow: 1px 0 ${black};`}
     `;
   }};
 `;
 
-const StyledContentTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-`;
-const StyledContentText = styled.div.attrs<TextType>((props) => ({}))`
-  ${(props) => {
-    const font = props.theme.fonts.HangeulFontSemiBold;
-    const color = props.isSub ? props.theme.colors.gray : props.theme.colors.black;
-    const size = props.isSub ? props.theme.fontSizes.medium : props.theme.fontSizes.large;
-
-    return css`
-      width: 100%;
-      color: ${color};
-      font-family: ${font};
-      font-size: ${size};
-      text-align: center;
-    `;
-  }};
-`;
-
-const StyledContent = styled.div`
-  width: 100%;
-  padding: 50px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  gap: 50px;
-`;
-export { StyledTextbox, StyledBanner, StyledBannerText, StyledBannerBox, StyledContent, StyledContentTitle, StyledContentText };
+export { StyledBannerText, StyledBannerBox };

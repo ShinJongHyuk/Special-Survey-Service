@@ -1,41 +1,25 @@
 "use client";
 import React from "react";
-import {
-  StyledTextbox,
-  StyledBannerBox,
-  StyledBanner,
-  StyledBannerText,
-  StyledContentTitle,
-  StyledContent,
-  StyledContentText,
-} from "./MainPage.styled";
-import Image from "next/image";
-import CardList from "./components/cardlist";
+import { StyledBannerBox, StyledBannerText } from "./MainPage.styled";
+import Content from "./components/content";
 const MainPage = () => {
   return (
     <>
-      <StyledBanner>
-        <img src="/main.png"></img>
+      <div>
+        <img src="/main.png" style={{ width: "100%", height: "500px" }}></img>
         <StyledBannerBox>
-          <StyledTextbox>
+          <div className="textbox">
             <StyledBannerText isKo={false}> Let's Survey! </StyledBannerText>
             <StyledBannerText isKo={true}> 우리는 설문조사를 하고 리워드를 받는 사이트에요!</StyledBannerText>
-          </StyledTextbox>
+          </div>
           <div>
             <button> 응답하기 </button>
             <button> 제작하기 </button>
           </div>
         </StyledBannerBox>
-      </StyledBanner>
-      <StyledContent>
-        <StyledContentTitle>
-          <Image src="/casino.svg" priority={true} width={50} height={51} alt="casino"></Image>
-          <StyledContentText> SSS pick </StyledContentText>
-          <StyledContentText isSub={true}> SSS 가 추천하는 Survey </StyledContentText>
-        </StyledContentTitle>
-        <CardList></CardList>
-        <button> 더보기 </button>
-      </StyledContent>
+      </div>
+
+      <Content></Content>
     </>
   );
 };
