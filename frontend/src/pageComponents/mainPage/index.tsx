@@ -1,7 +1,15 @@
 "use client";
 import React from "react";
-import { StyledTextbox, StyledBannerBox, StyledBanner, StyledBannerText, StyledContentTitle, StyledContent, StyledContentText } from "./MainPage.styled";
-import Image from "next/image"
+import {
+  StyledTextbox,
+  StyledBannerBox,
+  StyledBanner,
+  StyledBannerText,
+  StyledContentTitle,
+  StyledContent,
+  StyledContentText,
+} from "./MainPage.styled";
+import Image from "next/image";
 import CardList from "./components/cardlist";
 const MainPage = () => {
   return (
@@ -28,7 +36,6 @@ const MainPage = () => {
         <CardList></CardList>
         <button> 더보기 </button>
       </StyledContent>
-
     </>
   );
 };

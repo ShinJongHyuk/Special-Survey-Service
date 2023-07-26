@@ -1,8 +1,10 @@
-
 import styled, { css } from "styled-components";
 const StyledCardList = styled.div`
   display: flex;
-  gap: 12px;
-`
+  gap: 15px;
+`;
 
-export { StyledCardList }
+const StyledCard = styled.div`
+  width: 220px;
+`;
+export { StyledCardList, StyledCard };

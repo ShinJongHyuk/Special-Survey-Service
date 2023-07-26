@@ -1,14 +1,13 @@
 export interface CardType {
+  title: string;
+  nickname: string;
 
-    surveyType: string;
+  type: string;
+  giveaways: string;
+  //   giveaways: "chicken" | "coffee" | string;
 
-    title: string;
-    company: string;
+  probability: string;
 
-    gift: string;
-
-    probability?: string;
-    remainTime: string;
-
-    userid: string; //
+  remainTime: string;
+  headCount: string;
 }

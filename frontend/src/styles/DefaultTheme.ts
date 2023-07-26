@@ -25,7 +25,8 @@ const theme: DefaultTheme = {
     small: "16px",
     medium: "20px",
     large: "32px",
-    xlarge: "48px",
+    xlarge: "40px",
+    xxlarge: "48px",
   },
 };
 export default theme;

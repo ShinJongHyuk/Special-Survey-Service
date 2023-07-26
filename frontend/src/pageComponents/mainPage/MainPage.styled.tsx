@@ -1,31 +1,29 @@
 import styled, { css } from "styled-components";
 
 const StyledBanner = styled.div`
-  img{
+  img {
     width: 100%;
     height: 500px;
   }
-  
-`
+`;
 const StyledBannerBox = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top:40%;
-  left:50%;
+  top: 35%;
+  left: 50%;
   transform: translate(-50%, -50%);
 
-  gap:48px;
-`
+  gap: 48px;
+`;
 const StyledTextbox = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   text-align: center;
   gap: 16px;
   width: 500px;
 `;
-
 
 interface TextType {
   isKo?: boolean;
@@ -44,7 +42,8 @@ const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
       font-family: ${font};
       font-size: ${size};
       text-align: center;
-      ${props.isKo && `
+      ${props.isKo &&
+      `
       text-shadow: 1px 0 ${black};
   `}
     `;
@@ -56,7 +55,7 @@ const StyledContentTitle = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 16px;
-`
+`;
 const StyledContentText = styled.div.attrs<TextType>((props) => ({}))`
   ${(props) => {
     const font = props.theme.fonts.HangeulFontSemiBold;
@@ -69,7 +68,6 @@ const StyledContentText = styled.div.attrs<TextType>((props) => ({}))`
       font-family: ${font};
       font-size: ${size};
       text-align: center;
-      
     `;
   }};
 `;
@@ -84,6 +82,5 @@ const StyledContent = styled.div`
   align-items: center;
 
   gap: 50px;
-
-`
+`;
 export { StyledTextbox, StyledBanner, StyledBannerText, StyledBannerBox, StyledContent, StyledContentTitle, StyledContentText };

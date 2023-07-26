@@ -4,9 +4,13 @@ import { CardType } from "./Card.type";
 
 const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
-    // const gray = props.theme.colors.gray;
-    const white = props.theme.colors.white;
-    const bgcolor = props.remainTime !== "" ? white : "gray";
+    let bgcolor;
+    if (props.type === "타임어택") {
+      bgcolor = props.theme.colors.purple;
+    } else {
+      const probability = parseInt(props.probability, 10);
+      bgcolor = probability <= 40 ? props.theme.colors.yellow : props.theme.colors.white;
+    }
 
     return css`
       width: 100%;
@@ -16,147 +20,158 @@ const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
 
       border-radius: 16px;
       border: 1px solid #e4e7ec;
+      background-color: ${bgcolor};
+
+      padding: 30px;
+    `;
+  }};
+`;
+
+const StyledTag = styled.div.attrs<CardType>((props) => ({}))`
+  ${(props) => {
+    const type = props.type;
+
+    const lightpurple = "linear-gradient(0deg, rgba(168, 140, 255, 0.2) 0%, rgba(168, 140, 255, 0.2) 100%), #fff";
+    const lightyellow = "linear-gradient(0deg, rgba(255, 241, 41, 0.30) 0%, rgba(255, 241, 41, 0.30) 100%), #FFF";
+    const bgcolor = type === "타임어택" ? lightpurple : lightyellow;
+
+    const bcolor = type === "타임어택" ? "rgba(168, 140, 255, 0.10)" : "rgba(255, 241, 41, 0.20)";
+    const color = type === "타임어택" ? props.theme.colors.blue : props.theme.colors.orange;
+    const font = props.theme.fonts.HangeulFontSemiBold;
+    const xsmall = props.theme.fontSizes.xsmall;
+    return css`
+      display: flex;
+      padding: 4px 6px 4px 4px;
+      align-items: center;
+      gap: 1.5px;
+      border-radius: 6px;
+      border: 0.7px solid ${bcolor};
       background: ${bgcolor};
 
-      padding: 40px;
+      .type-text {
+        font-family: ${font};
+        font-size: ${xsmall};
+        color: ${color};
+      }
     `;
   }};
 `;
 
-
-// const StyledSurveyType = styled.div`
-//   display: flex;
-//   padding: 6px 8px 6px 6px;
-//   align-items: center;
-//   gap: 2px;
-//   border-radius: 8px;
-//   border: 1px solid rgba(168, 140, 255, 0.10);
-//   background: linear-gradient(0deg, rgba(168, 140, 255, 0.20) 0%, rgba(168, 140, 255, 0.20) 100%), #FFF;
-// `
-const StyledSurveyType = styled.div.attrs<CardType>((props) => ({}))`
+const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
-    const surveyType = props.surveyType;
+    const font = props.theme.fonts.HangeulFontSemiBold;
+    const black = props.theme.colors.black;
+    const white = props.theme.colors.white;
+    const small = props.theme.fontSizes.small;
+    const xsmall = props.theme.fontSizes.xsmall;
 
-    const bgcolor = surveyType === "타임어택" ? "rgba(168, 140, 255, 0.20)" : "rgba(255, 241, 41, 0.30)";
-    const bcolor = surveyType === "타임어택" ? "rgba(168, 140, 255, 0.10)" : "rgba(255, 241, 41, 0.20)";
-    const color = surveyType === "타임어택" ? props.theme.colors.blue : props.theme.colors.orange;
+    const color = props.type === "타임어택" ? white : black;
+
     return css`
       display: flex;
-      padding: 6px 8px 6px 6px;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 2px;
-      border-radius: 6px;
-      border: 1px solid ${bcolor};
-      background-color: ${bgcolor};
+      gap: 6px;
+      font-family: ${font};
       color: ${color};
-    `;
-  }};
-`;
 
-
-
-const StyledCardHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-`;
-
-const StyledTypeText = styled.div`
-  color: #6951FF;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`
-
-
-const StyledTitle = styled.div.attrs<CardType>((props) => ({}))`
-  ${(props) => {
-    const highblack = props.theme.colors.highblack;
-    const highwhite = props.theme.colors.highwhite;
-    const color = props.remainTime !== "" ? highblack : highwhite;
-    return css`
+      //
       width: 100%;
-      color: ${color};
       text-align: center;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-    `;
-  }};
-`;
 
+      .title {
+        font-size: ${small};
+      }
 
-const StyledCompany = styled.div.attrs<CardType>((props) => ({}))`
-  ${(props) => {
-    const lowblack = props.theme.colors.lowblack;
-    const lowwhite = props.theme.colors.lowwhite;
-    const color = props.remainTime !== "" ? lowblack : lowwhite;
-    return css`
-      color: ${color};
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-    `;
-  }};
-`;
-const StyledRemainTime = styled.div.attrs<CardType>((props) => ({}))`
-  ${(props) => {
-    const gray = props.theme.colors.gray;
-    const highwhite = props.theme.colors.highwhite;
-    const color = props.remainTime !== "" ? gray : highwhite;
-    return css`
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      color: ${color};
-      text-align: center;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
+      .writer {
+        font-size: ${xsmall};
+      }
     `;
   }};
 `;
 
 const StyledProbability = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
-    const main = props.theme.colors.main;
-    const highwhite = props.theme.colors.highwhite;
-    const color = props.remainTime !== "" ? main : highwhite;
+    const font = props.theme.fonts.EnglishFontBold;
+    const size = props.theme.fontSizes.large;
+    const black = props.theme.colors.black;
+    const white = props.theme.colors.white;
+    const yellow = props.theme.colors.yellow;
+
+    let color;
+    if (props.type === "타임어택") {
+      color = white;
+    } else {
+      const probability = parseInt(props.probability, 10);
+      color = probability <= 40 ? black : yellow;
+    }
+
     return css`
       color: ${color};
       text-align: right;
-      font-size: 40px;
-      font-style: normal;
-      font-weight: 800;
-      line-height: normal;
+      font-family: ${font};
+      font-size: ${size};
+    `;
+  }};
+`;
+
+const StyledRemainTime = styled.div.attrs<CardType>((props) => ({}))`
+  ${(props) => {
+    const black = props.theme.colors.black;
+    const white = props.theme.colors.white;
+    const color = props.type === "타임어택" ? white : black;
+    const font = props.theme.fonts.HangeulFontSemiBold;
+    const size = props.theme.fontSizes.xsmall;
+
+    return css`
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      color: ${color};
+      font-family: ${font};
+      font-size: ${size};
+      text-align: center;
+
+      .time-text {
+        display: flex;
+        align-items: center;
+      }
+      .text {
+        padding-left: 2px;
+      }
     `;
   }};
 `;
 
 const StyledImg = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
-    const main = props.theme.colors.main;
-    const main2 = props.theme.colors.main2;
-    const color = props.remainTime !== "" ? main : main2;
+    const black = props.theme.colors.black;
+    const white = props.theme.colors.white;
+    const yellow = props.theme.colors.yellow;
+
+    let color;
+    if (props.type === "타임어택") {
+      color = white;
+    } else {
+      const probability = parseInt(props.probability, 10);
+      color = probability <= 40 ? black : yellow;
+    }
+
     return css`
       border: 2px dashed ${color};
       border-radius: 100px;
-      width: 126px;
+      width: 86px;
       padding-top: 2px;
       padding-left: 2px;
     `;
   }};
 `;
 
-export { StyledCard, StyledCompany, StyledTypeText, StyledSurveyType, StyledRemainTime, StyledTitle, StyledImg, StyledProbability, StyledCardHeader };
+export { StyledCard, StyledTag, StyledRemainTime, StyledImg, StyledProbability, StyledCardHeader };

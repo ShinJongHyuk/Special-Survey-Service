@@ -2,36 +2,53 @@
 import React from "react";
 import Image from "next/image";
 import { CardType } from "./Card.type";
-import { StyledCard, StyledSurveyType, StyledTypeText, StyledCardHeader, StyledCompany, StyledRemainTime, StyledTitle, StyledImg, StyledProbability } from "./Card.styled";
+import { StyledCard, StyledTag, StyledCardHeader, StyledRemainTime, StyledImg, StyledProbability } from "./Card.styled";
 
 const CardComponent = (props: CardType) => {
+  const images: { [key: string]: string } = {
+    chicken: "/chicken.png",
+    coffee: "/coffee.png",
+  };
+  const imgsrc = images[props.giveaways];
 
-    return (
-        <StyledCard {...props}>
-            <StyledSurveyType {...props}>
-                {props.surveyType === "타임어택" ?
-                    <Image src="/whatshot.svg" priority={true} width={16} height={16} alt="whatshot" /> :
-                    <Image src="/bolt.svg" priority={true} width={16} height={16} alt="abc" />
-                }
-                <StyledTypeText>{props.surveyType}</StyledTypeText>
-            </StyledSurveyType>
-            <StyledCardHeader>
-                <StyledTitle {...props}>{props.title}</StyledTitle>
-                <StyledCompany style={{ margin: "0px 10px" }} {...props}>{props.company}</StyledCompany>
-            </StyledCardHeader>
-            <StyledImg {...props}>
-                <Image src="/chicken.jpg" style={{ borderRadius: "100px" }} priority={true} width={120} height={120} alt="gift" />
-            </StyledImg>
-            <StyledProbability {...props}>{props.probability}</StyledProbability>
-            <StyledRemainTime {...props}>
-                <div style={{ display: "flex" }}>
-                    <Image src="/remaintime.svg" priority={true} width={22} height={22} alt="remaintime" />
-                    남은 시간
-                </div>
-                {props.remainTime || "마감"}
-            </StyledRemainTime>
-        </StyledCard>
-    );
+  return (
+    <StyledCard {...props}>
+      <StyledTag {...props}>
+        {props.type === "타임어택" ? (
+          <Image src="/whatshot.svg" priority={true} width={11} height={11} alt="whatshot" />
+        ) : (
+          <Image src="/bolt.svg" priority={true} width={11} height={11} alt="abc" />
+        )}
+        <div className="type-text">{props.type}</div>
+      </StyledTag>
+
+      <StyledCardHeader {...props}>
+        <div className="title">{props.title}</div>
+        <div className="writer" style={{ margin: "0px 10px" }} {...props}>
+          {props.nickname}
+        </div>
+      </StyledCardHeader>
+
+      {/* image 부분은 나중에 다시 적용  */}
+      <StyledImg {...props}>
+        <Image src={imgsrc} style={{ borderRadius: "100px" }} priority={true} width={80} height={80} alt="gift" />
+      </StyledImg>
+      {/* <StyledImage src={imgsrc} className="circle" alt="giveaways" /> */}
+
+      <StyledProbability {...props}>{props.probability}</StyledProbability>
+      <StyledRemainTime {...props}>
+        <div className="time-text">
+          {props.type === "타임어택" ? (
+            <Image src="/whiteclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+          ) : (
+            <Image src="/blackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+          )}
+          <div className="text">남은 시간</div>
+        </div>
+        {props.remainTime || "00:00:00"}
+      </StyledRemainTime>
+    </StyledCard>
+  );
 };
 
 export default CardComponent;
