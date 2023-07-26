@@ -2,32 +2,51 @@
 import Input from '@/components/Input'
 import Button from '@/components/Button'
 import Image from 'next/image'
-import { InputBox, LoginFont, LoginFont2 } from './Login.styled'
-import { SignUpPage, SignUpText, SignUpItem, SignUpContainer, WomanBGStyles, ManBGStyles } from '../signup/Signup.styled'
+import { LoginPage, InputBox, LoginFont, LoginFont2 } from './Login.styled'
+import { SignUpText, SignUpItem, SignUpContainer, WomanBGStyles, ManBGStyles } from '../signup/Signup.styled'
+import { useState } from 'react'
+
 const Login = () => {
+    const [user, setUser] = useState({
+        email : null,
+        password : null
+    })
+
+    const onChange = (e:any) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const onSubmit = (e:any) => {
+        e.preventDefault()
+        
+
+    }
     return (
-        <SignUpPage>
+        <LoginPage>
             <WomanBGStyles></WomanBGStyles>
             <ManBGStyles></ManBGStyles>
             <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px"}}></Image>
 
-            <SignUpContainer>
+            <SignUpContainer onSubmit={onSubmit}>
                 <SignUpItem>
                     <SignUpText>이메일</SignUpText> 
                     <InputBox>
-                        <Input type="email"/>
+                        <Input type="email" name="email" onChange={onChange}/>
                     </InputBox>
                 </SignUpItem>
 
                 <SignUpItem>
                     <SignUpText>비밀번호</SignUpText> 
                     <InputBox>
-                        <Input type="password"/>
+                        <Input type="password" name="password" onChange={onChange}/>
                     </InputBox>
                 </SignUpItem>
                 
-                <div style={{height:"32px", width:"520px", marginTop:"10px"}}>
-                    <Button label="로그인" type="submit"/>
+                <div style={{height:"48px", width:"410px", marginTop:"10px", marginLeft:"10px"}}>
+                    <Button use="SignUpLogin" label="로그인" type="submit"></Button>
                 </div>
 
             
@@ -46,7 +65,7 @@ const Login = () => {
         <LoginFont2>아이디 찾기</LoginFont2>
         <LoginFont2>비밀번호 찾기</LoginFont2>
         </div>
-        </SignUpPage>
+        </LoginPage>
     )
 }
 

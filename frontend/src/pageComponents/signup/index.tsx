@@ -1,12 +1,113 @@
 'use client'
 import Input from '@/components/Input'
 import Button from '@/components/Button'
-import { InputBox } from "../login/Login.styled"
-import { SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles } from './Signup.styled'
+import { InputBox, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles } from './Signup.styled'
 import { useState } from 'react'
 import Image from 'next/image'
 const Signup = () => {
     const [gender, setGender] = useState('')
+    const [user, setUser] = useState({
+        email: "",
+        password: "",
+        password2: "",
+        name: "",
+        birth: "",
+        phoneNumber: "",
+        
+    })
+    const [inputState, setInputState] = useState({
+        email: 1,
+        password: 1,
+        password2: 1,
+        name: 1,
+        birth: 1,
+        phoneNumber: 1,
+        
+    })
+
+    const onChange = (e:any) => {
+        setUser({
+            ...user,
+            [e.target.name] : e.target.value
+        })
+
+        setInputState({
+            ...inputState,
+            [e.target.name] : 1
+        })
+    }
+
+    const onSubmit = (e:any) => {
+        e.preventDefault()
+
+        if (user["email"] === "") {
+            setInputState({
+                ...inputState,
+                ["email"] : 0
+            })
+            alert('이메일을 입력해주세요.')
+            return
+        } 
+        
+        else if (user["password"] === "") {
+            setInputState({
+                ...inputState,
+                ["password"] : 0
+            })
+            alert('비밀번호를 입력해주세요')
+            return
+        } 
+        
+        else if (user["password2"] === "") {
+            setInputState({
+                ...inputState,
+                ["password2"] : 0
+            })
+            alert('비밀번호를 한번 더 입력해주세요')
+            return
+        } 
+        
+        else if (user["password"] !== user["password2"]) {
+            alert("비밀번호를 다시 확인해주세요")
+            return
+        } 
+        
+        else if (user['name'] === "") {
+            setInputState({
+                ...inputState,
+                ["name"] : 0
+            })
+            alert("이름을 입력해주세요")
+            return
+        } 
+        
+        else if (user["birth"] === "") {
+            setInputState({
+                ...inputState,
+                ["birth"] : 0
+            })
+            alert("생년월일을 입력해주세요")
+            return
+        } 
+        
+        else if (user["phoneNumber"] === "") {
+            setInputState({
+                ...inputState,
+                ["phoneNumber"] : 0
+            })
+            alert("휴대폰번호를 입력해주세요")
+            return
+        } 
+        
+        else if (gender === "") {
+            alert("성별을 선택해주세요")
+            return
+        }
+
+        else {
+            console.log(user)
+        }
+    }
 
     const onclick = (e:any) => {
         setGender(e.target.id)
@@ -17,39 +118,39 @@ const Signup = () => {
             <WomanBGStyles></WomanBGStyles>
             <ManBGStyles></ManBGStyles>
             <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px"}}></Image>
-        <SignUpContainer>
+        <SignUpContainer onSubmit={onSubmit}>
             <SignUpItem>
             <SignUpText>이메일</SignUpText>
             <InputBox>
-                <Input type="email"/>
+                <Input type="email" name="email" onChange={onChange} inputstate={inputState["email"]}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>비밀번호</SignUpText>
             <InputBox>
-                <Input type="password"/>
+                <Input type="password" name="password" onChange={onChange} inputstate={inputState["password"]}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>비밀번호 확인</SignUpText>
             <InputBox>
-                <Input type="password"/>
+                <Input type="password" name="password2" onChange={onChange} inputstate={inputState["password2"]}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>이름</SignUpText>
             <InputBox>
-                <Input type="text"/>
+                <Input type="text" name="name" onChange={onChange} inputstate={inputState["name"]}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>생년월일</SignUpText>
             <InputBox>
-                <Input type="date"/>
+                <Input type="date" name="birth" onChange={onChange} inputstate={inputState["birth"]}/>
             </InputBox>
             </SignUpItem>
 
@@ -71,56 +172,15 @@ const Signup = () => {
             <SignUpItem>
             <SignUpText>휴대폰 번호</SignUpText>
             <InputBox>
-                <Input type="number"/>
+                <Input type="number" name="phoneNumber" onChange={onChange} inputstate={inputState["phoneNumber"]}/>
             </InputBox>
             </SignUpItem>
         
-            <div style={{height:"32px", width:"520px", marginTop:"10px"}}>
-                <Button label="가입하기" type="submit"/>
+            <div style={{height:"48px", width:"410px", marginTop:"10px", marginLeft:"10px"}}>
+                    <Button use="SignUpLogin" label="회원가입" type="submit"/>
             </div>
         </SignUpContainer>
         </SignUpPage>
-        // <SignUpContainer>
-        //     <InputBox>
-        //         <Input type="email" placeholder="이메일"/>
-        //     </InputBox>
-
-        //     <InputBox>
-        //         <Input type="password" placeholder="비밀번호"/>
-        //     </InputBox>
-
-        //     <InputBox>
-        //         <Input type="password" placeholder="비밀번호 확인"/>
-        //     </InputBox>
-
-        //     <InputBox>
-        //         <Input type="text" placeholder="이름"/>
-        //     </InputBox>
-
-        //     <InputBox>
-        //         <Input type="date" placeholder="생년월일"/>
-        //     </InputBox>
-
-        //     <InputRadioBox>
-        //         <label htmlFor='man' style={{display:"flex", alignItems:"center"}}>
-        //             <Input type="radio" name="gender" id="man" style={{marginRight:"5px"}} onClick={onclick}/>
-        //             남성
-        //         </label>
-
-        //         <label htmlFor='woman' style={{display:"flex", alignItems:"center"}}>
-        //             <Input type="radio" name="gender" id="woman" style={{marginRight:"5px"}} onClick={onclick}/>
-        //             여성
-        //         </label>
-        //     </InputRadioBox>
-
-        //     <InputBox>
-        //         <Input type="number" placeholder="휴대폰 번호"/>
-        //     </InputBox>
-
-        //     <InputBox>
-        //         <Button label="가입하기" type="submit"/>
-        //     </InputBox>
-        // </SignUpContainer>
     )
 }
 

@@ -18,8 +18,8 @@ const NavbarComponent = () => {
           <StyledNavLink href="/">응답하기</StyledNavLink>
         </div>
         <div>
-          <StyledNavLink href="/">로그인</StyledNavLink>
-          <StyledNavLink href="/">회원가입</StyledNavLink>
+          <StyledNavLink href="/login">로그인</StyledNavLink>
+          <StyledNavLink href="/signup">회원가입</StyledNavLink>
         </div>
       </StyledNavbar>
     </header>

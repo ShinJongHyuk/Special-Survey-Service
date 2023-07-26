@@ -1,12 +1,21 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
 const SignUpPage = styled.div.attrs<any>((props) => ({}))`
-  min-width: 1340px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+`
+
+const InputBox = styled.div.attrs<any>((props) => ({}))`
+    ${(props) => {
+        return css`
+            width: 410px;
+            height: 40px;
+            margin: 10px;
+        `
+    }}
 `
 
 const WomanBGStyles = styled.div.attrs<any>((props) => ({}))` 
@@ -27,24 +36,25 @@ const ManBGStyles = styled.div.attrs<any>((props) => ({}))`
 `
 
 const SignUpContainer = styled.form.attrs<any>((props) => ({}))`
-    width: 540px;
-    height: auto;
-    border-radius: 5px;
-    padding: 10px 0px;
+  width: 430px;
+  height: auto;
+  border-radius: 5px;
+  padding: 10px 0px;
 `
 
 const SignUpText = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    width: 100px;
-    height: 100%;
-    font-size: 16px;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular}
+  display: flex;
+  margin-left: 10px;
+  width: 100px;
+  height: 100%;
+  font-size: 16px;
+  font-family: ${(props) => props.theme.fonts.HangeulFontRegular}
    
 `
 
 const SignUpItem = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
 `
 
 const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
@@ -57,4 +67,4 @@ const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
 
 `
 
-export { SignUpPage, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles }
+export { SignUpPage, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles, InputBox }
