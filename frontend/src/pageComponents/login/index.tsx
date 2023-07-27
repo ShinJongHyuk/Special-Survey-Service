@@ -11,15 +11,9 @@ import axios from 'axios'
 
 const Login = () => {
     const router = useRouter()
-    const setUserInformation = useUserStore((state:any) => state.setUserInformation)
+    const setRefreshToken = useUserStore((state:any) => state.setRefreshToken)
+    const setAccessToken = useUserStore((state:any) => state.setAccessToken)
     const login = useUserStore((state:any) => state.login)
-    // const userInformation = useUserStore((state:any) => state.userInformation)
-    // const isLogin = useUserStore((state:any) => state.isLogin)
-    
-    // useEffect(() => {
-    //     console.log(userInformation)
-    //     console.log(isLogin)
-    // }, [userInformation])
 
     const [user, setUser] = useState({
         email : "",
@@ -72,7 +66,8 @@ const Login = () => {
                 data : {...user}
             })
             .then(res => {
-                setUserInformation(res.data.response)
+                console.log(res.data.response)
+                setRefreshToken(res.data.response)
                 login()
                 router.push('/')
             })

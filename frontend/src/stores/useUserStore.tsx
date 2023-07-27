@@ -1,21 +1,19 @@
-import {create} from 'zustand'
+import create from 'zustand'
+import { persist } from 'zustand/middleware'
 
-const useUserStore = create((set) => ({
+const useUserStore = create(
+  persist((set) => ({
     isLogin: false,
-    userInformation : {
-        refreshToken: null,
-        accessToken : null,
-    },
-    
-    setUserInformation : (data:any) => set((state:any) => ({
-        userInformation : {
-            ...state.userInformation,
-            ["refreshToken"] : data.refreshToken,
-            ["accessToken"] : data.accessToken,
-        }
-    })),
-    login: () => set(() => ({isLogin: true})),
-    logout: () => set(() => ({isLogin: false}))
-}))
+    refreshToken: null,
+    accessToken: null,
+
+    setRefreshToken : (data:any) => set(() =>({refreshToken:data.refreshToken})),
+    setAccessToken : (data:any) => set(() =>({accessToken:data.accessToken})),
+    login: () => set(() => ({ isLogin: true })),
+    logout: () => set(() => ({ isLogin: false })),
+  }), {
+    name: 'userToken'
+  })
+)
 
 export default useUserStore
