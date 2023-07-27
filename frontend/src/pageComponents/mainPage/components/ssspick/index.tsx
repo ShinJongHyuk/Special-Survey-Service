@@ -1,9 +1,9 @@
 import React from "react";
-import { StyledContent, StyledContentText } from "./Content.styled";
+import { StyledContent, StyledContentText } from "./SSSpick.styled";
 import CardList from "../cardlist";
 import Image from "next/image";
 
-const Content = () => {
+const SSSPick = () => {
   return (
     <div style={{ position: "relative", width: "100%", height: "700px" }}>
       <img src="/Content1.png" style={{ width: "100%", position: "absolute", height: "700px", zIndex: "-1" }}></img>
@@ -20,4 +20,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default SSSPick;
