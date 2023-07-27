@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import { StyledBannerBox, StyledBannerText } from "./MainPage.styled";
+import { StyledBanner, StyledBannerBox, StyledBannerText } from "./MainPage.styled";
 import Content from "./components/content";
 const MainPage = () => {
   return (
     <>
-      <div>
-        <img src="/main.png" style={{ width: "100%", height: "500px" }}></img>
+      <StyledBanner>
+        <img src="/main.png" style={{ position: "absolute", width: "100%", height: "500px", zIndex: "-1" }}></img>
         <StyledBannerBox>
           <div className="textbox">
             <StyledBannerText $isko="false"> Let's Survey! </StyledBannerText>
@@ -17,7 +17,7 @@ const MainPage = () => {
             <button> 제작하기 </button>
           </div>
         </StyledBannerBox>
-      </div>
+      </StyledBanner>
 
       <Content></Content>
     </>

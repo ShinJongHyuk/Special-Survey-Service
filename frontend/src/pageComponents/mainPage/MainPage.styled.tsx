@@ -1,15 +1,21 @@
 import styled, { css } from "styled-components";
 import { TextType } from "./MainPage.type";
 
+const StyledBanner = styled.div`
+  position:relative;
+  width: 100%;
+  height: 500px;
+
+`
 const StyledBannerBox = styled.div`
+
+  width: 100%;
+  height: 100%;
+    
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
+  justify-content: center;
   gap: 48px;
 
   .textbox {
@@ -39,4 +45,4 @@ const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
   }};
 `;
 
-export { StyledBannerText, StyledBannerBox };
+export { StyledBanner, StyledBannerText, StyledBannerBox };

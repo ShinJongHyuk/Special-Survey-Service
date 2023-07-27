@@ -5,8 +5,8 @@ import Image from "next/image";
 
 const Content = () => {
   return (
-    <div style={{ position: "relative" }}>
-      <img src="/Content1.png" style={{ width: "100%" }}></img>
+    <div style={{ position: "relative", width: "100%", height: "700px" }}>
+      <img src="/Content1.png" style={{ width: "100%", position: "absolute", height: "700px", zIndex: "-1" }}></img>
       <StyledContent>
         <div className="title">
           <Image src="/casino.svg" priority={true} width={50} height={51} alt="casino"></Image>

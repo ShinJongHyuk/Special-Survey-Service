@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { TextType } from "../../MainPage.type";
 
 const StyledContent = styled.div`
   width: 100%;
@@ -11,11 +10,7 @@ const StyledContent = styled.div`
   align-items: center;
 
   gap: 50px;
-
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
   .title {
     display: flex;
@@ -25,7 +20,7 @@ const StyledContent = styled.div`
   }
 `;
 
-const StyledContentText = styled.div.attrs<TextType>((props) => ({}))`
+const StyledContentText = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     const issub = props.$issub === "true";
     const font = issub ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontLight;
@@ -34,6 +29,7 @@ const StyledContentText = styled.div.attrs<TextType>((props) => ({}))`
 
     return css`
       width: 100%;
+      height: 100%;
       color: ${color};
       font-family: ${font};
       font-size: ${size};
