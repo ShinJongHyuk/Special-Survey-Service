@@ -1,6 +1,6 @@
 'use client'
-import Input from '@/components/Input'
-import Button from '@/components/Button'
+import Input from '@/components/input'
+import Button from '@/components/button'
 import Image from 'next/image'
 import { LoginPage, InputBox, LoginFont, LoginFont2, LoginContainer } from './Login.styled'
 import { SignUpText, SignUpItem } from '../signup/Signup.styled'
