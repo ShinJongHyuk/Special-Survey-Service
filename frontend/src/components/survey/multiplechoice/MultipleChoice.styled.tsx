@@ -4,7 +4,7 @@ const MultipleChoice_Box = styled.div.attrs({})`
     display : flex;
     flex-direction : column;
     width : 600px;
-    min-height : 100px;
+    min-height : 10px;
 
     gap : 30px;
     padding: 40px 25px;
@@ -12,10 +12,12 @@ const MultipleChoice_Box = styled.div.attrs({})`
 
 const MultipleChoice_content_Box = styled.div.attrs({})`
     display : flex;
-    flex-direction : row;
+    flex-wrap : wrap;
     align-items : center;
+    flex-direction : row;
+   
     width : 700px;
-    height : 20px;
+    min-height : 10%;
     
 `
 
@@ -23,8 +25,8 @@ const MultipleCheckText = styled.input.attrs({type : 'text'})`
   display: flex;
   flex-wrap: wrap;
 
-  width : 73%;
-  min-height: 100%;
+  width : 65%;
+  height : 22px;
   border: none;
   outline: none;
 
@@ -34,35 +36,47 @@ const MultipleCheckText = styled.input.attrs({type : 'text'})`
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${props => props.theme.fontSizes.small};
   color: ${props => props.theme.colors.black};
-
 `;
+const Image_Container = styled.div.attrs({})`
+    display : flex;
+    width : 200px;
+    height : 200px;
+    margin-top : 15px;
+    margin-left: 87px;
+` ;
 
 const MultipleCheck = styled.input.attrs({ type: 'radio' })`
     display : flex;
-    width : 10%;
-    height: 100%;
+    width : 12%;
+    height: 22px;
   
 
 `;
 
 const AddButton = styled.button.attrs({})`
     display : flex;
-    border : none;
+    width : 74px;
+    text-align : center;
+
+    border : 1px solid ${props => props.theme.colors.purple};
+    border-radius : 20px;
+    margin-left : 71px;
     background-color : white;
-    font-size: ${props => props.theme.fontSizes.xsmall};
+    font-family: ${props => props.theme.fonts.HangeulFontRegular};
+    font-size: ${props => props.theme.fontSizes.small};
     color: ${props => props.theme.colors.purple};
+    
 
 `
 const DeleteButton = styled.button.attrs({})`
   display: flex;
-  background-color: white;
-  color: ${props => props.theme.colors.purple};
-  border : none;
-  &:hover {
 
-    font-size: ${props => props.theme.fontSizes.medium};
-    color: ${props => props.theme.colors.black};
-  }
+  margin-left : 100px;
+  border : none;
+  background-color: white;
+  font-size: ${props => props.theme.fontSizes.medium};
+  color: red;
+  
 `;
 
 const UploadImage = styled.input.attrs({type : 'file'})`
@@ -85,16 +99,17 @@ const Image_Delete_Button = styled.button`
     border-radius: 50%;
     font-weight: bold;
     cursor: pointer;
-    opacity: 0; /* Hide the X button by default */
-    transition: opacity 0.2s ease-in-out; /* Add a transition effect for smooth visibility */
+    opacity: 0; 
+    transition: opacity 0.2s ease-in-out; 
 `;
 
 const ImagePreiew_Box = styled.div`
     display: flex;
-    position: relative;
-    max-width: 70px;
-    max-height: 70px;
+    position : relative;
 
+    width: 100%;
+    height: 100%;
+    
     &:hover {
         ${Image_Delete_Button} {
             opacity: 1; 
@@ -103,8 +118,8 @@ const ImagePreiew_Box = styled.div`
 `;
 
 const ImagePreview = styled.img`
-  max-width: 70px;
-  max-height: 70px;
+  width: 100%;
+  height : 100%;
   border-radius : 6px;
 
 `;
@@ -118,4 +133,4 @@ const ImageWrapper = styled.div`
 
 
 
-export {Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleCheck,MultipleCheckText,MultipleChoice_Box}
+export {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleCheck,MultipleCheckText,MultipleChoice_Box}

@@ -50,15 +50,17 @@ const SurveyComponent = () => {
                     </Question_Container>
                     <SelectBox>
                             <SelectBox_List onChange={handleOptionChange} value={selectedOption}>
-                                <SelectBox_Option value="Option 1">객관식 답변</SelectBox_Option>
-                                <SelectBox_Option value="Option 2">체크  박스</SelectBox_Option>
-                                <SelectBox_Option value="Option 3">드롭 다운</SelectBox_Option>
-                                <SelectBox_Option value="Option 4">날짜 선택</SelectBox_Option>
-                                <SelectBox_Option value="Option 5">시간 선택</SelectBox_Option>
+                                <SelectBox_Option value="multiplechoice">객관식 답변</SelectBox_Option>
+                                <SelectBox_Option value="checkbox">체크 박스</SelectBox_Option>
+                                <SelectBox_Option value="type 3">드롭 다운</SelectBox_Option>
+                                <SelectBox_Option value="type 4">날짜 선택</SelectBox_Option>
+                                <SelectBox_Option value="type 5">시간 선택</SelectBox_Option>
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
                 {surveyState === "multiplechoice" && <MultipleChoice />}
+                {surveyState === "checkbox" && <CheckBox />}
+              
                 <hr/>
                 <Bottom_Box>
                     <Link_Question_Box>
