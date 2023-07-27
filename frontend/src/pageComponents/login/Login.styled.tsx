@@ -1,8 +1,8 @@
 import styled, {css} from 'styled-components'
 
 const LoginPage = styled.div.attrs<any>((props) => ({}))`
-    /* margin: 50px; */
-    height: 92vh;
+    height: 100vh;
+    padding-top: 56px;
     display: flex;
     flex-direction: column;
     align-items: center;

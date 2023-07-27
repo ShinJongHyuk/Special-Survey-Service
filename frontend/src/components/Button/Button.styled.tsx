@@ -4,6 +4,8 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
     ${(props) => {
         const gender = props.checkgender || null
         const name = props.name || null
+        const age = props.checkage || null
+        const id = props.id || null
         const use = props.use || "basic";
         const useStyle:any = {
             basic : `
@@ -18,6 +20,11 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
             `,
             gender : `
             background-color: ${gender === name ? props.theme.colors.yellow : props.theme.colors.lightgray};
+            color : ${props.theme.colors.black};
+            `,
+
+            age : `
+            background-color: ${age === id ? props.theme.colors.yellow : props.theme.colors.lightgray};
             color : ${props.theme.colors.black};
             `
         };
