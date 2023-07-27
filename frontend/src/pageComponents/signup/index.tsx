@@ -64,6 +64,19 @@ const Signup = () => {
             </SignUpItem>
 
             <SignUpItem>
+            <SignUpText>성별</SignUpText>
+            <InputRadioBox>
+                <Button use="age" label="~9" type="button" id="UNDER_TEENS" checkage={user.age} onClick={handleClick}></Button>
+                <Button use="age" label="10~19" type="button" id="TEENS " checkage={user.age} onClick={handleClick}></Button>
+                <Button use="age" label="20~29" type="button" id="TWENTIES " checkage={user.age} onClick={handleClick}></Button>
+                <Button use="age" label="30~39" type="button" id="THIRTIES " checkage={user.age} onClick={handleClick}></Button>
+                <Button use="age" label="40~49" type="button" id="FORTIES " checkage={user.age} onClick={handleClick}></Button>
+                <Button use="age" label="50~59" type="button" id="FIFTIES " checkage={user.age} onClick={handleClick}></Button>
+                <Button use="age" label="60~" type="button" id="SIXTIES " checkage={user.age} onClick={handleClick}></Button>
+            </InputRadioBox>
+            </SignUpItem>
+
+            <SignUpItem>
             <SignUpText>휴대폰 번호</SignUpText>
             <InputBox>
                 <Input type="tel" name="phoneNumber" onChange={handleChange} inputstate={inputState.phoneNumber}/>

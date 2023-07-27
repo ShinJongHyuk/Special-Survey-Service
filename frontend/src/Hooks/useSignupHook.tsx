@@ -11,7 +11,8 @@ export const useSignupHook = ():SignupHookType => {
         name: "",
         birthday: "",
         phoneNumber: "",
-        gender: ""
+        gender: "",
+        age: ""
         
     })
     const [password2, setPassword] = useState("")
@@ -22,6 +23,7 @@ export const useSignupHook = ():SignupHookType => {
         name: 1,
         birthday: 1,
         phoneNumber: 1,
+        age: 1,
         
     })
 
@@ -136,10 +138,20 @@ export const useSignupHook = ():SignupHookType => {
     }
 
     const handleClick = (e:any) => {
-        setUser({
-            ...user,
-            ["gender"] : e.target.name
-        })
+        if (e.target.name === "MALE" || e.target.name === "FEMALE") {
+            console.log(e.target.name)
+            setUser({
+                ...user,
+                ["gender"] : e.target.name
+            })
+        } else {
+            console.log(e.target.id)
+            setUser({
+                ...user,
+                ["age"] : e.target.id
+            })
+        }
+        
     }
 
     return {user, inputState, handleChange, handleSubmit, handleClick}
