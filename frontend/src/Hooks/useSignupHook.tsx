@@ -144,4 +144,3 @@ export const useSignupHook = ():SignupHookType => {
 
     return {user, inputState, handleChange, handleSubmit, handleClick}
 }
-

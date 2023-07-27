@@ -79,6 +79,8 @@ const Signup = () => {
 }
 
 
+
+
 //     const router = useRouter()
 //     const [user, setUser] = useState({
 //         email: "",
