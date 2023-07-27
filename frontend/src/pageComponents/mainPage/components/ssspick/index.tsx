@@ -6,8 +6,8 @@ import Button from "@/components/button";
 
 const SSSPick = () => {
   return (
-    <div style={{ position: "relative", width: "100%", height: "700px" }}>
-      <img src="/Content1.png" style={{ width: "100%", position: "absolute", height: "700px", zIndex: "-1" }}></img>
+    <div style={{ position: "relative", width: "100%", height: "780px" }}>
+      <img src="/Content1.png" style={{ width: "100%", position: "absolute", height: "780px", zIndex: "-1" }}></img>
       <StyledContent>
         <div className="title">
           <Image src="/casino.svg" priority={true} width={50} height={51} alt="casino"></Image>
@@ -16,7 +16,9 @@ const SSSPick = () => {
         </div>
         <CardList contentType="ssspick"></CardList>
         <div style={{ width: "120px", height: "50px" }}>
-          <Button use="gray" label="더보기"> </Button>
+          <Button use="gray" label="더보기">
+            {" "}
+          </Button>
         </div>
       </StyledContent>
     </div>
