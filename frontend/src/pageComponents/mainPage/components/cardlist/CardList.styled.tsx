@@ -4,7 +4,5 @@ const StyledCardList = styled.div`
   gap: 15px;
 `;
 
-const StyledCard = styled.div`
-  width: 220px;
-`;
-export { StyledCardList, StyledCard };
+
+export { StyledCardList };

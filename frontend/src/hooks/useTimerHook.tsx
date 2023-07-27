@@ -34,11 +34,22 @@ function useTimerHook(endTime: any) {
     } else if (days > 0 && hours >= 0) {
       remainTime = `${days > 0 ? days.toString().padStart(2, "0") + "일 " : ""}${hours >= 0 ? hours.toString().padStart(1, "0") + "시간 " : ""}`;
     } else if (hours > 0 && minutes >= 0) {
-      remainTime = `${hours > 0 ? hours.toString().padStart(2, "0") + "시간 " : ""}${minutes >= 0 ? minutes.toString().padStart(2, "0") + "분 " : ""}`;
-    } else if (minutes > 0 && seconds >= 0) {
-      remainTime = `${minutes > 0 ? minutes.toString().padStart(2, "0") + "분 " : ""}${seconds >= 0 ? seconds.toString().padStart(2, "0") + "초 " : ""
-        }`;
+      remainTime = `${hours > 0 ? hours.toString().padStart(2, "0") + ": " : ""}${minutes >= 0 ? minutes.toString().padStart(2, "0") + ": " : ""}${seconds >= 0 ? seconds.toString().padStart(2, "0") + "" : ""
+        } `;
     }
+    // if (years > 0 && months >= 0) {
+    //   remainTime = `${ years > 0 ? years.toString().padStart(2, "0") + "년 " : "" }${ months >= 0 ? months.toString().padStart(2, "0") + "월 " : "" } `;
+    // } else if (months > 0 && days >= 0) {
+    //   remainTime = `${ months > 0 ? days.toString().padStart(2, "0") + "월 " : "" }${ days >= 0 ? days.toString().padStart(2, "0") + "일 " : "" } `;
+    // } else if (days > 0 && hours >= 0) {
+    //   remainTime = `${ days > 0 ? days.toString().padStart(2, "0") + "일 " : "" }${ hours >= 0 ? hours.toString().padStart(1, "0") + "시간 " : "" } `;
+    // } else if (hours > 0 && minutes >= 0) {
+    //   remainTime = `${ hours > 0 ? hours.toString().padStart(2, "0") + "시간 " : "" }${ minutes >= 0 ? minutes.toString().padStart(2, "0") + "분 " : "" } `;
+    // } else if (minutes > 0 && seconds >= 0) {
+    //   remainTime = `${ minutes > 0 ? minutes.toString().padStart(2, "0") + "분 " : "" }${
+    seconds >= 0 ? seconds.toString().padStart(2, "0") + "초 " : ""
+    //     }`;
+    // }
   }
 
   return remainTime;
