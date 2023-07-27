@@ -9,7 +9,7 @@ const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
       bgcolor = props.theme.colors.purple;
     } else {
       const probability = parseInt(props.probability, 10);
-      bgcolor = probability <= 40 ? props.theme.colors.yellow : props.theme.colors.white;
+      bgcolor = probability <= 40 ? props.theme.colors.white : props.theme.colors.yellow;
     }
 
     return css`
@@ -109,7 +109,7 @@ const StyledProbability = styled.div.attrs<CardType>((props) => ({}))`
       color = white;
     } else {
       const probability = parseInt(props.probability, 10);
-      color = probability <= 40 ? black : yellow;
+      color = probability <= 40 ? yellow : black;
     }
 
     return css`

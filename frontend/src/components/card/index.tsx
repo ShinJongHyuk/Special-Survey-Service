@@ -29,7 +29,6 @@ const CardComponent = (props: CardType) => {
         </div>
       </StyledCardHeader>
 
-      {/* image 부분은 나중에 다시 적용  */}
       <StyledImg {...props}>
         <Image src={imgsrc} style={{ borderRadius: "100px" }} priority={true} width={80} height={80} alt="gift" />
       </StyledImg>
