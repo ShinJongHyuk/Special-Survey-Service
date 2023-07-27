@@ -47,7 +47,7 @@ const CardList = ({ contentType }: any) => {
       {cards.map((survey, index) => (
         <div key={index}>
           {contentType === "timeattack" ?
-            <div style={{ width: "460px" }}>
+            <div style={{ width: "440px" }}>
               <Card2
                 title={survey.title}
                 nickname={survey.nickname}

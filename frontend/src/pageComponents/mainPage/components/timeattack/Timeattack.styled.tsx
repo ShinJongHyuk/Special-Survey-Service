@@ -12,6 +12,33 @@ const StyledContent = styled.div`
   gap: 100px;
   position: absolute;
 
+  .buttonbg{
+    display: flex;
+    width: 60px;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor:pointer;
+    border-radius: 32px;
+    background: ${props => props.theme.colors.lightpurple};
+    border: 0px;
+
+    margin: 0px 20px;
+  }
+
+  .buttontext{
+    color:  ${props => props.theme.colors.white};
+    text-align: center;
+    font-size: ${props => props.theme.fontSizes.large};
+  }
+
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+  }
   .title {
     display: flex;
     flex-direction: column;
