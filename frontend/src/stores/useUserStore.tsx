@@ -6,9 +6,8 @@ const useUserStore = create(
     isLogin: false,
     refreshToken: null,
     accessToken: null,
-
-    setRefreshToken : (data:any) => set(() =>({refreshToken:data.refreshToken})),
-    setAccessToken : (data:any) => set(() =>({accessToken:data.accessToken})),
+    setRefreshToken : (data:any) => set(() =>({refreshToken:data})),
+    setAccessToken : (data:any) => set(() =>({accessToken:data})),
     login: () => set(() => ({ isLogin: true })),
     logout: () => set(() => ({ isLogin: false })),
   }), {

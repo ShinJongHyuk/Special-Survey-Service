@@ -58,8 +58,8 @@ const Signup = () => {
             <SignUpItem>
             <SignUpText>성별</SignUpText>
             <InputRadioBox>
-                <Button use="gender" label="남성" type="button" name="MALE" checkgender={user.gender} onClick={handleClick}></Button>
-                <Button use="gender" label="여성" type="button" name="FEMALE" checkgender={user.gender} onClick={handleClick}></Button>
+                <Button use="gender" label="남성" type="button" name="MAN" checkgender={user.gender} onClick={handleClick}></Button>
+                <Button use="gender" label="여성" type="button" name="WOMAN" checkgender={user.gender} onClick={handleClick}></Button>
             </InputRadioBox>
             </SignUpItem>
 
