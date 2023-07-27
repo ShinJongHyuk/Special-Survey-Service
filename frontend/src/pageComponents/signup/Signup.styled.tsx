@@ -11,6 +11,13 @@ const SignUpPage = styled.div.attrs<any>((props) => ({}))`
   background-repeat: no-repeat; 
   background-position: center center; 
   background-color: #F9FAFB;
+
+  @media (max-width: 1280px) {
+    background-size: cover ;
+  }
+  @media (max-height: 700px) {
+    background-size: cover ;
+  }
 `
 
 const InputBox = styled.div.attrs<any>((props) => ({}))`
@@ -21,23 +28,6 @@ const InputBox = styled.div.attrs<any>((props) => ({}))`
             margin: 10px;
         `
     }}
-`
-
-const WomanBGStyles = styled.div.attrs<any>((props) => ({}))` 
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 460px;
-  height: 400px;
-  /* background-image: url("/womanBG.png"); */
-`
-const ManBGStyles = styled.div.attrs<any>((props) => ({}))` 
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 390px;
-  height: 350px;
-  /* background-image: url("/manBG.png"); */
 `
 
 const SignUpContainer = styled.form.attrs<any>((props) => ({}))`
@@ -72,4 +62,4 @@ const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
 
 `
 
-export { SignUpPage, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles, InputBox }
+export { SignUpPage, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, InputBox }

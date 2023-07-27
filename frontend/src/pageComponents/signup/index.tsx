@@ -1,45 +1,59 @@
 'use client'
 import Input from '@/components/Input'
 import Button from '@/components/Button'
-import { InputBox, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, WomanBGStyles, ManBGStyles } from './Signup.styled'
-import { useState } from 'react'
+import { InputBox, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem } from './Signup.styled'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
+
 const Signup = () => {
     const router = useRouter()
-    const [gender, setGender] = useState('')
     const [user, setUser] = useState({
         email: "",
         password: "",
-        password2: "",
         name: "",
-        birth: "",
+        birthday: "",
         phoneNumber: "",
+        gender: ""
         
     })
+    const [password2, setPassword] = useState("")
     const [inputState, setInputState] = useState({
         email: 1,
         password: 1,
         password2: 1,
         name: 1,
-        birth: 1,
+        birthday: 1,
         phoneNumber: 1,
         
     })
 
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
-    const nameRegex =  /^[가-힣]{2,4}$/
     const phoneNumberRegex = /^\d{3}-\d{3,4}-\d{4}$/
 
     const onChange = (e:any) => {
-        setUser({
-            ...user,
-            [e.target.name] : e.target.value
-        })
+        const { name, value } = e.target;
+    
+        if (name === 'phoneNumber') {
+            const trimmedValue = value.replace(/-/g, '')
+            const newPhoneNumber = trimmedValue.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3')
+            setUser({
+                ...user,
+                [name]: newPhoneNumber
+            });
+        } else if (name === 'password2') {
+            setPassword(value)
+        } else {
+            setUser({
+                ...user,
+                [name]: value
+            });
+        }
 
         setInputState({
             ...inputState,
-            [e.target.name] : 1
+            [name] : 1
         })
     }
 
@@ -64,7 +78,7 @@ const Signup = () => {
             return
         } 
         
-        else if (user.password2 === "") {
+        else if (password2 === "") {
             setInputState({
                 ...inputState,
                 ["password2"] : 0
@@ -73,7 +87,7 @@ const Signup = () => {
             return
         } 
         
-        else if (user.password !== user.password2) {
+        else if (user.password !== password2) {
             alert("비밀번호를 다시 확인해주세요")
             return
         } 
@@ -87,10 +101,10 @@ const Signup = () => {
             return
         } 
         
-        else if (user.birth === "") {
+        else if (user.birthday === "") {
             setInputState({
                 ...inputState,
-                ["birth"] : 0
+                ["birthday"] : 0
             })
             alert("생년월일을 입력해주세요")
             return
@@ -105,25 +119,40 @@ const Signup = () => {
             return
         } 
         
-        else if (gender === "") {
+        else if (user.gender === "") {
             alert("성별을 선택해주세요")
             return
         }
 
         else {
-            router.push('/')
+            axios({
+                method : 'post',
+                url : 'http://221.164.64.185:8080/api/signup',
+                data : {...user}
+            })
+            .then(res => {
+                console.log(res)
+                router.push('/')
+            })
+            .catch(err => console.log(err))
         }
     }
 
     const onclick = (e:any) => {
-        setGender(e.target.id)
+        setUser({
+            ...user,
+            ["gender"] : e.target.name
+        })
+    }
+
+    const ClickLogo = () => {
+        router.push('/')
     }
 
     return (
         <SignUpPage>
-            {/* <WomanBGStyles></WomanBGStyles>
-            <ManBGStyles></ManBGStyles> */}
-            <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px"}}></Image>
+
+            <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px", cursor:'pointer'}} onClick={ClickLogo}></Image>
         <SignUpContainer onSubmit={onSubmit}>
             <SignUpItem>
             <SignUpText>이메일</SignUpText>
@@ -156,29 +185,22 @@ const Signup = () => {
             <SignUpItem>
             <SignUpText>생년월일</SignUpText>
             <InputBox>
-                <Input type="date" name="birth" onChange={onChange} inputstate={inputState.birth}/>
+                <Input type="date" name="birthday" onChange={onChange} inputstate={inputState.birthday}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>성별</SignUpText>
             <InputRadioBox>
-                <label htmlFor='man' style={{display:"flex", alignItems:"center"}}>
-                    <Input type="radio" name="gender" id="man" style={{marginRight:"5px"}} onClick={onclick}/>
-                    남성
-                </label>
-
-                <label htmlFor='woman' style={{display:"flex", alignItems:"center"}}>
-                    <Input type="radio" name="gender" id="woman" style={{marginRight:"5px"}} onClick={onclick}/>
-                    여성
-                </label>
+                <Button use="gender" label="남성" type="button" name="MALE" checkgender={user.gender} onClick={onclick}></Button>
+                <Button use="gender" label="여성" type="button" name="FEMALE" checkgender={user.gender} onClick={onclick}></Button>
             </InputRadioBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>휴대폰 번호</SignUpText>
             <InputBox>
-                <Input type="number" name="phoneNumber" onChange={onChange} inputstate={inputState.phoneNumber}/>
+                <Input type="tel" name="phoneNumber" onChange={onChange} inputstate={inputState.phoneNumber}/>
             </InputBox>
             </SignUpItem>
         

@@ -12,7 +12,7 @@ const StyledInput = styeld.input.attrs<any>((props) => ({
             height: 100%;
             border: 1px solid black;
             background-color: white;
-            border: 1px solid ${(() => (inputState ? "black" : "red"))};
+            border: 2px solid ${(() => (inputState ? "black" : "red"))};
         `
     }}
 `

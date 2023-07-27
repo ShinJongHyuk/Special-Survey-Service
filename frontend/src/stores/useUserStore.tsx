@@ -2,8 +2,18 @@ import {create} from 'zustand'
 
 const useUserStore = create((set) => ({
     isLogin: false,
-    email : null,
-    setEmail : (data:any) => set(() => ({email: data})),
+    userInformation : {
+        refreshToken: null,
+        accessToken : null,
+    },
+    
+    setUserInformation : (data:any) => set((state:any) => ({
+        userInformation : {
+            ...state.userInformation,
+            ["refreshToken"] : data.refreshToken,
+            ["accessToken"] : data.accessToken,
+        }
+    })),
     login: () => set(() => ({isLogin: true})),
     logout: () => set(() => ({isLogin: false}))
 }))

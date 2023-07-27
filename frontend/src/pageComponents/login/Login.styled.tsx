@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components'
 
 const LoginPage = styled.div.attrs<any>((props) => ({}))`
     /* margin: 50px; */
-    height: 100%;
+    height: 92vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,6 +12,13 @@ const LoginPage = styled.div.attrs<any>((props) => ({}))`
     background-repeat: no-repeat; 
     background-position: center center; 
     background-color: #F9FAFB;
+
+    @media (max-width: 1180px) {
+    background-size: cover ;
+  }
+    @media (max-height: 700px) {
+    background-size: cover ;
+  }
 `
 
 const InputBox = styled.div.attrs<any>((props) => ({}))`
@@ -24,11 +31,19 @@ const InputBox = styled.div.attrs<any>((props) => ({}))`
     }}
 `
 
+const LoginContainer = styled.form.attrs<any>((props) => ({}))`
+  width: 430px;
+  height: auto;
+  border-radius: 5px;
+  padding: 10px 0px;
+  margin-top: 6%;
+`
+
 const LoginFont = styled.div.attrs<any>((props) => ({}))`
     width: 200px;
     height: 20px;
-    margin-left: 10px;
-    margin-bottom:10px;
+    margin-left: 5px;
+    margin-bottom: 3.5px;
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `
 const LoginFont2 = styled.p.attrs<any>((props) => ({}))`
@@ -38,4 +53,4 @@ const LoginFont2 = styled.p.attrs<any>((props) => ({}))`
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `
 
-export {LoginPage,InputBox, LoginFont, LoginFont2}
+export {LoginPage,InputBox, LoginFont, LoginFont2, LoginContainer}
