@@ -2,7 +2,7 @@ import React from "react";
 import { StyledContent, StyledContentText } from "./Instantwin.styled";
 import CardList from "../cardlist";
 import Image from "next/image";
-
+import Button from '@/components/button';
 const Instantwin = () => {
   return (
     <div style={{ position: "relative", width: "100%", height: "700px" }}>
@@ -14,7 +14,9 @@ const Instantwin = () => {
           <StyledContentText $issub="true"> 설문하고 바로 당첨자가 되어보세요! </StyledContentText>
         </div>
         <CardList contentType="instantwin"></CardList>
-        <button> 더보기 </button>
+        <div style={{ width: "120px", height: "50px" }}>
+          <Button use="gray" label="더보기"> </Button>
+        </div>
       </StyledContent>
     </div>
   );

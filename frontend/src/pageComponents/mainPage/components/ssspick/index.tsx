@@ -2,6 +2,7 @@ import React from "react";
 import { StyledContent, StyledContentText } from "./SSSpick.styled";
 import CardList from "../cardlist";
 import Image from "next/image";
+import Button from "@/components/button";
 
 const SSSPick = () => {
   return (
@@ -14,7 +15,9 @@ const SSSPick = () => {
           <StyledContentText $issub="true"> SSS 가 추천하는 Survey </StyledContentText>
         </div>
         <CardList contentType="ssspick"></CardList>
-        <button> 더보기 </button>
+        <div style={{ width: "120px", height: "50px" }}>
+          <Button use="gray" label="더보기"> </Button>
+        </div>
       </StyledContent>
     </div>
   );
