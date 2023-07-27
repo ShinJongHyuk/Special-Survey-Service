@@ -1,16 +1,33 @@
 import styled, {css} from 'styled-components'
-
-const StyledButton = styled.button.attrs<any>((props) => ({
-}))`
+import { ButtonStyles } from './Button.type'
+const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
     ${(props) => {
-        const purple = props.theme.colors.purple
-        const black = props.theme.colors.black
-        return css`
+        const gender = props.checkgender || null
+        const name = props.name || null
+        const use = props.use || "basic";
+        const useStyle:any = {
+            basic : `
             border-radius: 48px;
+            background-color : ${props.theme.colors.lightgray};
+            color: ${props.theme.colors.white};
+            `,
+            SignUpLogin: `
+            border-radius: 48px;
+            background-color: ${props.theme.colors.yellow};
+            color : ${props.theme.colors.black};
+            `,
+            gender : `
+            background-color: ${gender === name ? props.theme.colors.yellow : props.theme.colors.lightgray};
+            color : ${props.theme.colors.black};
+            `
+        };
+        return css`
+            border: hidden;
             width: 100%;
             height: 100%;
-            background-color: ${purple};
-            color: ${black};
+            cursor: pointer;
+            ${useStyle[use]};
+            font-family: ${props.theme.fonts.HangeulFontRegular};
         `
     }}
 `
