@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const StyledBanner = styled.div`
   position:relative;
   width: 100%;
-  height: 500px;
+  height: 550px;
 
 `
 const StyledBannerBox = styled.div`
@@ -28,12 +28,12 @@ const StyledBannerBox = styled.div`
 
 const StyledBannerText = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-        const isko = props.$isko === "true";
-        const font = isko ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontLight;
-        const black = props.theme.colors.black;
-        const size = isko ? props.theme.fontSizes.xlarge : props.theme.fontSizes.large;
+    const isko = props.$isko === "true";
+    const font = isko ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontLight;
+    const black = props.theme.colors.black;
+    const size = isko ? props.theme.fontSizes.xlarge : props.theme.fontSizes.large;
 
-        return css`
+    return css`
       width: 100%;
       color: ${black};
       font-family: ${font};
@@ -41,7 +41,7 @@ const StyledBannerText = styled.div.attrs<any>((props) => ({}))`
       text-align: center;
       ${isko && ` text-shadow: 1px 0 ${black};`}
     `;
-    }};
+  }};
 `;
 
 export { StyledBanner, StyledBannerText, StyledBannerBox };

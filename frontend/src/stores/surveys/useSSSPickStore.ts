@@ -60,7 +60,7 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       closedHeadCount: "70",
       nickname: "닉네임jkl",
       type: "즉시당첨",
-      probability: "36%",
+      probability: "46%",
       giveaways: "coffee",
     },
   ],
