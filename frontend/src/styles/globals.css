@@ -21,11 +21,6 @@
 }
 
 @font-face {
-  font-family: "HangeulFontBold";
-  src: url("./fonts/SUIT-Bold.ttf");
-}
-
-@font-face {
   font-family: "EnglishFontBold";
   src: url("./fonts/PPNeueMachina-InktrapUltrabold.otf");
 }
@@ -144,6 +139,7 @@ section {
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }

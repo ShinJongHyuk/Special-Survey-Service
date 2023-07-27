@@ -5,7 +5,7 @@ const theme: DefaultTheme = {
     yellow: "#FFF129",
     purple: "#8E69FF",
     lightpurple: "#A88CFF",
-
+    blue: "#6951FF",
     orange: "#FFAA29",
 
     white: "#FAFAFA",
@@ -17,7 +17,6 @@ const theme: DefaultTheme = {
     HangeulFontMedium: "HangeulFontMedium",
     HangeulFontRegular: "HangeulFontRegular",
     HangeulFontSemiBold: "HangeulFontSemiBold",
-    HangeulFontBold: "HangeulFontBold",
     EnglishFontBold: "EnglishFontBold",
     EnglishFontLight: "EnglishFontLight",
   },
@@ -26,7 +25,8 @@ const theme: DefaultTheme = {
     small: "16px",
     medium: "20px",
     large: "32px",
-    xlarge: "48px",
+    xlarge: "40px",
+    xxlarge: "48px",
   },
 };
 export default theme;
