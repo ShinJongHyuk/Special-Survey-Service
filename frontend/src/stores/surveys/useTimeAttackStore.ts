@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { SurveyType } from "./surveyStore.type";
 
-const useSurveyStore = create<SurveyType>((set) => ({
+const useTimeAttackStore = create<SurveyType>((set) => ({
   surveys: [
     {
       remainTime: "",
@@ -23,7 +23,7 @@ const useSurveyStore = create<SurveyType>((set) => ({
       headCount: "15",
       closedHeadCount: "50",
       nickname: "닉네임def",
-      type: "즉시당첨",
+      type: "타임어택",
       probability: "34%",
       giveaways: "chicken",
     },
@@ -59,47 +59,11 @@ const useSurveyStore = create<SurveyType>((set) => ({
       headCount: "25",
       closedHeadCount: "70",
       nickname: "닉네임jkl",
-      type: "즉시당첨",
+      type: "타임어택",
       probability: "36%",
       giveaways: "coffee",
     },
-    // {
-    //   remainTime: "",
-    //   title: "설문지 제목6",
-    //   startTime: "2023-07-31-13-30",
-    //   endTime: "2023-08-04-14-10",
-    //   headCount: "35",
-    //   closedHeadCount: "55",
-    //   nickname: "닉네임pqr",
-    //   type: "즉시당첨",
-    //   probability: "38%",
-    //   giveaways: "chicken",
-    // },
-    // {
-    //   remainTime: "",
-    //   title: "설문지 제목7",
-    //   startTime: "2023-08-01-15-40",
-    //   endTime: "2023-08-05-16-00",
-    //   headCount: "40",
-    //   closedHeadCount: "45",
-    //   nickname: "닉네임stu",
-    //   type: "타임어택",
-    //   probability: "50%",
-    //   giveaways: "chicken",
-    // },
-    // {
-    //   remainTime: "",
-    //   title: "설문지 제목8",
-    //   startTime: "2023-08-02-17-50",
-    //   endTime: "2023-08-06-18-20",
-    //   headCount: "45",
-    //   closedHeadCount: "35",
-    //   nickname: "닉네임vwx",
-    //   type: "즉시당첨",
-    //   probability: "42%",
-    //   giveaways: "coffee",
-    // },
   ],
 }));
 
-export default useSurveyStore;
+export default useTimeAttackStore;
