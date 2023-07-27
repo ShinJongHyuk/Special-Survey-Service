@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Link from "next/link";
 
 const StyledNavbar = styled.div`
+  width: 100%;
   height: 56px;
   background-color: ${(props) => props.theme.colors.yellow};
 
@@ -9,6 +10,9 @@ const StyledNavbar = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 8px 30px;
+
+  position: fixed;
+  z-index: 1;
 `;
 
 const StyledNavLink = styled(Link)`
