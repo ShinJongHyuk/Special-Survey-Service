@@ -102,14 +102,12 @@ const StyledProbability = styled.div.attrs<CardType>((props) => ({}))`
     const size = props.theme.fontSizes.large;
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
-    const yellow = props.theme.colors.yellow;
 
     let color;
     if (props.type === "타임어택") {
       color = white;
     } else {
-      const probability = parseInt(props.probability, 10);
-      color = probability <= 40 ? yellow : black;
+      color = black;
     }
 
     return css`
@@ -162,15 +160,15 @@ const StyledImg = styled.div.attrs<CardType>((props) => ({}))`
       color = white;
     } else {
       const probability = parseInt(props.probability, 10);
-      color = probability <= 40 ? black : yellow;
+      color = black;
     }
 
     return css`
       border: 2px dashed ${color};
-      border-radius: 100px;
-      width: 86px;
-      padding-top: 2px;
-      padding-left: 2px;
+      border-radius: 48px;
+      width: 90x;
+      padding: 2px 2px 0px 2px;
+      /* padding-left: 2px; */
     `;
   }};
 `;
