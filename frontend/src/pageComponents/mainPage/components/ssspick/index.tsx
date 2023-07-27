@@ -13,7 +13,7 @@ const SSSPick = () => {
           <StyledContentText> SSS pick </StyledContentText>
           <StyledContentText $issub="true"> SSS 가 추천하는 Survey </StyledContentText>
         </div>
-        <CardList></CardList>
+        <CardList contentType="ssspick"></CardList>
         <button> 더보기 </button>
       </StyledContent>
     </div>

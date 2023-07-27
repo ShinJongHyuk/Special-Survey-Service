@@ -20,7 +20,7 @@ const CardList = ({ contentType }: any) => {
     case "timeattack":
       store = useTimeAttackStore();
       break;
-    case "instantWin":
+    case "instantwin":
       store = useInstantWinStore();
       break;
   }
