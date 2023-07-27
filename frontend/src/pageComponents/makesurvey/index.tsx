@@ -8,8 +8,8 @@ function MakeSurvey() {
     return (
         <>
             <h1>MakeSurvey</h1>
-            <Survey />
-            <Survey />
+            <Survey key="survey1"/>
+            <Survey key="survey2"/>
         </>
     );
 };

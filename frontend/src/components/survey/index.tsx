@@ -26,6 +26,7 @@ const SurveyComponent = () => {
     };
     const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setSelectedOption(event.target.value);
+      setSurveyState(event.target.value);
     };
 
     const imgClick = () => {
