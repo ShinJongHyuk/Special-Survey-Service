@@ -4,10 +4,10 @@ export interface CardType {
 
   type: string;
   giveaways: string;
-  //   giveaways: "chicken" | "coffee" | string;
 
   probability: string;
 
-  remainTime: string;
-  headCount: string;
+  remaintime: string;
+  headcount?: string;
 }
+

@@ -23,9 +23,10 @@ const StyledBannerBox = styled.div`
 
 const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
   ${(props) => {
-    const font = props.isKo ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontLight;
+    const isko = props.$isko === "true";
+    const font = isko ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontLight;
     const black = props.theme.colors.black;
-    const size = props.isKo ? props.theme.fontSizes.xlarge : props.theme.fontSizes.large;
+    const size = isko ? props.theme.fontSizes.xlarge : props.theme.fontSizes.large;
 
     return css`
       width: 100%;
@@ -33,7 +34,7 @@ const StyledBannerText = styled.div.attrs<TextType>((props) => ({}))`
       font-family: ${font};
       font-size: ${size};
       text-align: center;
-      ${props.isKo && ` text-shadow: 1px 0 ${black};`}
+      ${isko && ` text-shadow: 1px 0 ${black};`}
     `;
   }};
 `;

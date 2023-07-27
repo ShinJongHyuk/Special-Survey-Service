@@ -27,6 +27,7 @@ const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
       background-color: ${bgcolor};
 
       padding: 30px;
+      cursor: pointer;
     `;
   }};
 `;

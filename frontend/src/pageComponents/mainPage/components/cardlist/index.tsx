@@ -31,8 +31,8 @@ const CardList = () => {
             type={survey.type}
             giveaways={survey.giveaways}
             probability={survey.probability}
-            remainTime={survey.remainTime || ""}
-            headCount={survey.headCount}
+            remaintime={survey.remainTime || ""}
+            headcount={survey.headCount}
           />
         </StyledCard>
       ))}

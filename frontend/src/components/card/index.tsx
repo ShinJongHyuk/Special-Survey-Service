@@ -33,7 +33,6 @@ const CardComponent = (props: CardType) => {
       <StyledImg {...props}>
         <Image src={imgsrc} style={{ borderRadius: "100px" }} priority={true} width={80} height={80} alt="gift" />
       </StyledImg>
-      {/* <StyledImage src={imgsrc} className="circle" alt="giveaways" /> */}
 
       <StyledProbability {...props}>{props.probability}</StyledProbability>
       <StyledRemainTime {...props}>
@@ -45,7 +44,7 @@ const CardComponent = (props: CardType) => {
           )}
           <div className="text">남은 시간</div>
         </div>
-        {props.remainTime || "00:00:00"}
+        {props.remaintime || "00:00:00"}
       </StyledRemainTime>
     </StyledCard>
   );

@@ -1,4 +1,4 @@
 export interface TextType {
-  isKo?: boolean;
-  isSub?: boolean;
+  $isko?: "true" | "false";
+  $issub?: "true" | "false";
 }

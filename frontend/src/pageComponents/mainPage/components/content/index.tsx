@@ -11,7 +11,7 @@ const Content = () => {
         <div className="title">
           <Image src="/casino.svg" priority={true} width={50} height={51} alt="casino"></Image>
           <StyledContentText> SSS pick </StyledContentText>
-          <StyledContentText isSub={true}> SSS 가 추천하는 Survey </StyledContentText>
+          <StyledContentText $issub="true"> SSS 가 추천하는 Survey </StyledContentText>
         </div>
         <CardList></CardList>
         <button> 더보기 </button>

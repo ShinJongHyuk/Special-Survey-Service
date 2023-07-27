@@ -9,8 +9,8 @@ const MainPage = () => {
         <img src="/main.png" style={{ width: "100%", height: "500px" }}></img>
         <StyledBannerBox>
           <div className="textbox">
-            <StyledBannerText isKo={false}> Let's Survey! </StyledBannerText>
-            <StyledBannerText isKo={true}> 우리는 설문조사를 하고 리워드를 받는 사이트에요!</StyledBannerText>
+            <StyledBannerText $isko="false"> Let's Survey! </StyledBannerText>
+            <StyledBannerText $isko="true"> 우리는 설문조사를 하고 리워드를 받는 사이트에요!</StyledBannerText>
           </div>
           <div>
             <button> 응답하기 </button>
