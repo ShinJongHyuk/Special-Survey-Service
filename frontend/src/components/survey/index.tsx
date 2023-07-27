@@ -13,6 +13,11 @@ import {Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkS
     CheckBox_Input,CheckBox_Label,CheckBox_Switch} from '@/components/survey/Survey.styled';
 import SurveyType from './Survey.type';
 import MultipleChoice from './multiplechoice';
+import CheckBox from './checkbox';
+import DropDown from './dropdown';
+import Dates from './dates';
+import Time from './time';
+
 
 const SurveyComponent = () => {
 
@@ -52,14 +57,17 @@ const SurveyComponent = () => {
                             <SelectBox_List onChange={handleOptionChange} value={selectedOption}>
                                 <SelectBox_Option value="multiplechoice">객관식 답변</SelectBox_Option>
                                 <SelectBox_Option value="checkbox">체크 박스</SelectBox_Option>
-                                <SelectBox_Option value="type 3">드롭 다운</SelectBox_Option>
-                                <SelectBox_Option value="type 4">날짜 선택</SelectBox_Option>
-                                <SelectBox_Option value="type 5">시간 선택</SelectBox_Option>
+                                <SelectBox_Option value="dropdown">드롭 다운</SelectBox_Option>
+                                <SelectBox_Option value="dates">날짜 선택</SelectBox_Option>
+                                <SelectBox_Option value="time">시간 선택</SelectBox_Option>
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
                 {surveyState === "multiplechoice" && <MultipleChoice />}
                 {surveyState === "checkbox" && <CheckBox />}
+                {surveyState === "dropdown" && <DropDown />}
+                {surveyState === "dates" && <Dates />}
+                {surveyState === "time" && <Time />}
               
                 <hr/>
                 <Bottom_Box>

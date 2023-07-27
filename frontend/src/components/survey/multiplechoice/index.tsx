@@ -66,7 +66,7 @@ const MultipleChoice = () => {
               }
             />
             <ImageWrapper onClick={() => handleImageClick(index)}>
-              <Image src={ImageIcon} alt="ImageIcon" />
+            <Image src={ImageIcon} alt="ImageIcon" />
             </ImageWrapper>
   
   

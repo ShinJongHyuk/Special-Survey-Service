@@ -1,55 +1,51 @@
 import styled,{ThemeProvider} from 'styled-components'
 
-const CheckBox_Box = styled.div.attrs({})`
+const Time_Box = styled.div.attrs({})`
     display : flex;
     flex-direction : column;
-    width : 600px;
+    width : 720px;
     min-height : 10px;
 
     gap : 30px;
     padding: 40px 25px;
 `
 
-const CheckBox_content_Box = styled.div.attrs({})`
+const Time_content_Box = styled.div.attrs({})`
     display : flex;
     flex-wrap : wrap;
     align-items : center;
+    justify-content : center;
     flex-direction : row;
-   
+
     width : 700px;
     min-height : 10%;
     
 `
 
-const MultipleCheckText = styled.input.attrs({type : 'text'})`
-  display: flex;
-  flex-wrap: wrap;
 
-  width : 65%;
-  height : 22px;
-  border: none;
-  outline: none;
-
-  word-break: break-all;
-  background: white;
-  cursor: pointer;
-  font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-  font-size: ${props => props.theme.fontSizes.small};
-  color: ${props => props.theme.colors.black};
-`;
 const Image_Container = styled.div.attrs({})`
     display : flex;
-    width : 200px;
-    height : 200px;
-    margin-top : 15px;
-    margin-left: 87px;
+    width : 300px;
+    height : 300px;
+    margin-left :25%;
+    margin-right :25%;
+    margin-bottom : 35px;
 ` ;
 
-const MultipleCheck = styled.input.attrs({ type: 'checkbox' })`
+const MultipleCheck = styled.input.attrs({ type: 'time' })`
     display : flex;
-    width : 12%;
-    height: 22px;
-  
+    width : 44%;
+    height: 40px;
+    border-radius : 50px;
+    margin-left : 70px;
+    margin-right : 40px;
+    border : 2px solid ${props => props.theme.colors.purple};
+    letter-spacing : 7px;
+    text-indent : 10px;
+    text-align : center;
+    font-family: ${props => props.theme.fonts.HangeulFontBold};
+    font-size: ${props => props.theme.fontSizes.medium};
+    color: ${props => props.theme.colors.purple};
 
 `;
 
@@ -91,8 +87,8 @@ const Image_Delete_Button = styled.button`
     right: -5px;
     background-color: ${props => props.theme.colors.purple};
     color: white;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -127,10 +123,11 @@ const ImagePreview = styled.img`
 const ImageWrapper = styled.div`
   position: relative;
   cursor: pointer;
+  
 
 `;
 
 
 
 
-export {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,MultipleCheck,MultipleCheckText,CheckBox_Box}
+export {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,Time_content_Box,MultipleCheck,Time_Box}

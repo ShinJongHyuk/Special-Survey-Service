@@ -97,7 +97,7 @@ const Image_Delete_Button = styled.button`
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    font-weight: bold;
+    border : 3px solid lightgray;
     cursor: pointer;
     opacity: 0; 
     transition: opacity 0.2s ease-in-out; 
