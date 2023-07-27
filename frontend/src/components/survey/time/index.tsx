@@ -67,10 +67,7 @@ const Time = () => {
                     </ImagePreiew_Box>
                   </Image_Container>
                   
-                )}  
-                
-               
-                
+                )}              
                 <MultipleCheck name="DateGroup" />
                 <ImageWrapper onClick={() => handleImageClick(index)}>
                   <Image src={ImageIcon} alt="ImageIcon" width={30} height={30} />

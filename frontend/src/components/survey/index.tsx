@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
-import Image from 'next/image'
-import trash from '/public/survey/trash.png'
-import duplicate from '/public/survey/duplicate.png'
-import etc from '/public/survey/etc.png'
-
-import shuffle_small from '/public/survey/shuffle_small.png'
 import styled, {ThemeProvider} from 'styled-components'
 import theme from '@/styles/DefaultTheme'
+import useStayStore from '@/stores/useStayStore';
 import {Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box, Question_Inner_Container,SelectBox_Option,SelectBox_List,SelectBox,Main_Container,Question_Container
     ,Question_Header,Question_Header_Container,
     Question_Content,Question_Content_Container,
     CheckBox_Input,CheckBox_Label,CheckBox_Switch} from '@/components/survey/Survey.styled';
 import SurveyType from './Survey.type';
+import Image from 'next/image'
+import trash from '/public/survey/trash.png'
+import duplicate from '/public/survey/duplicate.png'
+import etc from '/public/survey/etc.png'
+import shuffle_small from '/public/survey/shuffle_small.png'
 import MultipleChoice from './multiplechoice';
 import CheckBox from './checkbox';
 import DropDown from './dropdown';
@@ -25,7 +25,7 @@ const SurveyComponent = () => {
     const [selectedOption, setSelectedOption] = useState(''); 
     const [checked, setChecked] = useState(false); 
 
-    
+    const selectedSurvey = useStayStore((state : any) => state.selectedSurvey);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
      setChecked(e.target.checked)
     };
