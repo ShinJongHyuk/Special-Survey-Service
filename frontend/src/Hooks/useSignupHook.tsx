@@ -138,14 +138,12 @@ export const useSignupHook = ():SignupHookType => {
     }
 
     const handleClick = (e:any) => {
-        if (e.target.name === "MALE" || e.target.name === "FEMALE") {
-            console.log(e.target.name)
+        if (e.target.name === "MAN" || e.target.name === "WOMAN") {
             setUser({
                 ...user,
                 ["gender"] : e.target.name
             })
         } else {
-            console.log(e.target.id)
             setUser({
                 ...user,
                 ["age"] : e.target.id
