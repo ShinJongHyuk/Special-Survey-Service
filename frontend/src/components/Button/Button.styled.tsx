@@ -39,12 +39,8 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 color : ${props.theme.colors.black};
                 font-size:${medium};
             `,
-            gender : `
-            background-color: ${gender === name ? props.theme.colors.yellow : props.theme.colors.lightgray};
-            color : ${props.theme.colors.black};
-            `,
 
-            age : `
+            age: `
             background-color: ${age === id ? props.theme.colors.yellow : props.theme.colors.lightgray};
             color : ${props.theme.colors.black};
             `
@@ -60,4 +56,4 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
     }}
 `
 
-export {StyledButton}
+export { StyledButton }
