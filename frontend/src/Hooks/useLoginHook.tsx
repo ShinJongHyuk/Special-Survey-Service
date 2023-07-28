@@ -8,6 +8,7 @@ export const useLoginHook = () => {
     const setRefreshToken = useUserStore((state:any) => state.setRefreshToken)
     const setAccessToken = useUserStore((state:any) => state.setAccessToken)
     const login = useUserStore((state:any) => state.login)
+    
 
     const [user, setUser] = useState({
         email : "",
@@ -19,6 +20,9 @@ export const useLoginHook = () => {
         password: 1      
     })
 
+    const handleUserId = (data:any) => {
+        setUser(data)
+    }
 
     const handleChange = (e:any) => {
         setUser({
@@ -69,6 +73,6 @@ export const useLoginHook = () => {
             .catch(err => console.log(err))
         }
     }
-    return {handleChange, handleSubmit, inputState}
+    return {handleChange, handleSubmit, handleUserId, inputState, user}
 }
     

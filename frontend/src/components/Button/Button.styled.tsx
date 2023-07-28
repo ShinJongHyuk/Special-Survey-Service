@@ -4,6 +4,8 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
     ${(props) => {
         const gender = props.checkgender || null
         const name = props.name || null
+        const age = props.checkage || null
+        const id = props.id || null
         const use = props.use || "basic";
         const font = props.theme.fonts.HangeulFontSemiBold;
         const lightgray = props.theme.colors.lightgray;
@@ -37,11 +39,14 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 color : ${props.theme.colors.black};
                 font-size:${medium};
             `,
-            gray: `
-                border-radius: 48px;
-                border: 1px solid ${lightgray};
-                font-size:${small};
-                background-color: ${props.theme.colors.white};
+            gender : `
+            background-color: ${gender === name ? props.theme.colors.yellow : props.theme.colors.lightgray};
+            color : ${props.theme.colors.black};
+            `,
+
+            age : `
+            background-color: ${age === id ? props.theme.colors.yellow : props.theme.colors.lightgray};
+            color : ${props.theme.colors.black};
             `
         };
         return css`
@@ -55,4 +60,4 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
     }}
 `
 
-export { StyledButton }
+export {StyledButton}

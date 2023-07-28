@@ -6,76 +6,29 @@ import { LoginPage, InputBox, LoginFont, LoginFont2, LoginContainer } from './Lo
 import { SignUpText, SignUpItem } from '../signup/Signup.styled'
 import { useRouter } from 'next/navigation'
 import { useLoginHook } from '@/Hooks/useLoginHook'
-
+import { useCookies } from 'react-cookie'
+import { useState, useEffect } from "react"
 const Login = () => {
     const router = useRouter()
-    const {handleChange, handleSubmit, inputState} = useLoginHook()
-    // const setRefreshToken = useUserStore((state:any) => state.setRefreshToken)
-    // const setAccessToken = useUserStore((state:any) => state.setAccessToken)
-    // const login = useUserStore((state:any) => state.login)
+    const {handleChange, handleSubmit, handleUserId, inputState, user} = useLoginHook()
+    const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"]);
+    const [isRemember, setIsRemember] = useState(false);
 
-    // const [user, setUser] = useState({
-    //     email : "",
-    //     password : ""
-    // })
+    useEffect(() => {
+        if (cookies.rememberUserId !== undefined) {
+            handleUserId(cookies.rememberUserId);
+            setIsRemember(true);
+        }
+    }, []);
 
-    // const [inputState, setInputState] = useState({
-    //     email: 1,
-    //     password: 1      
-    // })
+    const handleOnChange = (e:any) => {
+        console.log(e)
+        setIsRemember(e.target.checked);
+        if (!e.target.checked) {
+            removeCookie("rememberUserId");
+        }
+    };
 
-
-    // const onChange = (e:any) => {
-    //     setUser({
-    //         ...user,
-    //         [e.target.name]: e.target.value
-    //     })
-
-    //     setInputState({
-    //         ...inputState,
-    //         [e.target.name] : 1
-    //     })
-    // }
-
-    // const onSubmit = (e:any) => {
-    //     e.preventDefault()
-        
-    //     if (user.email === "") {
-    //         setInputState({
-    //             ...inputState,
-    //             ["email"] : 0
-    //         })
-    //         alert('이메일을 입력해주세요.')
-    //         return
-    //     } 
-        
-    //     else if (user.password === "") {
-    //         setInputState({
-    //             ...inputState,
-    //             ["password"] : 0
-    //         })
-    //         alert('비밀번호를 입력해주세요')
-    //         return
-    //     } 
-
-    //     else {
-    //         axios({
-    //             method : 'post',
-    //             url : 'http://221.164.64.185:8080/api/authenticate',
-    //             data : {...user}
-    //         })
-    //         .then(res => {
-    //             console.log(res.data.response)
-    //             setRefreshToken(res.data.response.refreshToken)
-    //             setAccessToken(res.data.response.accessToken)
-    //             login()
-    //             router.push('/')
-    //         })
-    //         .catch(err => console.log(err))
-            
-    //     }
-
-    // }
 
     const ClickLogo = () => {
         router.push('/')
@@ -105,13 +58,13 @@ const Login = () => {
                 </div>
 
             
-                <label htmlFor='LoginState' style={{display:"flex", alignItems:"center", margin:"22px 0px 0px 0px", borderBottom:"2px solid black"}}>
+                <label htmlFor='LoginState' style={{display:"flex", alignItems:"center", margin:"22px 0px 0px 0px", borderBottom:"2px solid black"}} onClick={handleOnChange}>
                     <div style={{width:"15px", height:"15px", marginBottom:"10px"}}>
                     <Input type="checkbox" name="LoginState" id="LoginState" style={{}}/>
                     </div>
                 
                     <LoginFont>
-                    로그인 상태 유지
+                    아이디 기억하기
                     </LoginFont>
                 </label>
             </LoginContainer>
