@@ -2,7 +2,8 @@ import styeld, {css} from 'styled-components'
 
 const StyledInput = styeld.input.attrs<any>((props) => ({
     value : props.value || undefined,
-    placeholder : props.placeholder || null
+    placeholder : props.placeholder || null,
+
 }))`
     ${(props) => {
         const inputState = props.inputstate

@@ -1,7 +1,9 @@
 import { useRouter } from "next/navigation"
 import useUserStore from "@/stores/useUserStore"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from 'axios'
+
+import { useCookies } from 'react-cookie'
 
 export const useLoginHook = () => {
     const router = useRouter()
@@ -9,6 +11,23 @@ export const useLoginHook = () => {
     const setAccessToken = useUserStore((state:any) => state.setAccessToken)
     const login = useUserStore((state:any) => state.login)
     
+    const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"]);
+    const [isRemember, setIsRemember] = useState(false);
+
+    useEffect(() => {
+        if (cookies.rememberUserId !== undefined) {
+            handleUserId(cookies.rememberUserId);
+            setIsRemember(true);
+        }
+    }, []);
+
+    const handleOnChange = (e:any) => {
+        setIsRemember(e.target.checked);
+        if (!e.target.checked) {
+            removeCookie("rememberUserId");
+        }
+    };
+
 
     const [user, setUser] = useState({
         email : "",
@@ -21,7 +40,10 @@ export const useLoginHook = () => {
     })
 
     const handleUserId = (data:any) => {
-        setUser(data)
+        setUser({
+            ...user,
+            ["email"] : data 
+        })
     }
 
     const handleChange = (e:any) => {
@@ -64,15 +86,19 @@ export const useLoginHook = () => {
                 data : {...user}
             })
             .then(res => {
-                console.log(res.data.response)
                 setRefreshToken(res.data.response.refreshToken)
                 setAccessToken(res.data.response.accessToken)
                 login()
+
+                if (isRemember) {
+                    setCookie("rememberUserId", user.email, { path: '/' });
+                  }
                 router.push('/')
+                alert('로그인 성공')
             })
             .catch(err => console.log(err))
         }
     }
-    return {handleChange, handleSubmit, handleUserId, inputState, user}
+    return {handleChange, handleSubmit, handleUserId, handleOnChange, inputState, user, isRemember}
 }
     
