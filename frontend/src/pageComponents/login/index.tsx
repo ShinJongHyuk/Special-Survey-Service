@@ -6,29 +6,17 @@ import { LoginPage, InputBox, LoginFont, LoginFont2, LoginContainer } from './Lo
 import { SignUpText, SignUpItem } from '../signup/Signup.styled'
 import { useRouter } from 'next/navigation'
 import { useLoginHook } from '@/Hooks/useLoginHook'
-import { useCookies } from 'react-cookie'
-import { useState, useEffect } from "react"
+import {useEffect} from 'react'
 const Login = () => {
     const router = useRouter()
-    const {handleChange, handleSubmit, handleUserId, inputState, user} = useLoginHook()
-    const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"]);
-    const [isRemember, setIsRemember] = useState(false);
-
+    const {handleChange, handleSubmit, handleOnChange, inputState, user, isRemember} = useLoginHook()
+    
     useEffect(() => {
-        if (cookies.rememberUserId !== undefined) {
-            handleUserId(cookies.rememberUserId);
-            setIsRemember(true);
+        const checkbox = document.getElementById("LoginState") as HTMLInputElement;
+        if (checkbox) {
+          checkbox.checked = isRemember;
         }
-    }, []);
-
-    const handleOnChange = (e:any) => {
-        console.log(e)
-        setIsRemember(e.target.checked);
-        if (!e.target.checked) {
-            removeCookie("rememberUserId");
-        }
-    };
-
+      }, [isRemember]);
 
     const ClickLogo = () => {
         router.push('/')
@@ -42,7 +30,7 @@ const Login = () => {
                 <SignUpItem>
                     <SignUpText>이메일</SignUpText> 
                     <InputBox>
-                        <Input type="email" name="email" onChange={handleChange} inputstate={inputState.email}/>
+                        <Input type="email" name="email" onChange={handleChange} inputstate={inputState.email} defaultValue={user.email}/>
                     </InputBox>
                 </SignUpItem>
 
@@ -58,9 +46,9 @@ const Login = () => {
                 </div>
 
             
-                <label htmlFor='LoginState' style={{display:"flex", alignItems:"center", margin:"22px 0px 0px 0px", borderBottom:"2px solid black"}} onClick={handleOnChange}>
-                    <div style={{width:"15px", height:"15px", marginBottom:"10px"}}>
-                    <Input type="checkbox" name="LoginState" id="LoginState" style={{}}/>
+                <label htmlFor='LoginState' style={{display:"flex", alignItems:"center", margin:"22px 0px 0px 0px", borderBottom:"2px solid black"}}>
+                    <div style={{width:"15px", height:"15px", marginBottom:"10px"}} >
+                    <Input type="checkbox" name="LoginState" id="LoginState" onClick={handleOnChange} defaultChecked={isRemember} />
                     </div>
                 
                     <LoginFont>
