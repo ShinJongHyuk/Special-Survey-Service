@@ -12,7 +12,7 @@ const Banner = () => {
 
     return (
         <StyledBanner>
-            <img src="/main.png" style={{ position: "absolute", width: "100%", height: "550px", zIndex: "-1" }}></img>
+            <img src="/mainpage/main.png" style={{ position: "absolute", width: "100%", height: "550px", zIndex: "-1" }}></img>
             <StyledBannerBox>
                 <div className="textbox">
                     <StyledBannerText $isko="false"> Let's Survey! </StyledBannerText>

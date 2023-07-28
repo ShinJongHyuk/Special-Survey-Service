@@ -6,8 +6,8 @@ import { StyledCard, StyledTag, StyledCardHeader, StyledRemainTime, StyledImg, S
 
 const CardComponent = (props: CardType) => {
   const images: { [key: string]: string } = {
-    chicken: "/chicken.png",
-    coffee: "/coffee.png",
+    chicken: "/card/chicken.png",
+    coffee: "/card/coffee.png",
   };
   const imgsrc = images[props.giveaways];
 
@@ -15,9 +15,9 @@ const CardComponent = (props: CardType) => {
     <StyledCard {...props}>
       <StyledTag {...props}>
         {props.type === "타임어택" ? (
-          <Image src="/whatshot.svg" priority={true} width={11} height={11} alt="whatshot" />
+          <Image src="/card/whatshot.svg" priority={true} width={11} height={11} alt="whatshot" />
         ) : (
-          <Image src="/bolt.svg" priority={true} width={11} height={11} alt="abc" />
+          <Image src="/card/bolt.svg" priority={true} width={11} height={11} alt="abc" />
         )}
         <div className="type-text">{props.type}</div>
       </StyledTag>
@@ -38,12 +38,16 @@ const CardComponent = (props: CardType) => {
         <div className="time-text">
           {
             props.type === "타임어택" ? (
-              <Image src="/purpleclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+              parseInt(props.probability, 10) <= 40 ? (
+                <Image src="/card/card/purpleblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+              ) : (
+                <Image src="/card/purpleclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+              )
             ) : (
               parseInt(props.probability, 10) <= 40 ? (
-                <Image src="/yellowblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+                <Image src="/card/yellowblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
               ) : (
-                <Image src="/yellowclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+                <Image src="/card/yellowclock.svg" priority={true} width={22} height={22} alt="remaintime" />
               )
             )
           }

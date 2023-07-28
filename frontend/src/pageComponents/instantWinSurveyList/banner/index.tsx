@@ -4,7 +4,7 @@ import { StyledBanner, StyledBannerText } from "./Banner.styled";
 const Banner = () => {
     return (
         <StyledBanner>
-            <img src="/list1banner.png" style={{ position: "absolute", width: "100%", height: "330px", zIndex: "-1" }}></img>
+            <img src="/listpage/list1banner.png" style={{ position: "absolute", width: "100%", height: "330px", zIndex: "-1" }}></img>
             <StyledBannerText>
                 <div>
                     <div className='eng'> Instant Lottery </div>

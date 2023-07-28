@@ -14,10 +14,10 @@ const Instantwin = () => {
 
   return (
     <div style={{ position: "relative", width: "100%", height: "780px" }}>
-      <img src="/Content3.png" style={{ width: "100%", position: "absolute", height: "780px", zIndex: "-1" }}></img>
+      <img src="/mainpage/Content3.png" style={{ width: "100%", position: "absolute", height: "780px", zIndex: "-1" }}></img>
       <StyledContent>
         <div className="title">
-          <Image src="/bulb.svg" priority={true} width={50} height={51} alt="bulb"></Image>
+          <Image src="/mainpage/bulb.svg" priority={true} width={50} height={51} alt="bulb"></Image>
           <StyledContentText> 즉시 당첨 </StyledContentText>
           <StyledContentText $issub="true"> 설문하고 바로 당첨자가 되어보세요! </StyledContentText>
         </div>
