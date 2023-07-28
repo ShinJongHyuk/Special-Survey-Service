@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useSSSPickStore from "@/stores/surveys/useSSSPickStore";
 import useInstantWinStore from "@/stores/surveys/useInstantWinStore";
 import useTimerHook from "@/hooks/useTimerHook";
-import { SurveyType } from "@/stores/surveys/surveyStore.type";
 
 const useCardlistHook = (contentType: any) => {
-  let store = useSSSPickStore(); // default
+  let useStore;
 
-  switch (contentType) {
-    case "ssspick":
-      store = useSSSPickStore();
-      break;
-
-    case "instantwin":
-      store = useInstantWinStore();
-      break;
+  if (contentType === "ssspick") {
+    useStore = useSSSPickStore;
+  }
+  else if (contentType === "instantwin") {
+    useStore = useInstantWinStore;
+  }
+  else { // if (contentType === "instantwin") 
+    useStore = useInstantWinStore;
   }
 
+  const store = useStore();
   const { surveys } = store;
-  const [cards, setCards] = useState(surveys);
+  const initialCards = contentType === "instantwin" ? surveys.slice(0, 5) : surveys;
+  const [cards, setCards] = useState(initialCards);
 
   useEffect(() => {
-    setCards(surveys);
+    setCards(initialCards);
     const timer = setInterval(() => {
       setCards((prev) => {
         const data = prev.map((prev: any) => {
