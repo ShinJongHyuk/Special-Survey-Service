@@ -4,8 +4,8 @@ import theme from '@/styles/DefaultTheme';
 import Image from 'next/image';
 import { ToolbarBox, Toolbar_InnerBox } from './Toolbar.styled';
 import add from '../../../../public/survey/add.png';
-import image_toolbar from '../../../../public/survey/image_toolbar.png';
-import video from '../../../../public/survey/video.png';
+import up_arrow from '../../../../public/survey/up_arrow.png';
+import down_arrow from '../../../../public/survey/down_arrow.png';
 import Survey from '../../survey';
 import useStayStore from '@/stores/useStayStore';
 
@@ -19,7 +19,7 @@ const Toolbar = () => {
     componentRefs.current = surveyComponents.map(() => React.createRef());
   }, [surveyComponents]);
 
-  
+
   useEffect(() => {
     let Height = 0;
     for (let i = 0; i < selectedSurvey; i++) {
@@ -39,6 +39,18 @@ const Toolbar = () => {
   };
 
 
+  const handleUpArrowClick = () => {
+    const prevIndex = selectedSurvey - 1;
+    setSelectedSurvey(prevIndex);
+    handleSurveyClick(prevIndex);
+  };
+
+  const handleDownArrowClick = () => {
+    const NextIndex = selectedSurvey + 1;
+    setSelectedSurvey(NextIndex);
+    handleSurveyClick(NextIndex);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <ToolbarBox height={height}>
@@ -46,10 +58,10 @@ const Toolbar = () => {
           <Image src={add} alt="추가" onClick={addSurveyComponent} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-          <Image src={image_toolbar} alt="이미지" />
+          <Image src={up_arrow} alt="위 화살표" onClick={handleUpArrowClick} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-          <Image src={video} alt="비디오" />
+          <Image src={down_arrow} alt="아래 화살표" onClick={handleDownArrowClick} />
         </Toolbar_InnerBox>
       </ToolbarBox>
       {surveyComponents.map((component, index) => (
