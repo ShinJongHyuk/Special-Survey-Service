@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { SurveyType } from "./surveyStore.type";
 
-const useSSSPickStore = create<SurveyType>((set) => ({
+const useInstantWinStore = create<SurveyType>((set) => ({
   surveys: [
     {
       remainTime: "",
@@ -66,4 +66,4 @@ const useSSSPickStore = create<SurveyType>((set) => ({
   ],
 }));
 
-export default useSSSPickStore;
+export default useInstantWinStore;
