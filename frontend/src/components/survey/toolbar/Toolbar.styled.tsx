@@ -14,7 +14,6 @@ const ToolbarBox = styled.div.attrs<ToolbarType>((props) => ({
     height: 200px;
     margin-left: 20px;
     margin-top: 100px;
-    border: 1px solid black;
     border-radius: 100px;
     background-color: black;
     position: absolute;
