@@ -15,7 +15,7 @@ const NavbarComponent = () => {
 
         <div style={{ width: "60%", display: "flex", justifyContent: "center" }}>
           <StyledNavLink href="/">설문하기</StyledNavLink>
-          <StyledNavLink href="/">응답하기</StyledNavLink>
+          <StyledNavLink href="/instantWinSurveyList">응답하기</StyledNavLink>
         </div>
         <div style={{ width: "20%", display: "flex", justifyContent: "end" }}>
           <StyledNavLink href="/login">로그인</StyledNavLink>
