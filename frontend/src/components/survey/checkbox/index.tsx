@@ -4,9 +4,8 @@ import ImageIcon from '/public/survey/ImageIcon.png'
 import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
 
 
-const CheckBox = () => {
-
-        const [items, setItems] = useState<any[]>([
+const CheckBox =  (customKey : any) => {
+        const [items, setItems]= useState<any[]>([
           { id: Date.now(), text: '답변 1', imageUrl: '' },
           { id: Date.now() + 1, text: '답변 2', imageUrl: '' },
         ]);
@@ -28,8 +27,7 @@ const CheckBox = () => {
         };
     
         const handleImageClick = (index : number) => {
-            const uploadButton = document.getElementById(`upload-button-${index}`);
-    
+            const uploadButton = document.getElementById(`upload-button-${customKey.customkey}-${index}`);
             if (uploadButton) {
               uploadButton.click();
             }
@@ -37,7 +35,7 @@ const CheckBox = () => {
     
         const handleImageChange = (index: number, event: any) => {
           const file = event.target.files[0];
-    
+        
           if (file) {
             const imageUrl = URL.createObjectURL(file);
             const updatedItems = [...items];
@@ -68,9 +66,8 @@ const CheckBox = () => {
                 <ImageWrapper onClick={() => handleImageClick(index)}>
                   <Image src={ImageIcon} alt="ImageIcon" />
                 </ImageWrapper>
-      
-      
-                <UploadImage id={`upload-button-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
+
+                <UploadImage id={`upload-button-${customKey.customkey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
                 {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
                 
                 {item.imageUrl && (
