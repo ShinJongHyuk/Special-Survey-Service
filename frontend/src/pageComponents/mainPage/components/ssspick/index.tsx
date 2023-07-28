@@ -2,7 +2,6 @@ import React from "react";
 import { StyledContent, StyledContentText } from "./SSSpick.styled";
 import CardList from "../cardlist";
 import Image from "next/image";
-import Button from "@/components/button";
 
 const SSSPick = () => {
   return (

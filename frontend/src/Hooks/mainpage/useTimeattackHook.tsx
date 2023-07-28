@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useTimeAttackStore from "@/stores/surveys/useTimeAttackStore";
-import useTimerHook from "@/hooks/useTimerHook";
+import useTimerHook from "@/Hooks/card/useTimerHook";
 import { SurveyType } from "@/stores/surveys/surveyStore.type";
 
 const useTimeattackHook = () => {

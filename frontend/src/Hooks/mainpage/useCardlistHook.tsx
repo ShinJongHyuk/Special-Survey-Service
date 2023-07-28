@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useSSSPickStore from "@/stores/surveys/useSSSPickStore";
 import useInstantWinStore from "@/stores/surveys/useInstantWinStore";
-import useTimerHook from "@/hooks/useTimerHook";
+import useTimerHook from "@/Hooks/card/useTimerHook";
 
 const useCardlistHook = (contentType: any) => {
   let useStore;
@@ -9,16 +9,13 @@ const useCardlistHook = (contentType: any) => {
   if (contentType === "ssspick") {
     useStore = useSSSPickStore;
   }
-  else if (contentType === "instantwin") {
-    useStore = useInstantWinStore;
-  }
   else { // if (contentType === "instantwin") 
     useStore = useInstantWinStore;
   }
 
   const store = useStore();
   const { surveys } = store;
-  const initialCards = contentType === "instantwin" ? surveys.slice(0, 5) : surveys;
+  const initialCards = surveys.slice(0, 5);
   const [cards, setCards] = useState(initialCards);
 
   useEffect(() => {

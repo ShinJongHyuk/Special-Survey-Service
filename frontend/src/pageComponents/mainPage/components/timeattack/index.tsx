@@ -2,7 +2,7 @@ import React from "react";
 import { StyledContent, StyledContentText, StyledCardList } from "./Timeattack.styled";
 import Image from "next/image";
 import Card2 from "@/components/card2";
-import useTimeattackHook from "@/Hooks/useTimeattackHook";
+import useTimeattackHook from "@/Hooks/mainpage/useTimeattackHook";
 import Button from "@/components/button";
 
 const Timeattack = () => {
