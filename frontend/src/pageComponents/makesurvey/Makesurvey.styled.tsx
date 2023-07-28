@@ -5,11 +5,11 @@ const Survey_Container = styled.div.attrs({})`
     display : flex;
     flex-direction : row;
     flex-wrap : wrap;
-    width : 1240px;
-    min-height: 100px;
+    width : 1391px;
+    min-height: 200px;
     border : 1px solid black;
     position : absolute;
-    top : 7%;
+    top : 6.0%;
 `
 
 export {Survey_Container}

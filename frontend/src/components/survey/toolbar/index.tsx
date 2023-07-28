@@ -22,7 +22,7 @@ const Toolbar = () => {
 
   useEffect(() => {
     let Height = 0;
-    for (let i = 0; i < selectedSurvey; i++) {
+    for (let i = 0; i < selectedSurvey-1; i++) {
       const componentRef = componentRefs.current[i];
       Height += componentRef?.current?.clientHeight ?? 0;
     }
