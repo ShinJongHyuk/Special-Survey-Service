@@ -11,7 +11,7 @@ const useTimeattackHook = () => {
   const [transformValue, setTransformValue] = useState(-cardWidth);
 
   useEffect(() => {
-    const initialCards = [...surveys, ...surveys, ...surveys]; // double the surveys
+    const initialCards = [...surveys.slice(0, 5), ...surveys.slice(0, 5), ...surveys.slice(0, 5)]; // double the surveys
     setCards(initialCards);
 
     const timer = setInterval(() => {

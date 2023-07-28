@@ -2,10 +2,17 @@ import { useState, useEffect } from 'react'
 import useInstantWinStore from '@/stores/surveys/useInstantWinStore';
 import moment from 'moment';
 import useTimerHook from '@/Hooks/card/useTimerHook';
+import useTimeAttackStore from '@/stores/surveys/useTimeAttackStore';
 
 
-const useInstantWinSurveyListHook = () => {
-    const { surveys } = useInstantWinStore();
+const useSurveyListHook = (surveyType: any) => {
+    let store;
+    if (surveyType === "instantwin") {
+        store = useInstantWinStore();
+    } else {
+        store = useTimeAttackStore();
+    }
+    const { surveys } = store;
 
     const [sortType, setSortType] = useState("recommend");
     const [sortedSurveys, setSortedSurveys] = useState(surveys);
@@ -82,4 +89,4 @@ const useInstantWinSurveyListHook = () => {
 
     return { sortedSurveys, setSortType };
 }
-export default useInstantWinSurveyListHook;
+export default useSurveyListHook;
