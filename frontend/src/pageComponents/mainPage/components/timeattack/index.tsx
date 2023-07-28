@@ -3,6 +3,7 @@ import { StyledContent, StyledContentText, StyledCardList } from "./Timeattack.s
 import Image from "next/image";
 import Card2 from "@/components/card2";
 import useTimeattackHook from "@/Hooks/useTimeattackHook";
+import Button from "@/components/button";
 
 const Timeattack = () => {
   const { cards, transformValue, handlePrevClick, handleNextClick } = useTimeattackHook();
@@ -44,6 +45,9 @@ const Timeattack = () => {
             </div>
           ))}
         </StyledCardList>
+        <div style={{ width: "120px", height: "50px" }}>
+          <Button use="gray" label="더보기"></Button>
+        </div>
       </StyledContent>
     </div>
   );
