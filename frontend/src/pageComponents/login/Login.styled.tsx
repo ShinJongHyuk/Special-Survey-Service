@@ -7,7 +7,7 @@ const LoginPage = styled.div.attrs<any>((props) => ({}))`
     flex-direction: column;
     align-items: center;
     position: relative;
-    background-image: url("/BGimg.png");
+    /* background-image: url("/BGimg.png"); */
     background-size: contain; 
     background-repeat: no-repeat; 
     background-position: center center; 
