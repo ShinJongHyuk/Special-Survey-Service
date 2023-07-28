@@ -9,31 +9,31 @@ const StyledContent = styled.div`
   justify-content: center;
   align-items: center;
 
-  gap: 100px;
+  gap: 80px;
   position: absolute;
 
-  .buttonbg{
+  .buttonbg {
     display: flex;
     width: 60px;
     padding: 12px;
     justify-content: center;
     align-items: center;
     gap: 8px;
-    cursor:pointer;
+    cursor: pointer;
     border-radius: 32px;
-    background: ${props => props.theme.colors.lightpurple};
+    background: ${(props) => props.theme.colors.lightpurple};
     border: 0px;
 
     margin: 0px 20px;
   }
 
-  .buttontext{
-    color:  ${props => props.theme.colors.white};
+  .buttontext {
+    color: ${(props) => props.theme.colors.white};
     text-align: center;
-    font-size: ${props => props.theme.fontSizes.large};
+    font-size: ${(props) => props.theme.fontSizes.large};
   }
 
-  .header{
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,4 +65,9 @@ const StyledContentText = styled.div.attrs<any>((props) => ({}))`
   }};
 `;
 
-export { StyledContent, StyledContentText };
+const StyledCardList = styled.div`
+  display: flex;
+  gap: 15px;
+`;
+
+export { StyledContent, StyledContentText, StyledCardList };

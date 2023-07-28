@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const StyledContent = styled.div`
   width: 100%;
-  padding: 50px;
+  padding: 90px 50px 50px 50px;
 
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ const StyledContent = styled.div`
 const StyledContentText = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     const issub = props.$issub === "true";
-    const font = issub ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontLight;
+    const font = issub ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontBold;
     const color = issub ? props.theme.colors.gray : props.theme.colors.black;
     const size = issub ? props.theme.fontSizes.medium : props.theme.fontSizes.large;
 

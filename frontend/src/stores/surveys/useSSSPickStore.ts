@@ -7,7 +7,7 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       remainTime: "",
       title: "설문지 제목1",
       startTime: "2023-07-26-17-30",
-      endTime: "2023-07-30-21-20",
+      endTime: "2023-07-28-21-20",
       headCount: "10",
       closedHeadCount: "100",
       nickname: "닉네임abc",
