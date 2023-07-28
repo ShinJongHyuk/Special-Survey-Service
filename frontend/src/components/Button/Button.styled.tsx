@@ -56,6 +56,12 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 border: 1.216px solid rgba(214, 214, 214, 0.20);
                 background: #FFFAAE;
                 font-size:${small};
+            `,
+            sortingPurple: `
+                border-radius: 10px;
+                border: 1.216px solid rgba(214, 214, 214, 0.20);
+                background: #D4C9FF;
+                font-size:${small};
             `
         };
         return css`

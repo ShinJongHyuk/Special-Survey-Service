@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyledCardList } from "./CardList.styled";
 import Card from "@/components/card";
-import useCardlistHook from "@/Hooks/useCardlistHook";
+import useCardlistHook from "@/Hooks/mainpage/useCardlistHook";
 
 const CardList = ({ contentType }: any) => {
   const cards = useCardlistHook(contentType);

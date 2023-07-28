@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useTimeAttackStore from "@/stores/surveys/useTimeAttackStore";
-import useTimerHook from "@/hooks/useTimerHook";
+import useTimerHook from "@/Hooks/card/useTimerHook";
 import { SurveyType } from "@/stores/surveys/surveyStore.type";
 
 const useTimeattackHook = () => {
@@ -11,7 +11,7 @@ const useTimeattackHook = () => {
   const [transformValue, setTransformValue] = useState(-cardWidth);
 
   useEffect(() => {
-    const initialCards = [...surveys, ...surveys, ...surveys]; // double the surveys
+    const initialCards = [...surveys.slice(0, 5), ...surveys.slice(0, 5), ...surveys.slice(0, 5)]; // double the surveys
     setCards(initialCards);
 
     const timer = setInterval(() => {

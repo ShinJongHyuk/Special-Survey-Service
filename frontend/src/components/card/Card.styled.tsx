@@ -5,10 +5,11 @@ import { CardType } from "./Card.type";
 const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
     let bgcolor;
+    const probability = parseInt(props.probability, 10);
     if (props.type === "타임어택") {
-      bgcolor = props.theme.colors.purple;
+      bgcolor = probability <= 40 ? props.theme.colors.white : props.theme.colors.purple;
+
     } else {
-      const probability = parseInt(props.probability, 10);
       bgcolor = probability <= 40 ? props.theme.colors.white : props.theme.colors.yellow;
     }
 
@@ -70,7 +71,13 @@ const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
     const small = props.theme.fontSizes.small;
     const xsmall = props.theme.fontSizes.xsmall;
 
-    const color = props.type === "타임어택" ? white : black;
+    let color;
+    const probability = parseInt(props.probability, 10);
+    if (props.type === "타임어택") {
+      color = probability <= 40 ? black : white;
+    } else {
+      color = black;
+    }
 
     return css`
       display: flex;
@@ -85,6 +92,7 @@ const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
       width: 100%;
       text-align: center;
 
+      
       .title {
         font-size: ${small};
       }
@@ -102,10 +110,11 @@ const StyledProbability = styled.div.attrs<CardType>((props) => ({}))`
     const size = props.theme.fontSizes.large;
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
-
+    const purple = props.theme.colors.purple;
     let color;
+    const probability = parseInt(props.probability, 10);
     if (props.type === "타임어택") {
-      color = white;
+      color = probability <= 40 ? purple : white;
     } else {
       color = black;
     }
@@ -123,9 +132,16 @@ const StyledRemainTime = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
-    const color = props.type === "타임어택" ? white : black;
     const font = props.theme.fonts.HangeulFontSemiBold;
     const size = props.theme.fontSizes.xsmall;
+
+    let color;
+    const probability = parseInt(props.probability, 10);
+    if (props.type === "타임어택") {
+      color = probability <= 40 ? black : white;
+    } else {
+      color = black;
+    }
 
     return css`
       display: flex;
@@ -153,13 +169,12 @@ const StyledImg = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
-    const yellow = props.theme.colors.yellow;
-
+    const purple = props.theme.colors.purple;
     let color;
+    const probability = parseInt(props.probability, 10);
     if (props.type === "타임어택") {
-      color = white;
+      color = probability <= 40 ? purple : white;
     } else {
-      const probability = parseInt(props.probability, 10);
       color = black;
     }
 
