@@ -41,8 +41,8 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
             `,
 
             age: `
-            background-color: ${age === id ? props.theme.colors.yellow : props.theme.colors.lightgray};
-            color : ${props.theme.colors.black};
+                background-color: ${age === id ? props.theme.colors.yellow : props.theme.colors.lightgray};
+                color : ${props.theme.colors.black};
             `,
             gray: `
                 border-radius: 48px;
