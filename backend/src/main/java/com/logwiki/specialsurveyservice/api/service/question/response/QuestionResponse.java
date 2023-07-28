@@ -3,6 +3,7 @@ package com.logwiki.specialsurveyservice.api.service.question.response;
 import com.logwiki.specialsurveyservice.domain.question.Question;
 import com.logwiki.specialsurveyservice.domain.questioncategory.QuestionCategoryType;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,10 +35,28 @@ public class QuestionResponse {
         this.multipleChoices = multipleChoices;
     }
 
-    public static QuestionResponse From(Question question) {
+    public static QuestionResponse from(Question question) {
         if (question == null) {
             return null;
         }
-
+        if (question.getMultipleChoice() == null) {
+            return QuestionResponse.builder()
+                    .id(question.getId())
+                    .questionNumber(question.getQuestionNumber())
+                    .content(question.getContent())
+                    .imgAddress(question.getImgAddress())
+                    .type(question.getType())
+                    .build();
+        }
+        return QuestionResponse.builder()
+                .id(question.getId())
+                .questionNumber(question.getQuestionNumber())
+                .content(question.getContent())
+                .imgAddress(question.getImgAddress())
+                .type(question.getType())
+                .multipleChoices(question.getMultipleChoice()
+                        .stream().map(MultipleChoiceResponse::from)
+                        .collect(Collectors.toList()))
+                .build();
     }
 }
