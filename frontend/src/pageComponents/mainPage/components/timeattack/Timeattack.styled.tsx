@@ -9,7 +9,7 @@ const StyledContent = styled.div`
   justify-content: center;
   align-items: center;
 
-  gap: 100px;
+  gap: 80px;
   position: absolute;
 
   .buttonbg {

@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const StyledContent = styled.div`
   width: 100%;
-  padding: 70px 50px 50px 50px;
+  padding: 90px 50px 50px 50px;
 
   display: flex;
   flex-direction: column;
