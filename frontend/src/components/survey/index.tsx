@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useMemo} from 'react';
 import styled, {ThemeProvider} from 'styled-components'
 import theme from '@/styles/DefaultTheme'
 import useStayStore from '@/stores/useStayStore';
@@ -18,14 +18,19 @@ import DropDown from './dropdown';
 import Dates from './dates';
 import Time from './time';
 
-
+let count = 1;
 const SurveyComponent = () => {
 
     const [surveyState,setSurveyState] = useState('multiplechoice')
     const [selectedOption, setSelectedOption] = useState(''); 
     const [checked, setChecked] = useState(false); 
-
-    const selectedSurvey = useStayStore((state : any) => state.selectedSurvey);
+    
+  
+    const ComponentKey = () => {
+        const key = count;
+        count += 1;
+        return key;
+      };
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
      setChecked(e.target.checked)
     };
@@ -63,12 +68,12 @@ const SurveyComponent = () => {
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
-                {surveyState === "multiplechoice" && <MultipleChoice />}
-                {surveyState === "checkbox" && <CheckBox />}
-                {surveyState === "dropdown" && <DropDown />}
-                {surveyState === "dates" && <Dates />}
-                {surveyState === "time" && <Time />}
-              
+                {surveyState === 'multiplechoice' && <MultipleChoice customkey={ComponentKey()} />}
+                {surveyState === 'checkbox' && <CheckBox customkey={ComponentKey()} />}
+                {surveyState === 'dropdown' && <DropDown />}
+                {surveyState === 'dates' && <Dates />}
+                {surveyState === 'time' && <Time />}
+                        
                 <hr/>
                 <Bottom_Box>
                     <Link_Question_Box>

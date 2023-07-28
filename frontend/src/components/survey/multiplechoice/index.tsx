@@ -5,7 +5,7 @@ import ImageIcon from '/public/survey/ImageIcon.png'
 import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
 
 
-const MultipleChoice = () => {
+const MultipleChoice = (customKey : any) => {
     const [items, setItems] = useState<any[]>([
       { id: Date.now(), text: '답변 1', imageUrl: '' },
       { id: Date.now() + 1, text: '답변 2', imageUrl: '' },
@@ -28,8 +28,7 @@ const MultipleChoice = () => {
     };
 
     const handleImageClick = (index : number) => {
-        const uploadButton = document.getElementById(`upload-button-${index}`);
-
+        const uploadButton = document.getElementById(`upload-button-${customKey.customkey}-${index}`);
         if (uploadButton) {
           uploadButton.click();
         }
@@ -70,7 +69,7 @@ const MultipleChoice = () => {
             </ImageWrapper>
   
   
-            <UploadImage id={`upload-button-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
+            <UploadImage id={`upload-button-${customKey.customkey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
             {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
             
             {item.imageUrl && (

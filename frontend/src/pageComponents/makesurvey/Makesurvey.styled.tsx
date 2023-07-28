@@ -8,9 +8,8 @@ const Survey_Container = styled.div.attrs({})`
     width : 1240px;
     min-height: 100px;
     border : 1px solid black;
-    
+    position : absolute;
+    top : 7%;
 `
-
-
 
 export {Survey_Container}
