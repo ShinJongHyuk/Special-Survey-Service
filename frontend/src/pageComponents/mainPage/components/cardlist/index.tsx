@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { StyledCardList } from "./CardList.styled";
-import useSSSPickStore from "@/stores/surveys/useSSSPickStore";
-import useInstantWinStore from "@/stores/surveys/useInstantWinStore";
-import useTimerHook from "@/hooks/useTimerHook";
 import Card from "@/components/card";
 import useCardlistHook from "@/Hooks/useCardlistHook";
 

@@ -22,7 +22,8 @@ const StyledBannerText = styled.div.attrs<any>((props) => ({}))`
       flex-direction: column;
       justify-content: center;
       margin-left: 30px;
-      gap: 13px;
+      margin-top: 20px;
+      gap: 36px;
 
       color: ${black};
       .eng{

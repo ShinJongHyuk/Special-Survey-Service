@@ -49,9 +49,20 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 border: 1px solid ${lightgray};
                 font-size:${small};
                 background-color: ${props.theme.colors.white};
+            `,
+
+            sortingYellow: `
+                border-radius: 10px;
+                border: 1.216px solid rgba(214, 214, 214, 0.20);
+                background: #FFFAAE;
+                font-size:${small};
             `
         };
         return css`
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
             border: hidden;
             width: 100%;
             height: 100%;
@@ -62,4 +73,8 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
     }}
 `
 
-export { StyledButton }
+const StyledImage = styled.img`
+    width: 25px;
+    margin-right: 20px;
+`
+export { StyledButton, StyledImage }
