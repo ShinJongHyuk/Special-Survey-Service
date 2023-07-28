@@ -1,6 +1,6 @@
 "use client";
 import Navbar from "@/components/common/navbar";
-import InstantWinSurveyListNavbar from "@/components/common/instantWinSurveyListNavbar"
+import SurveyListNavbar from "@/components/common/surveyListNavbar"
 import StyledComponentsRegistry from "./lib/registry";
 import "../styles/globals.css";
 import { ThemeProvider } from "styled-components";
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Navbar />
             }
             {(pathname === '/instantWinSurveyList' || pathname === '/timeattackSurveyList') &&
-              <InstantWinSurveyListNavbar />
+              <SurveyListNavbar />
             }
             {children}
           </StyledComponentsRegistry>

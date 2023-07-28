@@ -6,7 +6,7 @@ import { StyledNavbar, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavL
 import { usePathname } from 'next/navigation';
 
 
-const InstantWinSurveyListNavbar = () => {
+const SurveyListNavbar = () => {
   const pathname = usePathname();
 
   return (
@@ -30,4 +30,4 @@ const InstantWinSurveyListNavbar = () => {
   );
 };
 
-export default InstantWinSurveyListNavbar;
+export default SurveyListNavbar;
