@@ -39,7 +39,7 @@ const CardComponent = (props: CardType) => {
           {
             props.type === "타임어택" ? (
               parseInt(props.probability, 10) <= 40 ? (
-                <Image src="/card/card/purpleblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+                <Image src="/card/purpleblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
               ) : (
                 <Image src="/card/purpleclock.svg" priority={true} width={22} height={22} alt="remaintime" />
               )

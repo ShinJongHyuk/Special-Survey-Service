@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 
 const StyledList = styled.div`
   display: grid;
-  margin: 30px 50px;
+  padding: 30px 50px;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   justify-content: start;
   grid-gap: 2rem;

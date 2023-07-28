@@ -14,13 +14,13 @@ const TimeattackSurveyList = () => {
             <Banner></Banner>
             <StyledSortingMethodList>
                 <div style={{ width: "130px", height: "36px" }}>
-                    <Button icon="/card/bluecard/bolt.svg" use="sortingPurple" label="추천순" onClick={() => setSortType("recommend")}></Button>
+                    <Button icon="/card/bluebolt.svg" use="sortingPurple" label="추천순" onClick={() => setSortType("recommend")}></Button>
                 </div>
                 <div style={{ width: "130px", height: "36px" }}>
-                    <Button icon="/card/bluecard/bolt.svg" use="sortingPurple" label="확률순" onClick={() => setSortType("percent")}></Button>
+                    <Button icon="/card/bluebolt.svg" use="sortingPurple" label="확률순" onClick={() => setSortType("percent")}></Button>
                 </div>
                 <div style={{ width: "130px", height: "36px" }} >
-                    <Button icon="/card/bluecard/bolt.svg" use="sortingPurple" label="마감순" onClick={() => setSortType("deadLine")}></Button>
+                    <Button icon="/card/bluebolt.svg" use="sortingPurple" label="마감순" onClick={() => setSortType("deadLine")}></Button>
                 </div>
             </StyledSortingMethodList>
             <StyledList>
