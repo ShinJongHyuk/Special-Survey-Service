@@ -21,14 +21,17 @@ const Toolbar = () => {
 
 
   useEffect(() => {
+    setHeight(calculateHeight());
+  }, [selectedSurvey]);
+
+  const calculateHeight = () => {
     let Height = 0;
     for (let i = 0; i < selectedSurvey-1; i++) {
       const componentRef = componentRefs.current[i];
       Height += componentRef?.current?.clientHeight ?? 0;
     }
-    setHeight(Height);
-  }, [selectedSurvey]);
-
+    return Height;
+  };
 
   const addSurveyComponent = () => {
     setSurveyComponents((prevComponents) => [...prevComponents, <Survey key={prevComponents.length} />]);
@@ -36,13 +39,20 @@ const Toolbar = () => {
 
   const handleSurveyClick = (surveyIndex: number) => {
     setSelectedSurvey(surveyIndex);
+    
   };
 
 
-  const handleUpArrowClick = () => {
-    const prevIndex = selectedSurvey - 1;
-    setSelectedSurvey(prevIndex);
-    handleSurveyClick(prevIndex);
+  const handleUpArrowClick = async () => {
+    if (selectedSurvey >= 1) {
+      const prevIndex = selectedSurvey - 1;
+      const updatedComponents = [...surveyComponents];
+      updatedComponents?.splice(selectedSurvey - 1, 1);    
+      console.log(updatedComponents)
+      await setSurveyComponents(updatedComponents);
+      await setSelectedSurvey(prevIndex);
+
+    };
   };
 
   const handleDownArrowClick = () => {
@@ -50,7 +60,6 @@ const Toolbar = () => {
     setSelectedSurvey(NextIndex);
     handleSurveyClick(NextIndex);
   };
-
   return (
     <ThemeProvider theme={theme}>
       <ToolbarBox height={height}>
@@ -67,6 +76,7 @@ const Toolbar = () => {
       {surveyComponents.map((component, index) => (
         <div ref={componentRefs.current[index]} key={index} onClick={() => handleSurveyClick(surveyLength + index)}>
           {component}
+          <p>index {index}</p>
         </div>
       ))}
     </ThemeProvider>

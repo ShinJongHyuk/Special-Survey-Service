@@ -39,10 +39,13 @@ const SurveyComponent = () => {
       setSurveyState(event.target.value);
     };
 
-    const imgClick = () => {
+    const duplicateClick = () => {
         alert("복사할까");
-      };
+    };
 
+    const deleteClick = () => {
+        alert("삭제할까");
+    };
     return (
         <ThemeProvider theme={theme}>
             <Main_Container>
@@ -88,11 +91,13 @@ const SurveyComponent = () => {
                         </LinkSelectBox>
                     </Link_Question_Box>
                     <Elements_Box>
-                        <ImageWrapper onClick={imgClick}>
+                        <ImageWrapper onClick={duplicateClick}>
                             <Image src={duplicate} alt="복사"></Image>
                         </ImageWrapper>
-                        <Image src={trash} alt="삭제"></Image>
-                       <Image src={etc} alt="etc"></Image>
+                        <ImageWrapper onClick={deleteClick}>
+                            <Image src={trash} alt="삭제"></Image>
+                        </ImageWrapper>
+                        <Image src={etc} alt="etc"></Image>
                     </Elements_Box>
                     <Essential_Question_Box>
                         <Essential_Question_Title>필수 여부</Essential_Question_Title>
