@@ -1,8 +1,10 @@
 'use client'
 import Image from "next/image"
-import { SurveyDetailPage, BackButtonContainer, BackButton, SurveyDetailContainer, 
-    SurveyContent, SurveyTitle, SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation,
-    SurveyInformationTitle, SurveyInformationContent, SurveyCard, SurveyFooter, SurveyCardContainer } from "./SurveyDetail.styled"
+import {SurveyDetailPage, BackButtonContainer, BackButton, SurveyDetailContainer, SurveyContent, SurveyTitle,
+    SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, SurveyInformationTitle, SurveyInformationContent,
+    SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardContainer, ButtonAndShare, SurveyResultContainer, 
+    SurveyResultComent, SurveyProduct, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement,
+    Board, BoardTop, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TalbeFont } from "./SurveyDetail.styled"
 import { StyledTag } from "@/components/card/Card.styled"
 import Button from '@/components/Button'
 const SurveyDetail = (props:any) => {
@@ -88,13 +90,86 @@ const SurveyDetail = (props:any) => {
                                 
                             </SurveyCard>
                             </SurveyCardContainer>
-                            <div style={{width:"500px", height:"64px"}}>
+                            <ButtonAndShare>
+                                <Image src="/shareIcon.png" alt="share" width={64} height={64}></Image>
                                 <Button use="SignUpLogin" label="지금 응답하기"></Button>
-                            </div>
+                            </ButtonAndShare>
                         </SurveyFooter>
                     </SurveyContent>
-
             </SurveyDetailContainer>
+
+            
+            <SurveyResultContainer>
+                <SurveyResultComent>
+                    평균 <HighLightFont>5</HighLightFont>분만에 설문을 완료하고 총 <HighLightFont>117</HighLightFont>명이 리워드에 당첨됐어요!
+                </SurveyResultComent>
+                {/* <SurveyProduct> */}
+                    <Image src="/surveyProduct.png" alt="product" width={200} height={200}></Image>
+                {/* </SurveyProduct> */}
+
+                <PercentageContainer>
+                    <Percentage>
+                        <PercentageCard>
+                            <PercentageElement>0</PercentageElement>
+                        </PercentageCard>
+                        <PercentageCard>
+                            <PercentageElement>9</PercentageElement>
+                        </PercentageCard>
+                        <PercentageCard>
+                            <PercentageElement>8</PercentageElement>
+                        </PercentageCard>
+                        
+                            <PercentageElement>%</PercentageElement>
+                        
+                    </Percentage>
+
+                    <Image src="/woman.png" alt="woman" width={416} height={366}></Image>
+                </PercentageContainer>
+                
+                <Board>
+                    <BoardTop></BoardTop>
+                    
+                    <TableContainer>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableHeaderCell><TalbeFont>설문일시</TalbeFont></TableHeaderCell>
+                                    <TableHeaderCell><TalbeFont>이름</TalbeFont></TableHeaderCell>
+                                    <TableHeaderCell><TalbeFont>리워드</TalbeFont></TableHeaderCell>
+                                    <TableHeaderCell><TalbeFont>당첨여부</TalbeFont></TableHeaderCell>
+                                </TableRow>
+                            </TableHead>
+                            
+                            {/* 테이블 바디만 map 당첨 or 꽝 색 구분 */}
+                            <TableBody>
+                                <TableRow>
+                                    <TableDataCell>2023/07.23 12:59</TableDataCell>
+                                    <TableDataCell>안녕***</TableDataCell>
+                                    <TableDataCell>스타벅스 10,000원권</TableDataCell>
+                                    <TableDataCell>당첨</TableDataCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableDataCell>2023/07.23 12:59</TableDataCell>
+                                    <TableDataCell>안녕***</TableDataCell>
+                                    <TableDataCell>스타벅스 10,000원권</TableDataCell>
+                                    <TableDataCell>당첨</TableDataCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableDataCell>2023/07.23 12:59</TableDataCell>
+                                    <TableDataCell>안녕***</TableDataCell>
+                                    <TableDataCell>스타벅스 10,000원권</TableDataCell>
+                                    <TableDataCell>당첨</TableDataCell>
+                                </TableRow>
+                            </TableBody>
+                            
+                        </Table>
+                    </TableContainer>
+                </Board>
+                
+                
+            </SurveyResultContainer>
+
+            
         </SurveyDetailPage>
     )
 }
