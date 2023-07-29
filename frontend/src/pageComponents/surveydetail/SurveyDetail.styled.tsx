@@ -234,11 +234,6 @@ const BoardTop = styled.div.attrs<any>((props) => ({}))`
     border-top-left-radius: 16px;
 `
 
-
-
-
-
-
 const TableContainer = styled.div`
   overflow-x: auto;
   max-width: 100%;
@@ -264,33 +259,51 @@ const TableBody = styled.tbody`
 `;
 
 const TableRow = styled.tr`
-    height: 100%;
+    display: flex;
+    height: 64px;
 /* 찍수번째 노란색 (당첨 시 노란색으로 기능 바꾸기) */
   &:nth-child(even) { 
-    background-color: #FFF129;
+    background-color: rgba(255,241,55,0.3);
   }
 
   /* 원하는 tr 스타일을 정의 */
 `;
 
-
-
 const TableHeaderCell = styled.th`
-  width: 334px;
-  height: 100%;
+    width: 334px;
+    height: 64px;
+    display: flex;
+    padding: 24px 40px;
+    align-items: center;
+    gap: 8px;
+    
 `;
 
 const TableDataCell = styled.td`
-  /* 원하는 테이블 바디 셀 스타일을 정의 */
+  width: 334px;
+    height: 64px;
+    display: flex;
+    padding: 24px 40px;
+    align-items: center;
+    gap: 8px;
 `;
 
-const TalbeFont = styled.div`
+const TableFont = styled.span`
     color: #000;
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: 16px; /* 100% */
+    line-height: 16px; 
+`
+
+const TableNumberFont = styled.span`
+    color: #000;
+    font-family: ${(props) => props.theme.fonts.EnglishFontLight};
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px; 
 `
 
 
@@ -299,5 +312,5 @@ export {SurveyDetailPage, BackButtonContainer, BackButton, SurveyDetailContainer
      SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, SurveyInformationTitle, SurveyInformationContent,
      SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardContainer, ButtonAndShare, SurveyResultContainer, 
      SurveyResultComent, SurveyProduct, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement,
-     Board, BoardTop, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TalbeFont }
+     Board, BoardTop, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TableFont, TableNumberFont }
      

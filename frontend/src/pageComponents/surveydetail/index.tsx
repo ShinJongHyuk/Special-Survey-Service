@@ -4,7 +4,7 @@ import {SurveyDetailPage, BackButtonContainer, BackButton, SurveyDetailContainer
     SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, SurveyInformationTitle, SurveyInformationContent,
     SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardContainer, ButtonAndShare, SurveyResultContainer, 
     SurveyResultComent, SurveyProduct, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement,
-    Board, BoardTop, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TalbeFont } from "./SurveyDetail.styled"
+    Board, BoardTop, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TableFont, TableNumberFont } from "./SurveyDetail.styled"
 import { StyledTag } from "@/components/card/Card.styled"
 import Button from '@/components/Button'
 const SurveyDetail = (props:any) => {
@@ -133,35 +133,94 @@ const SurveyDetail = (props:any) => {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableHeaderCell><TalbeFont>설문일시</TalbeFont></TableHeaderCell>
-                                    <TableHeaderCell><TalbeFont>이름</TalbeFont></TableHeaderCell>
-                                    <TableHeaderCell><TalbeFont>리워드</TalbeFont></TableHeaderCell>
-                                    <TableHeaderCell><TalbeFont>당첨여부</TalbeFont></TableHeaderCell>
+                                    <TableHeaderCell><TableFont>설문일시</TableFont></TableHeaderCell>
+                                    <TableHeaderCell><TableFont>이름</TableFont></TableHeaderCell>
+                                    <TableHeaderCell><TableFont>리워드</TableFont></TableHeaderCell>
+                                    <TableHeaderCell><TableFont>당첨여부</TableFont></TableHeaderCell>
                                 </TableRow>
                             </TableHead>
                             
                             {/* 테이블 바디만 map 당첨 or 꽝 색 구분 */}
                             <TableBody>
                                 <TableRow>
-                                    <TableDataCell>2023/07.23 12:59</TableDataCell>
-                                    <TableDataCell>안녕***</TableDataCell>
-                                    <TableDataCell>스타벅스 10,000원권</TableDataCell>
-                                    <TableDataCell>당첨</TableDataCell>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                                 </TableRow>
-                                <TableRow>
-                                    <TableDataCell>2023/07.23 12:59</TableDataCell>
-                                    <TableDataCell>안녕***</TableDataCell>
-                                    <TableDataCell>스타벅스 10,000원권</TableDataCell>
-                                    <TableDataCell>당첨</TableDataCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableDataCell>2023/07.23 12:59</TableDataCell>
-                                    <TableDataCell>안녕***</TableDataCell>
-                                    <TableDataCell>스타벅스 10,000원권</TableDataCell>
-                                    <TableDataCell>당첨</TableDataCell>
-                                </TableRow>
-                            </TableBody>
                             
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                                <TableRow>
+                                    <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                                    <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                                    <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                                </TableRow>
+                            
+                            </TableBody>
+        
                         </Table>
                     </TableContainer>
                 </Board>
@@ -169,7 +228,7 @@ const SurveyDetail = (props:any) => {
                 
             </SurveyResultContainer>
 
-            
+        
         </SurveyDetailPage>
     )
 }
