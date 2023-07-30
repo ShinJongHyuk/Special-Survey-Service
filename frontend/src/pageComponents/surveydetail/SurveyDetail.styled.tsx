@@ -119,13 +119,40 @@ const SurveyCardContainer = styled.div.attrs<any>((props) => ({}))`
 `
 
 const SurveyCard = styled.div.attrs<any>((props) => ({}))`
+    display: flex;
     padding: 20px 24px;
     flex-direction: column;
+    align-items: flex-end;    
     gap: 16px;
+    flex: 1 0 0;
     border: 1px solid black;
     border-radius: 16px;
     width: 186px;
     height: 107px;
+`
+
+const SurveyCardTitle = styled.div.attrs<any>((props) => ({}))`
+    width: 139px;
+    height: 20px;
+    color: #6D7075;
+    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+`
+
+const SurveyCardContent = styled.div.attrs<any>((props) => ({}))`
+    width: 139px;
+    height: 29px;
+    color: #000;
+    font-family: ${(props) => props.theme.fonts.EnglishFontLight};
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    justify-content: flex-end;
 `
 
 const ButtonAndShare = styled.div.attrs<any>((props) => ({}))`
@@ -234,6 +261,43 @@ const BoardTop = styled.div.attrs<any>((props) => ({}))`
     border-top-left-radius: 16px;
 `
 
+const BoardTopLive = styled.div.attrs<any>((props) => ({}))`
+    display: flex;
+    width: 637.5px;
+    height: 25px;
+    align-items: center;
+    gap: 12px;
+`
+
+const BoardTopLiveFont = styled.div.attrs<any>((props) => ({}))`
+    color: #FFF;
+    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+`
+const BoardTopLiveCount = styled.div.attrs<any>((props) => ({}))`
+    color: #FFF129;
+    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+`
+
+const BoardTopLivetime = styled.div.attrs<any>((props) => ({}))`
+    margin-left: auto;
+    margin-right: 4px;
+    color: #9EA4A3;
+    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: 20px;
+`
+
 const TableContainer = styled.div`
   overflow-x: auto;
   max-width: 100%;
@@ -306,11 +370,9 @@ const TableNumberFont = styled.span`
     line-height: 16px; 
 `
 
-
-
 export {SurveyDetailPage, BackButtonContainer, BackButton, SurveyDetailContainer, SurveyContent, SurveyTitle,
      SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, SurveyInformationTitle, SurveyInformationContent,
-     SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardContainer, ButtonAndShare, SurveyResultContainer, 
+     SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardTitle, SurveyCardContent, SurveyCardContainer, ButtonAndShare, SurveyResultContainer, 
      SurveyResultComent, SurveyProduct, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement,
-     Board, BoardTop, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TableFont, TableNumberFont }
+     Board, BoardTop, BoardTopLive, BoardTopLiveFont, BoardTopLiveCount, BoardTopLivetime, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TableFont, TableNumberFont }
      

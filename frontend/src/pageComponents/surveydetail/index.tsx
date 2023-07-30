@@ -2,12 +2,30 @@
 import Image from "next/image"
 import {SurveyDetailPage, BackButtonContainer, BackButton, SurveyDetailContainer, SurveyContent, SurveyTitle,
     SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, SurveyInformationTitle, SurveyInformationContent,
-    SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardContainer, ButtonAndShare, SurveyResultContainer, 
+    SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardTitle, SurveyCardContent, SurveyCardContainer, ButtonAndShare, SurveyResultContainer, 
     SurveyResultComent, SurveyProduct, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement,
-    Board, BoardTop, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TableFont, TableNumberFont } from "./SurveyDetail.styled"
+    Board, BoardTop, BoardTopLive, BoardTopLiveFont, BoardTopLiveCount, BoardTopLivetime, TableContainer, Table, TableHead, TableBody, TableRow, TableHeaderCell, TableDataCell, TableFont, TableNumberFont } from "./SurveyDetail.styled"
 import { StyledTag } from "@/components/card/Card.styled"
 import Button from '@/components/Button'
+import { useEffect, useRef } from "react"
+
+
 const SurveyDetail = (props:any) => {
+    const tableContainerRef = useRef(null);
+
+    useEffect(() => {
+        // 컴포넌트가 마운트되면 테이블 컨테이너의 스크롤을 아래로 이동
+        scrollToBottom();
+    }, []);
+
+    const scrollToBottom = () => {
+        if (tableContainerRef.current) {
+        const container = tableContainerRef.current as HTMLDivElement;
+        // 스크롤 높이를 테이블 컨테이너 높이로 설정하여 스크롤을 아래로 이동
+        container.scrollTop = container.scrollHeight;
+        }
+    };
+  
     return (
         <SurveyDetailPage>
             <BackButtonContainer>
@@ -79,15 +97,31 @@ const SurveyDetail = (props:any) => {
                         <SurveyFooter>
                             <SurveyCardContainer>
                             <SurveyCard>
-                                
+                                <SurveyCardTitle>
+                                    문항수
+                                </SurveyCardTitle>
+                                <SurveyCardContent>
+                                    10개
+                                </SurveyCardContent>
                             </SurveyCard>
 
                             <SurveyCard>
+                                <SurveyCardTitle>
+                                    예상 소요시간
+                                </SurveyCardTitle>
+                                <SurveyCardContent>
+                                    5분
+                                </SurveyCardContent>
                                 
                             </SurveyCard>
-
+                               
                             <SurveyCard>
-                                
+                                <SurveyCardTitle>
+                                    남은 시간
+                                </SurveyCardTitle>
+                                <SurveyCardContent>
+                                    00:59:10
+                                </SurveyCardContent>
                             </SurveyCard>
                             </SurveyCardContainer>
                             <ButtonAndShare>
@@ -127,9 +161,23 @@ const SurveyDetail = (props:any) => {
                 </PercentageContainer>
                 
                 <Board>
-                    <BoardTop></BoardTop>
+                    <BoardTop>
+                        <BoardTopLive>
+                            <BoardTopLiveFont>
+                                실시간 당첨 현황
+                            </BoardTopLiveFont>
+                            <BoardTopLiveCount>
+                                117
+                            </BoardTopLiveCount>
+                        </BoardTopLive>
+
+                        <BoardTopLivetime>
+                            2023.07.23 22:39 기준
+                        </BoardTopLivetime>
+                        <Image src="/refresh.png" alt="refresh" width={16} height={16}></Image>
+                    </BoardTop>
                     
-                    <TableContainer>
+                    <TableContainer ref={tableContainerRef}>
                         <Table>
                             <TableHead>
                                 <TableRow>
