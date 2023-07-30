@@ -1,16 +1,39 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import MultipleChoiceType from './MultipleChoice.type';
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
 
 
-const MultipleChoice = (customKey : any) => {
+const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
     const [items, setItems] = useState<any[]>([
       { id: Date.now(), text: '답변 1', imageUrl: '' },
       { id: Date.now() + 1, text: '답변 2', imageUrl: '' },
     ]);
+    useEffect(() => {
+      saveMultipleChoiceToLocalStorage(componentKey, items);
+      console.log(items,"이야")
+    }, [componentKey, items]);
   
+    useEffect(() => {
+      const storedItems = loadMultipleChoiceFromLocalStorage(componentKey);
+      if (storedItems) {
+        setItems(storedItems);
+      }
+      console.log(storedItems,"야")
+    }, [componentKey]);
+
+    const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
+      localStorage.setItem(`MultipleChoice_${componentKey}`, JSON.stringify(items));
+      console.log(items,"아이템스")
+    };
+  
+    const loadMultipleChoiceFromLocalStorage = (componentKey: string) => {
+      const storedData = localStorage.getItem(`MultipleChoice_${componentKey}`);
+      return storedData ? JSON.parse(storedData) : null;
+    };
+
+
     const handleAddItem = () => {
       setItems([...items, { id: Date.now(), text: '', imageUrl: '' }]);
     };
@@ -28,7 +51,7 @@ const MultipleChoice = (customKey : any) => {
     };
 
     const handleImageClick = (index : number) => {
-        const uploadButton = document.getElementById(`upload-button-${customKey.customkey}-${index}`);
+        const uploadButton = document.getElementById(`upload-button-${componentKey}-${index}`);
         if (uploadButton) {
           uploadButton.click();
         }
@@ -69,7 +92,7 @@ const MultipleChoice = (customKey : any) => {
             </ImageWrapper>
   
   
-            <UploadImage id={`upload-button-${customKey.customkey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
+            <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
             {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
             
             {item.imageUrl && (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ThemeProvider } from 'styled-components';
+import {v4 as uuidv4} from 'uuid';
 import theme from '@/styles/DefaultTheme';
 import Image from 'next/image';
 import { ToolbarBox, Toolbar_InnerBox } from './Toolbar.styled';
@@ -11,7 +12,7 @@ import useStayStore from '@/stores/useStayStore';
 
 const Toolbar = () => {
   const [surveyComponents, setSurveyComponents] = useState<any[]>([]);
-  const { selectedSurvey, prevSelectedSurvey, surveyLength, setSelectedSurvey } = useStayStore();
+  const { selectedSurvey, prevSelectedSurvey, setSelectedSurvey } = useStayStore();
   const componentRefs = useRef<any[]>([]);
   const [height, setHeight] = useState<any>(null); 
 
@@ -23,7 +24,7 @@ const Toolbar = () => {
   useEffect(() => {
     setHeight(calculateHeight());
   }, [selectedSurvey]);
-
+  
   const calculateHeight = () => {
     let Height = 0;
     for (let i = 0; i < selectedSurvey-1; i++) {
@@ -34,7 +35,7 @@ const Toolbar = () => {
   };
 
   const addSurveyComponent = () => {
-    setSurveyComponents((prevComponents) => [...prevComponents, <Survey key={prevComponents.length} />]);
+    setSurveyComponents((prevComponents) => [...prevComponents, <Survey key ={uuidv4()} componentKey={uuidv4()}/>]);
   };
 
   const handleSurveyClick = (surveyIndex: number) => {
@@ -42,24 +43,30 @@ const Toolbar = () => {
     
   };
 
-
   const handleUpArrowClick = async () => {
-    if (selectedSurvey >= 1) {
-      const prevIndex = selectedSurvey - 1;
-      const updatedComponents = [...surveyComponents];
-      updatedComponents?.splice(selectedSurvey - 1, 1);    
-      console.log(updatedComponents)
+    if (selectedSurvey > 1) {
+      const selectedKey = surveyComponents[selectedSurvey - 1]?.key;
+      const updatedComponents = surveyComponents.filter((component) => component.key !== selectedKey
+      );
+      
       await setSurveyComponents(updatedComponents);
-      await setSelectedSurvey(prevIndex);
 
-    };
+      if (surveyComponents.length <= selectedSurvey) {
+        await setSelectedSurvey(selectedSurvey-1);
+      } else {
+        await setSelectedSurvey(selectedSurvey);
+      }
+      
+    } else if (selectedSurvey === 1) {
+      const updatedComponents = [...surveyComponents];
+      updatedComponents?.splice(0, 1);    
+      await setSurveyComponents(updatedComponents);
+      await setSelectedSurvey(1);
+    }
+
   };
 
-  const handleDownArrowClick = () => {
-    const NextIndex = selectedSurvey + 1;
-    setSelectedSurvey(NextIndex);
-    handleSurveyClick(NextIndex);
-  };
+
   return (
     <ThemeProvider theme={theme}>
       <ToolbarBox height={height}>
@@ -67,16 +74,15 @@ const Toolbar = () => {
           <Image src={add} alt="추가" onClick={addSurveyComponent} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-          <Image src={up_arrow} alt="위 화살표" onClick={handleUpArrowClick} />
+        
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-          <Image src={down_arrow} alt="아래 화살표" onClick={handleDownArrowClick} />
+        <Image src={up_arrow} alt="위 화살표" onClick={handleUpArrowClick} />
         </Toolbar_InnerBox>
       </ToolbarBox>
       {surveyComponents.map((component, index) => (
-        <div ref={componentRefs.current[index]} key={index} onClick={() => handleSurveyClick(surveyLength + index)}>
+        <div ref={componentRefs.current[index]} key={index} onClick={() => handleSurveyClick(1 + index)}>
           {component}
-          <p>index {index}</p>
         </div>
       ))}
     </ThemeProvider>

@@ -1,7 +1,6 @@
-import React, {useState,useMemo} from 'react';
+import React, {useState,useEffect} from 'react';
 import styled, {ThemeProvider} from 'styled-components'
 import theme from '@/styles/DefaultTheme'
-import useStayStore from '@/stores/useStayStore';
 import {Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box, Question_Inner_Container,SelectBox_Option,SelectBox_List,SelectBox,Main_Container,Question_Container
     ,Question_Header,Question_Header_Container,
     Question_Content,Question_Content_Container,
@@ -19,25 +18,64 @@ import Dates from './dates';
 import Time from './time';
 
 let count = 1;
-const SurveyComponent = () => {
-
+const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
     const [surveyState,setSurveyState] = useState('multiplechoice')
     const [selectedOption, setSelectedOption] = useState(''); 
     const [checked, setChecked] = useState(false); 
+    const [headerText, setHeaderText] = useState('');
+    const [headerDetailText, setHeaderDetailText] = useState('');
     
-  
-    const ComponentKey = () => {
-        const key = count;
-        count += 1;
-        return key;
+
+    const saveComponentDataToLocalStorage = (componentKey: string, data: any) => {
+        localStorage.setItem(componentKey, JSON.stringify(data));
       };
+
+    const loadComponentDataFromLocalStorage = (componentKey: string) => {
+        const storedData = localStorage.getItem(componentKey);
+        return storedData ? JSON.parse(storedData) : null;
+      };
+
+    useEffect(() => {
+        const storedData = loadComponentDataFromLocalStorage(componentKey);
+        if (storedData) {
+          setSurveyState(storedData.surveyState);
+          setSelectedOption(storedData.selectedOption);
+          setChecked(storedData.checked);
+          setHeaderText(storedData.headerText);
+          setHeaderDetailText(storedData.headerDetailText)
+          // 필요한 다른 데이터도 여기에 설정
+        }
+      }, [componentKey]);
+
+    useEffect(() => {
+        const componentData = {
+          surveyState,
+          selectedOption,
+          checked,
+          headerText,
+          headerDetailText,
+          // 필요한 다른 데이터도 여기에 추가
+        };
+        saveComponentDataToLocalStorage(componentKey, componentData);
+        console.log(componentData,"?")
+      }, [surveyState, selectedOption, checked,headerText,headerDetailText]);
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     setChecked(e.target.checked)
+        setChecked(e.target.checked)
     };
     const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setSelectedOption(event.target.value);
       setSurveyState(event.target.value);
     };
+
+    const handleHeaderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHeaderText(event.target.value);
+      };
+    
+    const handleHeaderDetailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHeaderDetailText(event.target.value);
+        console.log(headerDetailText)
+      };
 
     const duplicateClick = () => {
         alert("복사할까");
@@ -46,6 +84,7 @@ const SurveyComponent = () => {
     const deleteClick = () => {
         alert("삭제할까");
     };
+
     return (
         <ThemeProvider theme={theme}>
             <Main_Container>
@@ -55,10 +94,10 @@ const SurveyComponent = () => {
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>
-                            <Question_Header />
+                            <Question_Header onChange={handleHeaderChange} value={headerText}/>
                         </Question_Header_Container>            
                         <Question_Content_Container>
-                            <Question_Content />
+                            <Question_Content onChange={handleHeaderDetailChange} value={headerDetailText} />
                         </Question_Content_Container>
                     </Question_Container>
                     <SelectBox>
@@ -71,11 +110,11 @@ const SurveyComponent = () => {
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
-                {surveyState === 'multiplechoice' && <MultipleChoice customkey={ComponentKey()} />}
-                {surveyState === 'checkbox' && <CheckBox customkey={ComponentKey()} />}
-                {surveyState === 'dropdown' && <DropDown />}
-                {surveyState === 'dates' && <Dates />}
-                {surveyState === 'time' && <Time />}
+                {surveyState === 'multiplechoice' && <MultipleChoice componentKey={componentKey} />}
+                {surveyState === 'checkbox' && <CheckBox componentKey={componentKey} />}
+                {surveyState === 'dropdown' && <DropDown componentKey={componentKey} />}
+                {surveyState === 'dates' && <Dates componentKey={componentKey} />}
+                {surveyState === 'time' && <Time componentKey={componentKey} />}
                         
                 <hr/>
                 <Bottom_Box>

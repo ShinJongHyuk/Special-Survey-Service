@@ -4,7 +4,7 @@ import ImageIcon from '/public/survey/ImageIcon.png'
 import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,Dates_content_Box,Dates_Box,MultipleCheck} from './Dates.styled';
 
 
-const Dates = () => {
+const Dates = ({ componentKey }: { componentKey: string }) => {
 
         const [items, setItems] = useState<any[]>([
           { id: Date.now(), text: '답변 1', imageUrl: '' },

@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
 
 
-const DropDown = () => {
+const DropDown = ({ componentKey }: { componentKey: string }) => {
 
     const [items, setItems] = useState<any[]>([
         { id: Date.now(), text: '옵션 1' },

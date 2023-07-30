@@ -18,7 +18,7 @@ const ToolbarBox = styled.div.attrs<ToolbarType>((props) => ({
     background-color: black;
     position: absolute;
     left: 60%;
-    top: ${({ height }) => (height > 320 ? height : -100)}px;
+    top: ${({ height }) => (height > 320 ? height : -20)}px;
   `;
   
   const Toolbar_InnerBox = styled.div.attrs({})`
