@@ -1,17 +1,47 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
 
 
 const CheckBox =  ({ componentKey }: { componentKey: string }) => {
-        const [items, setItems]= useState<any[]>([
-          { id: Date.now(), text: '답변 1', imageUrl: '' },
-          { id: Date.now() + 1, text: '답변 2', imageUrl: '' },
-        ]);
+        const [items, setItems] = useState<any[]>([
+          { id: `${componentKey}_1`, text: '', imageUrl: '' },
+          { id: `${componentKey}_2`, text: '', imageUrl: '' },
+        ]
+        );
+        const [count, setCount] = useState(3);
+
+        useEffect(() => {
+          const storedItems = loadCheckBoxFromLocalStorage(`checkbox_${componentKey}`);
+          if (storedItems) {
+            setItems(storedItems);
+          }
+        }, [componentKey]);
+
+
+        useEffect(() => {
+          saveCheckBoxToLocalStorage(`checkbox_${componentKey}`, items);
+        }, [componentKey,items]);
       
+
+        const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
+          localStorage.setItem(`checkbox_${componentKey}`, JSON.stringify(items));
+
+        };
+      
+        const loadCheckBoxFromLocalStorage = (componentKey: string) => {
+          const storedData = localStorage.getItem(`checkbox_${componentKey}`);
+      
+          return storedData ? JSON.parse(storedData) : null;
+        };     
+
         const handleAddItem = () => {
-          setItems([...items, { id: Date.now(), text: '', imageUrl: '' }]);
+          setItems((prevItems) => [
+            ...prevItems,
+            { id: `${componentKey}_${count}`, text: '', imageUrl: '' },
+          ]);
+          setCount((prevCount) => prevCount + 1);
         };
       
         const handleDeleteItem = (index: number) => {
@@ -20,10 +50,11 @@ const CheckBox =  ({ componentKey }: { componentKey: string }) => {
           setItems(updatedItems);
         };
       
-        const handleItemTextChange = (index: number, text: string) => {
+        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
           const updatedItems = [...items];
-          updatedItems[index].text = text;
+          updatedItems[index].text = event.target.value;
           setItems(updatedItems);
+          
         };
     
         const handleImageClick = (index : number) => {
@@ -58,11 +89,10 @@ const CheckBox =  ({ componentKey }: { componentKey: string }) => {
               <CheckBox_content_Box key={item.id}>
                 <MultipleCheck name="radioGroup1" />
                 <MultipleCheckText
-                  placeholder={`답변 ${index + 1}`}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleItemTextChange(index, e.target.value)
-                  }
-                />
+                  placeholder={`옵션 ${index + 1}`}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
+                  value = {item.text}
+                 />
                 <ImageWrapper onClick={() => handleImageClick(index)}>
                   <Image src={ImageIcon} alt="ImageIcon" />
                 </ImageWrapper>

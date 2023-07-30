@@ -7,8 +7,6 @@ import {Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkS
     CheckBox_Input,CheckBox_Label,CheckBox_Switch} from '@/components/survey/Survey.styled';
 import SurveyType from './Survey.type';
 import Image from 'next/image'
-import trash from '/public/survey/trash.png'
-import duplicate from '/public/survey/duplicate.png'
 import etc from '/public/survey/etc.png'
 import shuffle_small from '/public/survey/shuffle_small.png'
 import MultipleChoice from './multiplechoice';
@@ -17,7 +15,6 @@ import DropDown from './dropdown';
 import Dates from './dates';
 import Time from './time';
 
-let count = 1;
 const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
     const [surveyState,setSurveyState] = useState('multiplechoice')
     const [selectedOption, setSelectedOption] = useState(''); 
@@ -43,7 +40,6 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
           setChecked(storedData.checked);
           setHeaderText(storedData.headerText);
           setHeaderDetailText(storedData.headerDetailText)
-          // 필요한 다른 데이터도 여기에 설정
         }
       }, [componentKey]);
 
@@ -54,10 +50,8 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
           checked,
           headerText,
           headerDetailText,
-          // 필요한 다른 데이터도 여기에 추가
         };
         saveComponentDataToLocalStorage(componentKey, componentData);
-        console.log(componentData,"?")
       }, [surveyState, selectedOption, checked,headerText,headerDetailText]);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,16 +68,7 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
     
     const handleHeaderDetailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setHeaderDetailText(event.target.value);
-        console.log(headerDetailText)
       };
-
-    const duplicateClick = () => {
-        alert("복사할까");
-    };
-
-    const deleteClick = () => {
-        alert("삭제할까");
-    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -130,14 +115,10 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
                         </LinkSelectBox>
                     </Link_Question_Box>
                     <Elements_Box>
-                        <ImageWrapper onClick={duplicateClick}>
-                            <Image src={duplicate} alt="복사"></Image>
+                        <ImageWrapper>
                         </ImageWrapper>
-                        <ImageWrapper onClick={deleteClick}>
-                            <Image src={trash} alt="삭제"></Image>
-                        </ImageWrapper>
-                        <Image src={etc} alt="etc"></Image>
-                    </Elements_Box>
+                            <Image src={etc} alt="etc"></Image>
+                        </Elements_Box>
                     <Essential_Question_Box>
                         <Essential_Question_Title>필수 여부</Essential_Question_Title>
                         <CheckBox_Label>

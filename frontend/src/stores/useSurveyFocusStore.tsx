@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 
-interface StayStore {
+interface SurveyFocusStore {
   selectedSurvey: any;
   prevSelectedSurvey: any;
   setSelectedSurvey: (survey: any) => void;
 }
 
-const useStayStore = create<StayStore>((set) => ({
+const useSurveyFocus = create<SurveyFocusStore>((set) => ({
   selectedSurvey: 1,
   prevSelectedSurvey: 0,
   setSelectedSurvey: (survey : any) =>
@@ -18,4 +18,4 @@ const useStayStore = create<StayStore>((set) => ({
 
 }));
 
-export default useStayStore;
+export default useSurveyFocus;

@@ -4,15 +4,15 @@ import {v4 as uuidv4} from 'uuid';
 import theme from '@/styles/DefaultTheme';
 import Image from 'next/image';
 import { ToolbarBox, Toolbar_InnerBox } from './Toolbar.styled';
-import add from '../../../../public/survey/add.png';
-import up_arrow from '../../../../public/survey/up_arrow.png';
-import down_arrow from '../../../../public/survey/down_arrow.png';
+import plus from '../../../../public/survey/plus.png';
+import minus from '../../../../public/survey/minus.png';
+import duplicate from '../../../../public/survey/duplicate.png'
 import Survey from '../../survey';
-import useStayStore from '@/stores/useStayStore';
-
+import useSurveyFocusStore from '@/stores/useSurveyFocusStore';
+import useSurveyStore from '@/stores/useSurveyStore';
 const Toolbar = () => {
-  const [surveyComponents, setSurveyComponents] = useState<any[]>([]);
-  const { selectedSurvey, prevSelectedSurvey, setSelectedSurvey } = useStayStore();
+  const {surveyComponents, setSurveyComponents } = useSurveyStore();
+  const { selectedSurvey, prevSelectedSurvey, setSelectedSurvey } = useSurveyFocusStore();
   const componentRefs = useRef<any[]>([]);
   const [height, setHeight] = useState<any>(null); 
 
@@ -34,8 +34,13 @@ const Toolbar = () => {
     return Height;
   };
 
-  const addSurveyComponent = () => {
-    setSurveyComponents((prevComponents) => [...prevComponents, <Survey key ={uuidv4()} componentKey={uuidv4()}/>]);
+  const handlePlusClick = () => {
+    const newComponentKey = uuidv4();
+    const newComponent: any = {
+      componentKey: newComponentKey,
+      key: newComponentKey,
+    };
+    setSurveyComponents([...surveyComponents, newComponent]);
   };
 
   const handleSurveyClick = (surveyIndex: number) => {
@@ -43,19 +48,15 @@ const Toolbar = () => {
     
   };
 
-  const handleUpArrowClick = async () => {
+  const handleMinusClick = async () => {
     if (selectedSurvey > 1) {
       const selectedKey = surveyComponents[selectedSurvey - 1]?.key;
       const updatedComponents = surveyComponents.filter((component) => component.key !== selectedKey
       );
       
       await setSurveyComponents(updatedComponents);
+      await setSelectedSurvey(selectedSurvey-1);
 
-      if (surveyComponents.length <= selectedSurvey) {
-        await setSelectedSurvey(selectedSurvey-1);
-      } else {
-        await setSelectedSurvey(selectedSurvey);
-      }
       
     } else if (selectedSurvey === 1) {
       const updatedComponents = [...surveyComponents];
@@ -66,23 +67,61 @@ const Toolbar = () => {
 
   };
 
+  const duplicateSurveyComponent = () => {
+    const selectedComponent = surveyComponents[selectedSurvey - 1];
+    if (selectedComponent) {
+      const newComponentKey = uuidv4();
+  
+      const localStorageData = localStorage.getItem(selectedComponent.componentKey);
+      let surveyState = '';
+      if (localStorageData) {
+        const parsedData = JSON.parse(localStorageData);
+        surveyState = parsedData.surveyState;
+        localStorage.setItem(newComponentKey, JSON.stringify(parsedData));
+      }
+
+      const innerContent = duplicateInnerContent(selectedComponent.componentKey, newComponentKey,surveyState);
+
+      const duplicatedComponent = {
+        ...selectedComponent,
+        componentKey: newComponentKey,
+        key: newComponentKey,
+      };
+  
+      const updatedComponents = [...surveyComponents];
+      updatedComponents.splice(selectedSurvey, 0, duplicatedComponent);
+
+      setSurveyComponents(updatedComponents);
+      setSelectedSurvey(selectedSurvey);
+    }
+  };
+  
+  const duplicateInnerContent = (originalComponentKey : string, newComponentKey : string, surveyState : string) => {
+    const originalLocalStorageKey = `${surveyState}_${surveyState}_${originalComponentKey}`;
+    const newLocalStorageKey = `${surveyState}_${surveyState}_${newComponentKey}`;
+    const localStorageData = localStorage.getItem(originalLocalStorageKey);
+    if (localStorageData) {
+      const parsedData = JSON.parse(localStorageData);
+      localStorage.setItem(newLocalStorageKey, JSON.stringify(parsedData));
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <ToolbarBox height={height}>
-        <Toolbar_InnerBox>
-          <Image src={add} alt="추가" onClick={addSurveyComponent} />
+      <Toolbar_InnerBox>
+          <Image src={plus} alt="추가" onClick={handlePlusClick} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-        
+        <Image src={minus} alt="삭제" onClick={handleMinusClick} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-        <Image src={up_arrow} alt="위 화살표" onClick={handleUpArrowClick} />
+          <Image src={duplicate} alt="복제" onClick={duplicateSurveyComponent} />
         </Toolbar_InnerBox>
       </ToolbarBox>
-      {surveyComponents.map((component, index) => (
+      {surveyComponents && surveyComponents.map((component, index) => (
         <div ref={componentRefs.current[index]} key={index} onClick={() => handleSurveyClick(1 + index)}>
-          {component}
+          <Survey componentKey={component.componentKey} key={component.key} />
         </div>
       ))}
     </ThemeProvider>

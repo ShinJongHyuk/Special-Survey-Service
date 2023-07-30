@@ -11,10 +11,10 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
     ]
     );
     
-    const [count, setCount] = useState(2);
+    const [count, setCount] = useState(3);
 
     useEffect(() => {
-      const storedItems = loadMultipleChoiceFromLocalStorage(`MultipleChoice_${componentKey}`);
+      const storedItems = loadMultipleChoiceFromLocalStorage(`multiplechoice_${componentKey}`);
       if (storedItems) {
         setItems(storedItems);
       }
@@ -23,19 +23,17 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
 
     useEffect(() => {
 
-      saveMultipleChoiceToLocalStorage(`MultipleChoice_${componentKey}`, items);
+      saveMultipleChoiceToLocalStorage(`multiplechoice_${componentKey}`, items);
 
     }, [componentKey,items]);
   
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
-      localStorage.setItem(`MultipleChoice_${componentKey}`, JSON.stringify(items));
-
+      localStorage.setItem(`multiplechoice_${componentKey}`, JSON.stringify(items));
     };
   
     const loadMultipleChoiceFromLocalStorage = (componentKey: string) => {
-      const storedData = localStorage.getItem(`MultipleChoice_${componentKey}`);
-  
+      const storedData = localStorage.getItem(`multiplechoice_${componentKey}`);
       return storedData ? JSON.parse(storedData) : null;
     };
 
@@ -45,7 +43,7 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
         ...prevItems,
         { id: `${componentKey}_${count}`, text: '', imageUrl: '' },
       ]);
-      setCount((prevCount) => prevCount + 1); // count 증가
+      setCount((prevCount) => prevCount + 1);
     };
   
     const handleDeleteItem = (index: number) => {
@@ -58,7 +56,7 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
     const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
       const updatedItems = [...items];
       updatedItems[index].text = event.target.value;
-      console.log(updatedItems,"여")
+
       setItems(updatedItems);
       
     };
