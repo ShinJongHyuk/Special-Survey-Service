@@ -4,38 +4,48 @@ import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
 
-
 const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
     const [items, setItems] = useState<any[]>([
-      { id: Date.now(), text: '답변 1', imageUrl: '' },
-      { id: Date.now() + 1, text: '답변 2', imageUrl: '' },
-    ]);
+      { id: `${componentKey}_1`, text: '', imageUrl: '' },
+      { id: `${componentKey}_2`, text: '', imageUrl: '' },
+    ]
+    );
+    
+    const [count, setCount] = useState(2);
+
     useEffect(() => {
-      saveMultipleChoiceToLocalStorage(componentKey, items);
-      console.log(items,"이야")
-    }, [componentKey, items]);
-  
-    useEffect(() => {
-      const storedItems = loadMultipleChoiceFromLocalStorage(componentKey);
+      const storedItems = loadMultipleChoiceFromLocalStorage(`MultipleChoice_${componentKey}`);
       if (storedItems) {
         setItems(storedItems);
       }
-      console.log(storedItems,"야")
     }, [componentKey]);
+
+
+    useEffect(() => {
+
+      saveMultipleChoiceToLocalStorage(`MultipleChoice_${componentKey}`, items);
+
+    }, [componentKey,items]);
+  
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
       localStorage.setItem(`MultipleChoice_${componentKey}`, JSON.stringify(items));
-      console.log(items,"아이템스")
+
     };
   
     const loadMultipleChoiceFromLocalStorage = (componentKey: string) => {
       const storedData = localStorage.getItem(`MultipleChoice_${componentKey}`);
+  
       return storedData ? JSON.parse(storedData) : null;
     };
 
 
     const handleAddItem = () => {
-      setItems([...items, { id: Date.now(), text: '', imageUrl: '' }]);
+      setItems((prevItems) => [
+        ...prevItems,
+        { id: `${componentKey}_${count}`, text: '', imageUrl: '' },
+      ]);
+      setCount((prevCount) => prevCount + 1); // count 증가
     };
   
     const handleDeleteItem = (index: number) => {
@@ -44,10 +54,13 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
       setItems(updatedItems);
     };
   
-    const handleItemTextChange = (index: number, text: string) => {
+    
+    const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
       const updatedItems = [...items];
-      updatedItems[index].text = text;
+      updatedItems[index].text = event.target.value;
+      console.log(updatedItems,"여")
       setItems(updatedItems);
+      
     };
 
     const handleImageClick = (index : number) => {
@@ -75,17 +88,16 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
       updatedItems[index].imageUrl = '';
       setItems(updatedItems);
     };
-  
+    
     return (
       <MultipleChoice_Box>
         {items.map((item, index) => (
           <MultipleChoice_content_Box key={item.id}>
             <MultipleCheck name="radioGroup1" />
             <MultipleCheckText
-              placeholder={`답변 ${index + 1}`}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleItemTextChange(index, e.target.value)
-              }
+              placeholder={`옵션 ${index + 1}`}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
+              value = {item.text}
             />
             <ImageWrapper onClick={() => handleImageClick(index)}>
             <Image src={ImageIcon} alt="ImageIcon" />
