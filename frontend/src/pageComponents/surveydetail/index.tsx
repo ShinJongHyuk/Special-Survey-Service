@@ -10,7 +10,7 @@ const SurveyDetail = (props:any) => {
         <SurveyDetailPage>
             <BackButtonContainer>
                 <BackButton>
-                    <Image src="/BackImg.png" alt="back" width={248} height={48}></Image>
+                    <Image src="/surveyDetail/BackImg.png" alt="back" width={248} height={48}></Image>
                 </BackButton>
             </BackButtonContainer>
             

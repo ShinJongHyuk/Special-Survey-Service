@@ -21,8 +21,7 @@ const BoardComponent = (props : any) => {
             <BoardTop>
                 <BoardTopLive>
                     <BoardTopLiveFont>
-                        실시간 당첨 현황
-                        {/* {props.type === {props.use} ? "실시간 당첨 현황":"실시간 추첨 현황"} */}
+                        {props.type === "즉시당첨" ? "실시간 당첨 현황":"실시간 추첨 현황"}
                     </BoardTopLiveFont>
                     <BoardTopLiveCount>
                         117
@@ -152,21 +151,24 @@ const BoardComponent = (props : any) => {
                         </TableRow>
                         <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
-                            <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
-                            <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>구희영</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>스타벅스 <TableNumberFont>1,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
 
                         <TableRow use={props.type} result="꽝">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
-                            <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
-                            <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
-                            <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>정소정</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>스타벅스 <TableNumberFont>100,000,000</TableNumberFont>원권</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>꽝</TableFont></TableDataCell>
                         </TableRow>
                     </TableBody>
 
                 </Table>
             </TableContainer>
+            <div style={{height:"48px", width:"100%", backgroundColor:"#E2E4EA", borderBottomLeftRadius:"16px", borderBottomRightRadius:"16px"}}>
+
+            </div>
         </Board>
     )
 }

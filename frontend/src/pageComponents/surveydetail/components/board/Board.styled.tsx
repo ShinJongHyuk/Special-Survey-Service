@@ -3,12 +3,12 @@ import styled, { css } from 'styled-components'
 const Board = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     width: 1136px;
-    height: 500px;
+    height: 100%;
     flex-direction: column;
     align-items: flex-start;
     border-radius: 16px;
-    border: 1px solid #E4E7EC;
-    background: #FFF;
+    border: 1px solid ${(props) => props.theme.colors.lightgray};
+
 `
 
 const BoardTop = styled.div.attrs<any>((props) => ({}))`
@@ -17,7 +17,7 @@ const BoardTop = styled.div.attrs<any>((props) => ({}))`
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    background: #242424;
+    background: ${(props) => props.theme.colors.black};
     border-top-right-radius: 16px;
     border-top-left-radius: 16px;
 `
@@ -31,37 +31,30 @@ const BoardTopLive = styled.div.attrs<any>((props) => ({}))`
 `
 
 const BoardTopLiveFont = styled.div.attrs<any>((props) => ({}))`
-    color: #FFF;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+    color: ${(props) => props.theme.colors.white};
+    font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+    font-size: ${(props) => props.theme.fontSizes.medium}
 `
 const BoardTopLiveCount = styled.div.attrs<any>((props) => ({}))`
-    color: #FFF129;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+    color: ${(props) => props.theme.colors.yellow};;
+    font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+    font-size: ${(props) => props.theme.fontSizes.medium}
 `
 
 const BoardTopLivetime = styled.div.attrs<any>((props) => ({}))`
     margin-left: auto;
     margin-right: 4px;
-    color: #9EA4A3;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    color: ${(props) => props.theme.colors.lightgray};
+    /* color: #9EA4A3; */
+    font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+    font-size: ${(props) => props.theme.fontSizes.small};
     height: 20px;
 `
 
 const TableContainer = styled.div`
-  overflow-x: auto;
-  max-width: 100%;
+    height: 400px;
+    overflow-x: auto;
+    max-width: 100%;
 `;
 
 const Table = styled.table`
@@ -70,7 +63,7 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-    background-color: #E2E4EA;
+    background-color: ${(props) => props.theme.colors.lightgray};
     font-weight: bold;
     position: sticky;
     top: 0;
@@ -99,7 +92,7 @@ const TableRow = styled.tr.attrs<any>((props) => ({}))`
         return css`
             display: flex;
             height: 48px;
-            border-bottom: 1px solid #E5E5E5;
+            border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
             ${useStyles[use]}
         `
     }}
@@ -126,21 +119,15 @@ const TableDataCell = styled.td`
 `;
 
 const TableFont = styled.span`
-    color: #000;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+    color: ${(props) => props.theme.colors.black};
+    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
     font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 16px; 
 `
 
 const TableNumberFont = styled.span`
-    color: #000;
+    color: ${(props) => props.theme.colors.black};
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 16px; 
+    font-size: ${(props) => props.theme.fontSizes.small};
 `
 
 export { Board, BoardTop, BoardTopLive, BoardTopLiveFont, BoardTopLiveCount, BoardTopLivetime, TableContainer,

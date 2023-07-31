@@ -1,8 +1,7 @@
 'use client'
- import { SurveyDetailContainer, SurveyContent, SurveyTitle,
-    SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, SurveyInformationTitle, SurveyInformationContent,
-    SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardTitle, SurveyCardContent, SurveyCardContainer, ButtonAndShare }
-    from './Detail.styled'
+ import { SurveyDetailContainer, SurveyContent, SurveyTitle,SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, 
+    SurveyInformationTitle, SurveyInformationContent, SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardTitle, 
+    SurveyCardContent, SurveyCardTime, SurveyCardContentHangeul, SurveyCardContainer, ButtonAndShare} from './Detail.styled'
 import Image from 'next/image'
 import Button from '@/components/Button'
 import { StyledTag } from "@/components/card/Card.styled"
@@ -74,28 +73,37 @@ const DetailComponent = (props:any) => {
                                 <SurveyCardTitle>
                                     문항수
                                 </SurveyCardTitle>
+                                <div style={{display:'flex'}}>
                                 <SurveyCardContent>
-                                    10개
+                                    10
                                 </SurveyCardContent>
+                                <SurveyCardContentHangeul>
+                                    개
+                                </SurveyCardContentHangeul>
+                                </div>
                             </SurveyCard>
 
                             <SurveyCard>
                                 <SurveyCardTitle>
                                     예상 소요시간
                                 </SurveyCardTitle>
+                                <div style={{display:'flex'}}>
                                 <SurveyCardContent>
-                                    5분
+                                    5
                                 </SurveyCardContent>
-                                
+                                <SurveyCardContentHangeul>
+                                    분
+                                </SurveyCardContentHangeul>
+                                </div>
                             </SurveyCard>
                                
                             <SurveyCard>
                                 <SurveyCardTitle>
                                     남은 시간
                                 </SurveyCardTitle>
-                                <SurveyCardContent>
+                                <SurveyCardTime>
                                     00:59:10
-                                </SurveyCardContent>
+                                </SurveyCardTime>
                             </SurveyCard>
                             </SurveyCardContainer>
                             <ButtonAndShare>
