@@ -260,6 +260,9 @@ const CheckBox_Label = styled.label.attrs({})`
 
 const ImageWrapper = styled.div`
     display : flex;
+    margin-bottom : 25px;
+    margin-top : 10px;
+    justify-content : center;
     cursor : pointer;
 `;
 

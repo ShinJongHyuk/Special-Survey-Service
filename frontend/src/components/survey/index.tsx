@@ -15,7 +15,6 @@ import CheckBox from './checkbox';
 import DropDown from './dropdown';
 import Dates from './dates';
 import Time from './time';
-import { useDrag } from 'react-dnd';
 
 const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
     const {surveyComponents} = useSurveyStore();
@@ -26,18 +25,6 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     const [headerText, setHeaderText] = useState('');
     const [headerDetailText, setHeaderDetailText] = useState('');
 
-    const Nemo = () => {
-        const [, dragRef] = useDrag(() => ({
-          type: 'SURVEY_COMPONENT',
-          item: { type: 'SURVEY_COMPONENT', index: -1 }, 
-        }));
-      
-        return (
-          <ImageWrapper ref={dragRef}>
-            <Image src={DragIcon} alt="옮기기" />
-          </ImageWrapper>
-        );
-      };
     const saveComponentDataToLocalStorage = (componentKey: string, data: any) => {
         localStorage.setItem(componentKey, JSON.stringify(data));
       };
@@ -95,7 +82,9 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     return (
         <ThemeProvider theme={theme}>
             <Main_Container>
-                <Nemo />
+                <ImageWrapper>
+                  <Image src={DragIcon} alt="옮기기" />
+                </ImageWrapper>
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>

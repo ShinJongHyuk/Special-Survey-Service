@@ -78,8 +78,28 @@ const DeleteButton = styled.button.attrs({})`
   
 `;
 
+const LinkSelect_List = styled.select.attrs({})`
+  display : flex;
+  text-align : center;
+  width: 94%;
+  margin-left : 25.5px;
+  height: 30px;
+
+  border : none;
+
+
+  font-size: ${props => props.theme.fontSizes.xsmall};
+  color: ${props => props.theme.colors.purple};
+  font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+  
+`
+const LinkSelect_Option = styled.option.attrs({})`
+    color: ${props => props.theme.colors.gray};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+
+`;
 
 
 
 
-export {DeleteButton,AddButton,DropDown_content_Box,MultipleCheck,MultipleCheckText,DropDown_Box}
+export {LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,DropDown_content_Box,MultipleCheck,MultipleCheckText,DropDown_Box}

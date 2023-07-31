@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import {DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
-
+import {LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
+import useSurveyStore from '@/stores/useSurveyStore';
 
 const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
-
+    const {surveyComponents} = useSurveyStore();
     const [items, setItems] = useState<any[]>([
         { id: `${componentKey}_1`, text: ''},
         { id: `${componentKey}_2`, text: ''},
@@ -57,7 +57,12 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
         setItems(updatedItems);
         
       };
-   
+    const handleOptionChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = parseInt(event.target.value);
+        const updatedItems = [...items];
+        updatedItems[index].linkNumber = value;
+        setItems(updatedItems);
+      };
     
     return (
         <DropDown_Box>
@@ -70,6 +75,16 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
               value = {item.text}
             />
              {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
+             {isLink && (
+            <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
+                <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
+              {surveyComponents.map((component, idx) => (
+                <LinkSelect_Option key={idx} value={idx + 1}>
+                  {`${idx + 1}번 질문으로 연결됨`}
+                </LinkSelect_Option>
+              ))}
+            </LinkSelect_List>
+            )}
             </DropDown_content_Box>
         ))}
         <AddButton onClick={() => handleAddItem()}>옵션 추가</AddButton>
