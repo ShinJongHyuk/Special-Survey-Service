@@ -22,6 +22,13 @@ const SignUpPage = styled.div.attrs<any>((props) => ({}))`
   } */
 `
 
+const SignupText = styled.div.attrs<any>((props) => ({}))`
+  margin: 30px;
+  font-size: 60px;
+  font-family: ${(props) => props.theme.fonts.EnglishFontBold};
+  color : ${(props) => props.theme.colors.purple}
+`
+
 const InputBox = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
         return css`
@@ -65,4 +72,4 @@ const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
 
 `
 
-export { SignUpPage, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, InputBox }
+export { SignUpPage, SignupText, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, InputBox }

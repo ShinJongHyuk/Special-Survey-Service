@@ -62,7 +62,20 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 border: 1.216px solid rgba(214, 214, 214, 0.20);
                 background: #D4C9FF;
                 font-size:${small};
+            `,
+            detailTimeAttack:`
+                border-radius: 48px;
+                background-color: ${props.theme.colors.purple};
+                color : ${props.theme.colors.black};
+                font-size:${medium}
+            `,
+            detailInstance:`
+                border-radius: 48px;
+                background-color: ${props.theme.colors.yellow};
+                color : ${props.theme.colors.black};
+                font-size:${medium}
             `
+
         };
         return css`
             display: flex;

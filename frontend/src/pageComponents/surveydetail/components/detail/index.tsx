@@ -9,16 +9,16 @@ import { StyledTag } from "@/components/card/Card.styled"
 const DetailComponent = (props:any) => {
     return (
         <SurveyDetailContainer>
-                    <Image src="/SurveyDetailTest.png" alt="s" width={600} height={700}></Image>
+                    <Image src="/SurveyDetailTest.png" alt="s" width={450} height={600}></Image>
 
                     <SurveyContent>
                         <div>
-                            <div style={{width:"65px", marginTop:"30px"}}>
+                            <div style={{width:"65px"}}>
                             <StyledTag {...props}>
                                 {props.type === "타임어택" ? (
-                                <Image src="/whatshot.svg" priority={true} width={11} height={17} alt="whatshot" />
+                                <Image src="/card/whatshot.svg" priority={true} width={11} height={17} alt="whatshot" />
                                 ) : (
-                                <Image src="/bolt.svg" priority={true} width={11} height={17} alt="abc" />
+                                <Image src="/card/bolt.svg" priority={true} width={11} height={17} alt="abc" />
                                 )}
                                 <div className="type-text">{props.type}</div>
                             </StyledTag>
@@ -42,27 +42,27 @@ const DetailComponent = (props:any) => {
                             </SurveyPurpose>
                         </div>
 
-                        <div style={{width:"600px"}}>
+                        <div style={{width:"450px"}}>
                             <SurveyInformation>
-                                <Image src="/agency.svg" alt="agency" width={40} height={17.8}></Image>
+                                {props.type === "타임어택"? (  <Image src="surveyDetail/agency_purple.svg" alt="agency" width={40} height={17.8}></Image>) : (  <Image src="surveyDetail/agency.svg" alt="agency" width={40} height={17.8}></Image>)}
                                 <SurveyInformationTitle>설문 기관</SurveyInformationTitle>
                                 <SurveyInformationContent>(주) 얼라이언스</SurveyInformationContent>
                             </SurveyInformation>
 
                             <SurveyInformation>
-                                <Image src="/period.svg" alt="period" width={40} height={17.8}></Image>
+                            {props.type === "타임어택"? (  <Image src="surveyDetail/period_purple.svg" alt="period" width={40} height={17.8}></Image>) : (  <Image src="surveyDetail/period.svg" alt="period" width={40} height={17.8}></Image>)}
                                 <SurveyInformationTitle>설문 기간</SurveyInformationTitle>
                                 <SurveyInformationContent>2023년 7월 19일부터 2023년 7월 30일까지</SurveyInformationContent>
                             </SurveyInformation>
 
                             <SurveyInformation>
-                                <Image src="/reword.svg" alt="reword" width={40} height={17.8}></Image>
+                            {props.type === "타임어택"? (  <Image src="surveyDetail/reward_purple.svg" alt="reward" width={40} height={17.8}></Image>) : (  <Image src="surveyDetail/reward.svg" alt="reward" width={40} height={17.8}></Image>)}
                                 <SurveyInformationTitle>리워드</SurveyInformationTitle>
                                 <SurveyInformationContent>스타벅스 10,000원권</SurveyInformationContent>
                             </SurveyInformation>
 
                             <SurveyInformation>
-                                <Image src="/res.svg" alt="rse" width={40} height={17.8}></Image>
+                            {props.type === "타임어택"? (  <Image src="surveyDetail/res_purple.svg" alt="res" width={40} height={17.8}></Image>) : (  <Image src="surveyDetail/res.svg" alt="res" width={40} height={17.8}></Image>)}
                                 <SurveyInformationTitle>응답수</SurveyInformationTitle>
                                 <SurveyInformationContent>209/300</SurveyInformationContent>
                             </SurveyInformation>
@@ -99,8 +99,8 @@ const DetailComponent = (props:any) => {
                             </SurveyCard>
                             </SurveyCardContainer>
                             <ButtonAndShare>
-                                <Image src="/shareIcon.png" alt="share" width={64} height={64}></Image>
-                                <Button use="SignUpLogin" label="지금 응답하기"></Button>
+                                <Image src="/shareIcon.png" alt="share" width={48} height={48}></Image>
+                                {props.type === "타임어택" ? <Button use="detailTimeAttack" label="지금 응답하기"></Button> : <Button use="detailInstance" label="지금 응답하기"></Button>}
                             </ButtonAndShare>
                         </SurveyFooter>
                     </SurveyContent>
