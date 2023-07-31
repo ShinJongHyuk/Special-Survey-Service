@@ -17,7 +17,6 @@ const theme: DefaultTheme = {
     HangeulFontMedium: "HangeulFontMedium",
     HangeulFontRegular: "HangeulFontRegular",
     HangeulFontSemiBold: "HangeulFontSemiBold",
-    HangeulFontBold: "HangeulFontBold",
     EnglishFontBold: "EnglishFontBold",
     EnglishFontLight: "EnglishFontLight",
   },
