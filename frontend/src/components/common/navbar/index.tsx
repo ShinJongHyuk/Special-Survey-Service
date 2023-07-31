@@ -27,6 +27,11 @@ const NavbarComponent = () => {
             <StyledTimeattackNavLink href="/timeattackSurveyList" pathname={pathname}>타임어택</StyledTimeattackNavLink>
           </div>
         }
+        {(pathname === '/surveydetail') &&
+          <div style={{ width: "60%", display: "flex", justifyContent: "center", gap: "30px" }}>
+            페이지 이동?? 이거는 무슨 기능?
+          </div>
+        }
 
 
         <div style={{ width: "20%", display: "flex", justifyContent: "end" }}>

@@ -6,6 +6,7 @@ const SurveyDetailContainer = styled.div.attrs<any>((props) => ({}))`
     padding: 20px 250px 40px 250px;
     gap: 136px;
     justify-content: space-between;
+    background-color: ${(props) => props.theme.colors.white};
 `
 
 const SurveyContent = styled.div.attrs<any>((props) => ({}))`

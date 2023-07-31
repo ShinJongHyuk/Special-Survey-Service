@@ -20,6 +20,9 @@ const StyledNavbar = styled.div.attrs<NavbarType>((props) => ({}))`
       case '/instantWinConfirm':
         bgColor = white;
         break;
+      case '/surveydetail':
+        bgColor = white;
+        break;
       default:
         bgColor = yellow;
     }
