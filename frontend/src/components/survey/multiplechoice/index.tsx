@@ -4,43 +4,52 @@ import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
 import useSurveyStore from '@/stores/useSurveyStore';
-
+import useItemStore, { ItemType } from '@/stores/useItemStore';
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();
-    const [items, setItems] = useState<any[]>([
-      { id: `${componentKey}_1`, text: '', imageUrl: '', linkNumber : 0 },
-      { id: `${componentKey}_2`, text: '', imageUrl: '', linkNumber : 0 },
-    ]
-    );
-    const [count, setCount] = useState(3);
+    const {items,setItems} = useItemStore(componentKey);
 
+    const [count, setCount] = useState(3);
+    console.log(items)
     useEffect(() => {
-      const storedItems = loadMultipleChoiceFromLocalStorage(`multiplechoice_${componentKey}`);
-      if (storedItems) {
-        setItems(storedItems);
-      }
+  
+      const loadDataFromLocalStorage = async () => {
+        const storedItems = await loadMultipleChoiceFromLocalStorage(componentKey);
+        if (storedItems) {
+          setItems(storedItems);
+        }
+        // save after loading data
+        await saveMultipleChoiceToLocalStorage(componentKey, items);
+      };
+     
     }, [componentKey]);
 
-
     useEffect(() => {
+        saveMultipleChoiceToLocalStorage(componentKey, items);
+      
+     
+    }, [items]);
 
-      saveMultipleChoiceToLocalStorage(`multiplechoice_${componentKey}`, items);
 
-    }, [componentKey,items]);
-  
+
+
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
-      localStorage.setItem(`multiplechoice_${componentKey}`, JSON.stringify(items));
+      if (items) {
+        localStorage.setItem(componentKey, JSON.stringify(items));
+      }
+   
     };
   
     const loadMultipleChoiceFromLocalStorage = (componentKey: string) => {
-      const storedData = localStorage.getItem(`multiplechoice_${componentKey}`);
+      const storedData = localStorage.getItem(componentKey); 
+      console.log(storedData,"야")
       return storedData ? JSON.parse(storedData) : null;
     };
 
 
     const handleAddItem = () => {
-      setItems((prevItems) => [
+      setItems((prevItems : any) => [
         ...prevItems,
         { id: `${componentKey}_${count}`, text: '', imageUrl: '',linkNumber: 0 },
       ]);
@@ -94,11 +103,12 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
       updatedItems[index].linkNumber = value;
       setItems(updatedItems);
     };
-  
+    
+
 
     return (
       <MultipleChoice_Box>
-        {items.map((item, index) => (
+        {items && items.map((item : any, index : number) => (
           <MultipleChoice_content_Box key={item.id}>
             <MultipleCheck name="radioGroup1" />
             <MultipleCheckText

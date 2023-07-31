@@ -22,7 +22,7 @@ const Toolbar = () => {
     componentRefs.current = surveyComponents.map(() => React.createRef());
   }, [surveyComponents]);
 
-
+  
   useEffect(() => {
     setHeight(calculateHeight());
   }, [selectedSurvey]);
