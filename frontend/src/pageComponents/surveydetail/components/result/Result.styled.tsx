@@ -6,7 +6,7 @@ const SurveyResultComent = styled.div.attrs<any>((props) => ({}))`
     color: #000;
     text-align: center;
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 32px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 600;
     line-height: 48px;
@@ -15,7 +15,7 @@ const SurveyResultComent = styled.div.attrs<any>((props) => ({}))`
 const HighLightFont = styled.span.attrs<any>((props) => ({}))`
     color: #8E69FF;
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: 32px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 48px;
@@ -23,7 +23,7 @@ const HighLightFont = styled.span.attrs<any>((props) => ({}))`
 
 const PercentageContainer = styled.div.attrs<any>((props) => ({}))`
     width: 480px;
-    height: 499px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,8 +36,8 @@ const Percentage = styled.div.attrs<any>((props) => ({}))`
     gap: 4px;
 `
 const PercentageCard = styled.div.attrs<any>((props) => ({}))`
-    width: 113px;
-    height: 133px;
+    width: 70px;
+    height: 90px;
     display: flex;
     padding: 23px 20px 8px 20px;
     flex-direction: column;
@@ -48,12 +48,13 @@ const PercentageCard = styled.div.attrs<any>((props) => ({}))`
     background: #FFF;
 `
 const PercentageElement = styled.div.attrs<any>((props) => ({}))`
-    color: #8E69FF;
+    color : ${(props) => props.type === "타임어택" ? props.theme.colors.purple : props.theme.colors.yellow };
+    
     text-align: right;
     font-family: ${(props) => props.theme.fonts.EnglishFontBold};
-    font-size: 100px;
+    font-size: 60px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-`
+    `
 export { SurveyResultComent, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement }

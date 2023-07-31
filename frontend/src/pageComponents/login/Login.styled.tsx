@@ -21,6 +21,13 @@ const LoginPage = styled.div.attrs<any>((props) => ({}))`
   }
 `
 
+const LoginText = styled.div.attrs<any>((props) => ({}))`
+  margin-top: 30px;
+  font-size: 60px;
+  font-family: ${(props) => props.theme.fonts.EnglishFontBold};
+  color : ${(props) => props.theme.colors.purple}
+`
+
 const InputBox = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
         return css`
@@ -36,7 +43,7 @@ const LoginContainer = styled.form.attrs<any>((props) => ({}))`
   height: auto;
   border-radius: 5px;
   padding: 10px 0px;
-  margin-top: 6%;
+  margin-top: 3%;
 `
 
 const LoginFont = styled.div.attrs<any>((props) => ({}))`
@@ -53,4 +60,4 @@ const LoginFont2 = styled.p.attrs<any>((props) => ({}))`
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `
 
-export {LoginPage,InputBox, LoginFont, LoginFont2, LoginContainer}
+export {LoginPage, LoginText, InputBox, LoginFont, LoginFont2, LoginContainer}

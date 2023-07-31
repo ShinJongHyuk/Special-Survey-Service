@@ -14,11 +14,11 @@ const SurveyDetail = (props:any) => {
                 </BackButton>
             </BackButtonContainer>
             
-            <Detail type="타임어택"></Detail>
+            <Detail type="즉시당첨"></Detail>
             
             <SurveyResultContainer>
-                <Result></Result>
-                <Board type="타임어택"></Board>
+                <Result type="즉시당첨"></Result>
+                <Board type="즉시당첨"></Board>
             </SurveyResultContainer>
         </SurveyDetailPage>
     )

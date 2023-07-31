@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components'
 
 const Board = styled.div.attrs<any>((props) => ({}))`
     display: flex;
-    width: 1336px;
-    height: 601px;
+    width: 1136px;
+    height: 500px;
     flex-direction: column;
     align-items: flex-start;
     border-radius: 16px;
@@ -13,7 +13,7 @@ const Board = styled.div.attrs<any>((props) => ({}))`
 
 const BoardTop = styled.div.attrs<any>((props) => ({}))`
     display: flex;
-    padding: 32px 40px;
+    padding: 20px 40px;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
@@ -75,8 +75,8 @@ const TableHead = styled.thead`
     position: sticky;
     top: 0;
     z-index: 1;
-    width: 1336px;
-    height: 64px;
+    width: 1136px;
+    height: 48px;
     
 `;
 
@@ -98,7 +98,8 @@ const TableRow = styled.tr.attrs<any>((props) => ({}))`
         } 
         return css`
             display: flex;
-            height: 64px;
+            height: 48px;
+            border-bottom: 1px solid #E5E5E5;
             ${useStyles[use]}
         `
     }}
@@ -106,20 +107,20 @@ const TableRow = styled.tr.attrs<any>((props) => ({}))`
 
 
 const TableHeaderCell = styled.th`
-    width: 334px;
-    height: 64px;
+    width: 284px;
+    height: 48px;
     display: flex;
-    padding: 24px 40px;
+    padding: 16px 40px;
     align-items: center;
     gap: 8px;
     
 `;
 
 const TableDataCell = styled.td`
-  width: 334px;
-    height: 64px;
+    width: 284px;
+    height: 48px;
     display: flex;
-    padding: 24px 40px;
+    padding: 16px 40px;
     align-items: center;
     gap: 8px;
 `;

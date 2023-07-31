@@ -1,7 +1,7 @@
 'use client'
 import Input from '@/components/input'
 import Button from '@/components/button'
-import { InputBox, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem } from './Signup.styled'
+import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem } from './Signup.styled'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSignupHook } from '@/Hooks/useSignupHook'
@@ -17,8 +17,8 @@ const Signup = () => {
 
     return (
         <SignUpPage>
-
-            <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px", cursor:'pointer'}} onClick={ClickLogo}></Image>
+            <SignupText>Sign up</SignupText>
+            {/* <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px", cursor:'pointer'}} onClick={ClickLogo}></Image> */}
         <SignUpContainer onSubmit={handleSubmit}>
             <SignUpItem>
             <SignUpText>이메일</SignUpText>
