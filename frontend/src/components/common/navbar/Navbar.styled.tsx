@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import Link from "next/link";
 interface NavbarType {
-  pathname?: string
+  pathname?: string;
 }
 
 const StyledNavbar = styled.div.attrs<NavbarType>((props) => ({}))`
@@ -11,32 +11,32 @@ const StyledNavbar = styled.div.attrs<NavbarType>((props) => ({}))`
     const white = props.theme.colors.white;
 
     switch (props.pathname) {
-      case '/instantWinSurveyList':
-        bgColor = '#FFFAAE';
+      case "/instantWinSurveyList":
+        bgColor = "#FFFAAE";
         break;
-      case '/timeattackSurveyList':
-        bgColor = '#C6B6FF';
+      case "/timeattackSurveyList":
+        bgColor = "#C6B6FF";
         break;
-      case '/instantWinConfirm':
+      case "/instantWinConfirm":
         bgColor = white;
         break;
-      case '/surveydetail':
+      case "/surveydetail":
         bgColor = white;
         break;
       default:
         bgColor = yellow;
     }
     return css`
-        width: 100%;
-        height: 56px;
-        background-color: ${bgColor};
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 8px 30px;
+      width: 100%;
+      height: 56px;
+      background-color: ${bgColor};
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 30px;
 
-        position: fixed;
-        z-index: 1;
+      position: fixed;
+      z-index: 1;
     `;
   }};
 `;
@@ -55,9 +55,9 @@ const StyledInstantNavLink = styled(Link).attrs<NavbarType>((props) => ({}))`
     const font = props.theme.fonts.HangeulFontSemiBold;
     const size = props.theme.fontSizes.small;
     return css`
-      font-family:${font};
+      font-family: ${font};
       font-size: ${size};
-      color: ${({ pathname }: any) => (pathname === '/instantWinSurveyList' ? orange : black)};
+      color: ${({ pathname }: any) => (pathname === "/instantWinSurveyList" ? orange : black)};
     `;
   }};
 `;
@@ -69,11 +69,20 @@ const StyledTimeattackNavLink = styled(Link).attrs<NavbarType>((props) => ({}))`
     const font = props.theme.fonts.HangeulFontSemiBold;
     const size = props.theme.fontSizes.small;
     return css`
-      font-family:${font};
+      font-family: ${font};
       font-size: ${size};
-      color: ${({ pathname }: any) => (pathname === '/timeattackSurveyList' ? purple : black)};
+      color: ${({ pathname }: any) => (pathname === "/timeattackSurveyList" ? purple : black)};
     `;
   }};
 `;
 
-export { StyledNavbar, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink };
+const StyledNavBtn = styled.button`
+  background: transparent;
+  border: none;
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  color: ${(props) => props.theme.colors.black};
+  cursor: pointer;
+`;
+
+export { StyledNavbar, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink, StyledNavBtn };
