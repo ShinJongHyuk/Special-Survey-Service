@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Board = styled.div.attrs<any>((props) => ({}))`
     display: flex;
@@ -83,16 +83,27 @@ const TableHead = styled.thead`
 const TableBody = styled.tbody`
 `;
 
-const TableRow = styled.tr`
-    display: flex;
-    height: 64px;
-/* 찍수번째 노란색 (당첨 시 노란색으로 기능 바꾸기) */
-  &:nth-child(even) { 
-    background-color: rgba(255,241,55,0.3);
-  }
+const TableRow = styled.tr.attrs<any>((props) => ({}))`
+    ${(props) => {  
+        const use = props.use
+        const result = props.result || null
+        const useStyles:any = {
+            타임어택 : `
+            
+            `,
 
-  /* 원하는 tr 스타일을 정의 */
-`;
+            즉시당첨 : `
+                background-color : ${result === '당첨' ? "rgba(255,241,55,0.3)" : "white"}
+            `
+        } 
+        return css`
+            display: flex;
+            height: 64px;
+            ${useStyles[use]}
+        `
+    }}
+    `
+
 
 const TableHeaderCell = styled.th`
     width: 334px;

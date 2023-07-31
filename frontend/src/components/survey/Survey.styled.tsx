@@ -103,7 +103,7 @@ const Question_Header = styled.input.attrs({ placeholder : "질문1*"})`
     border : none;
 
     font-size : ${props => props.theme.fontSizes.medium};
-    font-family: ${props => props.theme.fonts.HangeulFontBold};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     &::placeholder {
         color : ${props => props.theme.colors.black};
     }  

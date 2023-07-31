@@ -13,7 +13,7 @@ const DetailComponent = (props:any) => {
 
                     <SurveyContent>
                         <div>
-                            <div style={{width:"82px", marginTop:"20px"}}>
+                            <div style={{width:"65px", marginTop:"30px"}}>
                             <StyledTag {...props}>
                                 {props.type === "타임어택" ? (
                                 <Image src="/whatshot.svg" priority={true} width={11} height={17} alt="whatshot" />
