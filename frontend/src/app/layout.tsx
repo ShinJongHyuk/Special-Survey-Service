@@ -15,12 +15,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <ThemeProvider theme={theme}>
         <body>
           <StyledComponentsRegistry>
-            {(pathname === "/" || pathname === "/login" || pathname === "/signup") &&
+            <Navbar />
+            {/* {(pathname === "/" || pathname === "/login" || pathname === "/signup") &&
               <Navbar />
-            }
-            {(pathname === '/instantWinSurveyList' || pathname === '/timeattackSurveyList') &&
+            } */}
+            {/* {(pathname === '/instantWinSurveyList' || pathname === '/timeattackSurveyList' || pathname === '/instantWinConfirm') &&
               <SurveyListNavbar />
-            }
+            } */}
             {children}
           </StyledComponentsRegistry>
         </body>

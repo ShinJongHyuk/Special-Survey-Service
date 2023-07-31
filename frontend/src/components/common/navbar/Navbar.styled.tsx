@@ -1,18 +1,41 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Link from "next/link";
+interface NavbarType {
+  pathname?: string
+}
 
-const StyledNavbar = styled.div`
-  width: 100%;
-  height: 56px;
-  background-color: ${(props) => props.theme.colors.yellow};
+const StyledNavbar = styled.div.attrs<NavbarType>((props) => ({}))`
+  ${(props) => {
+    let bgColor;
+    const yellow = props.theme.colors.yellow;
+    const white = props.theme.colors.white;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 30px;
+    switch (props.pathname) {
+      case '/instantWinSurveyList':
+        bgColor = '#FFFAAE';
+        break;
+      case '/timeattackSurveyList':
+        bgColor = '#C6B6FF';
+        break;
+      case '/instantWinConfirm':
+        bgColor = white;
+        break;
+      default:
+        bgColor = yellow;
+    }
+    return css`
+        width: 100%;
+        height: 56px;
+        background-color: ${bgColor};
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 30px;
 
-  position: fixed;
-  z-index: 1;
+        position: fixed;
+        z-index: 1;
+    `;
+  }};
 `;
 
 const StyledNavLink = styled(Link)`
@@ -22,4 +45,32 @@ const StyledNavLink = styled(Link)`
   color: ${(props) => props.theme.colors.black};
 `;
 
-export { StyledNavbar, StyledNavLink };
+const StyledInstantNavLink = styled(Link).attrs<NavbarType>((props) => ({}))`
+  ${(props) => {
+    const orange = props.theme.colors.orange;
+    const black = props.theme.colors.black;
+    const font = props.theme.fonts.HangeulFontSemiBold;
+    const size = props.theme.fontSizes.small;
+    return css`
+      font-family:${font};
+      font-size: ${size};
+      color: ${({ pathname }: any) => (pathname === '/instantWinSurveyList' ? orange : black)};
+    `;
+  }};
+`;
+
+const StyledTimeattackNavLink = styled(Link).attrs<NavbarType>((props) => ({}))`
+  ${(props) => {
+    const purple = props.theme.colors.purple;
+    const black = props.theme.colors.black;
+    const font = props.theme.fonts.HangeulFontSemiBold;
+    const size = props.theme.fontSizes.small;
+    return css`
+      font-family:${font};
+      font-size: ${size};
+      color: ${({ pathname }: any) => (pathname === '/timeattackSurveyList' ? purple : black)};
+    `;
+  }};
+`;
+
+export { StyledNavbar, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink };
