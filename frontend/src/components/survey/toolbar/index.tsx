@@ -26,7 +26,7 @@ const Toolbar = () => {
   }, [selectedSurvey]);
   
   const calculateHeight = () => {
-    let Height = 0;
+    let Height = 300;
     for (let i = 0; i < selectedSurvey-1; i++) {
       const componentRef = componentRefs.current[i];
       Height += componentRef?.current?.clientHeight ?? 0;

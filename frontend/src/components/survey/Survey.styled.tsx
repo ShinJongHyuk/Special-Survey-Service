@@ -44,7 +44,7 @@ const Main_Container = styled.div.attrs({})`
     margin : 12px 30px;
     box-sizing : border-box;
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
-    border : 1px solid ${props => props.theme.colors.gray};
+    border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
     padding : 0px 30px 30px 30px;
     

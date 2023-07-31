@@ -9,7 +9,7 @@ import useSurveyStore from '@/stores/useSurveyStore';
 import SurveyType from './Survey.type';
 import Image from 'next/image'
 import etc from '/public/survey/etc.png'
-import shuffle_small from '/public/survey/shuffle_small.png'
+import DragIcon from '/public/survey/DragIcon.png'
 import MultipleChoice from './multiplechoice';
 import CheckBox from './checkbox';
 import DropDown from './dropdown';
@@ -84,7 +84,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
         <ThemeProvider theme={theme}>
             <Main_Container>
                 <Move_Container>
-                    <Image src={shuffle_small} alt="옮기기"></Image>
+                    <Image src={DragIcon} alt="옮기기"></Image>
                 </Move_Container>
                 <Question_Inner_Container>
                     <Question_Container>
