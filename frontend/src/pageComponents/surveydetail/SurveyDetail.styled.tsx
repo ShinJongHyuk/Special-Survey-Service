@@ -16,7 +16,7 @@ const BackButton = styled.div.attrs<any>((props) => ({}))`
 const SurveyResultContainer = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     width: 1536px;
-    padding: 20px;
+    padding: 50px 0px 95px 0px;
     flex-direction: column;
     justify-content: center;
     align-items: center;

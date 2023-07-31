@@ -8,7 +8,7 @@ const ResultComponent = (props:any) => {
                     평균 <HighLightFont>5</HighLightFont>분만에 설문을 완료하고 총 <HighLightFont>117</HighLightFont>명이 리워드에 당첨됐어요!
                 </SurveyResultComent>
                 {/* <SurveyProduct> */}
-                    <Image src="/surveyProduct.png" alt="product" width={150} height={150}></Image>
+                    <Image src="/surveyDetail/surveyProduct.png" alt="product" width={150} height={150}></Image>
                 {/* </SurveyProduct> */}
 
                 <PercentageContainer>
@@ -27,7 +27,7 @@ const ResultComponent = (props:any) => {
                         
                     </Percentage>
 
-                    <Image src="/woman.png" alt="woman" width={350} height={307}></Image>
+                    <Image src="/surveyDetail/woman.png" alt="woman" width={350} height={307}></Image>
                 </PercentageContainer></>
     )
 }

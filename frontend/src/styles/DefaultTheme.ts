@@ -28,6 +28,7 @@ const theme: DefaultTheme = {
     large: "32px",
     xlarge: "40px",
     xxlarge: "48px",
+    xxxlarge: '60px'
   },
 };
 export default theme;

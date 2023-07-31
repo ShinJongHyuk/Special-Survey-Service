@@ -6,6 +6,7 @@ const SurveyDetailContainer = styled.div.attrs<any>((props) => ({}))`
     padding: 20px 250px 40px 250px;
     gap: 136px;
     justify-content: space-between;
+    background-color: ${(props) => props.theme.colors.white};
 `
 
 const SurveyContent = styled.div.attrs<any>((props) => ({}))`
@@ -21,13 +22,11 @@ const SurveyContent = styled.div.attrs<any>((props) => ({}))`
 
 const SurveyTitle =styled.div.attrs<any>((props) => ({}))`
     width: 100%;
-    color: black;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 40px;
-    font-style: normal;
-    font-weight: bold;
-    line-height: 56px;
+    color: ${(props) => props.theme.colors.black};
+    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+    font-size: ${(props) => props.theme.fontSizes.xlarge};
     margin-top: 8px;
+
 `
 
 const SurveyProfile = styled.div.attrs<any>((props) => ({}))`
@@ -37,21 +36,13 @@ const SurveyProfile = styled.div.attrs<any>((props) => ({}))`
 `
 
 const SurveyProfileName = styled.div.attrs<any>((props) => ({}))`
-    color: rgba(0, 0, 0, 0.50);
+    color: ${(props) => props.theme.colors.gray};
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 `
 const SurveyPurpose = styled.div.attrs<any>((props) => ({}))`
     margin-top: 20px;
-    color: #000;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 27px; /* 150% */
+    color: ${(props) => props.theme.colors.black};
+    font-family:  ${(props) => props.theme.fonts.HangeulFontMedium};
     width: 450px;
 `
 
@@ -60,34 +51,25 @@ const SurveyInformation = styled.div.attrs<any>((props) => ({}))`
     padding: 12px 0px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 `
 
 const SurveyInformationTitle = styled.div.attrs<any>((props) => ({}))`
     color: #6D7075;
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-size: ${(props) => props.theme.fontSizes.small};
     width: 60px;
 `
 const SurveyInformationContent = styled.div.attrs<any>((props) => ({}))`
    color: #45474D;
     text-align: right;
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-size: ${(props) => props.theme.fontSizes.small};
 `
 const SurveyInformationContentHighLight = styled.span.attrs<any>((props) => ({}))`
-    color: #8E69FF;
+    color: ${(props) => props.theme.colors.purple};;
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
+    font-size: ${(props) => props.theme.fontSizes.small};
 `
 
 const SurveyFooter =  styled.div.attrs<any>((props) => ({}))`
@@ -107,7 +89,7 @@ const SurveyCardContainer = styled.div.attrs<any>((props) => ({}))`
 
 const SurveyCard = styled.div.attrs<any>((props) => ({}))`
     display: flex;
-    padding: 20px 24px;
+    padding: 10px 24px;
     flex-direction: column;
     align-items: flex-end;
     gap: 4px;
@@ -122,25 +104,39 @@ const SurveyCardTitle = styled.div.attrs<any>((props) => ({}))`
     height: 20px;
     color: #6D7075;
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-size: ${(props) => props.theme.fontSizes.small};
     `
     
 
 const SurveyCardContent = styled.div.attrs<any>((props) => ({}))`
-    width: 90px;
-    /* height: 56px; */
-    color: #000;
+    color: ${(props) => props.theme.colors.black};
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-size: ${(props) => props.theme.fontSizes.medium};
     display: flex;
     justify-content: flex-end;
-    
+    height: 30px;
+    align-items: flex-end;
+`
+
+const SurveyCardTime = styled.div.attrs<any>((props) => ({}))`
+    color: ${(props) => props.theme.colors.black};
+    font-family: ${(props) => props.theme.fonts.EnglishFontLight};
+    font-size: ${(props) => props.theme.fontSizes.medium};
+    color : ${(props) => props.theme.colors.purple};
+    display: flex;
+    justify-content: flex-end;
+    height: 30px;
+    align-items: flex-end;
+`
+
+const SurveyCardContentHangeul = styled.div.attrs<any>((props) => ({}))`
+    color: ${(props) => props.theme.colors.black};
+    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+    font-size: ${(props) => props.theme.fontSizes.medium};
+    display: flex;
+    justify-content: flex-end;
+    height: 30px;
+    align-items: flex-end;
 `
 
 const ButtonAndShare = styled.div.attrs<any>((props) => ({}))`
@@ -151,6 +147,6 @@ const ButtonAndShare = styled.div.attrs<any>((props) => ({}))`
     height: 48px;
 `
 
-export { SurveyDetailContainer, SurveyContent, SurveyTitle,
-    SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, SurveyInformationTitle, SurveyInformationContent,
-    SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardTitle, SurveyCardContent, SurveyCardContainer, ButtonAndShare}
+export { SurveyDetailContainer, SurveyContent, SurveyTitle,SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, 
+    SurveyInformationTitle, SurveyInformationContent, SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardTitle, 
+    SurveyCardContent, SurveyCardTime, SurveyCardContentHangeul, SurveyCardContainer, ButtonAndShare}
