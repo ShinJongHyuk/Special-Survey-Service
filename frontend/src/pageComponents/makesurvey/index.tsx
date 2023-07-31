@@ -5,9 +5,12 @@ import backgroundImage from '../../../public/survey/MakeSurvey_Background.png'
 import images from '../../../public/survey/images.png'
 import Main_Image from '../../../public/survey/Main_Image.png'
 import Image from 'next/Image'
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function MakeSurvey() {
   return (
+    
     <Survey_Container>
       <Survey_Title_Container>
         <Title_Inner_Container>
@@ -26,7 +29,9 @@ function MakeSurvey() {
             </Inner_Icon_Container>
         </Image_Inner_Container>
       </Survey_MainImage_Container>
-      <Toolbar />
+      <DndProvider backend={HTML5Backend}>
+        <Toolbar />
+      </DndProvider>
       <Background_Container>
       <Image src={backgroundImage} alt="배경" />
       <Image src={backgroundImage} alt="배경" />

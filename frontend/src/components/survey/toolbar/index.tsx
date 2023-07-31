@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ThemeProvider } from 'styled-components';
 import {v4 as uuidv4} from 'uuid';
+import { useDrop } from 'react-dnd';
 import theme from '@/styles/DefaultTheme';
 import Image from 'next/image';
 import { ToolbarBox, Toolbar_InnerBox } from './Toolbar.styled';
@@ -10,6 +11,8 @@ import duplicate from '../../../../public/survey/duplicate.png'
 import Survey from '../../survey';
 import useSurveyFocusStore from '@/stores/useSurveyFocusStore';
 import useSurveyStore from '@/stores/useSurveyStore';
+
+
 const Toolbar = () => {
   const {surveyComponents, setSurveyComponents } = useSurveyStore();
   const { selectedSurvey, prevSelectedSurvey, setSelectedSurvey } = useSurveyFocusStore();
@@ -107,10 +110,26 @@ const Toolbar = () => {
       localStorage.setItem(newLocalStorageKey, JSON.stringify(parsedData));
     }
   };
+  const moveComponent = (fromIndex : any, toIndex : any) => {
+    const updatedComponents = [...surveyComponents];
+    const [component] = updatedComponents.splice(fromIndex, 1);
+    updatedComponents.splice(toIndex, 0, component);
+    setSurveyComponents(updatedComponents);
+  };
+  
+  const [, dropRef] = useDrop(() => ({
+    accept: 'SURVEY_COMPONENT', 
+    drop: (item : any) => {
+    
+      const { index: fromIndex } = item;
+      const toIndex = surveyComponents.length; 
+      moveComponent(fromIndex, toIndex);
+    },
+  }));
 
   return (
     <ThemeProvider theme={theme}>
-      <ToolbarBox height={height}>
+      <ToolbarBox height={height}ref ={dropRef}>
       <Toolbar_InnerBox>
           <Image src={plus} alt="추가" onClick={handlePlusClick} />
         </Toolbar_InnerBox>
