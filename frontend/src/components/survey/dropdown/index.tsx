@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
 
 
-const DropDown = ({ componentKey }: { componentKey: string }) => {
+const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
 
     const [items, setItems] = useState<any[]>([
         { id: `${componentKey}_1`, text: ''},

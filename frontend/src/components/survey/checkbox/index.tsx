@@ -4,7 +4,7 @@ import ImageIcon from '/public/survey/ImageIcon.png'
 import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
 
 
-const CheckBox =  ({ componentKey }: { componentKey: string }) => {
+const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
         const [items, setItems] = useState<any[]>([
           { id: `${componentKey}_1`, text: '', imageUrl: '' },
           { id: `${componentKey}_2`, text: '', imageUrl: '' },

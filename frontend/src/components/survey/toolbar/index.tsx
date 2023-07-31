@@ -15,7 +15,7 @@ const Toolbar = () => {
   const { selectedSurvey, prevSelectedSurvey, setSelectedSurvey } = useSurveyFocusStore();
   const componentRefs = useRef<any[]>([]);
   const [height, setHeight] = useState<any>(null); 
-
+  const [index,setIndex] = useState(0);
   useEffect(() => {
     componentRefs.current = surveyComponents.map(() => React.createRef());
   }, [surveyComponents]);
@@ -39,8 +39,10 @@ const Toolbar = () => {
     const newComponent: any = {
       componentKey: newComponentKey,
       key: newComponentKey,
+      index : index+1,
     };
     setSurveyComponents([...surveyComponents, newComponent]);
+    setIndex(index);
   };
 
   const handleSurveyClick = (surveyIndex: number) => {
@@ -121,7 +123,7 @@ const Toolbar = () => {
       </ToolbarBox>
       {surveyComponents && surveyComponents.map((component, index) => (
         <div ref={componentRefs.current[index]} key={index} onClick={() => handleSurveyClick(1 + index)}>
-          <Survey componentKey={component.componentKey} key={component.key} />
+          <Survey componentKey={component.componentKey} key={component.key} index={index} />
         </div>
       ))}
     </ThemeProvider>

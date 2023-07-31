@@ -2,15 +2,16 @@ import React,{useState,useEffect} from 'react';
 import MultipleChoiceType from './MultipleChoice.type';
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
-import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
+import {LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
+import useSurveyStore from '@/stores/useSurveyStore';
 
-const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
+const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
+    const {surveyComponents} = useSurveyStore();
     const [items, setItems] = useState<any[]>([
-      { id: `${componentKey}_1`, text: '', imageUrl: '' },
-      { id: `${componentKey}_2`, text: '', imageUrl: '' },
+      { id: `${componentKey}_1`, text: '', imageUrl: '', linkNumber : 0 },
+      { id: `${componentKey}_2`, text: '', imageUrl: '', linkNumber : 0 },
     ]
     );
-    
     const [count, setCount] = useState(3);
 
     useEffect(() => {
@@ -41,7 +42,7 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
     const handleAddItem = () => {
       setItems((prevItems) => [
         ...prevItems,
-        { id: `${componentKey}_${count}`, text: '', imageUrl: '' },
+        { id: `${componentKey}_${count}`, text: '', imageUrl: '',linkNumber: 0 },
       ]);
       setCount((prevCount) => prevCount + 1);
     };
@@ -87,6 +88,14 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
       setItems(updatedItems);
     };
     
+    const handleOptionChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
+      const value = parseInt(event.target.value);
+      const updatedItems = [...items];
+      updatedItems[index].linkNumber = value;
+      setItems(updatedItems);
+    };
+  
+
     return (
       <MultipleChoice_Box>
         {items.map((item, index) => (
@@ -100,10 +109,21 @@ const MultipleChoice = ( { componentKey }: { componentKey: string } ) => {
             <ImageWrapper onClick={() => handleImageClick(index)}>
             <Image src={ImageIcon} alt="ImageIcon" />
             </ImageWrapper>
-  
-  
-            <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
             {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
+            
+            {isLink && (
+            <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
+                <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
+              {surveyComponents.map((component, idx) => (
+                <LinkSelect_Option key={idx} value={idx + 1}>
+                  {`${idx + 1}번 질문으로 연결됨`}
+                </LinkSelect_Option>
+              ))}
+            </LinkSelect_List>
+            )}
+
+            <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
+           
             
             {item.imageUrl && (
             <Image_Container>

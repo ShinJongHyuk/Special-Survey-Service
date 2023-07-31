@@ -95,19 +95,19 @@ const Question_Header_Container = styled.div.attrs({})`
     
 `
 
-const Question_Header = styled.input.attrs({ placeholder : "질문1*"})`
-    display : flex;
-    
-    width : 100%;
-    height : 100%;
-    border : none;
-
-    font-size : ${props => props.theme.fontSizes.medium};
-    font-family: ${props => props.theme.fonts.HangeulFontBold};
+const Question_Header = styled.input.attrs<any>((props) => ({
+    placeholder: `질문${props.index + 1}*`,
+  }))`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: ${props => props.theme.fontSizes.medium};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     &::placeholder {
-        color : ${props => props.theme.colors.black};
-    }  
-`
+      color: ${props => props.theme.colors.black};
+    }
+  `;
 
 const Question_Content_Container = styled.div.attrs({})`
     display : flex;
@@ -116,15 +116,16 @@ const Question_Content_Container = styled.div.attrs({})`
     border : none;
 `
 
-const Question_Content = styled.input.attrs({ placeholder : "질문1에 대한 설명"})`
-    display : flex;
-    width : 100%;
-    height : 100%;
-    border : none;
-    font-size : ${props => props.theme.fontSizes.small};
+const Question_Content = styled.input.attrs<any>(props => ({
+    placeholder: `질문${props.index + 1}에 대한 설명`,
+  }))`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: ${props => props.theme.fontSizes.small};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
-`
-
+  `;
 
 
 const Bottom_Box = styled.div.attrs({})`
@@ -147,14 +148,14 @@ const Link_Question_Title = styled.label.attrs({})`
     display : flex;
     align-items : center;
     
-    width : 55px;
+    width : 70px;
     height : 100%;
     font-size : ${props => props.theme.fontSizes.xsmall};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
 `
 const LinkSelectBox = styled.div.attrs({})`
   display: flex;
-  width: 65px;
+  width: 70px;
   height: 100%;
   border: none; 
 
@@ -163,7 +164,7 @@ const LinkSelectBox = styled.div.attrs({})`
 `
 const LinkSelect_List = styled.select.attrs({})`
   display : flex;
-
+  text-align : center;
   width: 100%;
   height: 100%;
 
@@ -171,7 +172,7 @@ const LinkSelect_List = styled.select.attrs({})`
 
 
   font-size: ${props => props.theme.fontSizes.xsmall};
-  color: ${props => props.theme.colors.gray};
+  color: ${props => props.theme.colors.purple};
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
   
 `

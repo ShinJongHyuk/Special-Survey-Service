@@ -5,6 +5,7 @@ import {Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkS
     ,Question_Header,Question_Header_Container,
     Question_Content,Question_Content_Container,
     CheckBox_Input,CheckBox_Label,CheckBox_Switch} from '@/components/survey/Survey.styled';
+import useSurveyStore from '@/stores/useSurveyStore';
 import SurveyType from './Survey.type';
 import Image from 'next/image'
 import etc from '/public/survey/etc.png'
@@ -15,14 +16,16 @@ import DropDown from './dropdown';
 import Dates from './dates';
 import Time from './time';
 
-const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
+const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
+    const {surveyComponents} = useSurveyStore();
     const [surveyState,setSurveyState] = useState('multiplechoice')
     const [selectedOption, setSelectedOption] = useState(''); 
+    const [listOption, setListOption] = useState(false);
     const [checked, setChecked] = useState(false); 
     const [headerText, setHeaderText] = useState('');
     const [headerDetailText, setHeaderDetailText] = useState('');
-    
 
+  
     const saveComponentDataToLocalStorage = (componentKey: string, data: any) => {
         localStorage.setItem(componentKey, JSON.stringify(data));
       };
@@ -40,6 +43,7 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
           setChecked(storedData.checked);
           setHeaderText(storedData.headerText);
           setHeaderDetailText(storedData.headerDetailText)
+          setListOption(storedData.listOption)
         }
       }, [componentKey]);
 
@@ -50,9 +54,11 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
           checked,
           headerText,
           headerDetailText,
+          listOption,
+          
         };
         saveComponentDataToLocalStorage(componentKey, componentData);
-      }, [surveyState, selectedOption, checked,headerText,headerDetailText]);
+      }, [surveyState, selectedOption, checked,headerText,headerDetailText,listOption]);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(e.target.checked)
@@ -70,6 +76,10 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
         setHeaderDetailText(event.target.value);
       };
 
+    const LinkOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setListOption((prevOption) => !prevOption);
+    };
+      
     return (
         <ThemeProvider theme={theme}>
             <Main_Container>
@@ -79,10 +89,10 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>
-                            <Question_Header onChange={handleHeaderChange} value={headerText}/>
+                            <Question_Header onChange={handleHeaderChange} value={headerText} index={index}/>
                         </Question_Header_Container>            
                         <Question_Content_Container>
-                            <Question_Content onChange={handleHeaderDetailChange} value={headerDetailText} />
+                            <Question_Content onChange={handleHeaderDetailChange} value={headerDetailText} index={index} />
                         </Question_Content_Container>
                     </Question_Container>
                     <SelectBox>
@@ -95,23 +105,21 @@ const SurveyComponent = ({ componentKey }: { componentKey: string }) => {
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
-                {surveyState === 'multiplechoice' && <MultipleChoice componentKey={componentKey} />}
-                {surveyState === 'checkbox' && <CheckBox componentKey={componentKey} />}
-                {surveyState === 'dropdown' && <DropDown componentKey={componentKey} />}
-                {surveyState === 'dates' && <Dates componentKey={componentKey} />}
+                {surveyState === 'multiplechoice' && <MultipleChoice componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'checkbox' && <CheckBox componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'dropdown' && <DropDown componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'dates' && <Dates componentKey={componentKey}/>}
                 {surveyState === 'time' && <Time componentKey={componentKey} />}
                         
                 <hr/>
                 <Bottom_Box>
                     <Link_Question_Box>
-                        <Link_Question_Title>질문 연계</Link_Question_Title>
+                        <Link_Question_Title>연계 질문 여부</Link_Question_Title>
                         <LinkSelectBox>
-                                <LinkSelect_List onChange={handleOptionChange} value={selectedOption}>
-                                    <LinkSelect_Option value="Option 1">1번 질문</LinkSelect_Option>
-                                    <LinkSelect_Option value="Option 2">2번 질문</LinkSelect_Option>
-                                    <LinkSelect_Option value="Option 3">3번 질문</LinkSelect_Option>
-                                    <LinkSelect_Option value="Option 4">1번 질문</LinkSelect_Option>
-                                </LinkSelect_List>
+                            <LinkSelect_List value={listOption ? 'true' : 'false'} onChange={LinkOptionChange}>
+                                <LinkSelect_Option value='false'>X</LinkSelect_Option>
+                                <LinkSelect_Option value='true'>O</LinkSelect_Option>
+                            </LinkSelect_List>
                         </LinkSelectBox>
                     </Link_Question_Box>
                     <Elements_Box>
