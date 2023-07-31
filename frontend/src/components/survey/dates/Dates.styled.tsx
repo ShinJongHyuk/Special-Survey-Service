@@ -43,7 +43,7 @@ const MultipleCheck = styled.input.attrs({ type: 'date' })`
     letter-spacing : 7px;
     text-indent : 10px;
     text-align : center;
-    font-family: ${props => props.theme.fonts.HangeulFontBold};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     font-size: ${props => props.theme.fontSizes.medium};
     color: ${props => props.theme.colors.purple};
 
