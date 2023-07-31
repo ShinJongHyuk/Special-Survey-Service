@@ -2,7 +2,7 @@
 import Input from '@/components/input'
 import Button from '@/components/button'
 import Image from 'next/image'
-import { LoginPage, InputBox, LoginFont, LoginFont2, LoginContainer } from './Login.styled'
+import { LoginPage, LoginText, InputBox, LoginFont, LoginFont2, LoginContainer } from './Login.styled'
 import { SignUpText, SignUpItem } from '../signup/Signup.styled'
 import { useRouter } from 'next/navigation'
 import { useLoginHook } from '@/Hooks/useLoginHook'
@@ -24,8 +24,8 @@ const Login = () => {
 
     return (
         <LoginPage>
-            <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px",cursor:'pointer'}} onClick={ClickLogo}></Image>
-
+            {/* <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px",cursor:'pointer'}} onClick={ClickLogo}></Image> */}
+            <LoginText>Login</LoginText>
             <LoginContainer onSubmit={handleSubmit}>
                 <SignUpItem>
                     <SignUpText>이메일</SignUpText> 

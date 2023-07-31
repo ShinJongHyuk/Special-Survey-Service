@@ -22,7 +22,7 @@ const BoardComponent = (props : any) => {
                 <BoardTopLive>
                     <BoardTopLiveFont>
                         실시간 당첨 현황
-                        {/* {props.type === "즉시당첨" ? "실시간 당첨 현황":"실시간 추첨 현황"} */}
+                        {/* {props.type === {props.use} ? "실시간 당첨 현황":"실시간 추첨 현황"} */}
                     </BoardTopLiveFont>
                     <BoardTopLiveCount>
                         117
@@ -47,117 +47,117 @@ const BoardComponent = (props : any) => {
                     </TableHead>
 
                     <TableBody>
-                        <TableRow use="즉시당첨" result="꽝">
+                        <TableRow use={props.type} result="꽝">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="꽝">
+                        <TableRow use={props.type} result="꽝">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="꽝">
+                        <TableRow use={props.type} result="꽝">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="꽝">
+                        <TableRow use={props.type} result="꽝">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                     
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
                         
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
 
-                        <TableRow use="즉시당첨" result="꽝">
+                        <TableRow use={props.type} result="꽝">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
-                        <TableRow use="즉시당첨" result="당첨">
-                            <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
-                            <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
-                            <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
-                            <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
-                        </TableRow>
-
-                        <TableRow use="즉시당첨" result="꽝">
-                            <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
-                            <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
-                            <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
-                            <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
-                        </TableRow>
-                        <TableRow use="즉시당첨" result="당첨">
+                        <TableRow use={props.type} result="당첨">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
                             <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
                         </TableRow>
 
-                        <TableRow use="즉시당첨" result="꽝">
+                        <TableRow use={props.type} result="꽝">
+                            <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                            <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                        </TableRow>
+                        <TableRow use={props.type} result="당첨">
+                            <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
+                            <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>
+                            <TableDataCell><TableFont>당첨</TableFont></TableDataCell>
+                        </TableRow>
+
+                        <TableRow use={props.type} result="꽝">
                             <TableDataCell><TableNumberFont>2023/07.23 12:59</TableNumberFont></TableDataCell>
                             <TableDataCell><TableFont>안녕***</TableFont></TableDataCell>
                             <TableDataCell><TableFont>스타벅스 <TableNumberFont>10,000</TableNumberFont>원권</TableFont></TableDataCell>

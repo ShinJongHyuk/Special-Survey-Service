@@ -3,15 +3,15 @@ import styled from 'styled-components'
 const SurveyDetailContainer = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     width: 100%;
-    padding: 20px 100px 40px 100px;
-    align-items: flex-start;
+    padding: 20px 250px 40px 250px;
     gap: 136px;
+    justify-content: space-between;
 `
 
 const SurveyContent = styled.div.attrs<any>((props) => ({}))`
     display: flex;
-    height: 700px;
-    width: 600px;
+    height: 600px;
+    width: 450px;
     padding: 20px 0px;
     flex-direction: column;
     justify-content: space-between;
@@ -52,7 +52,7 @@ const SurveyPurpose = styled.div.attrs<any>((props) => ({}))`
     font-style: normal;
     font-weight: 400;
     line-height: 27px; /* 150% */
-    width: 600px;
+    width: 450px;
 `
 
 const SurveyInformation = styled.div.attrs<any>((props) => ({}))`
@@ -102,24 +102,23 @@ const SurveyFooter =  styled.div.attrs<any>((props) => ({}))`
 const SurveyCardContainer = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     align-items: flex-end;
-    gap: 21px;
+    gap: 15px;
 `
 
 const SurveyCard = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     padding: 20px 24px;
     flex-direction: column;
-    align-items: flex-end;    
-    gap: 16px;
-    flex: 1 0 0;
+    align-items: flex-end;
+    gap: 4px;
     border: 1px solid black;
     border-radius: 16px;
-    width: 186px;
-    height: 107px;
+    width: 140px;
+    height: 90px;
 `
 
 const SurveyCardTitle = styled.div.attrs<any>((props) => ({}))`
-    width: 139px;
+    width: 90px;
     height: 20px;
     color: #6D7075;
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
@@ -127,27 +126,29 @@ const SurveyCardTitle = styled.div.attrs<any>((props) => ({}))`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-`
+    `
+    
 
 const SurveyCardContent = styled.div.attrs<any>((props) => ({}))`
-    width: 139px;
-    height: 29px;
+    width: 90px;
+    /* height: 56px; */
     color: #000;
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: 28px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     display: flex;
     justify-content: flex-end;
+    
 `
 
 const ButtonAndShare = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    width: 600px;
-    height: 64px;
+    width: 450px;
+    height: 48px;
 `
 
 export { SurveyDetailContainer, SurveyContent, SurveyTitle,
