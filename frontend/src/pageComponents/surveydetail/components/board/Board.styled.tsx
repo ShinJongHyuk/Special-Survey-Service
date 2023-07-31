@@ -44,8 +44,8 @@ const BoardTopLiveCount = styled.div.attrs<any>((props) => ({}))`
 const BoardTopLivetime = styled.div.attrs<any>((props) => ({}))`
     margin-left: auto;
     margin-right: 4px;
-    color: ${(props) => props.theme.colors.lightgray};
-    /* color: #9EA4A3; */
+    /* color: ${(props) => props.theme.colors.lightgray}; */
+    color: #9EA4A3;
     font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
     font-size: ${(props) => props.theme.fontSizes.small};
     height: 20px;
@@ -86,7 +86,7 @@ const TableRow = styled.tr.attrs<any>((props) => ({}))`
             `,
 
             즉시당첨 : `
-                background-color : ${result === '당첨' ? "rgba(255,241,55,0.3)" : "white"}
+                background-color : ${result === '당첨' ? "rgba(255,241,41,0.3)" : "white"}
             `
         } 
         return css`
