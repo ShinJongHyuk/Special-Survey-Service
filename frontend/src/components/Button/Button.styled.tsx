@@ -63,13 +63,13 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 background: #D4C9FF;
                 font-size:${small};
             `,
-            detailTimeAttack:`
+            detailTimeAttack: `
                 border-radius: 48px;
                 background-color: ${props.theme.colors.purple};
                 color : ${props.theme.colors.white};
                 font-size:${small}
             `,
-            detailInstance:`
+            longYellow: `
                 border-radius: 48px;
                 background-color: ${props.theme.colors.yellow};
                 color : ${props.theme.colors.black};

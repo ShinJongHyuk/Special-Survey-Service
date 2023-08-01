@@ -124,7 +124,7 @@ const DetailComponent = (props: any) => {
             {props.type === "타임어택" ? (
               <Button use="detailTimeAttack" label="지금 응답하기"></Button>
             ) : (
-              <Button use="detailInstance" label="지금 응답하기"></Button>
+              <Button use="longYellow" label="지금 응답하기"></Button>
             )}
           </ButtonAndShare>
         </SurveyFooter>
