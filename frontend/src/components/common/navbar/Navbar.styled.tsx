@@ -48,6 +48,14 @@ const StyledNavLink = styled(Link)`
   color: ${(props) => props.theme.colors.black};
 `;
 
+const StyleLogout = styled.div`
+  padding: 0px 10px;
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  color: ${(props) => props.theme.colors.black};
+  cursor: pointer;
+`
+
 const StyledInstantNavLink = styled(Link).attrs<NavbarType>((props) => ({}))`
   ${(props) => {
     const orange = props.theme.colors.orange;
@@ -85,4 +93,4 @@ const StyledNavBtn = styled.button`
   cursor: pointer;
 `;
 
-export { StyledNavbar, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink, StyledNavBtn };
+export { StyledNavbar, StyledNavLink, StyleLogout, StyledInstantNavLink, StyledTimeattackNavLink, StyledNavBtn };

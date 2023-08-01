@@ -2,13 +2,16 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { StyledNavbar, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink } from "./Navbar.styled";
+import { StyledNavbar, StyleLogout, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink } from "./Navbar.styled";
 import { usePathname } from "next/navigation";
 import MidComponent from "./midComponent";
+import useUserStore from "@/stores/useUserStore";
+import { useLogoutHook } from "@/Hooks/useLogoutHook";
 
 const NavbarComponent = () => {
   const pathname = usePathname();
-
+  const isLogin = useUserStore((state:any) => (state.isLogin))
+  const {hanedleLogout} = useLogoutHook()
   return (
     <header>
       <StyledNavbar pathname={pathname}>
@@ -18,8 +21,8 @@ const NavbarComponent = () => {
         </Link>
         <MidComponent pathname={pathname} />
         <div style={{ width: "20%", display: "flex", justifyContent: "end" }}>
-          <StyledNavLink href="/login">로그인</StyledNavLink>
-          <StyledNavLink href="/signup">회원가입</StyledNavLink>
+          {isLogin ? <StyleLogout onClick={hanedleLogout}>로그아웃</StyleLogout> : <StyledNavLink href="/login">로그인</StyledNavLink>}
+          {!isLogin && <StyledNavLink href="/signup">회원가입</StyledNavLink>}
         </div>
       </StyledNavbar>
     </header>

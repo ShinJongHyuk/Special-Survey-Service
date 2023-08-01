@@ -27,7 +27,7 @@ export const useSignupHook = ():SignupHookType => {
         
     })
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
     const phoneNumberRegex = /^\d{3}-\d{3,4}-\d{4}$/
 
     const handleChange = (e:any) => {

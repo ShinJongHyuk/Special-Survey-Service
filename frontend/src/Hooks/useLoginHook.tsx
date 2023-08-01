@@ -7,8 +7,10 @@ import { useCookies } from 'react-cookie'
 
 export const useLoginHook = () => {
     const router = useRouter()
-    const setRefreshToken = useUserStore((state:any) => state.setRefreshToken)
+    const setUserInformation = useUserStore((state:any) => state.setUserInformation)
     const setAccessToken = useUserStore((state:any) => state.setAccessToken)
+    const accessToken = useUserStore((state:any) => state.accessToken)
+    const userInformation = useUserStore((state:any) => state.userInformation)
     const login = useUserStore((state:any) => state.login)
     
     const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"]);
@@ -58,7 +60,7 @@ export const useLoginHook = () => {
         })
     }
 
-    const handleSubmit = (e:any) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault()
         
         if (user.email === "") {
@@ -80,23 +82,32 @@ export const useLoginHook = () => {
         } 
 
         else {
-            axios({
-                method : 'post',
-                url : 'http://221.164.64.185:8080/api/authenticate',
-                data : {...user}
-            })
-            .then(res => {
-                setRefreshToken(res.data.response.refreshToken)
-                setAccessToken(res.data.response.accessToken)
-                login()
-
+            try {
+                const res = await axios({
+                  method: 'post',
+                  url: 'http://221.164.64.185:8080/api/authenticate',
+                  data: { ...user },
+                });
+          
+                setAccessToken(res.data.response.accessToken);
+                login();
+          
                 if (isRemember) {
-                    setCookie("rememberUserId", user.email, { path: '/' });
+                  setCookie("rememberUserId", user.email, { path: '/' });
+                }
+          
+                const response = await axios({
+                  method: 'get',
+                  url: `http://221.164.64.185:8080/api/user`,
+                  headers: {
+                    Authorization: `Bearer ${res.data.response.accessToken}`
                   }
+                });
+                setUserInformation(response.data.response);
                 router.push('/')
-                alert('로그인 성공')
-            })
-            .catch(err => console.log(err))
+              } catch (err) {
+                console.log(err);
+              }
         }
     }
     return {handleChange, handleSubmit, handleUserId, handleOnChange, inputState, user, isRemember}

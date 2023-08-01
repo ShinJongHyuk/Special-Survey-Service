@@ -1,7 +1,6 @@
 import styled, {css} from 'styled-components'
 
 const SignUpPage = styled.div.attrs<any>((props) => ({}))`
-
   height: 100%;
   padding-top: 56px;
   display: flex;
@@ -62,6 +61,13 @@ const SignUpItem = styled.div.attrs<any>((props) => ({}))`
   flex-direction: column;
 `
 
+const PasswordCondition = styled.div.attrs<any>((props) => ({}))`
+  margin-left: 10px;  
+  margin-bottom: 10px;
+  font-size: ${(props) => props.theme.fontSizes.xsmall};
+  color: red
+`
+
 const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     align-items: center;
@@ -72,4 +78,4 @@ const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
 
 `
 
-export { SignUpPage, SignupText, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, InputBox }
+export { SignUpPage, SignupText, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, InputBox, PasswordCondition }
