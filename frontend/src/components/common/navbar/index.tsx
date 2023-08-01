@@ -15,7 +15,10 @@ const NavbarComponent = () => {
   const {hanedleLogout} = useLogoutHook()
   const [mounted, setMounted] = useState<boolean>(false);
   const userInformation = useUserStore((state:any) => (state.userInformation))
-
+  useEffect(() => {
+    setMounted(true);
+    });
+  
   return (
     <header>
       {pathname !== "/makesurvey" ?
