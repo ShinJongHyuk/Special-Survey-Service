@@ -1,6 +1,8 @@
 "use client"
 import { useState, useRef, useEffect } from 'react'
 import { StyledTitleBox, StyledBox, StyledImg, StyledProbability, StyledWinBox } from "./InstantWinConfirm.styled"
+import Button from '@/components/button';
+import { useRouter } from "next/navigation";
 
 const InstantWinConfirm = (props: any) => {
 
@@ -10,6 +12,12 @@ const InstantWinConfirm = (props: any) => {
     };
     const imgsrc = images[props.giveaways];
 
+    const router = useRouter();
+    const goList = () => {
+        router.push("/");
+    };
+
+    const isWin = false;
 
     // scratch
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -86,10 +94,15 @@ const InstantWinConfirm = (props: any) => {
                     <div className='subtitle'> 당첨여부를 확인하고 상품을 받아가세요! </div>
                 </StyledTitleBox>
                 <StyledWinBox >
-
-                    <div style={{ position: "absolute", width: "140px", height: "140px", zIndex: "0" }}>
-                        <img src="/card/chicken.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
-                    </div>
+                    {isWin ? (
+                        <div style={{ position: "absolute", width: "140px", height: "140px", zIndex: "0" }}>
+                            <img src="/card/chicken.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+                        </div>
+                    ) : (
+                        <div style={{ position: "absolute", width: "300px", height: "120px", zIndex: "0" }}>
+                            <img src="/instantwin/bomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+                        </div>
+                    )}
                     <canvas
                         ref={canvasRef}
                         width={380}
@@ -101,6 +114,9 @@ const InstantWinConfirm = (props: any) => {
                     />
                 </StyledWinBox>
 
+                <div style={{ width: "300px", height: "45px" }}>
+                    <Button label="홈화면으로 이동하기" onClick={goList} use="longYellow" ></Button>
+                </div>
             </StyledBox>
         </div>
 

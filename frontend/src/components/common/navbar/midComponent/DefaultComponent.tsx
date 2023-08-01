@@ -9,7 +9,7 @@ const DefaultComponent = (props: any) => {
   return (
     <div style={{ width: "60%", display: "flex", justifyContent: "center", gap: "20px" }}>
       <StyledNavLink href="/">설문만들기</StyledNavLink>
-      <StyledNavLink href="/instantWinSurveyList">설문하기</StyledNavLink>
+      <StyledNavLink href="/normalSurveyList">설문하기</StyledNavLink>
     </div>
   );
 };

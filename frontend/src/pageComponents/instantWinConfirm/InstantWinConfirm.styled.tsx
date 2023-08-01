@@ -10,7 +10,7 @@ const StyledBox = styled.div.attrs<any>((props) => ({}))`
             display: inline-flex;
             flex-direction: column;
             align-items: center;
-            gap: 19px;
+            gap: 35px;
 
     `;
     }};
