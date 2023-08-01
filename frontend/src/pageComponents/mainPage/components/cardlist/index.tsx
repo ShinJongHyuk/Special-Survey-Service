@@ -20,6 +20,8 @@ const CardList = ({ contentType }: any) => {
               remaintime={survey.remainTime || ""}
               endtime={survey.endTime}
               headcount={survey.headCount}
+              responsedtime={survey.responsedTime}
+              contentype={contentType}
             />
           </div>
         </div>

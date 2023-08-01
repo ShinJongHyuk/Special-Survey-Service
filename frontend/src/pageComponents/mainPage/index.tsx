@@ -9,8 +9,8 @@ const MainPage = () => {
   return (
     <>
       <Banner></Banner>
-      <SSSPick></SSSPick>
       <Timeattack />
+      <SSSPick></SSSPick>
       <Instantwin />
     </>
   );

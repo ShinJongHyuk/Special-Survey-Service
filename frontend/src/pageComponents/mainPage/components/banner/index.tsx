@@ -9,6 +9,10 @@ const Banner = () => {
     const goList = () => {
         router.push("/normalSurveyList");
     };
+    const goList2 = () => {
+        router.push("/makesurvey");
+    };
+
 
     return (
         <StyledBanner>
@@ -23,7 +27,7 @@ const Banner = () => {
                         <Button use="blackwhite" label="응답하기" onClick={goList}> </Button>
                     </div>
                     <div style={{ width: "134px", height: "64px" }}>
-                        <Button use="whiteblack" label="제작하기"> </Button>
+                        <Button use="whiteblack" label="제작하기" onClick={goList2}> </Button>
                     </div>
                 </div>
             </StyledBannerBox>

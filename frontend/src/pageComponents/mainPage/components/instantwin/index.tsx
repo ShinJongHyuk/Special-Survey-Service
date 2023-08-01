@@ -18,7 +18,7 @@ const Instantwin = () => {
       <StyledContent>
         <div className="title">
           <Image src="/mainpage/bulb.svg" priority={true} width={50} height={51} alt="bulb"></Image>
-          <StyledContentText> 즉시 당첨 </StyledContentText>
+          <StyledContentText> Instant Win </StyledContentText>
           <StyledContentText $issub="true"> 설문하고 바로 당첨자가 되어보세요! </StyledContentText>
         </div>
         <CardList contentType="instantwin"></CardList>

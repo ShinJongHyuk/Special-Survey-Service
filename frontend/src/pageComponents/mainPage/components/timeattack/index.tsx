@@ -23,7 +23,7 @@ const Timeattack = () => {
           </button>
           <div className="title">
             <Image src="/mainpage/good.svg" priority={true} width={50} height={51} alt="casino"></Image>
-            <StyledContentText> 타임 어택 </StyledContentText>
+            <StyledContentText> Time Attack </StyledContentText>
             <StyledContentText $issub="true"> 종료 임박 타임어택 설문이에요! </StyledContentText>
           </div>
           <button className="buttonbg" onClick={handleNextClick}>

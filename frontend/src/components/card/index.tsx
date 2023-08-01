@@ -49,7 +49,12 @@ const CardComponent = (props: CardType) => {
         <Image src={imgsrc} style={{ borderRadius: "100px" }} priority={true} width={80} height={80} alt="gift" />
       </StyledImg>
 
-      <StyledProbability {...newProps}>{props.probability}</StyledProbability>
+      {props.contentype === "ssspick" ? (
+        <StyledProbability {...newProps}>{props.responsedtime}</StyledProbability>
+      ) : (
+
+        <StyledProbability {...newProps}>{props.probability}</StyledProbability>
+      )}
       <StyledRemainTime {...newProps}>
         <div className="time-text">
           {

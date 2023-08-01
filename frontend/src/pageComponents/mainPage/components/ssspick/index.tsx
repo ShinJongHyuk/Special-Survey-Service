@@ -9,9 +9,9 @@ const SSSPick = () => {
       <img src="/mainpage/Content1.png" style={{ width: "100%", position: "absolute", height: "750px", zIndex: "-1" }}></img>
       <StyledContent>
         <div className="title">
-          <Image src="/mainpage/casino.svg" priority={true} width={50} height={51} alt="casino"></Image>
-          <StyledContentText> SSS pick </StyledContentText>
-          <StyledContentText $issub="true"> SSS 가 추천하는 Survey </StyledContentText>
+          <Image src="/mainpage/time.png" priority={true} width={50} height={51} alt="time"></Image>
+          <StyledContentText> Speedy Attack </StyledContentText>
+          <StyledContentText $issub="true"> 응답 시간이 짧은 설문이에요! </StyledContentText>
         </div>
         <CardList contentType="ssspick"></CardList>
       </StyledContent>
