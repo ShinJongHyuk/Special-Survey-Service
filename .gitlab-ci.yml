@@ -11,4 +11,4 @@ deploy_job:
   only:
     - feature/ci/cd
   tags:
-    -	ci-cd-server
+    - "ci-cd-server"
