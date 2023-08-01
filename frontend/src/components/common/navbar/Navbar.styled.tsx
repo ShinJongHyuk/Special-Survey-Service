@@ -94,11 +94,16 @@ const StyledNavBtn = styled.button`
 `;
 
 const StyledPropfileLink = styled(Link)`
-display: flex;
-  padding: 0px 10px;
+  display: flex;
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.small};
   color: ${(props) => props.theme.colors.black};
 `;
 
-export { StyledNavbar, StyledNavLink, StyleLogout, StyledInstantNavLink, StyledTimeattackNavLink, StyledNavBtn, StyledPropfileLink };
+const StyledProfileName = styled.div`
+  margin-left: 5px;
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  color: ${(props) => props.theme.colors.black};
+`
+export { StyledNavbar, StyledNavLink, StyleLogout, StyledInstantNavLink, StyledTimeattackNavLink, StyledNavBtn, StyledPropfileLink, StyledProfileName };

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { StyledNavbar, StyleLogout, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink, StyledPropfileLink } from "./Navbar.styled";
+import { StyledNavbar, StyleLogout, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink, StyledPropfileLink, StyledProfileName } from "./Navbar.styled";
 import { usePathname } from "next/navigation";
 import MidComponent from "./midComponent";
 import useUserStore from "@/stores/useUserStore";
@@ -32,12 +32,14 @@ useEffect(() => {
           <>
           {isLogin ? <StyleLogout onClick={hanedleLogout}>로그아웃</StyleLogout> : <StyledNavLink href="/login">로그인</StyledNavLink>}
           {!isLogin && <StyledNavLink href="/signup">회원가입</StyledNavLink>}
+
           {
           (isLogin && userInformation?.gender === "MAN") ?
-          (<StyledPropfileLink href="/"><Image src="/manIcon.png" alt="man" width={20} height={20} style={{border:"1px solid black", borderRadius:"50%", marginRight:"5px"}}></Image><div>{userInformation.name}</div></StyledPropfileLink>) : 
+          (<StyledPropfileLink href="/mypage"><Image src="/manIcon.png" alt="man" width={20} height={20} style={{border:"1px solid black", borderRadius:"50%"}}></Image><StyledProfileName>{userInformation.name}</StyledProfileName></StyledPropfileLink>) : 
           (isLogin && userInformation?.gender === "WOMAN") ? 
-          (<StyledPropfileLink href="/"><Image src="/womanIcon.png" alt="man" width={20} height={20} style={{border:"1px solid black", borderRadius:"50%", marginRight:"5px"}}></Image><div>{userInformation.name}</div></StyledPropfileLink>) : null
+          (<StyledPropfileLink href="/mypage"><Image src="/womanIcon.png" alt="man" width={20} height={20} style={{border:"1px solid black", borderRadius:"50%"}}></Image><StyledProfileName>{userInformation.name}</StyledProfileName></StyledPropfileLink>) : null
           }
+          
           </>
           :
           <>
