@@ -5,6 +5,7 @@ import com.logwiki.specialsurveyservice.domain.question.Question;
 import com.logwiki.specialsurveyservice.domain.surveycategory.SurveyCategory;
 import com.logwiki.specialsurveyservice.domain.surveygiveaway.SurveyGiveaway;
 import com.logwiki.specialsurveyservice.domain.surveyresult.SurveyResult;
+import com.logwiki.specialsurveyservice.domain.surveytarget.SurveyTarget;
 import com.logwiki.specialsurveyservice.domain.targetnumber.TargetNumber;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -13,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -36,25 +38,32 @@ public class Survey extends BaseEntity {
 
     private Long writer;
 
+    private boolean closed;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "survey_category_id")
     private SurveyCategory surveyCategory;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Question> questions;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SurveyGiveaway> surveyGiveaways;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TargetNumber> targetNumbers;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SurveyResult> surveyResults;
+
+
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<SurveyTarget> surveyTargets;
 
     @Builder
     public Survey(String title, LocalDateTime startTime, LocalDateTime endTime, int headCount,
-                  int closedHeadCount,
-                  Long writer, SurveyCategory type, List<Question> questions) {
+            int closedHeadCount, List<SurveyTarget> surveyTargets,
+            Long writer, SurveyCategory type, List<Question> questions) {
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -62,7 +71,9 @@ public class Survey extends BaseEntity {
         this.closedHeadCount = closedHeadCount;
         this.surveyCategory = type;
         this.writer = writer;
+        this.closed = false;
         this.questions = questions;
+        this.surveyTargets = surveyTargets;
     }
 
     public void addCategory(SurveyCategory surveyCategory) {
@@ -83,5 +94,24 @@ public class Survey extends BaseEntity {
 
     public void addSurveyResults(List<SurveyResult> surveyResults) {
         this.surveyResults = surveyResults;
+    }
+  
+    public void addSurveyTarget(SurveyTarget surveyTarget) {
+        if (this.surveyTargets == null) this.surveyTargets = new ArrayList<>();
+        this.surveyTargets.add(surveyTarget);
+    }
+  
+    public void addHeadCount() {
+        this.headCount += 1;
+        if(this.headCount == closedHeadCount)
+            closed = true;
+    }
+
+    public void toOpen() {
+        this.closed = false;
+    }
+
+    public void toClose() {
+        this.closed = true;
     }
 }

@@ -21,6 +21,7 @@ public class MultipleChoice {
     private Long linkNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
     private Question question;
 
     @Builder
@@ -30,4 +31,7 @@ public class MultipleChoice {
         this.question = question;
     }
 
+    public void addQuestion(Question question) {
+        this.question = question;
+    }
 }
