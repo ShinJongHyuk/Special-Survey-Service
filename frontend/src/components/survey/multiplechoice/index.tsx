@@ -4,31 +4,33 @@ import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
 import useSurveyStore from '@/stores/useSurveyStore';
-import useItemStore, { ItemType } from '@/stores/useItemStore';
+// import useItemStore from '@/stores/useItemStore';
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();
-    const {items,setItems} = useItemStore(componentKey);
-
+    const [items,setItems] = useState<any[]>([
+      { id: `${componentKey}_1`, text: '', imageUrl: '', linkNumber: 0 },
+      { id: `${componentKey}_2`, text: '', imageUrl: '', linkNumber: 0 },
+    ])
     const [count, setCount] = useState(3);
-    console.log(items)
+
     useEffect(() => {
-  
+    
       const loadDataFromLocalStorage = async () => {
-        const storedItems = await loadMultipleChoiceFromLocalStorage(componentKey);
+        const storedItems = await loadMultipleChoiceFromLocalStorage(`multiplechoice_${componentKey}`);
+        
         if (storedItems) {
           setItems(storedItems);
         }
-        // save after loading data
-        await saveMultipleChoiceToLocalStorage(componentKey, items);
       };
+      loadDataFromLocalStorage();
      
     }, [componentKey]);
 
     useEffect(() => {
-        saveMultipleChoiceToLocalStorage(componentKey, items);
+        saveMultipleChoiceToLocalStorage(`multiplechoice_${componentKey}`, items);
       
      
-    }, [items]);
+    }, [componentKey,items]);
 
 
 
@@ -36,14 +38,13 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
       if (items) {
-        localStorage.setItem(componentKey, JSON.stringify(items));
+        localStorage.setItem(`multiplechoice_${componentKey}`, JSON.stringify(items));
       }
    
     };
   
     const loadMultipleChoiceFromLocalStorage = (componentKey: string) => {
-      const storedData = localStorage.getItem(componentKey); 
-      console.log(storedData,"야")
+      const storedData = localStorage.getItem(`multiplechoice_${componentKey}`); 
       return storedData ? JSON.parse(storedData) : null;
     };
 

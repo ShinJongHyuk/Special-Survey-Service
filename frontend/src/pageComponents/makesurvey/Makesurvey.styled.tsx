@@ -96,6 +96,7 @@ const Image_Inner_Container = styled.div.attrs({})`
 const Inner_Text_Container = styled.div.attrs({})`
     display : flex;
     flex-direction : column;
+
     width : 70%;
     height: 100%; 
 
@@ -113,7 +114,7 @@ const Inner_Icon_Container = styled.div.attrs({})`
 
 `
 
-const Image_Text_Header = styled.input.attrs({ placeholder : "설문 대표 이미지 1장"})`
+const Image_Text_Header = styled.label.attrs({})`
     display: flex;
     width: 100%;
     height: 50%;
@@ -127,10 +128,11 @@ const Image_Text_Header = styled.input.attrs({ placeholder : "설문 대표 이�
     }
 `
 
-const Image_Text_Content = styled.input.attrs({ placeholder : "jpg 혹은 png 이미지 (선택사항)"})`
+const Image_Text_Content = styled.label.attrs({})`
     display: flex;
     width: 100%;
-    height: 50%;
+    height: 30%;
+    margin-top : 10px;
     border: none;
     color : white;
     background-color: ${props => props.theme.colors.lightpurple};
@@ -140,4 +142,50 @@ const Image_Text_Content = styled.input.attrs({ placeholder : "jpg 혹은 png �
       color: white;
     }
 `
-export {Image_Text_Content,Image_Text_Header,Inner_Icon_Container,Inner_Text_Container,Image_Inner_Container,Title_Content,Title_input,Title_Inner_Container,Survey_Container,Background_Container,Survey_Title_Container,Survey_MainImage_Container}
+
+const UploadImage = styled.input.attrs({type : 'file'})`
+    display : none;
+`;
+
+const Image_Delete_Button = styled.button`
+    content: 'X';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: ${props => props.theme.colors.purple};
+    color: white;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border : 3px solid lightgray;
+    cursor: pointer;
+    opacity: 0; 
+    transition: opacity 0.2s ease-in-out; 
+`;
+
+const ImagePreiew_Box = styled.div`
+    display: flex;
+    position : relative;
+
+    width: 100px;
+    height: 70px;
+    
+    &:hover {
+        ${Image_Delete_Button} {
+            opacity: 1; 
+        }
+    }
+`;
+
+const ImagePreview = styled.img`
+  width: 100%;
+  height : 100%;
+  border-radius : 6px;
+
+`;
+
+
+export {Image_Delete_Button,ImagePreiew_Box,ImagePreview,UploadImage,Image_Text_Content,Image_Text_Header,Inner_Icon_Container,Inner_Text_Container,Image_Inner_Container,Title_Content,Title_input,Title_Inner_Container,Survey_Container,Background_Container,Survey_Title_Container,Survey_MainImage_Container}
