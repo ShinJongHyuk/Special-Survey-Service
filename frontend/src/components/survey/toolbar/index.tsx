@@ -8,8 +8,8 @@ import plus from '../../../../public/survey/plus.png';
 import minus from '../../../../public/survey/minus.png';
 import duplicate from '../../../../public/survey/duplicate.png'
 import Survey from '../../survey';
-import useSurveyFocusStore from '@/stores/useSurveyFocusStore';
-import useSurveyStore from '@/stores/useSurveyStore';
+import useSurveyFocusStore from '@/stores/makesurvey/useSurveyFocusStore';
+import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 
 
 const Toolbar = () => {

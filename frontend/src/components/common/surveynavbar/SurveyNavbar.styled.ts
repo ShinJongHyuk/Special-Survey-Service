@@ -18,15 +18,7 @@ const Navbar_Container = styled.div`
 
     position: fixed;
     z-index: 1;
-    hr {
-    width : 1120px;
-    height: 1px;
-    background-color: ${props => props.theme.colors.lightgray};
-    border: none;
-    margin: 0 0;
-    margin-top : 10px;
-    margin-right : 30px;
-    }
+
 `
 const Top_Container = styled.div`
     display : flex;
@@ -43,6 +35,7 @@ const Bottom_Container = styled.div`
     justify-content : center;
     width : 100%;
     height: 35%;
+    border-top : 1px solid ${props => props.theme.colors.lightgray};
 `
 
 const Title_Container = styled.div`
@@ -80,12 +73,22 @@ const Title_Label = styled.label.attrs({})`
 const Button_Box = styled.div.attrs({})`
     display : flex;
     flex-direction : row;
-    justify-content : space-evenly;
+    justify-content : space-around;
     align-items : center;
-    width : 36%;
+    width : 28%;
     height : 60%;
     margin-left : 90px;
 `
+
+const Right_Button_Box = styled.div.attrs({})`
+    display : flex;
+    justify-content : space-evenly;
+    width : 45%;
+    
+    height : 100%;
+    align-items : center;
+`
+
 const Buttons = styled.button.attrs<any>((props) => ({
     backgroundcolor: props.backgroundcolor || 'white'
   }))`
@@ -100,24 +103,24 @@ const Buttons = styled.button.attrs<any>((props) => ({
     cursor: pointer;
   `;
 
-const OptionBox = styled.div.attrs((props : any) => ({
-    style: {
-      color: props.isSelected ? 'purple'  : 'purple'
-    },
-  }))`
-    display : flex;
-    width : 60px;
-    height : 100%;
-    background-color: white;
-    align-items : center;
-    justify-content : center;
-    border : none;
-    border-bottom : 1px solid black;
-    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-    font-size: ${props => props.theme.fontSizes.regular};
-    color: ${props => props.theme.colors.black};
-  
-`
+const OptionBox = styled.button.attrs<any>((props) => ({
+  style: {
+    color: props.isSelected ? props.theme.colors.purple : props.theme.colors.black,
+    borderBottom: props.isSelected ? '1px solid black' : 'none'
+  },
+}))`
+  display: flex;
+  width: 60px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border: none;
+
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.regular};
+  background-color: white;
+  cursor: pointer;
+`;
 
 const StyledPropfileLink = styled(Link)`
   display: flex;
@@ -142,4 +145,4 @@ const StyleLogout = styled.div`
   cursor: pointer;
 `
 
-export {StyleLogout,StyledProfileName,StyledPropfileLink,OptionBox,Buttons,Button_Box,Title_Label,Title_Content,Title_Container,Top_Container,Bottom_Container,Navbar_Container}
+export {Right_Button_Box,StyleLogout,StyledProfileName,StyledPropfileLink,OptionBox,Buttons,Button_Box,Title_Label,Title_Content,Title_Container,Top_Container,Bottom_Container,Navbar_Container}

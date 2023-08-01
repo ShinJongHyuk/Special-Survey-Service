@@ -5,7 +5,7 @@ import backgroundImage from '../../../public/survey/MakeSurvey_Background.png'
 import Main_Image from '../../../public/survey/Main_Image.png'
 import Image from 'next/Image'
 import SurveyNavbar from '@/components/common/surveynavbar';
-import useSurveyStore from '@/stores/useSurveyStore';
+import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import axios from 'axios'
 
 function MakeSurvey() {
