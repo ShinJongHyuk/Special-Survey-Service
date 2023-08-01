@@ -93,4 +93,17 @@ const StyledNavBtn = styled.button`
   cursor: pointer;
 `;
 
-export { StyledNavbar, StyledNavLink, StyleLogout, StyledInstantNavLink, StyledTimeattackNavLink, StyledNavBtn };
+const StyledPropfileLink = styled(Link)`
+  display: flex;
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  color: ${(props) => props.theme.colors.black};
+`;
+
+const StyledProfileName = styled.div`
+  margin-left: 5px;
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  color: ${(props) => props.theme.colors.black};
+`
+export { StyledNavbar, StyledNavLink, StyleLogout, StyledInstantNavLink, StyledTimeattackNavLink, StyledNavBtn, StyledPropfileLink, StyledProfileName };
