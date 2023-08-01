@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import useInstantWinStore from '@/stores/surveys/useInstantWinStore';
 import moment from 'moment';
 import useTimerHook from '@/Hooks/card/useTimerHook';
-import useTimeAttackStore from '@/stores/surveys/useTimeAttackStore';
+import useTimeAttackStore from '@/stores/surveys/useNormalStore';
 
 
 const useSurveyListHook = (surveyType: any) => {

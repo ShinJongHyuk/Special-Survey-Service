@@ -8,6 +8,8 @@ export interface CardType {
   probability: string;
 
   remaintime: string;
+  endtime: string;
   headcount?: string;
+  typename?: string;
 }
 
