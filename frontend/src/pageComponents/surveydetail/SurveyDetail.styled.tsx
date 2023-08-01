@@ -10,6 +10,7 @@ ${(props) => {
         position: relative;
         height: 111px;
         background-color: ${bgcolor};
+        padding-left: 30px;
     `
 }}
     
