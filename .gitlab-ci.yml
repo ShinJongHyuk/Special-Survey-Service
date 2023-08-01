@@ -7,7 +7,8 @@ deploy_job:
     - echo "$AWS_PEM" > aws_key.pem  # AWS_PRIVATE_KEY는 AWS SSH 키를 담고 있는 GitLab CI/CD 변수입니다.
     - chmod 600 aws_key.pem
   script:
-    - ssh -i aws_key.pem -o StrictHostKeyChecking=no ubuntu@i9e107.p.ssafy.io ls  # AWS_INSTANCE_IP는 접속하려는 AWS 인스턴스의 IP 주소입니다.
+    - ls
+    # - ssh -i aws_key.pem -o StrictHostKeyChecking=no ubuntu@i9e107.p.ssafy.io ls  # AWS_INSTANCE_IP는 접속하려는 AWS 인스턴스의 IP 주소입니다.
   only:
     - feature/ci/cd
   tags:
