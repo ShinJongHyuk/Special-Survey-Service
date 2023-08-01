@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {useState,useEffect} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { StyledNavbar, StyleLogout, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink, StyledPropfileLink, StyledProfileName } from "./Navbar.styled";
@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import MidComponent from "./midComponent";
 import useUserStore from "@/stores/useUserStore";
 import { useLogoutHook } from "@/Hooks/useLogoutHook";
+import SurveyNavbar from "../surveynavbar" 
 
 const NavbarComponent = () => {
   const pathname = usePathname();
@@ -20,6 +21,7 @@ useEffect(() => {
   });
   return (
     <header>
+      {pathname !== "/makesurvey" ?
       <StyledNavbar pathname={pathname}>
         <Link href="/" style={{ width: "20%" }}>
           <Image src="/Logo.svg" priority={true} width={21} height={21} alt="Logo"></Image>
@@ -50,6 +52,7 @@ useEffect(() => {
       }
         </div>
       </StyledNavbar>
+      : <SurveyNavbar />}
     </header>
   );
 };
