@@ -73,18 +73,26 @@ const SurveyNavbarComponent = () => {
                             (<StyledPropfileLink href="/mypage"><Image src="/manIcon.png" alt="man" width={20} height={20} style={{border:"1px solid black", borderRadius:"50%"}}></Image><StyledProfileName>{userInformation.name}</StyledProfileName></StyledPropfileLink>) : 
                             (isLogin && userInformation?.gender === "WOMAN") ? 
                             (<StyledPropfileLink href="/mypage"><Image src="/womanIcon.png" alt="man" width={20} height={20} style={{border:"1px solid black", borderRadius:"50%"}}></Image><StyledProfileName>{userInformation.name}</StyledProfileName></StyledPropfileLink>) : null
-                            }</>
-                            : <></>}
-                    </div>
+                            }
+                            
+                            </>
+                            :
+                            <>
+                            {/* <StyledNavLink href="/login">로그인</StyledNavLink>
+                            <StyledNavLink href="/signup">회원가입</StyledNavLink> */}
+                            </>
+                            
+                        }
+                        </div>
             </Top_Container>
             <hr />
             <Bottom_Container>
-                <OptionBox onClick={() => selectChange("setting")} isSelected={selected === "setting"}>
-                    설정
-                </OptionBox>
-                <OptionBox onClick={() => selectChange("question")} isSelected={selected === "question"}>
-                    질문
-                </OptionBox>
+            <OptionBox onClick={selectChange}>
+                설정
+            </OptionBox>
+             <OptionBox onClick={selectChange}>
+                질문
+            </OptionBox>
             </Bottom_Container>
         </Navbar_Container>
         </ThemeProvider>

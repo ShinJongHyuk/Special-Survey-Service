@@ -148,7 +148,6 @@ const StyledPropfileLink = styled(Link)`
 `;
 
 const StyledProfileName = styled.div`
-
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.small};
   color: ${(props) => props.theme.colors.black};

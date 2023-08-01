@@ -4,6 +4,7 @@ import {ImagePreiew_Box,ImagePreview,Image_Delete_Button,UploadImage,Image_Text_
 import backgroundImage from '../../../public/survey/MakeSurvey_Background.png'
 import Main_Image from '../../../public/survey/Main_Image.png'
 import Image from 'next/Image'
+import SurveyNavbar from '@/components/common/surveynavbar';
 import useSurveyStore from '@/stores/useSurveyStore';
 import axios from 'axios'
 
@@ -69,50 +70,53 @@ function MakeSurvey() {
   };
 
   const allData = surveyComponents.map((componentKey) => {
-    const multipleChoiceData = JSON.parse(localStorage.getItem(`multiplechoice_multiplechoice_${componentKey}`) ?? 'null');
-  const entireData = JSON.parse(localStorage.getItem('entire') ?? 'null');
-  const surveyStateData = JSON.parse(localStorage.getItem(componentKey.key) ?? 'null');
+    const multipleChoiceData = JSON.parse(localStorage.getItem(`multiplechoice_multiplechoice_${componentKey.key}`) ?? 'null');
+    const entireData = JSON.parse(localStorage.getItem('entire') ?? 'null');
+    const surveyStateData = JSON.parse(localStorage.getItem(componentKey.key) ?? 'null');
     return {
       multipleChoiceData,
       entireData,
       surveyStateData,                                                    
     }
   });
-
+  console.log(allData)
   return (
-    <Survey_Container>
-      <Survey_Title_Container>
-        <Title_Inner_Container>
-          <Title_input onChange={handleTitleChange} value={titleText} />
-          <Title_Content onChange={handleTitleContentChange} value={titleContent} />
-        </Title_Inner_Container>
-      </Survey_Title_Container>
-      <Survey_MainImage_Container>
-        <Image_Inner_Container>
-            <Inner_Text_Container>
-              <Image_Text_Header>설문 대표 이미지 1장</Image_Text_Header>
-              <Image_Text_Content>jpg 또는 png 이미지 (선택사항)</Image_Text_Content>
-              
-            </Inner_Text_Container>
-            <UploadImage id={`upload-button`} onChange={(e: any) => handleImageChange(e)} />
-            {imgUrl ?  (
-              <ImagePreiew_Box>
-                <ImagePreview src={imgUrl} alt='메인 이미지' />
-                <Image_Delete_Button onClick={() => handleImageDelete()}>X</Image_Delete_Button>
-              </ImagePreiew_Box>
-            )  : <Inner_Icon_Container onClick={() => handleImageClick()}>
-              <Image src={Main_Image} alt="메인 이미지" />
-            </Inner_Icon_Container>
-            }
-        </Image_Inner_Container>
-      </Survey_MainImage_Container>
-      <Toolbar />
-      <Background_Container>
-      <Image src={backgroundImage} alt="배경" />
-      <Image src={backgroundImage} alt="배경" />
-      </Background_Container>
-      
-    </Survey_Container>
+    <>
+    <SurveyNavbar />
+      <Survey_Container>
+        <Survey_Title_Container>
+          <Title_Inner_Container>
+            <Title_input onChange={handleTitleChange} value={titleText} />
+            <Title_Content onChange={handleTitleContentChange} value={titleContent} />
+          </Title_Inner_Container>
+        </Survey_Title_Container>
+        <Survey_MainImage_Container>
+          <Image_Inner_Container>
+              <Inner_Text_Container>
+                <Image_Text_Header>설문 대표 이미지 1장</Image_Text_Header>
+                <Image_Text_Content>jpg 또는 png 이미지 (선택사항)</Image_Text_Content>
+                
+              </Inner_Text_Container>
+              <UploadImage id={`upload-button`} onChange={(e: any) => handleImageChange(e)} />
+              {imgUrl ?  (
+                <ImagePreiew_Box>
+                  <ImagePreview src={imgUrl} alt='메인 이미지' />
+                  <Image_Delete_Button onClick={() => handleImageDelete()}>X</Image_Delete_Button>
+                </ImagePreiew_Box>
+              )  : <Inner_Icon_Container onClick={() => handleImageClick()}>
+                <Image src={Main_Image} alt="메인 이미지" />
+              </Inner_Icon_Container>
+              }
+          </Image_Inner_Container>
+        </Survey_MainImage_Container>
+        <Toolbar />
+        <Background_Container>
+        <Image src={backgroundImage} alt="배경" />
+        <Image src={backgroundImage} alt="배경" />
+        </Background_Container>
+        
+      </Survey_Container>
+    </>
   );
 }
 
