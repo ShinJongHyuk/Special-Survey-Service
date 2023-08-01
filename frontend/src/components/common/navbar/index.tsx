@@ -51,6 +51,7 @@ useEffect(() => {
           
       }
         </div>
+
       </StyledNavbar>
       : <SurveyNavbar />}
     </header>
