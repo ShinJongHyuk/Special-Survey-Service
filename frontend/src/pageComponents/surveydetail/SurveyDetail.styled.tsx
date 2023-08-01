@@ -4,8 +4,15 @@ const SurveyDetailPage = styled.div.attrs<any>((props) => ({}))`
     height: 100vh;
 `
 const BackButtonContainer = styled.div.attrs<any>((props) => ({}))`
-    position: relative;
-    height: 55px;
+${(props) => {
+    const bgcolor = props.bgcolor || "#FAFAFA"
+    return css`
+        position: relative;
+        height: 111px;
+        background-color: ${bgcolor};
+    `
+}}
+    
 `
 const BackButton = styled.div.attrs<any>((props) => ({}))`
     position: absolute;
