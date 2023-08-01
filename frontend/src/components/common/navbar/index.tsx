@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState,useEffect} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { StyledNavbar, StyleLogout, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink } from "./Navbar.styled";
@@ -7,13 +7,16 @@ import { usePathname } from "next/navigation";
 import MidComponent from "./midComponent";
 import useUserStore from "@/stores/useUserStore";
 import { useLogoutHook } from "@/Hooks/useLogoutHook";
+import SurveyNavbar from "../surveynavbar"; 
 
 const NavbarComponent = () => {
   const pathname = usePathname();
   const isLogin = useUserStore((state:any) => (state.isLogin))
   const {hanedleLogout} = useLogoutHook()
+
   return (
     <header>
+      {pathname !== "/makesurvey" ?
       <StyledNavbar pathname={pathname}>
         <Link href="/" style={{ width: "20%" }}>
           <Image src="/Logo.svg" priority={true} width={21} height={21} alt="Logo"></Image>
@@ -25,6 +28,7 @@ const NavbarComponent = () => {
           {!isLogin && <StyledNavLink href="/signup">회원가입</StyledNavLink>}
         </div>
       </StyledNavbar>
+      : <SurveyNavbar />}
     </header>
   );
 };
