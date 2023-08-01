@@ -1,12 +1,21 @@
 'use client'
-import React from 'react'
+import { useState } from 'react'
 import Banner from './banner'
-import { StyledList, StyledSortingMethodList } from './InstantWinSurveyList';
+import { StyledList, StyledSortingMethodList, StyledHoverMsg, StyledPlusBtn } from './InstantWinSurveyList';
 import Button from '@/components/button';
 import Card from '@/components/card';
 import useInstantWinSurveyListHook from '@/Hooks/listpage/useSurveyListHook';
 
+import { useRouter } from "next/navigation";
+
 const InstantWinSurveyList = () => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    const router = useRouter();
+
+    const goMakeSurvey = () => {
+        router.push("/makesurvey");
+    };
 
     const { sortedSurveys, setSortType } = useInstantWinSurveyListHook("instantwin");
     return (
@@ -25,7 +34,7 @@ const InstantWinSurveyList = () => {
             </StyledSortingMethodList>
             <StyledList>
                 {sortedSurveys.map((survey, index) =>
-                    <div key={index}>
+                    <div key={index} style={{ display: "flex", justifyContent: "center" }}>
                         <div style={{ width: "220px" }}>
 
                             <Card
@@ -40,9 +49,15 @@ const InstantWinSurveyList = () => {
                             />
                         </div>
                     </div>
-                )}
-            </StyledList>
-        </div>
+                )
+                }
+            </StyledList >
+            <div style={{ position: 'fixed', bottom: '21px', right: '30px', cursor: "pointer" }}
+                onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                <StyledPlusBtn onClick={goMakeSurvey}>+</StyledPlusBtn>
+                {isHovered && <StyledHoverMsg >설문지 생성 </StyledHoverMsg>}
+            </div>
+        </div >
     )
 }
 
