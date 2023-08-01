@@ -18,7 +18,7 @@ const MidComponent = (props: any) => {
     return <SurveyDetailComponent pathname={pathname}/>
   } else if (pathname === "/mypage") {
     return <MypageComponent pathname={pathname} />;
-  }
+  } 
   return <DefaultComponent pathname={pathname} />;
 };
 

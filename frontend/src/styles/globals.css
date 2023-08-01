@@ -20,10 +20,6 @@
   src: url("./fonts/SUIT-SemiBold.ttf");
 }
 
-@font-face {
-  font-family: "HangeulFontSemiBold";
-  src: url("./fonts/SUIT-Bold.ttf");
-}
 
 @font-face {
   font-family: "EnglishFontBold";
