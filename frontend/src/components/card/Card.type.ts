@@ -11,5 +11,7 @@ export interface CardType {
   endtime: string;
   headcount?: string;
   typename?: string;
+  responsedtime?: string;
+  contentype?: string;
 }
 

@@ -7,25 +7,27 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       remainTime: "",
       title: "설문지 제목1",
       startTime: "2023-07-26-17-30",
-      endTime: "2023-08-01-21-20",
+      endTime: "2023-08-02-21-20",
       headCount: "10",
       closedHeadCount: "100",
       nickname: "닉네임abc",
       type: "NORMAL",
       probability: "27%",
       giveaways: "coffee",
+      responsedTime: "08:35",
     },
     {
       remainTime: "",
       title: "설문지 제목2",
       startTime: "2023-07-27-10-45",
-      endTime: "2023-08-01-11-25",
+      endTime: "2023-08-02-11-25",
       headCount: "15",
       closedHeadCount: "50",
       nickname: "닉네임def",
       type: "INSTANT_WIN",
       probability: "34%",
       giveaways: "chicken",
+      responsedTime: "06:20",
     },
     {
       remainTime: "",
@@ -38,6 +40,7 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       type: "NORMAL",
       probability: "45%",
       giveaways: "coffee",
+      responsedTime: "07:50",
     },
     {
       remainTime: "",
@@ -50,6 +53,7 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       type: "NORMAL",
       probability: "47%",
       giveaways: "chicken",
+      responsedTime: "10:00",
     },
     {
       remainTime: "",
@@ -62,8 +66,10 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       type: "INSTANT_WIN",
       probability: "46%",
       giveaways: "coffee",
+      responsedTime: "09:25",
     },
   ],
+
 }));
 
 export default useSSSPickStore;

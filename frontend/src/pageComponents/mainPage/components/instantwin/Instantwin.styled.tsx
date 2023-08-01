@@ -23,7 +23,7 @@ const StyledContent = styled.div`
 const StyledContentText = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     const issub = props.$issub === "true";
-    const font = props.theme.fonts.HangeulFontSemiBold;
+    const font = issub ? props.theme.fonts.HangeulFontSemiBold : props.theme.fonts.EnglishFontBold;
     const color = issub ? props.theme.colors.gray : props.theme.colors.black;
     const size = issub ? props.theme.fontSizes.medium : props.theme.fontSizes.large;
 

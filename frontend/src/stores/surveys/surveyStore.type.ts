@@ -14,5 +14,7 @@ export interface SurveyType {
     giveaways: string;
 
     remainTime?: string;
+    responsedTime?: string;
+
   }[];
 }
