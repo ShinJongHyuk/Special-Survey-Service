@@ -2,7 +2,7 @@
 import React, {useState,useEffect} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { StyledNavbar, StyleLogout, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink, StyledPropfileLink, StyledProfileName } from "./Navbar.styled";
+import {StyledPropfileLink,StyledProfileName, StyledNavbar, StyleLogout, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink } from "./Navbar.styled";
 import { usePathname } from "next/navigation";
 import MidComponent from "./midComponent";
 import useUserStore from "@/stores/useUserStore";
