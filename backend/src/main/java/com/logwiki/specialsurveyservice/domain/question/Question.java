@@ -4,19 +4,13 @@ import com.logwiki.specialsurveyservice.api.service.question.request.QuestionMod
 import com.logwiki.specialsurveyservice.domain.multiplechoice.MultipleChoice;
 import com.logwiki.specialsurveyservice.domain.questioncategory.QuestionCategoryType;
 import com.logwiki.specialsurveyservice.domain.survey.Survey;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import java.util.List;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,11 +28,12 @@ public class Question {
     private String imgAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "survey_id")
     private Survey survey;
 
     private QuestionCategoryType type;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MultipleChoice> multipleChoice;
 
     @Builder
@@ -56,6 +51,10 @@ public class Question {
         this.content = questionModifyServiceRequest.getContent();
         this.imgAddress = questionModifyServiceRequest.getImgAddress();
         this.type = questionModifyServiceRequest.getType();
+    }
+
+    public void addMultipleChoices(List<MultipleChoice> multipleChoices) {
+        this.multipleChoice = multipleChoices;
     }
 
 }
