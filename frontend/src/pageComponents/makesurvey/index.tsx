@@ -96,14 +96,12 @@ function MakeSurvey() {
             </Inner_Text_Container>
             <UploadImage id={`upload-button`} onChange={(e: any) => handleImageChange(e)} />
             {imgUrl ?  (
-
               <ImagePreiew_Box>
                 <ImagePreview src={imgUrl} alt='메인 이미지' />
                 <Image_Delete_Button onClick={() => handleImageDelete()}>X</Image_Delete_Button>
               </ImagePreiew_Box>
-
             )  : <Inner_Icon_Container onClick={() => handleImageClick()}>
-              <Image src={Main_Image} alt="이미지" />
+              <Image src={Main_Image} alt="메인 이미지" />
             </Inner_Icon_Container>
             }
         </Image_Inner_Container>
