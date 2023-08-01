@@ -130,7 +130,26 @@ const ImageWrapper = styled.div`
 
 `;
 
+const LinkSelect_List = styled.select.attrs({})`
+  display : flex;
+  text-align : center;
+  width: 94%;
+  margin-left : 25.5px;
+  height: 30px;
+
+  border : none;
 
 
+  font-size: ${props => props.theme.fontSizes.xsmall};
+  color: ${props => props.theme.colors.purple};
+  font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+  
+`
+const LinkSelect_Option = styled.option.attrs({})`
+    color: ${props => props.theme.colors.gray};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
 
-export {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,MultipleCheck,MultipleCheckText,CheckBox_Box}
+`;
+
+
+export {LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,MultipleCheck,MultipleCheckText,CheckBox_Box}

@@ -1,56 +1,97 @@
-import React, {useState} from 'react';
-import Image from 'next/image'
-import trash from '/public/survey/trash.png'
-import duplicate from '/public/survey/duplicate.png'
-import etc from '/public/survey/etc.png'
-
-import shuffle_small from '/public/survey/shuffle_small.png'
+import React, {useState,useEffect} from 'react';
 import styled, {ThemeProvider} from 'styled-components'
 import theme from '@/styles/DefaultTheme'
 import {Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box, Question_Inner_Container,SelectBox_Option,SelectBox_List,SelectBox,Main_Container,Question_Container
     ,Question_Header,Question_Header_Container,
     Question_Content,Question_Content_Container,
     CheckBox_Input,CheckBox_Label,CheckBox_Switch} from '@/components/survey/Survey.styled';
+import useSurveyStore from '@/stores/useSurveyStore';
 import SurveyType from './Survey.type';
+import Image from 'next/image'
+import etc from '/public/survey/etc.png'
+import DragIcon from '/public/survey/DragIcon.png'
 import MultipleChoice from './multiplechoice';
 import CheckBox from './checkbox';
 import DropDown from './dropdown';
 import Dates from './dates';
 import Time from './time';
 
-
-const SurveyComponent = () => {
-
+const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
+    const {surveyComponents} = useSurveyStore();
     const [surveyState,setSurveyState] = useState('multiplechoice')
     const [selectedOption, setSelectedOption] = useState(''); 
+    const [listOption, setListOption] = useState(false);
     const [checked, setChecked] = useState(false); 
+    const [headerText, setHeaderText] = useState('');
+    const [headerDetailText, setHeaderDetailText] = useState('');
 
+    const saveComponentDataToLocalStorage = (componentKey: string, data: any) => {
+        localStorage.setItem(componentKey, JSON.stringify(data));
+      };
+
+    const loadComponentDataFromLocalStorage = (componentKey: string) => {
+        const storedData = localStorage.getItem(componentKey);
+        return storedData ? JSON.parse(storedData) : null;
+      };
+
+    useEffect(() => {
+        const storedData = loadComponentDataFromLocalStorage(componentKey);
+        if (storedData) {
+          setSurveyState(storedData.surveyState);
+          setSelectedOption(storedData.selectedOption);
+          setChecked(storedData.checked);
+          setHeaderText(storedData.headerText);
+          setHeaderDetailText(storedData.headerDetailText)
+          setListOption(storedData.listOption)
+        }
+      }, [componentKey]);
+
+    useEffect(() => {
+        const componentData = {
+          surveyState,
+          selectedOption,
+          checked,
+          headerText,
+          headerDetailText,
+          listOption,
+          
+        };
+        saveComponentDataToLocalStorage(componentKey, componentData);
+      }, [surveyState, selectedOption, checked,headerText,headerDetailText,listOption]);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     setChecked(e.target.checked)
+        setChecked(e.target.checked)
     };
     const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setSelectedOption(event.target.value);
       setSurveyState(event.target.value);
     };
 
-    const imgClick = () => {
-        alert("복사할까");
+    const handleHeaderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHeaderText(event.target.value);
+      };
+    
+    const handleHeaderDetailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHeaderDetailText(event.target.value);
       };
 
+    const LinkOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setListOption((prevOption) => !prevOption);
+    };
+      
     return (
         <ThemeProvider theme={theme}>
             <Main_Container>
-                <Move_Container>
-                    <Image src={shuffle_small} alt="옮기기"></Image>
-                </Move_Container>
+                <ImageWrapper>
+                  <Image src={DragIcon} alt="옮기기" />
+                </ImageWrapper>
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>
-                            <Question_Header />
+                            <Question_Header onChange={handleHeaderChange} value={headerText} index={index}/>
                         </Question_Header_Container>            
                         <Question_Content_Container>
-                            <Question_Content />
+                            <Question_Content onChange={handleHeaderDetailChange} value={headerDetailText} index={index} />
                         </Question_Content_Container>
                     </Question_Container>
                     <SelectBox>
@@ -63,32 +104,28 @@ const SurveyComponent = () => {
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
-                {surveyState === "multiplechoice" && <MultipleChoice />}
-                {surveyState === "checkbox" && <CheckBox />}
-                {surveyState === "dropdown" && <DropDown />}
-                {surveyState === "dates" && <Dates />}
-                {surveyState === "time" && <Time />}
-              
+                {surveyState === 'multiplechoice' && <MultipleChoice componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'checkbox' && <CheckBox componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'dropdown' && <DropDown componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'dates' && <Dates componentKey={componentKey}/>}
+                {surveyState === 'time' && <Time componentKey={componentKey} />}
+                        
                 <hr/>
                 <Bottom_Box>
                     <Link_Question_Box>
-                        <Link_Question_Title>질문 연계</Link_Question_Title>
+                        <Link_Question_Title>연계 질문 여부</Link_Question_Title>
                         <LinkSelectBox>
-                                <LinkSelect_List onChange={handleOptionChange} value={selectedOption}>
-                                    <LinkSelect_Option value="Option 1">1번 질문</LinkSelect_Option>
-                                    <LinkSelect_Option value="Option 2">2번 질문</LinkSelect_Option>
-                                    <LinkSelect_Option value="Option 3">3번 질문</LinkSelect_Option>
-                                    <LinkSelect_Option value="Option 4">1번 질문</LinkSelect_Option>
-                                </LinkSelect_List>
+                            <LinkSelect_List value={listOption ? 'true' : 'false'} onChange={LinkOptionChange}>
+                                <LinkSelect_Option value='false'>X</LinkSelect_Option>
+                                <LinkSelect_Option value='true'>O</LinkSelect_Option>
+                            </LinkSelect_List>
                         </LinkSelectBox>
                     </Link_Question_Box>
                     <Elements_Box>
-                        <ImageWrapper onClick={imgClick}>
-                            <Image src={duplicate} alt="복사"></Image>
+                        <ImageWrapper>
                         </ImageWrapper>
-                        <Image src={trash} alt="삭제"></Image>
-                       <Image src={etc} alt="etc"></Image>
-                    </Elements_Box>
+                            <Image src={etc} alt="etc"></Image>
+                        </Elements_Box>
                     <Essential_Question_Box>
                         <Essential_Question_Title>필수 여부</Essential_Question_Title>
                         <CheckBox_Label>

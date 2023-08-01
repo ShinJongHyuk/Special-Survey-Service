@@ -21,6 +21,11 @@
 }
 
 @font-face {
+  font-family: "HangeulFontSemiBold";
+  src: url("./fonts/SUIT-Bold.ttf");
+}
+
+@font-face {
   font-family: "EnglishFontBold";
   src: url("./fonts/PPNeueMachina-InktrapUltrabold.otf");
 }

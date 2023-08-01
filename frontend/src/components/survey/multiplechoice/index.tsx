@@ -1,18 +1,60 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import MultipleChoiceType from './MultipleChoice.type';
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
-import {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
+import {LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
+import useSurveyStore from '@/stores/useSurveyStore';
+// import useItemStore from '@/stores/useItemStore';
+const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
+    const {surveyComponents} = useSurveyStore();
+    const [items,setItems] = useState<any[]>([
+      { id: `${componentKey}_1`, text: '', imageUrl: '', linkNumber: 0 },
+      { id: `${componentKey}_2`, text: '', imageUrl: '', linkNumber: 0 },
+    ])
+    const [count, setCount] = useState(3);
+
+    useEffect(() => {
+    
+      const loadDataFromLocalStorage = async () => {
+        const storedItems = await loadMultipleChoiceFromLocalStorage(`multiplechoice_${componentKey}`);
+        
+        if (storedItems) {
+          setItems(storedItems);
+        }
+      };
+      loadDataFromLocalStorage();
+     
+    }, [componentKey]);
+
+    useEffect(() => {
+        saveMultipleChoiceToLocalStorage(`multiplechoice_${componentKey}`, items);
+      
+     
+    }, [componentKey,items]);
 
 
-const MultipleChoice = () => {
-    const [items, setItems] = useState<any[]>([
-      { id: Date.now(), text: '답변 1', imageUrl: '' },
-      { id: Date.now() + 1, text: '답변 2', imageUrl: '' },
-    ]);
+
+
+
+    const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
+      if (items) {
+        localStorage.setItem(`multiplechoice_${componentKey}`, JSON.stringify(items));
+      }
+   
+    };
   
+    const loadMultipleChoiceFromLocalStorage = (componentKey: string) => {
+      const storedData = localStorage.getItem(`multiplechoice_${componentKey}`); 
+      return storedData ? JSON.parse(storedData) : null;
+    };
+
+
     const handleAddItem = () => {
-      setItems([...items, { id: Date.now(), text: '', imageUrl: '' }]);
+      setItems((prevItems : any) => [
+        ...prevItems,
+        { id: `${componentKey}_${count}`, text: '', imageUrl: '',linkNumber: 0 },
+      ]);
+      setCount((prevCount) => prevCount + 1);
     };
   
     const handleDeleteItem = (index: number) => {
@@ -21,15 +63,17 @@ const MultipleChoice = () => {
       setItems(updatedItems);
     };
   
-    const handleItemTextChange = (index: number, text: string) => {
+    
+    const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
       const updatedItems = [...items];
-      updatedItems[index].text = text;
+      updatedItems[index].text = event.target.value;
+
       setItems(updatedItems);
+      
     };
 
     const handleImageClick = (index : number) => {
-        const uploadButton = document.getElementById(`upload-button-${index}`);
-
+        const uploadButton = document.getElementById(`upload-button-${componentKey}-${index}`);
         if (uploadButton) {
           uploadButton.click();
         }
@@ -53,25 +97,44 @@ const MultipleChoice = () => {
       updatedItems[index].imageUrl = '';
       setItems(updatedItems);
     };
-  
+    
+    const handleOptionChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
+      const value = parseInt(event.target.value);
+      const updatedItems = [...items];
+      updatedItems[index].linkNumber = value;
+      setItems(updatedItems);
+    };
+    
+
+
     return (
       <MultipleChoice_Box>
-        {items.map((item, index) => (
+        {items && items.map((item : any, index : number) => (
           <MultipleChoice_content_Box key={item.id}>
             <MultipleCheck name="radioGroup1" />
             <MultipleCheckText
-              placeholder={`답변 ${index + 1}`}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleItemTextChange(index, e.target.value)
-              }
+              placeholder={`옵션 ${index + 1}`}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
+              value = {item.text}
             />
             <ImageWrapper onClick={() => handleImageClick(index)}>
             <Image src={ImageIcon} alt="ImageIcon" />
             </ImageWrapper>
-  
-  
-            <UploadImage id={`upload-button-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
             {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
+            
+            {isLink && (
+            <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
+                <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
+              {surveyComponents.map((component, idx) => (
+                <LinkSelect_Option key={idx} value={idx + 1}>
+                  {`${idx + 1}번 질문으로 연결됨`}
+                </LinkSelect_Option>
+              ))}
+            </LinkSelect_List>
+            )}
+
+            <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
+           
             
             {item.imageUrl && (
             <Image_Container>

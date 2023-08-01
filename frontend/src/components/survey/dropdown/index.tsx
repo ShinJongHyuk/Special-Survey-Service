@@ -1,30 +1,68 @@
-import React,{useState} from 'react'
-import {DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
+import React,{useState,useEffect} from 'react'
+import {LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
+import useSurveyStore from '@/stores/useSurveyStore';
 
-
-const DropDown = () => {
-
+const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
+    const {surveyComponents} = useSurveyStore();
     const [items, setItems] = useState<any[]>([
-        { id: Date.now(), text: '옵션 1' },
-        { id: Date.now() + 1, text: '옵션 2' },
-    ]);
+        { id: `${componentKey}_1`, text: ''},
+        { id: `${componentKey}_2`, text: ''},
+      ]);
+
+    const [count, setCount] = useState(3);
+
+    useEffect(() => {
+        const storedItems = loadDropBoxFromLocalStorage(`dropdown_${componentKey}`);
+        if (storedItems) {
+          setItems(storedItems);
+        }
+      }, [componentKey]);
+  
+  
+      useEffect(() => {
+  
+        saveDropBoxToLocalStorage(`dropdown_${componentKey}`, items);
+  
+      }, [componentKey,items]);
     
+  
+      const saveDropBoxToLocalStorage = (componentKey: string, items: any[]) => {
+        localStorage.setItem(`dropdown_${componentKey}`, JSON.stringify(items));
+  
+      };
+    
+      const loadDropBoxFromLocalStorage = (componentKey: string) => {
+        const storedData = localStorage.getItem(`dropdown_${componentKey}`);
+    
+        return storedData ? JSON.parse(storedData) : null;
+      };
+  
     const handleAddItem = () => {
-        setItems([...items, { id: Date.now(), text: ''}]);
+    setItems((prevItems) => [
+        ...prevItems,
+        { id: `${componentKey}_${count}`, text: ''},
+    ]);
+    setCount((prevCount) => prevCount + 1);
     };
-    
+
     const handleDeleteItem = (index: number) => {
         const updatedItems = [...items];
         updatedItems.splice(index, 1);
         setItems(updatedItems);
     };
     
-    const handleItemTextChange = (index: number, text: string) => {
+    const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
         const updatedItems = [...items];
-        updatedItems[index].text = text;
+        updatedItems[index].text = event.target.value;
         setItems(updatedItems);
-    };
-   
+        
+      };
+    const handleOptionChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = parseInt(event.target.value);
+        const updatedItems = [...items];
+        updatedItems[index].linkNumber = value;
+        setItems(updatedItems);
+      };
     
     return (
         <DropDown_Box>
@@ -32,12 +70,21 @@ const DropDown = () => {
             <DropDown_content_Box key={item.id}>
             <MultipleCheck>{index+1}  .</MultipleCheck>
             <MultipleCheckText
-                placeholder={`옵션 ${index + 1}`}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleItemTextChange(index, e.target.value)
-                }
+              placeholder={`옵션 ${index + 1}`}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
+              value = {item.text}
             />
              {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
+             {isLink && (
+            <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
+                <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
+              {surveyComponents.map((component, idx) => (
+                <LinkSelect_Option key={idx} value={idx + 1}>
+                  {`${idx + 1}번 질문으로 연결됨`}
+                </LinkSelect_Option>
+              ))}
+            </LinkSelect_List>
+            )}
             </DropDown_content_Box>
         ))}
         <AddButton onClick={() => handleAddItem()}>옵션 추가</AddButton>
