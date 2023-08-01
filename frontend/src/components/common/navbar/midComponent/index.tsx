@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import DefaultComponent from "./DefaultComponent";
 import SurveylistComponent from "./SurveylistComponent";
 import MypageComponent from "./MypageComponent";
+import SurveyDetailComponent from "./SurveyDetailComponent";
 
 const MidComponent = (props: any) => {
   const pathname = props.pathname;
@@ -14,7 +15,7 @@ const MidComponent = (props: any) => {
   if (pathname === "/instantWinSurveyList" || pathname === "/normalSurveyList") {
     return <SurveylistComponent pathname={pathname} />;
   } else if (pathname === "/surveydetail") {
-    return <div style={{ width: "60%", display: "flex", justifyContent: "center", gap: "30px" }}> </div>;
+    return <SurveyDetailComponent pathname={pathname}/>
   } else if (pathname === "/mypage") {
     return <MypageComponent pathname={pathname} />;
   }

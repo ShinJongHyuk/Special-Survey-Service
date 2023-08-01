@@ -1,7 +1,7 @@
 'use client'
 import Input from '@/components/input'
 import Button from '@/components/button'
-import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem } from './Signup.styled'
+import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition } from './Signup.styled'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSignupHook } from '@/Hooks/useSignupHook'
@@ -32,6 +32,8 @@ const Signup = () => {
             <InputBox>
                 <Input type="password" name="password" onChange={handleChange} inputstate={inputState.password}/>
             </InputBox>
+            <PasswordCondition>8~16자 영문, 숫자, 특수문자를 사용하세요.</PasswordCondition>
+                
             </SignUpItem>
 
             <SignUpItem>

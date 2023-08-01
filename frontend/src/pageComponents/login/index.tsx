@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 import { useLoginHook } from '@/Hooks/useLoginHook'
 import {useEffect} from 'react'
 const Login = () => {
-    const router = useRouter()
     const {handleChange, handleSubmit, handleOnChange, inputState, user, isRemember} = useLoginHook()
     
     useEffect(() => {
@@ -18,13 +17,9 @@ const Login = () => {
         }
       }, [isRemember]);
 
-    const ClickLogo = () => {
-        router.push('/')
-    }
-
     return (
         <LoginPage>
-            {/* <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px",cursor:'pointer'}} onClick={ClickLogo}></Image> */}
+    
             <LoginText>Login</LoginText>
             <LoginContainer onSubmit={handleSubmit}>
                 <SignUpItem>
