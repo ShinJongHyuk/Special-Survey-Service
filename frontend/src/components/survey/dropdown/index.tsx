@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
-import useSurveyStore from '@/stores/useSurveyStore';
+import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 
 const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
     const {surveyComponents} = useSurveyStore();

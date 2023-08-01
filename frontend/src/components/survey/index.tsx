@@ -5,7 +5,7 @@ import {Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkS
     ,Question_Header,Question_Header_Container,
     Question_Content,Question_Content_Container,
     CheckBox_Input,CheckBox_Label,CheckBox_Switch} from '@/components/survey/Survey.styled';
-import useSurveyStore from '@/stores/useSurveyStore';
+import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import SurveyType from './Survey.type';
 import Image from 'next/image'
 import etc from '/public/survey/etc.png'
