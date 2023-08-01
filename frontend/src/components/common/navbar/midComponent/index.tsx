@@ -11,7 +11,7 @@ import MypageComponent from "./MypageComponent";
 const MidComponent = (props: any) => {
   const pathname = props.pathname;
 
-  if (pathname === "/instantWinSurveyList" || pathname === "/timeattackSurveyList") {
+  if (pathname === "/instantWinSurveyList" || pathname === "/normalSurveyList") {
     return <SurveylistComponent pathname={pathname} />;
   } else if (pathname === "/surveydetail") {
     return <div style={{ width: "60%", display: "flex", justifyContent: "center", gap: "30px" }}> </div>;

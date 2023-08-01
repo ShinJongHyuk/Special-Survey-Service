@@ -8,12 +8,12 @@ const SurveylistComponent = (props: any) => {
 
   return (
     <div style={{ width: "60%", display: "flex", justifyContent: "center", gap: "30px" }}>
+      <StyledTimeattackNavLink href="/normalSurveyList" pathname={pathname}>
+        일  반
+      </StyledTimeattackNavLink>
       <StyledInstantNavLink href="/instantWinSurveyList" pathname={pathname}>
         즉시당첨
       </StyledInstantNavLink>
-      <StyledTimeattackNavLink href="/timeattackSurveyList" pathname={pathname}>
-        타임어택
-      </StyledTimeattackNavLink>
     </div>
   );
 };

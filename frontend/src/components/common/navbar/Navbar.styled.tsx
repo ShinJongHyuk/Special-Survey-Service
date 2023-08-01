@@ -14,7 +14,7 @@ const StyledNavbar = styled.div.attrs<NavbarType>((props) => ({}))`
       case "/instantWinSurveyList":
         bgColor = "#FFFAAE";
         break;
-      case "/timeattackSurveyList":
+      case "/normalSurveyList":
         bgColor = "#C6B6FF";
         break;
       case "/instantWinConfirm":
@@ -71,7 +71,7 @@ const StyledTimeattackNavLink = styled(Link).attrs<NavbarType>((props) => ({}))`
     return css`
       font-family: ${font};
       font-size: ${size};
-      color: ${({ pathname }: any) => (pathname === "/timeattackSurveyList" ? purple : black)};
+      color: ${({ pathname }: any) => (pathname === "/normalSurveyList" ? purple : black)};
     `;
   }};
 `;

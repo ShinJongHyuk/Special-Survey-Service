@@ -7,7 +7,7 @@ const Banner = () => {
     const router = useRouter();
 
     const goList = () => {
-        router.push("/instantWinSurveyList");
+        router.push("/normalSurveyList");
     };
 
     return (

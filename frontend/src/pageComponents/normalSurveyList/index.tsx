@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
 import Banner from './banner'
-import { StyledList, StyledSortingMethodList } from './TimeattackSurveyList';
+import { StyledList, StyledSortingMethodList } from './NormalSurveyList';
 import Button from '@/components/button';
 import Card from '@/components/card';
 import useInstantWinSurveyListHook from '@/Hooks/listpage/useSurveyListHook';
 
-const TimeattackSurveyList = () => {
+const NormalSurveyList = () => {
 
     const { sortedSurveys, setSortType } = useInstantWinSurveyListHook("timeattack");
     return (
@@ -35,6 +35,7 @@ const TimeattackSurveyList = () => {
                                 giveaways={survey.giveaways}
                                 probability={survey.probability}
                                 remaintime={survey.remainTime || ""}
+                                endtime={survey.endTime}
                                 headcount={survey.headCount}
                             />
                         </div>
@@ -45,4 +46,4 @@ const TimeattackSurveyList = () => {
     )
 }
 
-export default TimeattackSurveyList
+export default NormalSurveyList

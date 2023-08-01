@@ -6,9 +6,8 @@ const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
     let bgcolor;
     const probability = parseInt(props.probability, 10);
-    if (props.type === "타임어택") {
-      bgcolor = probability <= 40 ? props.theme.colors.white : props.theme.colors.purple;
-
+    if (props.type === "NORMAL") {
+      bgcolor = props.typename === "일반" ? props.theme.colors.white : props.theme.colors.purple;
     } else {
       bgcolor = probability <= 40 ? props.theme.colors.white : props.theme.colors.yellow;
     }
@@ -39,10 +38,10 @@ const StyledTag = styled.div.attrs<CardType>((props) => ({}))`
 
     const lightpurple = "linear-gradient(0deg, rgba(168, 140, 255, 0.2) 0%, rgba(168, 140, 255, 0.2) 100%), #fff";
     const lightyellow = "linear-gradient(0deg, rgba(255, 241, 41, 0.30) 0%, rgba(255, 241, 41, 0.30) 100%), #FFF";
-    const bgcolor = type === "타임어택" ? lightpurple : lightyellow;
+    const bgcolor = type === "NORMAL" ? lightpurple : lightyellow;
 
-    const bcolor = type === "타임어택" ? "rgba(168, 140, 255, 0.10)" : "rgba(255, 241, 41, 0.20)";
-    const color = type === "타임어택" ? props.theme.colors.blue : props.theme.colors.orange;
+    const bcolor = type === "NORMAL" ? "rgba(168, 140, 255, 0.10)" : "rgba(255, 241, 41, 0.20)";
+    const color = type === "NORMAL" ? props.theme.colors.blue : props.theme.colors.orange;
     const font = props.theme.fonts.HangeulFontSemiBold;
     const xsmall = props.theme.fontSizes.xsmall;
     return css`
@@ -72,9 +71,8 @@ const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
     const xsmall = props.theme.fontSizes.xsmall;
 
     let color;
-    const probability = parseInt(props.probability, 10);
-    if (props.type === "타임어택") {
-      color = probability <= 40 ? black : white;
+    if (props.type === "NORMAL") {
+      color = props.typename === "일반" ? black : white;
     } else {
       color = black;
     }
@@ -113,8 +111,8 @@ const StyledProbability = styled.div.attrs<CardType>((props) => ({}))`
     const purple = props.theme.colors.purple;
     let color;
     const probability = parseInt(props.probability, 10);
-    if (props.type === "타임어택") {
-      color = probability <= 40 ? purple : white;
+    if (props.type === "NORMAL") {
+      color = props.typename === "일반" ? purple : white;
     } else {
       color = black;
     }
@@ -136,9 +134,8 @@ const StyledRemainTime = styled.div.attrs<CardType>((props) => ({}))`
     const size = props.theme.fontSizes.xsmall;
 
     let color;
-    const probability = parseInt(props.probability, 10);
-    if (props.type === "타임어택") {
-      color = probability <= 40 ? black : white;
+    if (props.type === "NORMAL") {
+      color = props.typename === "일반" ? black : white;
     } else {
       color = black;
     }
@@ -171,9 +168,8 @@ const StyledImg = styled.div.attrs<CardType>((props) => ({}))`
     const white = props.theme.colors.white;
     const purple = props.theme.colors.purple;
     let color;
-    const probability = parseInt(props.probability, 10);
-    if (props.type === "타임어택") {
-      color = probability <= 40 ? purple : white;
+    if (props.type === "NORMAL") {
+      color = props.typename === "일반" ? purple : white;
     } else {
       color = black;
     }
