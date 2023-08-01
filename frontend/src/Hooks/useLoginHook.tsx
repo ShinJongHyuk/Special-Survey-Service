@@ -103,8 +103,9 @@ export const useLoginHook = () => {
                     Authorization: `Bearer ${res.data.response.accessToken}`
                   }
                 });
-                setUserInformation(response.data.response);
-                router.push('/')
+                await setUserInformation(response.data.response);
+
+                await router.push('/')
               } catch (err) {
                 console.log(err);
               }
