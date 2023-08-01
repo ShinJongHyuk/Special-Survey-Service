@@ -55,6 +55,7 @@ const Main_Container = styled.div.attrs({})`
     border: none;
     margin: 0 0;
     margin-left : 17px;
+  
   }
 `
 const Move_Container = styled.div.attrs({})`

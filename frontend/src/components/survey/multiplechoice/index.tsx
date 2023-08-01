@@ -3,7 +3,7 @@ import MultipleChoiceType from './MultipleChoice.type';
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
-import useSurveyStore from '@/stores/useSurveyStore';
+import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 // import useItemStore from '@/stores/useItemStore';
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();

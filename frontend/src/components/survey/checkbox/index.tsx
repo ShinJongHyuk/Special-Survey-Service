@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
-import useSurveyStore from '@/stores/useSurveyStore'
+import useSurveyStore from '@/stores/makesurvey/useSurveyStore'
 
 
 const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
