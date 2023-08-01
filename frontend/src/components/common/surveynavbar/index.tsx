@@ -9,12 +9,12 @@ import { StyledNavLink } from "../navbar/Navbar.styled";
 import { useLogoutHook } from "@/Hooks/useLogoutHook";
 import useSelectedStore from "@/stores/useSelectedStore";
 import useUserStore from '@/stores/useUserStore';
-import check from '../../../../public/survey/check.png'
-import pallete from '../../../../public/survey/pallete.png'
-import preview from '../../../../public/survey/preview.png'
-import before from '../../../../public/survey/before.png'
-import after from '../../../../public/survey/after.png'
-import Logo_Yellow from '../../../../public/survey/Logo_Yellow.png'
+import check from '/public/survey/check.png'
+import pallete from '/public/survey/pallete.png'
+import preview from '/public/survey/preview.png'
+import before from '/public/survey/before.png'
+import after from '/public/survey/after.png'
+import Logo_Yellow from '/public/survey/Logo_Yellow.png'
 import {Left_Button_Box,Right_Button_Box,StyleLogout,StyledProfileName,StyledPropfileLink,OptionBox,Buttons,Button_Box,Title_Label,Title_Content,Title_Container,Navbar_Container,Top_Container,Bottom_Container } from './SurveyNavbar.styled';
 import MakeSurvey from "@/pageComponents/makesurvey";
 import Mypage from "@/pageComponents/mypage";

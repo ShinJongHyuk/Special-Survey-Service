@@ -50,7 +50,7 @@ const Bottom_Container = styled.div`
 `
 
 const Title_Container = styled.div`
-    width : 33%;
+    width : 43%;
     height : 100%;
     margin-top : 25px;
 `
