@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { StyledNavbar, StyleLogout, StyledNavLink, StyledInstantNavLink, StyledTimeattackNavLink } from "./Navbar.styled";
@@ -12,7 +12,12 @@ const NavbarComponent = () => {
   const pathname = usePathname();
   const isLogin = useUserStore((state:any) => (state.isLogin))
   const {hanedleLogout} = useLogoutHook()
-  return (
+  const [mounted, setMounted] = useState<boolean>(false);
+
+useEffect(() => {
+  setMounted(true);
+  }, []);
+  return ( mounted &&
     <header>
       <StyledNavbar pathname={pathname}>
         <Link href="/" style={{ width: "20%" }}>
