@@ -6,8 +6,8 @@ import { StyledCard, StyledCardLeft, StyledCardHeader, StyledRemainTime, StyledI
 
 const Card2Component = (props: CardType) => {
   const images: { [key: string]: string } = {
-    chicken: "/chicken.png",
-    coffee: "/coffee.png",
+    chicken: "/card/chicken.png",
+    coffee: "/card/coffee.png",
   };
   const imgsrc = images[props.giveaways];
 
@@ -24,13 +24,13 @@ const Card2Component = (props: CardType) => {
         </StyledCardHeader>
 
         <StyledRemainTime {...props}>
-          <Image src="/yellowblackclock.svg" priority={true} width={30} height={30} alt="remaintime" />
+          <Image src="/card/yellowblackclock.svg" priority={true} width={30} height={30} alt="remaintime" />
           <div className="time-text">{props.remaintime || "00:00:00"}</div>
           <div className="text">남음</div>
         </StyledRemainTime>
 
         <StyledProbability {...props}>
-          <Image src="/percent.svg" priority={true} width={30} height={30} alt="remaintime" />
+          <Image src="/card/percent.svg" priority={true} width={30} height={30} alt="remaintime" />
           <div className="text" {...props}>{props.probability}</div>
         </StyledProbability>
       </StyledCardLeft>

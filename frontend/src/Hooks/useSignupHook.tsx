@@ -11,7 +11,8 @@ export const useSignupHook = ():SignupHookType => {
         name: "",
         birthday: "",
         phoneNumber: "",
-        gender: ""
+        gender: "",
+        age: ""
         
     })
     const [password2, setPassword] = useState("")
@@ -22,10 +23,11 @@ export const useSignupHook = ():SignupHookType => {
         name: 1,
         birthday: 1,
         phoneNumber: 1,
+        age: 1,
         
     })
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
     const phoneNumberRegex = /^\d{3}-\d{3,4}-\d{4}$/
 
     const handleChange = (e:any) => {
@@ -136,12 +138,19 @@ export const useSignupHook = ():SignupHookType => {
     }
 
     const handleClick = (e:any) => {
-        setUser({
-            ...user,
-            ["gender"] : e.target.name
-        })
+        if (e.target.name === "MAN" || e.target.name === "WOMAN") {
+            setUser({
+                ...user,
+                ["gender"] : e.target.name
+            })
+        } else {
+            setUser({
+                ...user,
+                ["age"] : e.target.id
+            })
+        }
+        
     }
 
     return {user, inputState, handleChange, handleSubmit, handleClick}
 }
-

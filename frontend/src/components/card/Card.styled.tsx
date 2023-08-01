@@ -5,10 +5,10 @@ import { CardType } from "./Card.type";
 const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
     let bgcolor;
-    if (props.type === "타임어택") {
-      bgcolor = props.theme.colors.purple;
+    const probability = parseInt(props.probability, 10);
+    if (props.type === "NORMAL") {
+      bgcolor = props.typename === "일반" ? props.theme.colors.white : props.theme.colors.purple;
     } else {
-      const probability = parseInt(props.probability, 10);
       bgcolor = probability <= 40 ? props.theme.colors.white : props.theme.colors.yellow;
     }
 
@@ -38,10 +38,10 @@ const StyledTag = styled.div.attrs<CardType>((props) => ({}))`
 
     const lightpurple = "linear-gradient(0deg, rgba(168, 140, 255, 0.2) 0%, rgba(168, 140, 255, 0.2) 100%), #fff";
     const lightyellow = "linear-gradient(0deg, rgba(255, 241, 41, 0.30) 0%, rgba(255, 241, 41, 0.30) 100%), #FFF";
-    const bgcolor = type === "타임어택" ? lightpurple : lightyellow;
+    const bgcolor = type === "NORMAL" ? lightpurple : lightyellow;
 
-    const bcolor = type === "타임어택" ? "rgba(168, 140, 255, 0.10)" : "rgba(255, 241, 41, 0.20)";
-    const color = type === "타임어택" ? props.theme.colors.blue : props.theme.colors.orange;
+    const bcolor = type === "NORMAL" ? "rgba(168, 140, 255, 0.10)" : "rgba(255, 241, 41, 0.20)";
+    const color = type === "NORMAL" ? props.theme.colors.blue : props.theme.colors.orange;
     const font = props.theme.fonts.HangeulFontSemiBold;
     const xsmall = props.theme.fontSizes.xsmall;
     return css`
@@ -70,7 +70,12 @@ const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
     const small = props.theme.fontSizes.small;
     const xsmall = props.theme.fontSizes.xsmall;
 
-    const color = props.type === "타임어택" ? white : black;
+    let color;
+    if (props.type === "NORMAL") {
+      color = props.typename === "일반" ? black : white;
+    } else {
+      color = black;
+    }
 
     return css`
       display: flex;
@@ -85,6 +90,7 @@ const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
       width: 100%;
       text-align: center;
 
+      
       .title {
         font-size: ${small};
       }
@@ -102,14 +108,13 @@ const StyledProbability = styled.div.attrs<CardType>((props) => ({}))`
     const size = props.theme.fontSizes.large;
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
-    const yellow = props.theme.colors.yellow;
-
+    const purple = props.theme.colors.purple;
     let color;
-    if (props.type === "타임어택") {
-      color = white;
+    const probability = parseInt(props.probability, 10);
+    if (props.type === "NORMAL") {
+      color = props.typename === "일반" ? purple : white;
     } else {
-      const probability = parseInt(props.probability, 10);
-      color = probability <= 40 ? yellow : black;
+      color = black;
     }
 
     return css`
@@ -125,9 +130,15 @@ const StyledRemainTime = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
-    const color = props.type === "타임어택" ? white : black;
     const font = props.theme.fonts.HangeulFontSemiBold;
     const size = props.theme.fontSizes.xsmall;
+
+    let color;
+    if (props.type === "NORMAL") {
+      color = props.typename === "일반" ? black : white;
+    } else {
+      color = black;
+    }
 
     return css`
       display: flex;
@@ -155,22 +166,20 @@ const StyledImg = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
-    const yellow = props.theme.colors.yellow;
-
+    const purple = props.theme.colors.purple;
     let color;
-    if (props.type === "타임어택") {
-      color = white;
+    if (props.type === "NORMAL") {
+      color = props.typename === "일반" ? purple : white;
     } else {
-      const probability = parseInt(props.probability, 10);
-      color = probability <= 40 ? black : yellow;
+      color = black;
     }
 
     return css`
       border: 2px dashed ${color};
-      border-radius: 100px;
-      width: 86px;
-      padding-top: 2px;
-      padding-left: 2px;
+      border-radius: 48px;
+      width: 90x;
+      padding: 2px 2px 0px 2px;
+      /* padding-left: 2px; */
     `;
   }};
 `;

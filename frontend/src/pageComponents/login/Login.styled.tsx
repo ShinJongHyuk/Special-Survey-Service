@@ -1,13 +1,13 @@
 import styled, {css} from 'styled-components'
 
 const LoginPage = styled.div.attrs<any>((props) => ({}))`
-    /* margin: 50px; */
-    height: 92vh;
+    height: 100vh;
+    padding-top: 56px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    background-image: url("/BGimg.png");
+    /* background-image: url("/BGimg.png"); */
     background-size: contain; 
     background-repeat: no-repeat; 
     background-position: center center; 
@@ -19,6 +19,13 @@ const LoginPage = styled.div.attrs<any>((props) => ({}))`
     @media (max-height: 700px) {
     background-size: cover ;
   }
+`
+
+const LoginText = styled.div.attrs<any>((props) => ({}))`
+  margin-top: 30px;
+  font-size: 60px;
+  font-family: ${(props) => props.theme.fonts.EnglishFontBold};
+  color : ${(props) => props.theme.colors.purple}
 `
 
 const InputBox = styled.div.attrs<any>((props) => ({}))`
@@ -36,7 +43,7 @@ const LoginContainer = styled.form.attrs<any>((props) => ({}))`
   height: auto;
   border-radius: 5px;
   padding: 10px 0px;
-  margin-top: 6%;
+  margin-top: 3%;
 `
 
 const LoginFont = styled.div.attrs<any>((props) => ({}))`
@@ -53,4 +60,4 @@ const LoginFont2 = styled.p.attrs<any>((props) => ({}))`
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `
 
-export {LoginPage,InputBox, LoginFont, LoginFont2, LoginContainer}
+export {LoginPage, LoginText, InputBox, LoginFont, LoginFont2, LoginContainer}

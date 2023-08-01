@@ -17,7 +17,6 @@ const theme: DefaultTheme = {
     HangeulFontMedium: "HangeulFontMedium",
     HangeulFontRegular: "HangeulFontRegular",
     HangeulFontSemiBold: "HangeulFontSemiBold",
-    HangeulFontSemiBold: "HangeulFontSemiBold",
     EnglishFontBold: "EnglishFontBold",
     EnglishFontLight: "EnglishFontLight",
   },
@@ -25,9 +24,11 @@ const theme: DefaultTheme = {
     xsmall: "12px",
     small: "16px",
     medium: "20px",
+    mediumlarge: "26px",
     large: "32px",
     xlarge: "40px",
     xxlarge: "48px",
+    xxxlarge: '60px'
   },
 };
 export default theme;

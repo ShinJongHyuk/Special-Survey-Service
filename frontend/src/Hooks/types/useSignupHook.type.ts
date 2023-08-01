@@ -4,7 +4,8 @@ interface User {
     name: string;
     birthday: string;
     phoneNumber: string;
-    gender: string; 
+    gender: string;
+    age: string;
   }
   
 export interface SignupHookType {
@@ -16,6 +17,7 @@ inputState: {
     name: number;
     birthday: number;
     phoneNumber: number;
+    age: number
 };
 handleChange: (e: any) => void;
 handleSubmit: (e: any) => void;
