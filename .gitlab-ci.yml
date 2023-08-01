@@ -6,6 +6,8 @@ deploy_job:
   before_script:
     - echo $AWS_PEM > aws_key.pem  # AWS_PRIVATE_KEY는 AWS SSH 키를 담고 있는 GitLab CI/CD 변수입니다.
     - chmod 600 aws_key.pem
+  script:
+    - echo aws_key.pem
   only:
     - feature/ci/cd
   tags:
