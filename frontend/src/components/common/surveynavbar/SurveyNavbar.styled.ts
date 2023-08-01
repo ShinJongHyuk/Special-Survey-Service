@@ -12,13 +12,21 @@ const Navbar_Container = styled.div`
     background-color: white;
     display: flex;
     flex-direction : column;
-    align-items: center;
-    justify-content: space-between;
+    align-items: left;
+
     padding: 0px 30px 0px 30px;
 
     position: fixed;
     z-index: 1;
-
+    hr {
+    width : 72%;
+    height: 1px;
+    background-color: ${props => props.theme.colors.lightgray};
+    border: none;
+    margin: 0 0;
+    margin-left : 3.2%;
+  
+  }
 `
 const Top_Container = styled.div`
     display : flex;
@@ -27,6 +35,7 @@ const Top_Container = styled.div`
     width : 100%;
     height : 65%;
     padding : 10px 10px;
+    
 
 `
 const Bottom_Container = styled.div`
@@ -35,18 +44,19 @@ const Bottom_Container = styled.div`
     justify-content : center;
     width : 100%;
     height: 35%;
-    border-top : 1px solid ${props => props.theme.colors.lightgray};
+    margin-right : 30%;
+
 `
 
 const Title_Container = styled.div`
-    width : 30%;
+    width : 20%;
     height : 100%;
     margin-top : 25px;
 `
 
 const Title_Content = styled.input.attrs({placeholder : "설문지 제목"})`
     width : 100%;
-    height : 60%;
+    height : 40%;
     border : none;
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     font-weight : 800;
@@ -63,12 +73,11 @@ const Title_Content = styled.input.attrs({placeholder : "설문지 제목"})`
 const Title_Label = styled.label.attrs({})`
     width : 100%;
     height : 40%;
+    margin-left : 1.5%;
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-
     font-size: ${props => props.theme.fontSizes.xsmall};
     color: ${props => props.theme.colors.black};
-    margin-left : 4px;
-
+   
 `
 const Button_Box = styled.div.attrs({})`
     display : flex;
@@ -77,7 +86,15 @@ const Button_Box = styled.div.attrs({})`
     align-items : center;
     width : 28%;
     height : 60%;
-    margin-left : 90px;
+
+`
+const Left_Button_Box = styled.div.attrs({})`
+    display : flex;
+    justify-content : space-evenly;
+    width : 45%;
+    
+    height : 100%;
+    align-items : center;
 `
 
 const Right_Button_Box = styled.div.attrs({})`
@@ -92,7 +109,7 @@ const Right_Button_Box = styled.div.attrs({})`
 const Buttons = styled.button.attrs<any>((props) => ({
     backgroundcolor: props.backgroundcolor || 'white'
   }))`
-    width: 100px;
+    width: 45%;
     height: 100%;
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     font-size: ${props => props.theme.fontSizes.regular};
@@ -110,7 +127,7 @@ const OptionBox = styled.button.attrs<any>((props) => ({
   },
 }))`
   display: flex;
-  width: 60px;
+  width: 3.5%;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -130,7 +147,7 @@ const StyledPropfileLink = styled(Link)`
 `;
 
 const StyledProfileName = styled.div`
-  margin-left: 5px;
+
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.small};
   color: ${(props) => props.theme.colors.black};
@@ -145,4 +162,4 @@ const StyleLogout = styled.div`
   cursor: pointer;
 `
 
-export {Right_Button_Box,StyleLogout,StyledProfileName,StyledPropfileLink,OptionBox,Buttons,Button_Box,Title_Label,Title_Content,Title_Container,Top_Container,Bottom_Container,Navbar_Container}
+export {Left_Button_Box,Right_Button_Box,StyleLogout,StyledProfileName,StyledPropfileLink,OptionBox,Buttons,Button_Box,Title_Label,Title_Content,Title_Container,Top_Container,Bottom_Container,Navbar_Container}
