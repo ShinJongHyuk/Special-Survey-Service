@@ -1,12 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
 
-function useScratchHook() {
+function useScratchHook(imageSrc: any) {
 
     // scratch
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const mouseDown = useRef<boolean>(false);
     const [canvasOpacity, setCanvasOpacity] = useState(1);
 
+    const [isCanvasLoaded, setCanvasLoaded] = useState(false);
+
+    // Canvas setup logic
     const initializeCanvas = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -15,9 +18,10 @@ function useScratchHook() {
         if (!ctx) return;
 
         const image = new Image();
-        image.src = '/instantwin/board.png';
+        image.src = imageSrc;
         image.onload = () => {
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            setCanvasLoaded(true);  // Set canvas loaded state to true
         }
     };
 
@@ -65,7 +69,7 @@ function useScratchHook() {
         initializeCanvas();
     }, []);
 
-    return { canvasRef, mouseDown, canvasOpacity, erase };
+    return { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded };
 }
 
 export default useScratchHook;

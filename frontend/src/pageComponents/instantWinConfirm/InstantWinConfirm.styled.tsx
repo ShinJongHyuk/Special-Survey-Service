@@ -64,33 +64,4 @@ const StyledWinBox = styled.div.attrs<any>((props) => ({}))`
     }};
 `;
 
-const StyledImg = styled.div.attrs<any>((props) => ({}))`
-  ${(props) => {
-        const yellow = props.theme.colors.yellow;
-
-        return css`
-        border: 2px dashed ${yellow};
-        border-radius: 48px;
-        width: 105px;
-        padding: 2px 2px 0px 2px;
-    `;
-    }};
-`;
-
-
-const StyledProbability = styled.div.attrs<any>((props) => ({}))`
-  ${(props) => {
-        const font = props.theme.fonts.EnglishFontBold;
-        const size = props.theme.fontSizes.xlarge;
-        const purple = props.theme.colors.purple;
-
-        return css`
-        color: ${purple};
-        text-align: right;
-        font-family: ${font};
-        font-size: ${size};
-    `;
-    }};
-`;
-
-export { StyledTitleBox, StyledBox, StyledImg, StyledProbability, StyledWinBox }
+export { StyledTitleBox, StyledBox, StyledWinBox } 

@@ -1,6 +1,5 @@
 "use client"
-import { useState, useRef, useEffect } from 'react'
-import { StyledTitleBox, StyledBox, StyledImg, StyledProbability, StyledWinBox } from "./InstantWinConfirm.styled"
+import { StyledTitleBox, StyledBox, StyledWinBox } from "./InstantWinConfirm.styled"
 import Button from '@/components/button';
 import { useRouter } from "next/navigation";
 import useScratchHook from '@/Hooks/instantwinconfirm/useScratchHook';
@@ -20,7 +19,7 @@ const InstantWinConfirm = (props: any) => {
 
     const isWin = false;
 
-    const { canvasRef, mouseDown, canvasOpacity, erase } = useScratchHook();
+    const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook('/instantwin/board.png');
 
     return (
         <div style={{ position: "relative", width: "100%", height: "100vh" }} >
@@ -34,14 +33,16 @@ const InstantWinConfirm = (props: any) => {
                     <div className='subtitle'> 당첨여부를 확인하고 상품을 받아가세요! </div>
                 </StyledTitleBox>
                 <StyledWinBox >
-                    {isWin ? (
-                        <div style={{ position: "absolute", width: "140px", height: "140px", zIndex: "0" }}>
-                            <img src="/card/chicken.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
-                        </div>
-                    ) : (
-                        <div style={{ position: "absolute", width: "300px", height: "120px", zIndex: "0" }}>
-                            <img src="/instantwin/bomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
-                        </div>
+                    {isCanvasLoaded && (
+                        isWin ? (
+                            <div style={{ position: "absolute", width: "140px", height: "140px", zIndex: "0" }}>
+                                <img src="/card/chicken.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+                            </div>
+                        ) : (
+                            <div style={{ position: "absolute", width: "300px", height: "120px", zIndex: "0" }}>
+                                <img src="/instantwin/bomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+                            </div>
+                        )
                     )}
                     <canvas
                         ref={canvasRef}
