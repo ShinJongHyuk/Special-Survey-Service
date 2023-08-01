@@ -19,12 +19,13 @@ const Navbar_Container = styled.div`
     position: fixed;
     z-index: 1;
     hr {
-    width : 72%;
+    width : 85%;
     height: 1px;
     background-color: ${props => props.theme.colors.lightgray};
     border: none;
     margin: 0 0;
-    margin-left : 3.2%;
+    margin-left : 3%;
+  
   
   }
 `
@@ -49,7 +50,7 @@ const Bottom_Container = styled.div`
 `
 
 const Title_Container = styled.div`
-    width : 20%;
+    width : 33%;
     height : 100%;
     margin-top : 25px;
 `
