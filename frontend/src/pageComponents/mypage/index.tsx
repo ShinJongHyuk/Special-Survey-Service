@@ -9,30 +9,35 @@ const Mypage = () => {
   const selectBtn = useMypageStore((state) => state.selectBtn);
   const userInformation = useUserStore((state: any) => state.userInformation);
 
-  let genderInfo: any = {
-    "WOMAN": {
+  const genderInfo: any = {
+    WOMAN: {
       text: "여성",
-      img: "/womanIcon.png"
+      img: "/womanIcon.png",
     },
-    "MAN": {
+    MAN: {
       text: "남성",
-      img: "/manIcon.png"
-    }
+      img: "/manIcon.png",
+    },
   };
 
-  let userGender = userInformation.gender;
+  const userGender = userInformation.gender;
   return (
     <>
       <div style={{ backgroundColor: "#FFF129", height: "230px" }}>
         <StyledBanner>
           <div style={{ width: "30%", textAlign: "right" }}>
-            <Image src={genderInfo[userGender].img} alt="man" width={120} height={120} style={{ border: "1px solid black", borderRadius: "50%" }}></Image>
+            <Image
+              src={genderInfo[userGender].img}
+              alt="man"
+              width={120}
+              height={120}
+              style={{ border: "1px solid black", borderRadius: "50%" }}
+            ></Image>
           </div>
           <StyledText style={{ width: "30%" }}>
             <div className="email">{userInformation.email}</div>
             <div className="others">
-              {userInformation.name}/{userInformation.birthday}/
-              {genderInfo[userGender].text}
+              {userInformation.name}/{userInformation.birthday}/{genderInfo[userGender].text}
             </div>
           </StyledText>
           <StyledText style={{ width: "45%" }}>
