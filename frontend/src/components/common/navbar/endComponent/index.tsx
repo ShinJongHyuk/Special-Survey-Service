@@ -9,7 +9,7 @@ const EndComponent = () => {
     const { hanedleLogout } = useLogoutHook()
     const [mounted, setMounted] = useState<boolean>(false);
     const userInformation = useUserStore((state: any) => (state.userInformation));
-    const profileImg = userInformation.gender === "MAN" ? "/manIcon.png" : "/womanIcon.png";
+    const profileImg = userInformation && userInformation.gender === "MAN" ? "/manIcon.png" : "/womanIcon.png";
 
     useEffect(() => {
         setMounted(true);

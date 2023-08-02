@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import axios from 'axios'
 
 export const useSurveyDetailHook = () => {
-    const survey_id = 1
+    const survey_id = "1"
     const getSurveyDetail = async () => {
         try{
             const res = await axios({

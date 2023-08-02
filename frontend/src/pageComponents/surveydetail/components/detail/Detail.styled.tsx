@@ -3,21 +3,16 @@ import styled from 'styled-components'
 const SurveyDetailContainer = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     width: 100%;
-    padding: 20px 250px 40px 250px;
+    padding: 20px 300px 40px 300px;
     gap: 136px;
     justify-content: space-between;
     background-color: ${(props) => props.theme.colors.white};
 `
 
 const SurveyContent = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
     height: 600px;
     width: 450px;
     padding: 20px 0px;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex: 1 0 0;
 `
 
 const SurveyTitle =styled.div.attrs<any>((props) => ({}))`
@@ -43,7 +38,7 @@ const SurveyPurpose = styled.div.attrs<any>((props) => ({}))`
     margin-top: 20px;
     color: ${(props) => props.theme.colors.black};
     font-family:  ${(props) => props.theme.fonts.HangeulFontMedium};
-    width: 450px;
+    width: 100%;
 `
 
 const SurveyInformation = styled.div.attrs<any>((props) => ({}))`
