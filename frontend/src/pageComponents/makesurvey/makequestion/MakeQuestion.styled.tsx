@@ -9,7 +9,7 @@ const Survey_Container = styled.div.attrs({})`
 
 
     position: absolute;
-    top: 160px;
+    top: 27%;
     flex-wrap: wrap;
   
 `;
