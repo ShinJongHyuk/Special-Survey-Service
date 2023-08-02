@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import MakeSettings from './makesettings';
-import MakeQuestion from './makequestion';
-import useSelectedStore from '@/stores/useSelectedStore';
-
-function MakeSurvey() {
-  const { selected, setSelected } = useSelectedStore();
-  console.log(selected)
-
-  return (
-    <>
-       {selected === 'question' && <MakeQuestion />}
-       {selected === 'setting' && <MakeSettings />}
-=======
 import React, { useState, useEffect } from 'react';
 import Toolbar from '@/components/survey/toolbar';
 import { ImagePreiew_Box, ImagePreview, Image_Delete_Button, UploadImage, Image_Text_Content, Image_Text_Header, Inner_Icon_Container, Inner_Text_Container, Image_Inner_Container, Title_Content, Title_input, Title_Inner_Container, Survey_Container, Background_Container, Survey_MainImage_Container, Survey_Title_Container } from './Makesurvey.styled';
@@ -129,7 +114,6 @@ function MakeSurvey() {
         </Background_Container>
 
       </Survey_Container>
->>>>>>> d625397a2af110629e1220a0b1ffcbab108f6a57
     </>
   );
 };
