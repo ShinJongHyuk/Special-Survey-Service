@@ -1,7 +1,11 @@
-import { useEffect } from "react";
+import CardList from "./cardlist"
 
 const ResponsedSurveyList = () => {
-  return <div>ResponsedSurveyList</div>;
+  return (
+    <div>
+      <CardList ></CardList>
+    </div>
+  );
 };
 
 export default ResponsedSurveyList;
