@@ -16,7 +16,7 @@ const Toggle_Component = styled.button.attrs<any>((props) =>({
 }))`
     cursor: pointer;
     display: flex;
-    width: 80px;
+    width: 70px;
     height: 60px;
     border: none;
 
@@ -29,7 +29,7 @@ const Toggle_Component = styled.button.attrs<any>((props) =>({
     ${props =>
     props.isSelected &&
     css`
-      border-bottom: 1px solid purple;
+      border-bottom: 2px solid ${props => props.theme.colors.purple};
       color: ${props => props.theme.colors.purple};
     `}
     
