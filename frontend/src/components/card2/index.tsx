@@ -6,19 +6,17 @@ import { StyledCard, StyledCardLeft, StyledCardHeader, StyledRemainTime, StyledI
 
 const Card2Component = (props: CardType) => {
   const images: { [key: string]: string } = {
-    chicken: "/card/chicken.png",
-    coffee: "/card/coffee.png",
+    CHICKEN: "/card/chicken.png",
+    COFFEE: "/card/coffee.png",
   };
   const imgsrc = images[props.giveaways];
 
   return (
     <StyledCard {...props}>
-
       <StyledCardLeft>
-
         <StyledCardHeader {...props}>
           <div className="title">{props.title}</div>
-          <div className="writer"{...props}>
+          <div className="writer" {...props}>
             {props.nickname}
           </div>
         </StyledCardHeader>
@@ -31,14 +29,15 @@ const Card2Component = (props: CardType) => {
 
         <StyledProbability {...props}>
           <Image src="/card/percent.svg" priority={true} width={30} height={30} alt="remaintime" />
-          <div className="text" {...props}>{props.probability}</div>
+          <div className="text" {...props}>
+            {props.probability}
+          </div>
         </StyledProbability>
       </StyledCardLeft>
 
       <StyledImg {...props}>
         <Image src={imgsrc} style={{ borderRadius: "100px" }} priority={true} width={125} height={125} alt="gift" />
       </StyledImg>
-
     </StyledCard>
   );
 };

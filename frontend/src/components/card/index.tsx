@@ -7,8 +7,8 @@ import moment from "moment";
 
 const CardComponent = (props: CardType) => {
   const images: { [key: string]: string } = {
-    chicken: "/card/chicken.png",
-    coffee: "/card/coffee.png",
+    CHICKEN: "/card/chicken.png",
+    COFFEE: "/card/coffee.png",
   };
   const imgsrc = images[props.giveaways];
 
@@ -19,7 +19,7 @@ const CardComponent = (props: CardType) => {
   } else if (props.type === "NORMAL") {
     const now = moment();
     const endTime = moment(props.endtime, "YYYY-MM-DD-HH-mm");
-    const diffHours = endTime.diff(now, 'hours');
+    const diffHours = endTime.diff(now, "hours");
 
     if (diffHours < 24) {
       typeName = "타임어택";
@@ -52,32 +52,27 @@ const CardComponent = (props: CardType) => {
       {props.contentype === "ssspick" ? (
         <StyledProbability {...newProps}>{props.responsedtime}</StyledProbability>
       ) : (
-
         <StyledProbability {...newProps}>{props.probability}</StyledProbability>
       )}
       <StyledRemainTime {...newProps}>
         <div className="time-text">
-          {
-            props.type === "NORMAL" ? (
-              typeName === "일반" ? (
-                <Image src="/card/purpleblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
-              ) : (
-                <Image src="/card/purpleclock.svg" priority={true} width={22} height={22} alt="remaintime" />
-              )
+          {props.type === "NORMAL" ? (
+            typeName === "일반" ? (
+              <Image src="/card/purpleblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
             ) : (
-              parseInt(props.probability, 10) <= 40 ? (
-                <Image src="/card/yellowblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
-              ) : (
-                <Image src="/card/yellowclock.svg" priority={true} width={22} height={22} alt="remaintime" />
-              )
+              <Image src="/card/purpleclock.svg" priority={true} width={22} height={22} alt="remaintime" />
             )
-          }
+          ) : parseInt(props.probability, 10) <= 40 ? (
+            <Image src="/card/yellowblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+          ) : (
+            <Image src="/card/yellowclock.svg" priority={true} width={22} height={22} alt="remaintime" />
+          )}
 
           <div className="text">남은 시간</div>
         </div>
         {props.remaintime || "00:00:00"}
       </StyledRemainTime>
-    </StyledCard >
+    </StyledCard>
   );
 };
 

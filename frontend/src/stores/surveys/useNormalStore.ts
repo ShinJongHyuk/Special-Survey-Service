@@ -13,7 +13,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임abc",
       type: "NORMAL",
       probability: "27%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -25,7 +25,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임def",
       type: "NORMAL",
       probability: "34%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -37,7 +37,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임ghi",
       type: "NORMAL",
       probability: "45%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -49,7 +49,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임mno",
       type: "NORMAL",
       probability: "47%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -61,7 +61,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임jkl",
       type: "NORMAL",
       probability: "36%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -73,7 +73,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임pqr",
       type: "NORMAL",
       probability: "40%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -85,7 +85,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임stu",
       type: "NORMAL",
       probability: "45%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -97,7 +97,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임vwx",
       type: "NORMAL",
       probability: "50%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -109,7 +109,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임yz1",
       type: "NORMAL",
       probability: "55%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -121,7 +121,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임234",
       type: "NORMAL",
       probability: "60%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -133,7 +133,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임567",
       type: "NORMAL",
       probability: "65%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -145,7 +145,7 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임890",
       type: "NORMAL",
       probability: "70%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -157,9 +157,8 @@ const useTimeAttackStore = create<SurveyType>((set) => ({
       nickname: "닉네임abc2",
       type: "NORMAL",
       probability: "75%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
-
   ],
 }));
 
