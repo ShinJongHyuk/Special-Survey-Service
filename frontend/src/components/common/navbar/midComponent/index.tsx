@@ -1,24 +1,23 @@
 "use client";
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { StyledInstantNavLink, StyledTimeattackNavLink } from "../Navbar.styled";
-import { usePathname } from "next/navigation";
 import DefaultComponent from "./DefaultComponent";
 import SurveylistComponent from "./SurveylistComponent";
 import MypageComponent from "./MypageComponent";
 import SurveyDetailComponent from "./SurveyDetailComponent";
+import MakesruveyComponent from "./MakesurveyComponent";
 
 const MidComponent = (props: any) => {
   const pathname = props.pathname;
 
-  if (pathname === "/instantWinSurveyList" || pathname === "/normalSurveyList") {
+  if (pathname === "/surveylist") {
     return <SurveylistComponent pathname={pathname} />;
   } else if (pathname === "/surveydetail") {
-    return <SurveyDetailComponent pathname={pathname}/>
+    return <SurveyDetailComponent pathname={pathname} />
   } else if (pathname === "/mypage") {
     return <MypageComponent pathname={pathname} />;
-  } 
+  } else if (pathname === "/makesurvey") {
+    return <MakesruveyComponent pathname={pathname} />
+  }
   return <DefaultComponent pathname={pathname} />;
 };
 
