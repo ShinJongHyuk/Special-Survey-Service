@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { ThemeProvider } from 'styled-components';
 import theme from '@/styles/DefaultTheme';
 import { StyledNavLink } from "../navbar/Navbar.styled";
-import { useLogoutHook } from "@/Hooks/useLogoutHook";
+import { useLogoutHook } from "@/Hooks/user/useLogoutHook";
 import useSelectedStore from "@/stores/useSelectedStore";
 import useUserStore from '@/stores/useUserStore';
 import check from '/public/survey/check.png'

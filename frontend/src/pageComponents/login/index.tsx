@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { LoginPage, LoginText, InputBox, LoginFont, LoginFont2, LoginContainer } from './Login.styled'
 import { SignUpText, SignUpItem } from '../signup/Signup.styled'
 import { useRouter } from 'next/navigation'
-import { useLoginHook } from '@/Hooks/useLoginHook'
+import { useLoginHook } from '@/Hooks/user/useLoginHook'
 import {useEffect} from 'react'
 const Login = () => {
     const {handleChange, handleSubmit, handleOnChange, inputState, user, isRemember} = useLoginHook()
