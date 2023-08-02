@@ -82,9 +82,9 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     return (
         <ThemeProvider theme={theme}>
             <Main_Container>
-                <ImageWrapper>
+                {/* <ImageWrapper>
                   <Image src={DragIcon} alt="옮기기" />
-                </ImageWrapper>
+                </ImageWrapper> */}
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>

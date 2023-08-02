@@ -3,12 +3,13 @@ import styled,{ThemeProvider} from 'styled-components'
 
 const SelectBox = styled.div.attrs({})`
   display: flex;
-  width: 170px;
+  width: 47%;
+  min-width : 120px;
   height: 44px;
   border-radius: 8px;
   border : 0px solid ${props => props.theme.colors.purple};
   padding : 20px, 20px;
-  margin-left : 29px;
+  margin-left : 13%;
   cursor: pointer;
 `
 const SelectBox_List = styled.select.attrs({})`
@@ -39,14 +40,15 @@ const Main_Container = styled.div.attrs({})`
     display : flex;
     flex-direction : column;
 
-    width : 800px;
-    min-height : 320px;
-    margin : 12px 30px;
+    width : 100%;
+    min-width : 600px;
+    margin-top : 20px;
+    min-height : 10px;
     box-sizing : border-box;
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
-    padding : 0px 30px 30px 30px;
+    padding : 30px 30px 30px 30px;
     
     hr {
     width : 710px;
@@ -73,8 +75,9 @@ const Question_Container = styled.div.attrs({})`
     justify-content: space-between;
     border-left: 3px solid #8E69FF;
     
-    width: 520px;
-    height: 57px;
+    width: 100%;
+    min-width : 350px;
+    height: 10%;
     padding: 0px 20px;
     
 `
@@ -83,16 +86,18 @@ const Question_Inner_Container = styled.div.attrs({})`
     flex-direction : row;
     
     
-    width : 765px;
-    height : 60px;
-    padding : 0px 20px;
+    width : 100%;
+    min-width : 400px;
+    height : 5%;
+    padding : 5px 20px;
 `
 
 const Question_Header_Container = styled.div.attrs({})`
     display : flex;
     flex-direction : column;
-    width : 500px;
-    height : 25px;
+    width : 70%;
+    min-width : 300px;
+    height : 10%;
     
 `
 
@@ -101,7 +106,9 @@ const Question_Header = styled.input.attrs<any>((props) => ({
   }))`
     display: flex;
     width: 100%;
+    min-width : 10px;
     height: 100%;
+    margin-bottom : 10px;
     border: none;
     font-size: ${props => props.theme.fontSizes.medium};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
@@ -112,8 +119,9 @@ const Question_Header = styled.input.attrs<any>((props) => ({
 
 const Question_Content_Container = styled.div.attrs({})`
     display : flex;
-    width : 500px;
-    height : 20px;
+    width : 100%;
+    min-width : 200px;
+    height : 30%;
     border : none;
 `
 
@@ -132,10 +140,11 @@ const Question_Content = styled.input.attrs<any>(props => ({
 const Bottom_Box = styled.div.attrs({})`
     display : flex;
     flex-direction : row;
-    width : 695px;
-    height : 30px;
+    width : 100%;
+    min-width : 300px;
+    height : 20px;
     margin-top : 20px;
-    padding : 0px 0px 0px 20px;
+    padding : 0px 0px 0px 40px;
 `
 
 const Link_Question_Box = styled.div.attrs({})`
@@ -190,10 +199,10 @@ const Elements_Box = styled.div.attrs({})`
     align-items : center;
     justify-content : space-between;
 
-    width : 150px;
+    width : 65%;
+    min-width : 10px;
     height: 100%;
     padding : 10px;
-    margin-left : 231px;
     
   
 `
@@ -204,8 +213,6 @@ const Essential_Question_Box = styled.div.attrs({})`
     width : 200px;
     height: 100%;
     border-left : 2px solid ${props => props.theme.colors.lightgray};
-    margin-left : 20px;
-    margin-right : -60px;
     padding : 10px 10px;
 `
 
@@ -213,7 +220,7 @@ const Essential_Question_Title =  styled.label.attrs({})`
     display : flex;
     align-items : center;
     
-    width : 60px;
+    width : 50%;
     height : 100%;
     font-size : ${props => props.theme.fontSizes.xsmall};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
@@ -241,7 +248,7 @@ const CheckBox_Switch = styled.div.attrs({})`
 
 const CheckBox_Input = styled.input.attrs({type : "checkbox"})`
   display: none;
-
+  width : 100%;
 
   &:checked + ${CheckBox_Switch} {
     background-color : ${props => props.theme.colors.purple};
@@ -254,7 +261,7 @@ const CheckBox_Input = styled.input.attrs({type : "checkbox"})`
 const CheckBox_Label = styled.label.attrs({})`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap : 0px;
   cursor: pointer;
 `;
 
