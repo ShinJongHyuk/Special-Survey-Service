@@ -1,18 +1,23 @@
 import { useState, useEffect } from "react";
-import useTimeAttackStore from "@/stores/surveys/useNormalStore";
 import useTimerHook from "@/Hooks/card/useTimerHook";
-import { SurveyType } from "@/stores/surveys/surveyStore.type";
+import normalListGet from "@/api/normalListGet";
+import useUserStore from "@/stores/useUserStore";
 
 const useTimeattackHook = () => {
   const cardWidth = 440; // 카드의 너비
 
-  const { surveys } = useTimeAttackStore();
-  const [cards, setCards] = useState<SurveyType["surveys"]>([]);
+  const [cards, setCards] = useState<any>([]);
   const [transformValue, setTransformValue] = useState(-cardWidth);
+  const accessToken = useUserStore((state: any) => state.accessToken);
 
   useEffect(() => {
-    const initialCards = [...surveys.slice(0, 5), ...surveys.slice(0, 5), ...surveys.slice(0, 5)]; // double the surveys
-    setCards(initialCards);
+    // 데이터 패칭
+    const fetchList = async () => {
+      const data = await normalListGet(accessToken);
+      setCards([...data.slice(0, 5), ...data.slice(0, 5), ...data.slice(0, 5)]);
+      console.log(data);
+    };
+    fetchList();
 
     const timer = setInterval(() => {
       setCards((prev: any) => {

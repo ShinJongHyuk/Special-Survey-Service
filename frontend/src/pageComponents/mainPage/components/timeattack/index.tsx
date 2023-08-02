@@ -5,7 +5,7 @@ import Card2 from "@/components/card2";
 import useTimeattackHook from "@/Hooks/mainpage/useTimeattackHook";
 import Button from "@/components/button";
 import { useRouter } from "next/navigation";
-
+import CardList from "./components";
 const Timeattack = () => {
   const { cards, transformValue, handlePrevClick, handleNextClick } = useTimeattackHook();
   const router = useRouter();
@@ -30,26 +30,7 @@ const Timeattack = () => {
             <div className="buttontext">&gt;</div>
           </button>
         </div>
-        <StyledCardList
-          style={{
-            transform: `translateX(${transformValue}px)`,
-            transition: "transform 0.5s ease-out",
-          }}
-        >
-          {cards.map((survey, index) => (
-            <div key={index}>
-              <div style={{ width: "440px" }}>
-                <Card2
-                  title={survey.title}
-                  nickname={survey.nickname}
-                  giveaways={survey.giveaways}
-                  probability={survey.probability}
-                  remaintime={survey.remainTime || ""}
-                />
-              </div>
-            </div>
-          ))}
-        </StyledCardList>
+        <CardList cards={cards} transformValue={transformValue} />
         <div style={{ width: "120px", height: "50px" }}>
           <Button use="gray" label="더보기" onClick={goList}></Button>
         </div>
