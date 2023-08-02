@@ -11,7 +11,7 @@ const Timeattack = () => {
   const router = useRouter();
 
   const goList = () => {
-    router.push("/normalSurveyList");
+    router.push("/surveyList");
   };
   return (
     <div style={{ position: "relative", width: "100%", height: "680px" }}>
