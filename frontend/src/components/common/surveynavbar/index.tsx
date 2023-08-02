@@ -16,7 +16,7 @@ import before from '/public/survey/before.png'
 import after from '/public/survey/after.png'
 import Logo_Yellow from '/public/survey/Logo_Yellow.png'
 import {Left_Button_Box,Right_Button_Box,StyleLogout,StyledProfileName,StyledPropfileLink,OptionBox,Buttons,Button_Box,Title_Label,Title_Content,Title_Container,Navbar_Container,Top_Container,Bottom_Container } from './SurveyNavbar.styled';
-import MakeSurvey from "@/pageComponents/makesurvey";
+import MakeSurvey from "@/pageComponents/makesurvey/makequestion";
 import Mypage from "@/pageComponents/mypage";
 
 
@@ -32,9 +32,9 @@ const SurveyNavbarComponent = () => {
       });
 
 
-      const selectChange = (option: string) => {
-        setSelected(option);
-      };
+    const selectChange = (option: string) => {
+    setSelected(option);
+    };
 
     return (
         <ThemeProvider theme={theme}> 
