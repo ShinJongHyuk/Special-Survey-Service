@@ -1,6 +1,10 @@
+import CardList from "./cardlist"
+
 const CreatedSurveyList = () => {
     return (
-        <div>CreatedSurveyList</div>
+        <div>
+            <CardList ></CardList>
+        </div>
     )
 }
 
