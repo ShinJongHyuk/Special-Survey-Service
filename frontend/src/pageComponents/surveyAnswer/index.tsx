@@ -1,11 +1,13 @@
 'use client'
-
 import { StyledTag } from "@/components/card/Card.styled"
-import { Survey_Title_Container, Title_Content, Title_Inner_Container, Title_input } from "../makesurvey/Makesurvey.styled"
 import { BackButton, BackButtonContainer } from "../surveydetail/SurveyDetail.styled"
 import Image from "next/image"
-import { SurveyAnswerPage, SurveyAnswerTitleContainer, SurveyAnswerTitleInnerContainer,
-     SurveyAnswerTitle, ProgressContainer, ProgressBar, ProgressBarPercentage, Survey_Container } from "./SurveyAnswer.styled"
+import { SurveyAnswerPage } from "./SurveyAnswer.styled"
+import MultipleChoice from "@/components/surveyanswer/multiplechoice"
+import CheckBox from "@/components/surveyanswer/checkbox"
+import Title from './components/title'
+import ProgressBar from './components/progressbar'
+import Question from './components/question'
 const SurveyAnswer = (props:any) => {
     return (
         <SurveyAnswerPage>
@@ -15,30 +17,12 @@ const SurveyAnswer = (props:any) => {
                 </BackButton>
             </BackButtonContainer>
 
-            <SurveyAnswerTitleContainer>
-                <SurveyAnswerTitleInnerContainer>
-                    <StyledTag {...props}>
-                        {props.type === "타임어택" ? (
-                            <Image src="/card/whatshot.svg" priority={true} width={11} height={17} alt="whatshot" />
-                        ) : (
-                            <Image src="/card/bolt.svg" priority={true} width={11} height={17} alt="abc" />
-                        )}
-                        <div className="type-text">{props.type}</div>
-                    </StyledTag>
-                    <SurveyAnswerTitle>프로그래밍 언어 선호도</SurveyAnswerTitle>
-                </SurveyAnswerTitleInnerContainer>
-            </SurveyAnswerTitleContainer>
-            
-            <ProgressContainer>
-                <ProgressBar width="50%"></ProgressBar>
-                <ProgressBarPercentage>50%</ProgressBarPercentage>
-            </ProgressContainer>
-
-            
-            <Survey_Container>
-                <Survey_Title_Container>
-                </Survey_Title_Container>
-            </Survey_Container>
+            <Title></Title>
+            <ProgressBar></ProgressBar>
+            <Question type="multiplechoice"></Question>
+            <Question type="checkbox"></Question>
+            <Question type="shortform"></Question>
+            <Question type="longform"></Question>
         </SurveyAnswerPage>
     )
 }
