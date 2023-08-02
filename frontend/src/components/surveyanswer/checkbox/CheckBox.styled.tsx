@@ -20,11 +20,21 @@ const CheckBoxInput = styled.input.attrs({ type: 'checkbox' })`
   border: 2px solid #ccc;
   cursor: pointer;
 
+  &:checked {
+    background-color: black;
+  }
+
+  &:checked + label {
+    color : black
+  }
 `;
 
+
 const CheckBoxLabel = styled.label`
-    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.small};
+  color : #6D7075;
+
 `;
 
 export { CheckBoxContainer, CheckBoxFlex, CheckBoxInput, CheckBoxLabel}

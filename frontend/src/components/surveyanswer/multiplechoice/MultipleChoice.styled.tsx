@@ -16,15 +16,18 @@ const RadioInput = styled.input.attrs({ type: 'radio' })`
   margin-right: 8px;
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
   cursor: pointer;
+  &:checked + label{
+    color : black;
+  }
 `;
 
 const RadioLabel = styled.label`
   cursor: pointer;
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.small};
+  color: #6D7075;
+  
 `;
 
 export { RadioContainer, RadioInput, RadioLabel, RadioFlex}
