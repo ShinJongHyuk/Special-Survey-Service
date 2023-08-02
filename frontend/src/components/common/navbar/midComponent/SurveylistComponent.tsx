@@ -1,20 +1,19 @@
 "use client";
 import React from "react";
-import { StyledInstantNavLink, StyledTimeattackNavLink } from "../Navbar.styled";
-import { usePathname } from "next/navigation";
+import { StyledMidComp, StyledNavBtn } from "../Navbar.styled";
+import { useSurveylistStore } from "@/stores/surveylist/useSurveylistStore";
 
 const SurveylistComponent = (props: any) => {
   const pathname = props.pathname;
+  const setSelectBtn = useSurveylistStore((state) => state.setSelectBtn);
+  const selectBtn = useSurveylistStore((state) => state.selectBtn);
 
   return (
-    <div style={{ width: "60%", display: "flex", justifyContent: "center", gap: "30px" }}>
-      <StyledTimeattackNavLink href="/normalSurveyList" pathname={pathname}>
-        일  반
-      </StyledTimeattackNavLink>
-      <StyledInstantNavLink href="/instantWinSurveyList" pathname={pathname}>
-        즉시당첨
-      </StyledInstantNavLink>
-    </div>
+    <StyledMidComp pathname={pathname} >
+      <StyledNavBtn selectBtn={selectBtn} onClick={() => setSelectBtn("1")}> 일  반 </StyledNavBtn>
+      <StyledNavBtn selectBtn={selectBtn} onClick={() => setSelectBtn("2")}> 즉시당첨 </StyledNavBtn>
+
+    </StyledMidComp>
   );
 };
 
