@@ -91,7 +91,7 @@ export const useLoginHook = () => {
           
                 setAccessToken(res.data.response.accessToken);
                 login();
-          
+                
                 if (isRemember) {
                   setCookie("rememberUserId", user.email, { path: '/' });
                 }
@@ -103,8 +103,9 @@ export const useLoginHook = () => {
                     Authorization: `Bearer ${res.data.response.accessToken}`
                   }
                 });
+                console.log(response.data.response)
                 await setUserInformation(response.data.response);
-
+                
                 await router.push('/')
               } catch (err) {
                 console.log(err);
