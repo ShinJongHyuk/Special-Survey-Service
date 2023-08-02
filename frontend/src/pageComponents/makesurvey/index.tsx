@@ -116,6 +116,6 @@ function MakeSurvey() {
       </Survey_Container>
     </>
   );
-}
+};
 
 export default MakeSurvey;

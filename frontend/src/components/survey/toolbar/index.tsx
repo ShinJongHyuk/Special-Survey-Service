@@ -111,7 +111,7 @@ const Toolbar = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    < >
       <ToolbarBox height={height}>
       <Toolbar_InnerBox>
           <Image src={plus} alt="추가" onClick={handlePlusClick} />
@@ -128,7 +128,7 @@ const Toolbar = () => {
           <Survey componentKey={component.componentKey} key={component.key} index={index} />
         </div>
       ))}
-    </ThemeProvider>
+    </>
   );
 };
 
