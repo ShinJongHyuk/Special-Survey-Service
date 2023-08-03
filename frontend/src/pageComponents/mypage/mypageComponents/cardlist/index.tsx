@@ -1,14 +1,13 @@
 import React from "react";
-import useSurveyListHook from "@/Hooks/listpage/useSurveyListHook";
 import { StyledList } from "../../Mypage.styled";
 import Mycard from "@/components/mycard";
 
 const CardList = () => {
-  const { sortedSurveys, setSortType } = useSurveyListHook("normal");
+  // const { sortedSurveys, setSortType } =("normal");
 
   return (
     <StyledList>
-      {sortedSurveys.map((survey, index) => (
+      {/* {sortedSurveys.map((survey, index) => (
         <div key={index} style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "220px" }}>
             <Mycard
@@ -22,7 +21,7 @@ const CardList = () => {
             />
           </div>
         </div>
-      ))}
+      ))} */}
     </StyledList>
   );
 };

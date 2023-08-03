@@ -3,6 +3,7 @@ import useTimerHook from "@/Hooks/card/useTimerHook";
 import normalListGet from "@/api/surveylist/normalListGet";
 import useUserStore from "@/stores/useUserStore";
 import useSortSurveyListHook from "./useSortSurveyListHook";
+import { useSortTypeStore } from "@/stores/surveylist/useSortTypeStore";
 
 const useNormalListHook = () => {
   const [surveys, setSurveys] = useState<any>([]);
@@ -13,15 +14,13 @@ const useNormalListHook = () => {
     const fetchList = async () => {
       const data = await normalListGet(accessToken);
       setSurveys(data);
-      console.log(data);
     };
     fetchList();
   }, []);
 
-
-  const [sortType, setSortType] = useState("recommend");
+  const { sortType } = useSortTypeStore();
   const sortedSurveys = useSortSurveyListHook(surveys, sortType, useTimerHook);
 
-  return { sortedSurveys, setSortType };
+  return { sortedSurveys };
 };
 export default useNormalListHook;

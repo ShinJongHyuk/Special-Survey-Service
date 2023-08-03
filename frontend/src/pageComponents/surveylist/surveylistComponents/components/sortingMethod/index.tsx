@@ -1,18 +1,14 @@
 import React from 'react'
 import { StyledSortingMethodList } from "./SortingMethod.styled"
 import Button from '@/components/button';
-import useInstantListHook from '@/Hooks/listpage/useInstantListHook';
+import { useSortTypeStore } from '@/stores/surveylist/useSortTypeStore';
 
 const SortingMethod = (props: any) => {
 
     const path = props.selectBtn;
-    const { setSortType } = props;
-    let buttonUse;
-    if (path === "1") {
-        buttonUse = "sortingPurple";
-    } else {
-        buttonUse = "sortingYellow";
-    }
+    const { setSortType } = useSortTypeStore();
+
+    const buttonUse = path === "1" ? "sortingPurple" : "sortingYellow";
 
     return (
         <>
