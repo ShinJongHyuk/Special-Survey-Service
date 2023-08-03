@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyledContent, StyledContentText, StyledCardList } from "../Timeattack.styled";
-import Image from "next/image";
 import Card2 from "@/components/card2";
-import useTimeattackHook from "@/Hooks/mainpage/useTimeattackHook";
-import Button from "@/components/button";
-import { useRouter } from "next/navigation";
-import useUserStore from "@/stores/useUserStore";
-import normalListGet from "@/api/normalListGet";
 
 const TimeAttackCardList = (props: any) => {
   const cards = props.cards;

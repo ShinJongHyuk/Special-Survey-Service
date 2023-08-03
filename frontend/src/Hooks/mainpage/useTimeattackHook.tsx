@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import useTimerHook from "@/Hooks/card/useTimerHook";
-import normalListGet from "@/api/normalListGet";
+import normalListGet from "@/api/surveylist/normalListGet";
 import useUserStore from "@/stores/useUserStore";
 
 const useTimeattackHook = () => {

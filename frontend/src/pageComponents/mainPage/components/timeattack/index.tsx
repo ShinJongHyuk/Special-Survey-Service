@@ -30,7 +30,9 @@ const Timeattack = () => {
             <div className="buttontext">&gt;</div>
           </button>
         </div>
+
         <CardList cards={cards} transformValue={transformValue} />
+
         <div style={{ width: "120px", height: "50px" }}>
           <Button use="gray" label="더보기" onClick={goList}></Button>
         </div>
