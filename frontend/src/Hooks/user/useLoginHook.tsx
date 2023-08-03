@@ -13,9 +13,9 @@ interface User {
 export const useLoginHook = () => {
     const router = useRouter()
     const setUserInformation = useUserStore((state:any) => state.setUserInformation)
-    const setAccessToken = useUserStore((state:any) => state.setAccessToken)
-    const setRefreshToken = useUserStore((state:any) => state.setRefreshToken)
-    const accessToken = useUserStore((state:any) => state.accessToken)
+    // const setAccessToken = useUserStore((state:any) => state.setAccessToken)
+    // const setRefreshToken = useUserStore((state:any) => state.setRefreshToken)
+    // const accessToken = useUserStore((state:any) => state.accessToken)
     const userInformation = useUserStore((state:any) => state.userInformation)
     const login = useUserStore((state:any) => state.login)
     
