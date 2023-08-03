@@ -3,13 +3,9 @@ import useTimerHook from "@/Hooks/card/useTimerHook";
 import normalListGet from "@/api/surveylist/normalListGet";
 
 const useTimeattackHook = () => {
-  const cardWidth = 440; // 카드의 너비
-
   const [cards, setCards] = useState<any>([]);
-  const [transformValue, setTransformValue] = useState(-cardWidth);
 
   useEffect(() => {
-    // 데이터 패칭
     const fetchList = async () => {
       const data = await normalListGet();
       setCards([...data.slice(0, 5), ...data.slice(0, 5), ...data.slice(0, 5)]);
@@ -29,40 +25,7 @@ const useTimeattackHook = () => {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    if (transformValue < -cardWidth * (cards.length / 2)) {
-      setTransformValue(0);
-    }
-    if (transformValue > 0) {
-      setTransformValue(-cardWidth * (cards.length / 2));
-    }
-  }, [transformValue]);
-
-  function handlePrevClick() {
-    setTransformValue((prevValue) => {
-      if (prevValue + cardWidth >= 0) {
-        return 0;
-      } else {
-        return prevValue + cardWidth;
-      }
-    });
-  }
-
-  function handleNextClick() {
-    setTransformValue((prevValue) => {
-      if (prevValue - cardWidth <= -4 * cardWidth) {
-        return -4 * cardWidth;
-      } else {
-        return prevValue - cardWidth;
-      }
-    });
-  }
-  return {
-    cards,
-    transformValue,
-    handlePrevClick,
-    handleNextClick,
-  };
+  return { cards };
 };
 
 export default useTimeattackHook;

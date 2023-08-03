@@ -2,13 +2,15 @@ import React from "react";
 import { StyledContent, StyledContentText, StyledCardList } from "./Timeattack.styled";
 import Image from "next/image";
 import useTimeattackHook from "@/Hooks/mainpage/useTimeattackHook";
+import useMovelistHook from "@/Hooks/mainpage/useMovelistHook";
 import Button from "@/components/button";
 import { useRouter } from "next/navigation";
-import CardList from "./components";
+import CardList from "./timeAttackCardList";
 import { useSurveylistStore } from "@/stores/surveylist/useSurveylistStore";
 
 const Timeattack = () => {
-  const { cards, transformValue, handlePrevClick, handleNextClick } = useTimeattackHook();
+  const { cards } = useTimeattackHook();
+  const { transformValue, handlePrevClick, handleNextClick } = useMovelistHook(cards);
 
   const router = useRouter();
   const setSelectBtn = useSurveylistStore((state) => state.setSelectBtn);
