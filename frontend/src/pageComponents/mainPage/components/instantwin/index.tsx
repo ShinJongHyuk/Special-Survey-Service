@@ -4,11 +4,16 @@ import CardList from "../cardlist";
 import Image from "next/image";
 import Button from "@/components/button";
 import { useRouter } from "next/navigation";
+import useInstantHook from "@/Hooks/mainpage/useInstantHook";
+import { useSurveylistStore } from "@/stores/surveylist/useSurveylistStore";
 
 const Instantwin = () => {
+  const { cards } = useInstantHook();
   const router = useRouter();
+  const setSelectBtn = useSurveylistStore((state) => state.setSelectBtn);
 
   const goList = () => {
+    setSelectBtn("1");
     router.push("/surveylist");
   };
 
@@ -21,7 +26,9 @@ const Instantwin = () => {
           <StyledContentText> Instant Win </StyledContentText>
           <StyledContentText $issub="true"> 설문하고 바로 당첨자가 되어보세요! </StyledContentText>
         </div>
-        <CardList contentType="instantwin"></CardList>
+
+        <CardList cards={cards} contentType="instantwin"></CardList>
+
         <div style={{ width: "120px", height: "50px" }}>
           <Button use="gray" label="더보기" onClick={goList}></Button>
         </div>

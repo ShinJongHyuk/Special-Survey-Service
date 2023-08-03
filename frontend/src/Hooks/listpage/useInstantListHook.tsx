@@ -7,13 +7,12 @@ import { useSortTypeStore } from "@/stores/surveylist/useSortTypeStore";
 
 const useInstantListHook = () => {
   const [surveys, setSurveys] = useState<any>([]);
-  const accessToken = useUserStore((state: any) => state.accessToken);
 
 
   useEffect(() => {
     // 데이터 패칭
     const fetchList = async () => {
-      const data = await instantListGet(accessToken);
+      const data = await instantListGet();
       setSurveys(data);
       console.log(data);
     };

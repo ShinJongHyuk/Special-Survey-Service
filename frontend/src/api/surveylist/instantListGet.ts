@@ -1,7 +1,6 @@
 import api from "../api";
 
-const instantListGet = async (accessToken: any) => {
-  console.log("accessToken = " + accessToken);
+const instantListGet = async () => {
   try {
     const response = await api.get("/survey/recommend/instant/anonymous");
     console.log("instant: ", response.data.response)

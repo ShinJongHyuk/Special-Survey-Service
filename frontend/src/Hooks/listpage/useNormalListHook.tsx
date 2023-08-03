@@ -7,12 +7,11 @@ import { useSortTypeStore } from "@/stores/surveylist/useSortTypeStore";
 
 const useNormalListHook = () => {
   const [surveys, setSurveys] = useState<any>([]);
-  const accessToken = useUserStore((state: any) => state.accessToken);
 
   useEffect(() => {
     // 데이터 패칭
     const fetchList = async () => {
-      const data = await normalListGet(accessToken);
+      const data = await normalListGet();
       setSurveys(data);
     };
     fetchList();

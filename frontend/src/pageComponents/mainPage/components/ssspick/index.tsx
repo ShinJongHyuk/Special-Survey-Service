@@ -13,7 +13,7 @@ const SSSPick = () => {
           <StyledContentText> Speedy Attack </StyledContentText>
           <StyledContentText $issub="true"> 응답 시간이 짧은 설문이에요! </StyledContentText>
         </div>
-        <CardList contentType="ssspick"></CardList>
+        <CardList contentType="instantwin"></CardList>
       </StyledContent>
     </div>
   );
