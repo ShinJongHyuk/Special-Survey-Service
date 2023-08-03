@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import axios from 'axios'
-import { SignupHookType } from "./types/useSignupHook.type"
+import { SignupHookType } from "../types/useSignupHook.type"
   
 export const useSignupHook = ():SignupHookType => {
     const router = useRouter()

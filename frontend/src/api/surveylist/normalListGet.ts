@@ -3,7 +3,7 @@ import api from "../api";
 const normalListGet = async (accessToken: any) => {
   console.log("accessToken = " + accessToken);
   try {
-    const response = await api.get("/survey/recommend/normal", {
+    const response = await api.get("/survey/recommend/normal/anonymous", {
       headers: {
         Authorization: "Bearer " + accessToken,
       },

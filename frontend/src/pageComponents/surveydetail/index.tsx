@@ -4,8 +4,13 @@ import {SurveyDetailPage, BackButtonContainer, BackButton, SurveyResultContainer
 import Board from './components/board'
 import Detail from './components/detail'
 import Result from './components/result'
+import { useSurveyDetailHook } from "@/Hooks/useSurveyDetailHook"
+import { useEffect } from "react"
 const SurveyDetail = (props:any) => {
-  
+    const  { surveyDetail, getSurveyDetail } = useSurveyDetailHook()
+    useEffect(() => {
+        getSurveyDetail()
+    })
     return (
         <SurveyDetailPage>
             <BackButtonContainer>

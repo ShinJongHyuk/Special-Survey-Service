@@ -8,7 +8,8 @@ const useTimeattackHook = () => {
 
   const [cards, setCards] = useState<any>([]);
   const [transformValue, setTransformValue] = useState(-cardWidth);
-  const accessToken = useUserStore((state: any) => state.accessToken);
+  // const accessToken = useUserStore((state: any) => state.accessToken);
+  const accessToken = localStorage.getItem("accessToken")
 
   useEffect(() => {
     // 데이터 패칭
