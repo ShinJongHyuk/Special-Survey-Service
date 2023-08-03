@@ -1,11 +1,11 @@
 import moment from "moment";
 
 function useTimerHook(endTime: any) {
-  const deadLineTime = moment(endTime, "YYYY-MM-DD-HH-mm");
+  const deadLineTime = moment(endTime, "YYYY-MM-DDTHH:mm:ss");
   const now = moment();
 
   let diffTime = deadLineTime.diff(now);
-  let remainTime = "";
+  let remainTime = "00분, 00초";
 
   if (diffTime > 0) {
     const duration = moment.duration(diffTime);
@@ -28,19 +28,15 @@ function useTimerHook(endTime: any) {
     const seconds = Math.floor(duration.asSeconds());
 
     if (years > 0 && months >= 0) {
-      remainTime = `${years > 0 ? years.toString().padStart(2, "0") + "년 " : ""}${months >= 0 ? months.toString().padStart(2, "0") + "월 " : ""} `;
+      remainTime = `${years.toString().padStart(2, "0")}:년, ${months.toString().padStart(2, "0")}:월`;
     } else if (months > 0 && days >= 0) {
-      remainTime = `${months > 0 ? days.toString().padStart(2, "0") + "월 " : ""}${days >= 0 ? days.toString().padStart(2, "0") + "일 " : ""} `;
+      remainTime = `${months.toString().padStart(2, "0")}:월, ${days.toString().padStart(2, "0")}:일`;
     } else if (days > 0 && hours >= 0) {
-      remainTime = `${days > 0 ? days.toString().padStart(2, "0") + "일 " : ""}${hours >= 0 ? hours.toString().padStart(1, "0") + "시간 " : ""} `;
+      remainTime = `${days.toString().padStart(2, "0")}:일, ${hours.toString().padStart(2, "0")}:시간`;
     } else if (hours > 0 && minutes >= 0) {
-      remainTime = `${hours > 0 ? hours.toString().padStart(2, "0") + "시간 " : ""}${
-        minutes >= 0 ? minutes.toString().padStart(2, "0") + "분 " : ""
-      } `;
+      remainTime = `${hours.toString().padStart(2, "0")}:시간, ${minutes.toString().padStart(2, "0")}:분`;
     } else if (minutes > 0 && seconds >= 0) {
-      remainTime = `${minutes > 0 ? minutes.toString().padStart(2, "0") + "분 " : ""}${
-        seconds >= 0 ? seconds.toString().padStart(2, "0") + "초 " : ""
-      }`;
+      remainTime = `${minutes.toString().padStart(2, "0")}:분, ${seconds.toString().padStart(2, "0")}:초`;
     }
   }
 
