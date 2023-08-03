@@ -16,7 +16,7 @@ const CardList = (props: any) => {
               probability={survey.winningPercent + "%"}
               remaintime={survey.remainTime || ""}
               endtime={survey.endTime}
-              responsedtime={survey.requiredTimeInSeconds}
+              responsedtime={survey.requiredTimeInSeconds + "분"}
               contentype={props.contentType}
             />
           </div>

@@ -10,7 +10,7 @@ const MainPage = () => {
     <>
       <Banner></Banner>
       <Timeattack />
-      {/* <SSSPick></SSSPick> */}
+      <SSSPick />
       <Instantwin />
     </>
   );

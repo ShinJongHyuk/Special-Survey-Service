@@ -12,7 +12,7 @@ const NormalCardlist = () => {
                     <div style={{ width: "220px" }}>
                         <Card
                             title={survey.title}
-                            nickname={survey.writer}
+                            nickname={survey.writerName}
                             type={survey.surveyCategoryType}
                             giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
                             probability={survey.winningPercent + "%"}
