@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import instantListGet from "@/api/surveylist/instantListGet";
-import useUserStore from "@/stores/useUserStore";
 import useSortSurveyListHook from "./useSortSurveyListHook";
 import { useSortTypeStore } from "@/stores/surveylist/useSortTypeStore";
 
@@ -20,8 +19,6 @@ const useInstantListHook = () => {
   }, []);
 
   const { sortType } = useSortTypeStore();
-
-  // const [sortType, setSortType] = useState("recommend");
   const sortedSurveys = useSortSurveyListHook(surveys, sortType, useTimerHook);
 
   return { sortedSurveys };

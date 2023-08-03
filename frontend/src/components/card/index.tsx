@@ -53,7 +53,7 @@ const CardComponent = (props: CardType) => {
         <StyledImg src={imgsrc} />
       </div>
 
-      {props.contentype === "ssspick" ? (
+      {props.contentype === "speedy" ? (
         <StyledProbability {...newProps}>{props.responsedtime}</StyledProbability>
       ) : (
         <StyledProbability {...newProps}>{props.probability}</StyledProbability>

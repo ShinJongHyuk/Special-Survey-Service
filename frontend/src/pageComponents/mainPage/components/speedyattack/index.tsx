@@ -1,10 +1,10 @@
 import React from "react";
-import { StyledContent, StyledContentText } from "./SSSpick.styled";
+import { StyledContent, StyledContentText } from "./Speedyattack.styled";
 import CardList from "../cardlist";
 import Image from "next/image";
 import useSpeedyHook from "@/Hooks/mainpage/useSpeedyHook";
 
-const SSSPick = () => {
+const Speedyattack = () => {
   const { cards } = useSpeedyHook();
 
 
@@ -17,10 +17,10 @@ const SSSPick = () => {
           <StyledContentText> Speedy Attack </StyledContentText>
           <StyledContentText $issub="true"> 응답 시간이 짧은 설문이에요! </StyledContentText>
         </div>
-        <CardList cards={cards} contentType="ssspick"></CardList>
+        <CardList cards={cards} contentType="speedy"></CardList>
       </StyledContent>
     </div>
   );
 };
 
-export default SSSPick;
+export default Speedyattack;

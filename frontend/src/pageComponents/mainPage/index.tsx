@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import SSSPick from "./components/ssspick";
+import Speedyattack from "./components/speedyattack";
 import Banner from "./components/banner";
 import Timeattack from "./components/timeattack";
 import Instantwin from "./components/instantwin";
@@ -10,7 +10,7 @@ const MainPage = () => {
     <>
       <Banner></Banner>
       <Timeattack />
-      <SSSPick />
+      <Speedyattack />
       <Instantwin />
     </>
   );
