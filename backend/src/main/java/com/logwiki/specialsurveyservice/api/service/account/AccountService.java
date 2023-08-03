@@ -58,10 +58,4 @@ public class AccountService {
                 .orElseThrow(() -> new BaseException("존재하지 않는 유저입니다.", 2000));
     }
 
-    public String getUserNameById(Long userId) {
-        return accountRepository.findById(userId)
-                .orElseThrow(() -> new BaseException("존재하지 않는 유저입니다.", 2000))
-                .getName();
-    }
-
 }

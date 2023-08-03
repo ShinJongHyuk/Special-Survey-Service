@@ -37,20 +37,20 @@ public class QuestionAnswer extends BaseEntity {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    private LocalDateTime answerDateTime;
+    private LocalDateTime writeDate;
 
     @Builder
     public QuestionAnswer(Long answerNumber, String shortFormAnswer, Question question,
-            Account account, LocalDateTime answerDateTime) {
+            Account account, LocalDateTime writeDate) {
         this.answerNumber = answerNumber;
         this.shortFormAnswer = shortFormAnswer;
         this.question = question;
         this.account = account;
-        this.answerDateTime = answerDateTime;
+        this.writeDate = writeDate;
     }
 
-    public void setAnswerDateTime(LocalDateTime writeDate) {
-        this.answerDateTime = writeDate;
+    public void setWriteDate(LocalDateTime writeDate) {
+        this.writeDate = writeDate;
     }
 
 }

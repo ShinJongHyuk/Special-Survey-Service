@@ -36,7 +36,7 @@ public class QuestionAnswerService {
 
     @Transactional
     public List<QuestionAnswerResponse> addQuestionAnswer(
-            LocalDateTime answerDateTime,
+            LocalDateTime writeDate,
             Long surveyId,
             List<QuestionAnswerCreateServiceRequest> dto) {
         Account account = accountService.getCurrentAccountBySecurity();
@@ -45,8 +45,8 @@ public class QuestionAnswerService {
         checkIsTarget(account, surveyId);
         checkAnsweredAllQuestions(questions, dto);
 
-        surveyResultService.addSubmitResult(surveyId, answerDateTime);
-        return saveQuestionAnswer(answerDateTime, account, questions, dto);
+        surveyResultService.addSubmitResult(surveyId, writeDate);
+        return saveQuestionAnswer(writeDate, account, questions, dto);
     }
 
     private List<Question> findQuestionsBySurveyId(Long surveyId) {
@@ -79,7 +79,7 @@ public class QuestionAnswerService {
     }
 
     private List<QuestionAnswerResponse> saveQuestionAnswer(
-            LocalDateTime answerDateTime,
+            LocalDateTime writeDate,
             Account account,
             List<Question> questions,
             List<QuestionAnswerCreateServiceRequest> dto) {
@@ -90,7 +90,7 @@ public class QuestionAnswerService {
             for (QuestionAnswerCreateServiceRequest answer : dto) {
                 if (question.getId().equals(answer.getQuestionId())) {
                     QuestionAnswer questionAnswer = answer.toEntity(question, account);
-                    questionAnswer.setAnswerDateTime(answerDateTime);
+                    questionAnswer.setWriteDate(writeDate);
                     questionAnswerRepository.save(questionAnswer);
                     result.add(QuestionAnswerResponse.from(questionAnswer));
                     notFoundQuestion = false;

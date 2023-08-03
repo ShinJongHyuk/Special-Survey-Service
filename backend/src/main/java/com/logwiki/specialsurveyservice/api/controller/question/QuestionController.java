@@ -32,9 +32,9 @@ public class QuestionController {
     @PostMapping("/question/answers")
     public ApiResponse<?> questionAnswersAdd(@RequestParam Long surveyId,
             @Valid @RequestBody QuestionAnswersCreateRequest dto) {
-        LocalDateTime answerDateTime = LocalDateTime.now();
+        LocalDateTime writeDate = LocalDateTime.now();
         return ApiUtils.success(
-                questionAnswerService.addQuestionAnswer(answerDateTime, surveyId,
+                questionAnswerService.addQuestionAnswer(writeDate, surveyId,
                         dto.getAnswers().stream()
                                 .map(QuestionAnswerCreateRequest::toServiceRequest)
                                 .collect(Collectors.toList())));
