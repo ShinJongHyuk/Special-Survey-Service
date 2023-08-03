@@ -7,8 +7,8 @@ const DefaultComponent = (props: any) => {
 
   return (
     <StyledMidComp pathname={pathname} >
-      <StyledNavLink href="/makesurvey">설문만들기</StyledNavLink>
       <StyledNavLink href="/surveylist">설문하기</StyledNavLink>
+      <StyledNavLink href="/makesurvey">설문만들기</StyledNavLink>
     </StyledMidComp>
   );
 };
