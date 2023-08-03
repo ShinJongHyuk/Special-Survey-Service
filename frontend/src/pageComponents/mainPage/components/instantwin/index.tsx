@@ -13,7 +13,7 @@ const Instantwin = () => {
   const setSelectBtn = useSurveylistStore((state) => state.setSelectBtn);
 
   const goList = () => {
-    setSelectBtn("1");
+    setSelectBtn("2");
     router.push("/surveylist");
   };
 

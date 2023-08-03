@@ -11,7 +11,7 @@ const CardList = (props: any) => {
             <Card
               title={survey.title}
               nickname={survey.writerName}
-              type={survey.type}
+              type={survey.surveyCategoryType}
               giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
               probability={survey.winningPercent + "%"}
               remaintime={survey.remainTime || ""}
