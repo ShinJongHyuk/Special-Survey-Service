@@ -11,7 +11,7 @@ const InstantWinConfirm = (props: any) => {
   const [winConfirm, setWinConfirm] = useState<any>([]);
   useEffect(() => {
     const fetchList = async () => {
-      const data = await instantWinConfirmGet();
+      const data = await instantWinConfirmGet(props.surveyid);
       setWinConfirm(data);
       console.log("data : ", data);
     };
