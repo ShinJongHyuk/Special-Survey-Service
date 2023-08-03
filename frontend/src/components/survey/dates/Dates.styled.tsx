@@ -17,7 +17,7 @@ const Dates_content_Box = styled.div.attrs({})`
     justify-content : center;
     flex-direction : row;
 
-    width : 700px;
+    width : 100%;
     min-height : 10%;
     
 `
@@ -34,11 +34,11 @@ const Image_Container = styled.div.attrs({})`
 
 const MultipleCheck = styled.input.attrs({ type: 'date' })`
     display : flex;
-    width : 44%;
+    width : 40%;
     height: 40px;
     border-radius : 50px;
-    margin-left : 70px;
-    margin-right : 40px;
+    margin-right : 50px; 
+
     border : 2px solid ${props => props.theme.colors.purple};
     letter-spacing : 7px;
     text-indent : 10px;
@@ -53,7 +53,7 @@ const AddButton = styled.button.attrs({})`
     display : flex;
     width : 74px;
     text-align : center;
-
+    
     border : 1px solid ${props => props.theme.colors.purple};
     border-radius : 20px;
     margin-left : 71px;

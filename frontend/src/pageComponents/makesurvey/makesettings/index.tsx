@@ -87,7 +87,7 @@ function MakeSettings() {
           <Survey_Detail_Container>
             <Condition_Inner_Container>
               
-              <Condition_Title>
+              <Condition_Title style={{marginLeft : '25px'}}>
                 설문 조건
                 <Image src={conditionVisible ? List_Up : List_Down} style={{cursor : 'pointer'}} alt="리스트 열림 닫힘" onClick={toggleCondition} />
               </Condition_Title>

@@ -66,11 +66,11 @@ const Add_Button_Container = styled.button.attrs({})`
 const AddButton = styled.button.attrs({})`
     display : flex;
     flex-direction : row-reverse;
-    width : 73%;
-    min-width : 400px;
+    width : 76.8%;
+    min-width : 200px;
     text-align : center;
     justify-content : center;
-
+    margin-left : 8px;
     border : 1px solid ${props => props.theme.colors.purple};
     border-radius : 20px;
     
@@ -158,16 +158,19 @@ const ImageWrapper = styled.div`
 const LinkSelect_List = styled.select.attrs({})`
   display : flex;
   text-align : center;
-  width: 94%;
+  width: 72.5%;
   margin-left : 25.5px;
+  margin-top : 10px;
   height: 30px;
 
   border : none;
-
-
   font-size: ${props => props.theme.fontSizes.xsmall};
   color: ${props => props.theme.colors.purple};
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+  box-sizing : border-box;
+  box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
+  border : 1px solid ${props => props.theme.colors.lightgray};
+  border-radius : 10px;
   
 `
 const LinkSelect_Option = styled.option.attrs({})`

@@ -113,17 +113,17 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
           <MultipleChoice_content_Box key={item.id}>
             <MultipleCheck name="radioGroup1" />
             <MultipleCheckText
-              placeholder={`옵션 ${index + 1}`}
+              placeholder={`문항 ${index + 1}`}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
               value = {item.text}
             />
-            <ImageWrapper onClick={() => handleImageClick(index)}>
+            {/* <ImageWrapper onClick={() => handleImageClick(index)}>
        
-            </ImageWrapper>
+            </ImageWrapper> */}
             <Delete_Button_Container>
             {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
             </Delete_Button_Container>
-            {isLink && (
+           {isLink && (
             <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
                 <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
               {surveyComponents.map((component, idx) => (
@@ -133,7 +133,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
               ))}
             </LinkSelect_List>
             )}
-
+            {/* 
             <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
            
             
@@ -146,7 +146,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
               </ImagePreiew_Box>
             </Image_Container>
             )}  
-           
+            */}
           </MultipleChoice_content_Box>
         ))}
         <Add_Button_Container>

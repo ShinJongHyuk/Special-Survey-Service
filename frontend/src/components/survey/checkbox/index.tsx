@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
-import {LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
+import {Delete_Button_Container,LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore'
 
 
@@ -9,7 +9,6 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         const {surveyComponents} = useSurveyStore();
         const [items, setItems] = useState<any[]>([
           { id: `${componentKey}_1`, text: '', imageUrl: '' },
-          { id: `${componentKey}_2`, text: '', imageUrl: '' },
         ]
         );
         const [count, setCount] = useState(3);
@@ -98,16 +97,18 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
               <CheckBox_content_Box key={item.id}>
                 <MultipleCheck name="radioGroup1" />
                 <MultipleCheckText
-                  placeholder={`옵션 ${index + 1}`}
+                  placeholder={`문항 ${index + 1}`}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
                   value = {item.text}
                  />
-                <ImageWrapper onClick={() => handleImageClick(index)}>
+                {/* <ImageWrapper onClick={() => handleImageClick(index)}>
                   <Image src={ImageIcon} alt="ImageIcon" />
-                </ImageWrapper>
+                </ImageWrapper> */}
 
                 <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
-                {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
+                <Delete_Button_Container>
+                  {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
+                </Delete_Button_Container>
                 {isLink && (
                 <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
                     <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
@@ -118,6 +119,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
                   ))}
                 </LinkSelect_List>
                 )}
+                {/* 
                 {item.imageUrl && (
                 <Image_Container>
                   <ImagePreiew_Box>
@@ -126,7 +128,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
                   </ImagePreiew_Box>
                 </Image_Container>
                 )}  
-               
+                */}
               </CheckBox_content_Box>
             ))}
             <AddButton onClick={() => handleAddItem()}>문항 추가</AddButton>

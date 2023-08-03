@@ -77,7 +77,7 @@ const Time = ({ componentKey }: { componentKey: string }) => {
               <Time_content_Box key={item.id}>
                 <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
                 {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
-                {item.imageUrl && (
+                {/* {item.imageUrl && (
                   <Image_Container>
                     <ImagePreiew_Box>
                       <ImagePreview src={item.imageUrl} alt={`${index + 1}번 이미지`} />
@@ -85,14 +85,14 @@ const Time = ({ componentKey }: { componentKey: string }) => {
                     </ImagePreiew_Box>
                   </Image_Container>
                   
-                )}              
+                )}               */}
                 <MultipleCheck 
                   name="DateGroup"
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTimeChange(index, event)}
                   value={item.time} />
-                <ImageWrapper onClick={() => handleImageClick(index)}>
+                {/* <ImageWrapper onClick={() => handleImageClick(index)}>
                   <Image src={ImageIcon} alt="ImageIcon" width={30} height={30} />
-                </ImageWrapper>
+                </ImageWrapper> */}
 
                
               </Time_content_Box>

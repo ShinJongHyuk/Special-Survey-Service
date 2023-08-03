@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from 'react'
-import {LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
+import {Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 
 const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
     const {surveyComponents} = useSurveyStore();
     const [items, setItems] = useState<any[]>([
         { id: `${componentKey}_1`, text: ''},
-        { id: `${componentKey}_2`, text: ''},
+      
       ]);
 
     const [count, setCount] = useState(3);
@@ -70,12 +70,14 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
             <DropDown_content_Box key={item.id}>
             <MultipleCheck>{index+1}  .</MultipleCheck>
             <MultipleCheckText
-              placeholder={`옵션 ${index + 1}`}
+              placeholder={`문항 ${index + 1}`}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
               value = {item.text}
             />
+            <Delete_Button_Container>
              {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
-             {isLink && (
+            </Delete_Button_Container>
+            {isLink && (
             <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
                 <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
               {surveyComponents.map((component, idx) => (
@@ -87,7 +89,7 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
             )}
             </DropDown_content_Box>
         ))}
-        <AddButton onClick={() => handleAddItem()}>옵션 추가</AddButton>
+        <AddButton onClick={() => handleAddItem()}>문항 추가</AddButton>
         </DropDown_Box>
     );
     };
