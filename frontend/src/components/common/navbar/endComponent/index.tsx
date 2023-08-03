@@ -10,11 +10,14 @@ const EndComponent = () => {
     const [mounted, setMounted] = useState<boolean>(false);
     const userInformation = useUserStore((state: any) => (state.userInformation));
     const profileImg = userInformation && userInformation.gender === "MAN" ? "/manIcon.png" : "/womanIcon.png";
+  // const [isLogin, userInformation] = useUserStore((state: any) => [state.isLogin, state.userInformation]);
+  // const { hanedleLogout } = useLogoutHook();
+  // const [mounted, setMounted] = useState<boolean>(false);
+  // const [profileImg, setProfileImg] = useState<string>("");
 
-    useEffect(() => {
-        setMounted(true);
-    });
-
+  useEffect(() => {
+    setMounted(true);
+  })
     return (
         <StyledEndComp>
            {mounted ?
@@ -42,4 +45,29 @@ const EndComponent = () => {
     )
 }
 
-export default EndComponent
+// export default EndComponent
+//     if (isLogin && userInformation) {
+//       setProfileImg(userInformation.gender === "MAN" ? "/manIcon.png" : "/womanIcon.png");
+//     }
+//   }, [isLogin, userInformation]);
+
+//   return (
+//     <StyledEndComp>
+//       {mounted && (
+//         <>
+//           {isLogin ? <StyleLogout onClick={hanedleLogout}>로그아웃</StyleLogout> : <StyledNavLink href="/login">로그인</StyledNavLink>}
+//           {!isLogin && <StyledNavLink href="/signup">회원가입</StyledNavLink>}
+
+//           {userInformation && (
+//             <StyledPropfileLink href="/mypage">
+//               <Image src={profileImg} alt="man" width={20} height={20} style={{ border: "1px solid black", borderRadius: "50%" }}></Image>
+//               <StyledProfileName>{userInformation.name}</StyledProfileName>
+//             </StyledPropfileLink>
+//           )}
+//         </>
+//       )}
+//     </StyledEndComp>
+//   );
+// };
+
+// export default EndComponent;

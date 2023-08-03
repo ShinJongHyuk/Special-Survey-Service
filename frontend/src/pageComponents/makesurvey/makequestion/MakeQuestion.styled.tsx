@@ -26,7 +26,7 @@ const Component_Container = styled.div.attrs({})`
 const Survey_Inner_Container = styled.div.attrs({})`
     display: flex;
     flex-direction : column;
-    width: 60%;
+    width: 55%;
     min-height: 100%;
 
     position: absolute;
@@ -205,6 +205,7 @@ const ImagePreview = styled.img`
   border-radius : 6px;
 
 `;
+
 
 
 export {Component_Container,Survey_Inner_Container,Image_Delete_Button,ImagePreiew_Box,ImagePreview,UploadImage,Image_Text_Content,Image_Text_Header,Inner_Icon_Container,Inner_Text_Container,Image_Inner_Container,Title_Content,Title_input,Title_Inner_Container,Survey_Container,Background_Container,Survey_Title_Container,Survey_MainImage_Container}

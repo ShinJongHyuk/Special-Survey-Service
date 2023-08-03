@@ -7,7 +7,7 @@ import Result from './components/result'
 import { useSurveyDetailHook } from "@/Hooks/useSurveyDetailHook"
 import { useEffect } from "react"
 const SurveyDetail = (props:any) => {
-    const  { getSurveyDetail } = useSurveyDetailHook()
+    const  { surveyDetail, getSurveyDetail } = useSurveyDetailHook()
     useEffect(() => {
         getSurveyDetail()
     })

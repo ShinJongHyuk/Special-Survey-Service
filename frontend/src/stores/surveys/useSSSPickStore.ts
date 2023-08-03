@@ -13,7 +13,7 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       nickname: "닉네임abc",
       type: "NORMAL",
       probability: "27%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
       responsedTime: "08:35",
     },
     {
@@ -26,7 +26,7 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       nickname: "닉네임def",
       type: "INSTANT_WIN",
       probability: "34%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
       responsedTime: "06:20",
     },
     {
@@ -39,7 +39,7 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       nickname: "닉네임ghi",
       type: "NORMAL",
       probability: "45%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
       responsedTime: "07:50",
     },
     {
@@ -52,7 +52,7 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       nickname: "닉네임mno",
       type: "NORMAL",
       probability: "47%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
       responsedTime: "10:00",
     },
     {
@@ -65,11 +65,10 @@ const useSSSPickStore = create<SurveyType>((set) => ({
       nickname: "닉네임jkl",
       type: "INSTANT_WIN",
       probability: "46%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
       responsedTime: "09:25",
     },
   ],
-
 }));
 
 export default useSSSPickStore;

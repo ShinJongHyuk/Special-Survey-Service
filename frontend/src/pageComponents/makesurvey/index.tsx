@@ -12,22 +12,19 @@ function MakeSurvey() {
   return (
     <>
       <Top_Option_Container>
-        {/* 선택된 옵션에 따라 isSelected prop 값 설정 */}
         <Toggle_Component
           onClick={() => handleButtonClick('setting')}
           isSelected={selectedOption === 'setting'}
         >
-          Setting
+          설정
         </Toggle_Component>
         <Toggle_Component
           onClick={() => handleButtonClick('question')}
           isSelected={selectedOption === 'question'}
         >
-          Question
+          설문
         </Toggle_Component>
       </Top_Option_Container>
-
-      {/* 선택된 옵션에 따라 해당 컴포넌트 렌더링 */}
       {selectedOption === 'setting' ? <MakeSettings /> : <MakeQuestion />}
     </>
   );

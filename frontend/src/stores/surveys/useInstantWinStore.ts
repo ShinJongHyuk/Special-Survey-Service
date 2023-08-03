@@ -13,7 +13,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임abc",
       type: "INSTANT_WIN",
       probability: "27%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -25,7 +25,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임def",
       type: "INSTANT_WIN",
       probability: "34%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -37,7 +37,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임ghi",
       type: "INSTANT_WIN",
       probability: "45%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -49,7 +49,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임mno",
       type: "INSTANT_WIN",
       probability: "47%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -61,7 +61,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임jkl",
       type: "INSTANT_WIN",
       probability: "36%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -73,7 +73,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임pqr",
       type: "INSTANT_WIN",
       probability: "33%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -85,7 +85,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임stu",
       type: "INSTANT_WIN",
       probability: "40%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -97,7 +97,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임vwx",
       type: "INSTANT_WIN",
       probability: "31%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
     {
       remainTime: "",
@@ -109,7 +109,7 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임yza",
       type: "INSTANT_WIN",
       probability: "43%",
-      giveaways: "coffee",
+      giveaways: "COFFEE",
     },
     {
       remainTime: "",
@@ -121,9 +121,8 @@ const useInstantWinStore = create<SurveyType>((set) => ({
       nickname: "닉네임bcd",
       type: "INSTANT_WIN",
       probability: "39%",
-      giveaways: "chicken",
+      giveaways: "CHICKEN",
     },
-
   ],
 }));
 
