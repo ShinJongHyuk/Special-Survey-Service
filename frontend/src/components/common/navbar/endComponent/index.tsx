@@ -1,4 +1,4 @@
-import { useLogoutHook } from "@/Hooks/useLogoutHook";
+import { useLogoutHook } from "@/Hooks/user/useLogoutHook";
 import useUserStore from "@/stores/useUserStore";
 import { useState, useEffect } from "react";
 import Image from "next/image";

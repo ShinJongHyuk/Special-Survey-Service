@@ -4,7 +4,7 @@ import Button from '@/components/button'
 import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition } from './Signup.styled'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useSignupHook } from '@/Hooks/useSignupHook'
+import { useSignupHook } from '@/Hooks/user/useSignupHook'
 
 const Signup = () => {
     const { user, inputState, handleChange, handleSubmit, handleClick } = useSignupHook()

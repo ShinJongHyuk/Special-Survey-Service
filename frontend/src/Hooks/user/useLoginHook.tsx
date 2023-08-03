@@ -5,11 +5,17 @@ import axios from 'axios'
 
 import { useCookies } from 'react-cookie'
 
+interface User {
+    email : String,
+    password : String
+}
+
 export const useLoginHook = () => {
     const router = useRouter()
     const setUserInformation = useUserStore((state:any) => state.setUserInformation)
-    const setAccessToken = useUserStore((state:any) => state.setAccessToken)
-    const accessToken = useUserStore((state:any) => state.accessToken)
+    // const setAccessToken = useUserStore((state:any) => state.setAccessToken)
+    // const setRefreshToken = useUserStore((state:any) => state.setRefreshToken)
+    // const accessToken = useUserStore((state:any) => state.accessToken)
     const userInformation = useUserStore((state:any) => state.userInformation)
     const login = useUserStore((state:any) => state.login)
     
@@ -88,10 +94,14 @@ export const useLoginHook = () => {
                   url: 'http://221.164.64.185:8080/api/authenticate',
                   data: { ...user },
                 });
-          
-                setAccessToken(res.data.response.accessToken);
+                // setAccessToken(res.data.response.accessToken);
+                // setRefreshToken(res.data.response.refreshToken);
+                localStorage.setItem("email", user.email)
+                localStorage.setItem("password", user.password)
+                localStorage.setItem("accessToken", res.data.response.accessToken)
+                localStorage.setItem("refreshToken", res.data.response.refreshToken)
                 login();
-          
+                
                 if (isRemember) {
                   setCookie("rememberUserId", user.email, { path: '/' });
                 }
@@ -103,8 +113,9 @@ export const useLoginHook = () => {
                     Authorization: `Bearer ${res.data.response.accessToken}`
                   }
                 });
+                console.log(response.data.response)
                 await setUserInformation(response.data.response);
-
+                
                 await router.push('/')
               } catch (err) {
                 console.log(err);
