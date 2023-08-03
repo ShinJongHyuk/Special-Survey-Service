@@ -6,7 +6,8 @@ import useUserStore from "@/stores/useUserStore";
 
 const useSurveyListHook = () => {
   const [surveys, setSurveys] = useState<any>([]);
-  const accessToken = useUserStore((state: any) => state.accessToken);
+  // const accessToken = useUserStore((state: any) => state.accessToken);
+  const accessToken = localStorage.getItem("accessToken")
 
   useEffect(() => {
     // 데이터 패칭

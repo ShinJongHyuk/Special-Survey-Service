@@ -8,16 +8,23 @@ import Question from './components/question'
 import { useSurveyAnswerHook } from "@/Hooks/useSurveyAnswerHook"
 import { useEffect } from "react"
 
-const accessToken = localStorage.getItem("accessToken")
+
+interface questionType {
+    content : string
+    id : string
+    multipleChoices : any
+    questionNumber : string
+    type : string
+}
 
 const SurveyAnswer = (props:any) => {
     const { surveyInformation, getSurveyQuestion } = useSurveyAnswerHook()
     useEffect(() => {
-        getSurveyQuestion(accessToken)
+        getSurveyQuestion()
     },[])
     useEffect(() => {
         if (surveyInformation) {
-            console.log(surveyInformation);
+            // console.log(surveyInformation);
         }
     }, [surveyInformation]);
 
@@ -37,7 +44,8 @@ const SurveyAnswer = (props:any) => {
             closedHeadCount={surveyInformation?.closedHeadCount}
             headCount={surveyInformation?.headCount}
             ></ProgressBar>
-            {questions && questions.map((question:any) => {
+            {questions && questions.map((question:questionType) => {
+                // console.log(question)
                 return (
                 <Question
                     key={question.id}
@@ -45,6 +53,7 @@ const SurveyAnswer = (props:any) => {
                     type={question.type}
                     multipleChoices={question.multipleChoices}
                     questionNumber={question.questionNumber}
+                    surveyCategoryType={surveyInformation?.surveyCategoryType}
                 />
                    
                 )

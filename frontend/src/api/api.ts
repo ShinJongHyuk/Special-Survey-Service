@@ -19,7 +19,7 @@ api.interceptors.response.use(
     
     if(!response.data.success){
       if(response.data.apiError.status === 1005){
-        console.log(localStorage.getItem("accessToken"))
+        // console.log(localStorage.getItem("accessToken"))
         const refreshToken = localStorage.getItem("refreshToken");
         const email = localStorage.getItem("email");
         const password = localStorage.getItem("password");
