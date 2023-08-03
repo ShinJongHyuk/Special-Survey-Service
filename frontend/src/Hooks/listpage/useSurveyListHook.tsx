@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
-import useInstantWinStore from "@/stores/surveys/useInstantWinStore";
 import moment from "moment";
 import useTimerHook from "@/Hooks/card/useTimerHook";
-import useNormalStore from "@/stores/surveys/useNormalStore";
 
-const useSurveyListHook = (surveyType: any) => {
-  let store;
-  if (surveyType === "instantwin") {
-    store = useInstantWinStore();
-  } else {
-    store = useNormalStore();
-  }
-  const { surveys } = store;
-
+const useSurveyListHook = (props: any) => {
+  const [surveys, setSurveys] = useState<any>([]);
+  setSurveys(props.sortedSurveys);
   const [sortType, setSortType] = useState("recommend");
   const [sortedSurveys, setSortedSurveys] = useState(surveys);
 
@@ -34,7 +26,7 @@ const useSurveyListHook = (surveyType: any) => {
         }
       });
 
-      setSortedSurveys((prev) => {
+      setSortedSurveys((prev: any) => {
         const data = sorted.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
         });
@@ -52,14 +44,14 @@ const useSurveyListHook = (surveyType: any) => {
         }
       });
 
-      setSortedSurveys((prev) => {
+      setSortedSurveys((prev: any) => {
         const data = sorted.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
         });
         return data;
       });
     } else {
-      setSortedSurveys((prev) => {
+      setSortedSurveys((prev: any) => {
         const data = surveys.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
         });
@@ -74,7 +66,7 @@ const useSurveyListHook = (surveyType: any) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setSortedSurveys((prev) => {
+      setSortedSurveys((prev: any) => {
         const data = prev.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
         });

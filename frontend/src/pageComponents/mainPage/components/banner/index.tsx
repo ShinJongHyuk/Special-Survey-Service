@@ -7,7 +7,7 @@ const Banner = () => {
     const router = useRouter();
 
     const goList = () => {
-        router.push("/normalSurveyList");
+        router.push("/surveylist");
     };
     const goList2 = () => {
         router.push("/makesurvey");
