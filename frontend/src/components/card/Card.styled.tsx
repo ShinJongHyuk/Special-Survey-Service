@@ -162,7 +162,7 @@ const StyledRemainTime = styled.div.attrs<CardType>((props) => ({}))`
   }};
 `;
 
-const StyledImg = styled.div.attrs<CardType>((props) => ({}))`
+const StyledImg = styled.img.attrs<any>((props) => ({}))`
   ${(props) => {
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
@@ -175,11 +175,9 @@ const StyledImg = styled.div.attrs<CardType>((props) => ({}))`
     }
 
     return css`
-      border: 2px dashed ${color};
+      border: 2.5px dashed ${color};
       border-radius: 48px;
-      width: 90x;
-      padding: 2px 2px 0px 2px;
-      /* padding-left: 2px; */
+      width: 80px;
     `;
   }};
 `;

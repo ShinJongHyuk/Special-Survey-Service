@@ -16,7 +16,7 @@ const TimeAttackCardList = (props: any) => {
           <div style={{ width: "440px" }}>
             <Card2
               title={survey.title}
-              nickname={survey.writer}
+              nickname={survey.writerName}
               giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
               probability={survey.winningPercent + "%"}
               remaintime={survey.remainTime || ""}

@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import normalListGet from "@/api/surveylist/normalListGet";
-import useUserStore from "@/stores/useUserStore";
 
 const useTimeattackHook = () => {
   const cardWidth = 440; // 카드의 너비
 
   const [cards, setCards] = useState<any>([]);
   const [transformValue, setTransformValue] = useState(-cardWidth);
-  // const accessToken = useUserStore((state: any) => state.accessToken);
-  const accessToken = localStorage.getItem("accessToken")
 
   useEffect(() => {
     // 데이터 패칭
     const fetchList = async () => {
-      const data = await normalListGet(accessToken);
+      const data = await normalListGet();
       setCards([...data.slice(0, 5), ...data.slice(0, 5), ...data.slice(0, 5)]);
       console.log(data);
     };

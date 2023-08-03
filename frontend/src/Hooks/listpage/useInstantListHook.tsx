@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import useTimerHook from "@/Hooks/card/useTimerHook";
-import normalListGet from "@/api/surveylist/normalListGet";
+import instantListGet from "@/api/surveylist/instantListGet";
 import useSortSurveyListHook from "./useSortSurveyListHook";
 import { useSortTypeStore } from "@/stores/surveylist/useSortTypeStore";
 
-const useNormalListHook = () => {
+const useInstantListHook = () => {
   const [surveys, setSurveys] = useState<any>([]);
 
+
   useEffect(() => {
+    // 데이터 패칭
     const fetchList = async () => {
-      const data = await normalListGet();
+      const data = await instantListGet();
       setSurveys(data);
+      console.log(data);
     };
     fetchList();
   }, []);
@@ -20,4 +23,4 @@ const useNormalListHook = () => {
 
   return { sortedSurveys };
 };
-export default useNormalListHook;
+export default useInstantListHook;

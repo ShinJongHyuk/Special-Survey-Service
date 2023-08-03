@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { StyledCardList } from "./CardList.styled";
 import Card from "@/components/card";
-import useCardlistHook from "@/Hooks/mainpage/useCardlistHook";
+import { StyledCardList } from "./CardList.styled";
 
-const CardList = ({ contentType }: any) => {
-  const cards = useCardlistHook(contentType);
-
+const CardList = (props: any) => {
+  const cards = props.cards;
   return (
     <StyledCardList>
-      {cards.map((survey, index) => (
+      {cards.map((survey: any, index: any) => (
         <div key={index}>
           <div style={{ width: "220px" }}>
             <Card
               title={survey.title}
-              nickname={survey.nickname}
-              type={survey.type}
-              giveaways={survey.giveaways}
-              probability={survey.probability}
+              nickname={survey.writerName}
+              type={survey.surveyCategoryType}
+              giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
+              probability={survey.winningPercent + "%"}
               remaintime={survey.remainTime || ""}
               endtime={survey.endTime}
-              headcount={survey.headCount}
-              responsedtime={survey.responsedTime}
-              contentype={contentType}
+              responsedtime={survey.requiredTimeInSeconds + "분"}
+              contentype={props.contentType}
             />
           </div>
         </div>
