@@ -1,11 +1,7 @@
-import CardList from "./cardlist"
+import CardList from "./cardlist";
 
 const ResponsedSurveyList = () => {
-  return (
-    <div>
-      <CardList ></CardList>
-    </div>
-  );
+  return <div>{/* <CardList ></CardList> */}</div>;
 };
 
 export default ResponsedSurveyList;
