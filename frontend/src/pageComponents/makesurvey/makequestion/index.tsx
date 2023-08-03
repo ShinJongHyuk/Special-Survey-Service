@@ -5,12 +5,12 @@ import backgroundImage from '/public/survey/MakeSurvey_Background.png'
 import Main_Image from '/public/survey/Main_Image.png'
 import Image from 'next/Image'
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import axios from 'axios'
 
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
-  const [titleText,setTitleText] = useState('')
-  const [titleContent,setTitleContent] = useState('')
+  const {titleText,setTitleText,titleContent,setTitleContent} = useMakeSurveyApiStore();
   const [imgUrl,setImgUrl] = useState('')
 
   const saveComponentDataToLocalStorage = (data: any) => {
@@ -25,20 +25,16 @@ function MakeQuestion() {
   useEffect(() => {
       const storedData = loadComponentDataFromLocalStorage();
       if (storedData) {
-        setTitleText(storedData.titleText);
-        setTitleContent(storedData.titleContent);
         setImgUrl(storedData.imgUrl);
       }
     }, []);
 
   useEffect(() => {
       const componentData = {
-        titleText,
-        titleContent,
         imgUrl,
       };
       saveComponentDataToLocalStorage(componentData);
-    }, [titleText,titleContent,imgUrl]);
+    }, [imgUrl]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitleText(event.target.value);

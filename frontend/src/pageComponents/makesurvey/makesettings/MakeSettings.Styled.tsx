@@ -167,7 +167,7 @@ const Element_Input = styled.input.attrs({})`
 `
 
 const Gender_Button = styled.button.attrs<any>((props => {
-    genderSelected : props.genderSelected
+    genderselected : props.genderselected
 }))`
     display: flex;
     flex-direction: column;
@@ -189,7 +189,7 @@ const Gender_Button = styled.button.attrs<any>((props => {
 `;
 
 const Age_Button = styled.button.attrs<any>((props => {
-    ageSelected : props.ageSelected
+    ageselected : props.ageselected
 }))`
     display: flex;
     flex-direction: column;
