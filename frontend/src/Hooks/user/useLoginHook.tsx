@@ -5,6 +5,11 @@ import axios from 'axios'
 
 import { useCookies } from 'react-cookie'
 
+interface User {
+    email : String,
+    password : String
+}
+
 export const useLoginHook = () => {
     const router = useRouter()
     const setUserInformation = useUserStore((state:any) => state.setUserInformation)
@@ -89,8 +94,12 @@ export const useLoginHook = () => {
                   url: 'http://221.164.64.185:8080/api/authenticate',
                   data: { ...user },
                 });
-                setRefreshToken(res.data.response.refreshToken)
-                setAccessToken(res.data.response.accessToken);
+                // setAccessToken(res.data.response.accessToken);
+                // setRefreshToken(res.data.response.refreshToken);
+                localStorage.setItem("email", user.email)
+                localStorage.setItem("password", user.password)
+                localStorage.setItem("accessToken", res.data.response.accessToken)
+                localStorage.setItem("refreshToken", res.data.response.refreshToken)
                 login();
                 
                 if (isRemember) {

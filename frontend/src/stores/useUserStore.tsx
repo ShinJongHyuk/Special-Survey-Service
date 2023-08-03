@@ -15,7 +15,7 @@ const useUserStore = create(
       userInformation : data
     }))
   }),{
-    name: 'userToken'
+    name: "userStore"
   })
 )
 export default useUserStore
