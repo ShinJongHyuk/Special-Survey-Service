@@ -3,6 +3,7 @@ package com.logwiki.specialsurveyservice.api.controller.survey;
 import com.logwiki.specialsurveyservice.api.controller.survey.request.SurveyCreateRequest;
 import com.logwiki.specialsurveyservice.api.service.schedule.ScheduleService;
 import com.logwiki.specialsurveyservice.api.service.survey.SurveyService;
+import com.logwiki.specialsurveyservice.api.service.survey.response.AbstractSurveyResponse;
 import com.logwiki.specialsurveyservice.api.service.survey.response.SurveyResponse;
 import com.logwiki.specialsurveyservice.api.utils.ApiResponse;
 import com.logwiki.specialsurveyservice.api.utils.ApiUtils;
@@ -10,8 +11,8 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.quartz.SchedulerException;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,17 +39,32 @@ public class SurveyController {
     }
 
     @GetMapping("/survey/recommend/normal")
-    public ApiResponse<List<SurveyResponse>> getRecommendNormalSurveyForUser() {
+    public ApiResponse<List<AbstractSurveyResponse>> getRecommendNormalSurveyForUser() {
         return ApiUtils.success(surveyService.getRecommendNormalSurvey());
     }
 
     @GetMapping("/survey/recommend/instant")
-    public ApiResponse<List<SurveyResponse>> getRecommendInstantSurveyForUser() {
+    public ApiResponse<List<AbstractSurveyResponse>> getRecommendInstantSurveyForUser() {
         return ApiUtils.success(surveyService.getRecommendInstantSurvey());
     }
 
     @GetMapping("/survey/recommend/time")
-    public ApiResponse<List<SurveyResponse>> getRecommendShortTimeSurveyForUser() {
+    public ApiResponse<List<AbstractSurveyResponse>> getRecommendShortTimeSurveyForUser() {
         return ApiUtils.success(surveyService.getRecommendShortTimeSurvey());
+    }
+
+    @GetMapping("/survey/{surveyId}")
+    public ApiResponse<SurveyResponse> getSurvey(@PathVariable Long surveyId) {
+        return ApiUtils.success(surveyService.getSurvey(surveyId));
+    }
+
+    @GetMapping("/survey/writing")
+    public ApiResponse<List<AbstractSurveyResponse>> getWritingSurveys() {
+        return ApiUtils.success(surveyService.getMySurveys());
+    }
+
+    @GetMapping("/survey/answered")
+    public ApiResponse<List<AbstractSurveyResponse>> getAnsweredSurveys() {
+        return ApiUtils.success(surveyService.getAnsweredSurveys());
     }
 }
