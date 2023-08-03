@@ -5,7 +5,9 @@ import MultipleChoice from "@/components/surveyanswer/multiplechoice"
 import CheckBox from "@/components/surveyanswer/checkbox"
 import ShortForm from "@/components/surveyanswer/shortfrom"
 import LongForm from "@/components/surveyanswer/longform"
+import { useEffect } from 'react'
 const QuestionComponent = (props:any) => {
+
     return (
         <Survey_Container>
             <Survey_Title_Container>
@@ -17,9 +19,9 @@ const QuestionComponent = (props:any) => {
                     현재 프로그래밍을 하고 계신가요?
                 </SurveyQuestion>
                 </SurveyQuestionContainer>
-                {props.type === "multiplechoice" && <MultipleChoice></MultipleChoice>}
+                {props.type === "MULTIPLE_CHOICE" && <MultipleChoice></MultipleChoice>}
                 {props.type === "checkbox" && <CheckBox></CheckBox>}
-                {props.type === "shortform" && <ShortForm></ShortForm>}
+                {props.type === "SHORT_FORM" && <ShortForm></ShortForm>}
                 {props.type === "longform" && <LongForm></LongForm>}
                 
             </Survey_Title_Container>
