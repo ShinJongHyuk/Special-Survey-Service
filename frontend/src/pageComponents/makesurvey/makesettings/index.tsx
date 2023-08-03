@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import Toolbar from '@/components/survey/toolbar';
-import {Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title, Survey_Container,Survey_Inner_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input } from './MakeSettings.Styled'; 
+import {Element_Detail_Title,Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title, Survey_Container,Survey_Inner_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input } from './MakeSettings.Styled'; 
 import List_Down from '/public/survey/List_Down.png'
 import List_Up from '/public/survey/List_Up.png'
 import Target from '/public/survey/Target.png'
@@ -10,6 +10,7 @@ import Category from '/public/survey/Category.png'
 import Image from 'next/Image'
 import Input from '@/components/input';
 import axios from 'axios'
+import { start } from 'repl';
 
 function MakeSettings() {
     const [titleText,setTitleText] = useState('')
@@ -18,6 +19,8 @@ function MakeSettings() {
     const [conditionContent, setConditionContent] = useState('');
     const [conditionVisible, setConditionVisible] = useState(false); 
     const [headCount,setHeadCount] = useState('');
+    const [startSurvey,setStartSurvey] = useState('');
+    const [endSurvey,setEndSurvey] = useState('');
 
     const toggleCondition = () => {
       setConditionVisible(!conditionVisible);
@@ -39,7 +42,14 @@ function MakeSettings() {
     const handleHeadCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setHeadCount(event.target.value);
     };
+    const handleStartSurveyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setStartSurvey(event.target.value);
+    };
 
+    const handleEndSurveyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEndSurvey(event.target.value);
+    };
+    console.log(startSurvey,endSurvey)
     return (
       <Survey_Container>
         <Survey_Inner_Container>
@@ -123,7 +133,11 @@ function MakeSettings() {
                           <Element_Title>설문 기간을 작성해주세요! (숫자만 기입)</Element_Title>
                       </Element_Top_Container>
                       <Element_Bottom_Container>
-                          <Element_Input type={'datetime-local'} value={headCount} onChange={handleHeadCountChange} />
+                        <Element_Detail_Title>시작</Element_Detail_Title>
+                        <Element_Input type={'datetime-local'} value={startSurvey} onChange={handleStartSurveyChange} />
+                        <hr/>
+                        <Element_Detail_Title>마감</Element_Detail_Title>
+                        <Element_Input type={'datetime-local'} value={endSurvey} onChange={handleEndSurveyChange} />
                       </Element_Bottom_Container>
                   </Element_Detail_Inner_Container>
              </Element_Detail_Container>

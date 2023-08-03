@@ -84,12 +84,13 @@ const Element_Detail_Container = styled.div.attrs({})`
     min-height : 120px;
     margin-top : 20px;
     margin-left : 40px;
+  
     box-sizing : border-box;
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
     padding : 25px 25px 25px 25px;
-`;
+`
 
 const Element_Detail_Inner_Container = styled.div.attrs({})`
     display : flex;
@@ -99,6 +100,11 @@ const Element_Detail_Inner_Container = styled.div.attrs({})`
     width : 100%;
     min-width : 350px;
     min-height : 120px;
+    hr {
+        width : 100%;
+        margin : 30px 0px 30px 0px;
+        color : ${props => props.theme.colors.lightgray};
+    }
 
 
     padding : 25px 25px 25px 25px;
@@ -113,6 +119,7 @@ const Element_Top_Container = styled.div.attrs({})`
     height : 30%;
     min-width : 350px;
     min-height : 36px;
+    margin-bottom : 20px;
     padding : 10px 10px 10px 10px;
 `
 
@@ -159,6 +166,25 @@ const Element_Title = styled.div.attrs({})`
     padding : 0px 0px 0px 0px;
     
 `
+
+const Element_Detail_Title = styled.div.attrs({})`
+    display: flex;
+    align-items : center;
+    justify-content : center;
+    width: 10%;
+    height: 100%;
+    background-color : ${props => props.theme.colors.purple};
+    box-sizing : border-box;
+    box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray};
+    border : 1px solid ${props => props.theme.colors.purple};
+    border-radius : 30px;
+    margin-bottom : 20px;
+    font-size: ${props => props.theme.fontSizes.small};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+    color : ${props => props.theme.colors.white};
+    
+`
+
 const Title_Inner_Container = styled.div.attrs({})`
     display :flex;
     flex-direction : column;
@@ -257,4 +283,4 @@ const Condition_Detail_Content = styled.div.attrs({})`
 
 `
 
-export {Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title,Survey_Container,Component_Container,Survey_Inner_Container,Background_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input}
+export {Element_Detail_Title,Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title,Survey_Container,Component_Container,Survey_Inner_Container,Background_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input}
