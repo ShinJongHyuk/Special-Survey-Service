@@ -34,9 +34,9 @@ const useSortSurveyListHook = (surveys: any[], sortType: string, useTimerHook: a
                 const bPercent = parseInt(b.probability, 10);
 
                 if (aPercent < bPercent) {
-                    return 1;
-                } else {
                     return -1;
+                } else {
+                    return 1;
                 }
             });
 
@@ -60,18 +60,18 @@ const useSortSurveyListHook = (surveys: any[], sortType: string, useTimerHook: a
         sortSurveys(sortType);
     }, [sortType, surveys]);
 
-    // useEffect(() => {
-    //     const timer = setInterval(() => {
-    //         setSortedSurveys((prev: any) => {
-    //             const data = prev.map((prev: any) => {
-    //                 return { ...prev, remainTime: useTimerHook(prev.endTime) };
-    //             });
-    //             return data;
-    //         });
-    //     }, 1000);
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setSortedSurveys((prev: any) => {
+                const data = prev.map((prev: any) => {
+                    return { ...prev, remainTime: useTimerHook(prev.endTime) };
+                });
+                return data;
+            });
+        }, 1000);
 
-    //     return () => clearInterval(timer);
-    // }, []);
+        return () => clearInterval(timer);
+    }, []);
 
     return sortedSurveys;
 };

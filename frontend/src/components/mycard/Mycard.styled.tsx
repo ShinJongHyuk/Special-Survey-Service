@@ -145,7 +145,7 @@ const StyledBottomText = styled.div.attrs<MycardType>((props) => ({}))`
   }};
 `;
 
-const StyledImg = styled.div.attrs<MycardType>((props) => ({}))`
+const StyledImg = styled.img.attrs<any>((props) => ({}))`
   ${(props) => {
     const yellow = props.theme.colors.yellow;
     const purple = props.theme.colors.purple;
@@ -157,11 +157,9 @@ const StyledImg = styled.div.attrs<MycardType>((props) => ({}))`
     }
 
     return css`
-      border: 2px dashed ${color};
+      border: 2.5px dashed ${color};
       border-radius: 48px;
       width: 90x;
-      padding: 2px 2px 0px 2px;
-      /* padding-left: 2px; */
     `;
   }};
 `;

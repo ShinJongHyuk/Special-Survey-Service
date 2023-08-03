@@ -49,9 +49,9 @@ const CardComponent = (props: CardType) => {
         </div>
       </StyledCardHeader>
 
-      <StyledImg {...newProps}>
-        <Image src={imgsrc} style={{ borderRadius: "100px" }} priority={true} width={80} height={80} alt="gift" />
-      </StyledImg>
+      <div style={{ width: "80px", height: "80px" }}>
+        <StyledImg src={imgsrc} />
+      </div>
 
       {props.contentype === "ssspick" ? (
         <StyledProbability {...newProps}>{props.responsedtime}</StyledProbability>
