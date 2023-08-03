@@ -1,18 +1,22 @@
 import React from "react";
 import { StyledContent, StyledContentText, StyledCardList } from "./Timeattack.styled";
 import Image from "next/image";
-import Card2 from "@/components/card2";
 import useTimeattackHook from "@/Hooks/mainpage/useTimeattackHook";
 import Button from "@/components/button";
 import { useRouter } from "next/navigation";
 import CardList from "./components";
+import { useSurveylistStore } from "@/stores/surveylist/useSurveylistStore";
+
 const Timeattack = () => {
   const { cards, transformValue, handlePrevClick, handleNextClick } = useTimeattackHook();
-  const router = useRouter();
 
+  const router = useRouter();
+  const setSelectBtn = useSurveylistStore((state) => state.setSelectBtn);
   const goList = () => {
-    router.push("/surveyList");
+    setSelectBtn("1");
+    router.push("/surveylist");
   };
+
   return (
     <div style={{ position: "relative", width: "100%", height: "680px" }}>
       <img src="/mainpage/Content2.png" style={{ width: "100%", position: "absolute", height: "680px", zIndex: "-1" }}></img>

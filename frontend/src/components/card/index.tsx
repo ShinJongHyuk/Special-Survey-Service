@@ -26,6 +26,10 @@ const CardComponent = (props: CardType) => {
     }
   }
 
+  const [unit1, unit2] = props.remaintime ? props.remaintime.split(', ') : ["00분", "00초"];
+  const [value1, label1] = unit1.split(':');
+  const [value2, label2] = unit2.split(':');
+
   const newProps = { ...props, typename: typeName };
   return (
     <StyledCard {...newProps}>
@@ -70,7 +74,10 @@ const CardComponent = (props: CardType) => {
 
           <div className="text">남은 시간</div>
         </div>
-        {props.remaintime || "00:00:00"}
+        <div style={{ width: "80px", display: "flex", justifyContent: "flex-end", gap: "5px" }}>
+          <div><span>{value1}</span><span>{label1}</span></div>
+          <div><span>{value2}</span><span>{label2}</span></div>
+        </div>
       </StyledRemainTime>
     </StyledCard>
   );
