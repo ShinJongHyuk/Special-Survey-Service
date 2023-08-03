@@ -16,17 +16,16 @@ const Wincard = (props: WincardType) => {
           {props.surveywriter}
         </div>
       </StyledCardHeader>
-      {props.usercheck && <StyledImg src={imgsrc} />}
+      {props.usercheck === "true" && <StyledImg src={imgsrc} />}
 
       <StyledText>
-        {props.usercheck ? (
+        {props.usercheck === "true" && (
           <div className="date">
             <div> 응답일 </div>
             <div>{props.answerdatetime || "응답날짜"}</div>
           </div>
-        ) : (
-          <div className="confirm">당첨 확인하기</div>
         )}
+        {props.usercheck !== "true" && <div className="confirm">당첨 확인하기</div>}
       </StyledText>
     </StyledCard>
   );

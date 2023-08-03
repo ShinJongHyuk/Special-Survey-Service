@@ -7,4 +7,6 @@ export interface WincardType {
 
   giveawaytype: string;
   answerdatetime: string;
+
+  onClick?: (e: any) => any;
 }
