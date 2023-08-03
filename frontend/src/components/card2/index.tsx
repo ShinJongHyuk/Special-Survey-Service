@@ -10,6 +10,9 @@ const Card2Component = (props: CardType) => {
     COFFEE: "/card/coffee.png",
   };
   const imgsrc = images[props.giveaways];
+  const [unit1, unit2] = props.remaintime ? props.remaintime.split(', ') : ["00분", "00초"];
+  const [value1, label1] = unit1.split(':');
+  const [value2, label2] = unit2.split(':');
 
   return (
     <StyledCard {...props}>
@@ -23,7 +26,12 @@ const Card2Component = (props: CardType) => {
 
         <StyledRemainTime {...props}>
           <Image src="/card/yellowblackclock.svg" priority={true} width={30} height={30} alt="remaintime" />
-          <div className="time-text">{props.remaintime || "00:00:00"}</div>
+          <div className="time-text">
+            <div style={{ width: "110px", display: "flex", justifyContent: "space-between" }}>
+              <div><span>{value1}</span><span>{label1}</span></div>
+              <div><span>{value2}</span><span>{label2}</span></div>
+            </div>
+          </div>
           <div className="text">남음</div>
         </StyledRemainTime>
 
