@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { StyledContent, StyledContentText, StyledCardList } from "../Timeattack.styled";
+import { StyledCardList } from "../Timeattack.styled";
 import Card2 from "@/components/card2";
 
 const TimeAttackCardList = (props: any) => {
