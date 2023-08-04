@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import myGiveawayGet from "@/api/win/myGiveawayGet";
-import WinCardlist from "./wincardlist";
+import WinCardlist from "./components/wincardlist";
 
 const Winlist = () => {
   const [winConfirmList, setWinConfirmList] = useState<any>([]);

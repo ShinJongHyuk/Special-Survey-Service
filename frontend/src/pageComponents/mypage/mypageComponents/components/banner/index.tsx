@@ -1,8 +1,10 @@
+"use client";
 import React from "react";
 import { StyledBanner, StyledText } from "./Banner.styled";
 import Image from "next/image";
 import useUserStore from "@/stores/useUserStore";
 const Banner = () => {
+
   const userInformation = useUserStore((state: any) => state.userInformation);
 
   const genderInfo: any = {
@@ -28,7 +30,7 @@ const Banner = () => {
             width={120}
             height={120}
             style={{ border: "1px solid black", borderRadius: "50%" }}
-          ></Image>
+          />
         </div>
         <StyledText style={{ width: "30%" }}>
           <div className="email">{userInformation.email}</div>
