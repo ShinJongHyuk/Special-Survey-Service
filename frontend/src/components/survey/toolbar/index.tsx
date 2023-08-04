@@ -114,13 +114,13 @@ const Toolbar = () => {
     < >
       <ToolbarBox height={height}>
       <Toolbar_InnerBox>
-          <Image src={plus} alt="추가" onClick={handlePlusClick} />
+        <Image src={plus} alt="추가" onClick={handlePlusClick} style={{ cursor: 'pointer' }} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-        <Image src={minus} alt="삭제" onClick={handleMinusClick} />
+        <Image src={minus} alt="삭제" onClick={handleMinusClick} style={{ cursor: 'pointer' }} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-          <Image src={duplicate} width={22} height={22} alt="복제" onClick={duplicateSurveyComponent} />
+          <Image src={duplicate} width={22} height={22} alt="복제" onClick={duplicateSurveyComponent} style={{ cursor: 'pointer' }}/>
         </Toolbar_InnerBox>
       </ToolbarBox>
       {surveyComponents && surveyComponents.map((component, index) => (

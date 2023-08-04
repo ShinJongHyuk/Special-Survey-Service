@@ -18,7 +18,7 @@ const MakesruveyComponent = (props: any) => {
                 <StyledTitleInput onChange={handleTitleChange} value={titleText}></StyledTitleInput>
                 <StyledText>
                     <Image src='/survey/check.png' width={12} height={12} style={{ marginRight: "10px" }} alt="체크" />
-                    모든 변경사항이 자동저장됐어요.
+                    모든 변경사항이 반영되었습니다.
                 </StyledText>
             </div>
             <div style={{ display: "flex", gap: "10px" }}>
