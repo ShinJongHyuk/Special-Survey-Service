@@ -274,7 +274,58 @@ const ImageWrapper = styled.div`
     cursor : pointer;
 `;
 
+const UploadImage = styled.input.attrs({type : 'file'})`
+    display : none;
+`;
+
+
+const Image_Delete_Button = styled.button`
+    content: 'X';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: ${props => props.theme.colors.purple};
+    color: white;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border : 3px solid lightgray;
+    cursor: pointer;
+    opacity: 0; 
+    transition: opacity 0.2s ease-in-out; 
+`;
+
+const ImagePreiew_Box = styled.div`
+    display: flex;
+    position : relative;
+
+    width: 100%;
+    height: 100%;
+    
+    &:hover {
+        ${Image_Delete_Button} {
+            opacity: 1; 
+        }
+    }
+`;
+
+const ImagePreview = styled.img`
+  width: 100%;
+  height : 100%;
+  border-radius : 6px;
+
+`;
+const Image_Container = styled.div.attrs({})`
+    display : flex;
+    width : 200px;
+    height : 200px;
+    margin-top : 15px;
+    margin-left: 87px;
+` ;
 
 
 
-export {Move_Container,ImageWrapper,CheckBox_Input,CheckBox_Switch,CheckBox_Label,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box,Question_Inner_Container,SelectBox_Option,SelectBox,SelectBox_List,Question_Content_Container,Question_Content,Main_Container,Question_Container,Question_Header,Question_Header_Container}
+export {Image_Delete_Button,Image_Container,ImagePreiew_Box,ImagePreview,UploadImage,Move_Container,ImageWrapper,CheckBox_Input,CheckBox_Switch,CheckBox_Label,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box,Question_Inner_Container,SelectBox_Option,SelectBox,SelectBox_List,Question_Content_Container,Question_Content,Main_Container,Question_Container,Question_Header,Question_Header_Container}

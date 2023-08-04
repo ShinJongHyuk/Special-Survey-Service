@@ -130,7 +130,7 @@ const Inner_Icon_Container = styled.div.attrs({})`
     display : flex;
     justify-content : center;
     align-items : center;
-    width : 60px;
+    width : 13%;
     height: 80%; 
     margin-right : 40px;
     border-radius : 100%;
