@@ -14,10 +14,16 @@ const useInstantHook = () => {
 
       if (!accessToken) {
         const data = await instantListGet();
-        setCards(data.slice(0, 5));
+        const sortData = data.map((prev: any) => {
+          return { ...prev, remainTime: useTimerHook(prev.endTime) };
+        })
+        setCards(sortData.slice(0, 5));
       } else {
         const data = await userInstantListGet(accessToken);
-        setCards(data.slice(0, 5));
+        const sortData = data.map((prev: any) => {
+          return { ...prev, remainTime: useTimerHook(prev.endTime) };
+        })
+        setCards(sortData.slice(0, 5));
       }
     };
     fetchList();
