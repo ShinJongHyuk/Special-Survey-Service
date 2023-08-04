@@ -1,9 +1,12 @@
+import { useRouter } from "next/navigation";
 import { StyledCardList } from "../Timeattack.styled";
 import Card2 from "@/components/card2";
 
 const TimeAttackCardList = (props: any) => {
   const cards = props.cards;
   const transformValue = props.transformValue;
+  const router = useRouter();
+
   return (
     <StyledCardList
       style={{
@@ -20,6 +23,7 @@ const TimeAttackCardList = (props: any) => {
               giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
               probability={survey.winningPercent + "%"}
               remaintime={survey.remainTime || ""}
+              onClick={() => router.push("/surveydetail/" + survey.id)}
             />
           </div>
         </div>
