@@ -2,9 +2,10 @@ import Card from '@/components/card'
 import React from 'react'
 import { StyledList } from './Cardlist.styled'
 import useNormalListHook from '@/Hooks/listpage/useNormalListHook';
-
+import { useRouter } from "next/navigation";
 const NormalCardlist = () => {
     const { sortedSurveys } = useNormalListHook();
+    const router = useRouter();
     return (
         <StyledList>
             {sortedSurveys.map((survey: any, index: any) => (
@@ -17,7 +18,9 @@ const NormalCardlist = () => {
                             giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
                             probability={survey.winningPercent + "%"}
                             remaintime={survey.remainTime || ""}
-                            endtime={survey.endTime} />
+                            endtime={survey.endTime}
+                            onClick={() => router.push("/surveydetail/" + survey.id)}
+                        />
                     </div>
                 </div>
             ))}
