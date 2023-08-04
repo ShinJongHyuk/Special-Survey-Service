@@ -19,6 +19,8 @@ const MultipleChoiceComponent = (props:any) => {
     const setAnswer = useSurveyAnswerStore((state:any) => state.setAnswer)
     const answer = useSurveyAnswerStore((state:any) => state.answer)
 
+    const setLinkNumber = useSurveyAnswerStore((state:any) => state.setLinkNumber)
+
     const onClick = (e:any) => {
         const updateResult = {
             ...result,
@@ -30,14 +32,15 @@ const MultipleChoiceComponent = (props:any) => {
         
     }
     useEffect(() => {
-        console.log("111", result);
+        console.log("프롭", props)
+        console.log("스토어로 넘어갈 데이트", result);
         console.log(typeof result.questionId)
-        console.log(answer)
+        console.log("스토어에 저장된 상태",answer)
     }, [result, answer]);
     return (
         <RadioContainer>
             {multipleChoices && multipleChoices.map((multipleChoice:any) => {
-                console.log(multipleChoice)
+                setLinkNumber(multipleChoice.linkNumber)
                 return (
                     <RadioFlex key={multipleChoice.id} >
                         <RadioInput id={multipleChoice.id} name={questionNumber} onClick={onClick}/>

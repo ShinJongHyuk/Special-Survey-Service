@@ -11,7 +11,9 @@ const useSurveyAnswerStore = create(
                 answer : [...newAnswer, data]
             }
             
-        })
+        }),
+        linkNumber : [],
+        setLinkNumber : (data:any) => set((state:any) => (state.linkNumber.push(data)))
     }))
 )
 
