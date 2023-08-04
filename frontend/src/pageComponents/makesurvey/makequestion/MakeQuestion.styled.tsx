@@ -6,8 +6,8 @@ const Survey_Container = styled.div.attrs({})`
     min-height: 300%;
 
     justify-content: center;
-    background-image: url("/survey/background_survey.png");
-    background-repeat: repeat;
+    /* background-image: url("/survey/background_survey.png");
+    background-repeat: repeat; */
     position: absolute;
     top: 27%;
     flex-wrap: wrap;
