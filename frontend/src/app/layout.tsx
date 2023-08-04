@@ -11,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   console.log(pathname);
   return (
     <html>
+
       <ThemeProvider theme={theme}>
         <body>
           <StyledComponentsRegistry>
