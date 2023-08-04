@@ -1,3 +1,8 @@
+
+////////////////////////////
+// 설문 응답 먼저하고 디테일//
+////////////////////////////
+
 'use client'
 import { useEffect, useState } from "react"
 import axios from 'axios'

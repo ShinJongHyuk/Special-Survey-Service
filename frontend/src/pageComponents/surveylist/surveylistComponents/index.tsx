@@ -9,7 +9,7 @@ const SurveylistComponents = (props: any) => {
   const bgcolor = path === "1" ? "rgba(142, 105, 255, 0.20)" : "rgba(255, 250, 174, 0.20)";
 
   return (
-    <div style={{ backgroundColor: bgcolor }}>
+    <div style={{ backgroundColor: bgcolor, minHeight: "100vh" }}>
       <Banner selectBtn={path} />
       <SortingMethod selectBtn={path} />
 

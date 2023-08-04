@@ -7,14 +7,14 @@ const Titlecomponent = (props:any) => {
         <SurveyAnswerTitleContainer>
             <SurveyAnswerTitleInnerContainer>
                 <StyledTag {...props}>
-                    {props.type === "타임어택" ? (
+                    {props.type === "NORMAL" ? (
                         <Image src="/card/whatshot.svg" priority={true} width={11} height={17} alt="whatshot" />
                     ) : (
                         <Image src="/card/bolt.svg" priority={true} width={11} height={17} alt="abc" />
                     )}
-                    <div className="type-text">{props.type}</div>
+                    <div className="type-text">{props.type === "NORMAL"? "타임어택" : "즉시당첨"}</div>
                 </StyledTag>
-                <SurveyAnswerTitle>프로그래밍 언어 선호도</SurveyAnswerTitle>
+                <SurveyAnswerTitle>{props.title}</SurveyAnswerTitle>
             </SurveyAnswerTitleInnerContainer>
         </SurveyAnswerTitleContainer>
     )
