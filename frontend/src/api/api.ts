@@ -6,7 +6,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (request) => {
-    console.log(process.env.NEXT_PUBLIC_API_URL);
+    console.log("URL = "+process.env.NEXT_PUBLIC_API_URL);
     return request;
   },
   (error) => {
