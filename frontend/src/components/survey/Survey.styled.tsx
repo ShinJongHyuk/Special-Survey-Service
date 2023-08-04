@@ -4,7 +4,7 @@ import styled,{ThemeProvider} from 'styled-components'
 const SelectBox = styled.div.attrs({})`
   display: flex;
   width: 47%;
-  min-width : 120px;
+  min-width : 100px;
   height: 44px;
   border-radius: 8px;
   border : 0px solid ${props => props.theme.colors.purple};
@@ -26,7 +26,7 @@ const SelectBox_List = styled.select.attrs({})`
   font-size: ${props => props.theme.fontSizes.small};
   color: ${props => props.theme.colors.black};
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-  
+  cursor: pointer;
 `
 
 const SelectBox_Option = styled.option.attrs({})`
@@ -179,6 +179,7 @@ const LinkSelect_List = styled.select.attrs({})`
   height: 100%;
 
   border : none;
+  cursor: pointer;
 
 
   font-size: ${props => props.theme.fontSizes.xsmall};

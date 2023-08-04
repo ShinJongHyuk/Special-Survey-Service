@@ -1,17 +1,16 @@
 import styled from 'styled-components'
 
-
 const Survey_Container = styled.div.attrs({})`
     display: flex;
     width: 100%;
-    min-height: 100%;
+    min-height: 300%;
+
     justify-content: center;
-
-
+    /* background-image: url("/survey/background_survey.png");
+    background-repeat: repeat; */
     position: absolute;
     top: 27%;
     flex-wrap: wrap;
-  
 `;
 
 const Component_Container = styled.div.attrs({})`
@@ -93,6 +92,12 @@ const Title_input = styled.input.attrs({ placeholder : "설문지 제목"})`
     &::placeholder {
       color: ${props => props.theme.colors.black};
     }
+    &:focus {
+        box-sizing : border-box;
+        box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
+        border : 3px solid ${props => props.theme.colors.lightgray};
+        border-radius : 5px;
+    }
 `
 const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설명을 적어주세요 (선택사항)"})`
     display: flex;
@@ -104,6 +109,13 @@ const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설�
     &::placeholder {
       color: ${props => props.theme.colors.gray};
     }
+    &:focus {
+        box-sizing : border-box;
+        box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
+        border : 3px solid ${props => props.theme.colors.lightgray};
+        border-radius : 5px;
+    }
+
 `
 
 const Image_Inner_Container = styled.div.attrs({})`
@@ -130,12 +142,12 @@ const Inner_Icon_Container = styled.div.attrs({})`
     display : flex;
     justify-content : center;
     align-items : center;
-    width : 13%;
-    height: 80%; 
+    width : 70px;
+    height: 70px; 
     margin-right : 40px;
     border-radius : 100%;
     background-color : #C6BEE5;
-
+    cursor: pointer;
 `
 
 const Image_Text_Header = styled.label.attrs({})`

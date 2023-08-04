@@ -157,6 +157,7 @@ const StyledText = styled.div`
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     font-size: ${props => props.theme.fontSizes.xsmall};
     color: ${props => props.theme.colors.gray};
+    margin-left : 4px;
 `
 
 export { StyledText, StyledTitleInput, StyledStartComp, StyledMidComp, StyledEndComp, StyledPropfileLink, StyledProfileName, StyledNavbar, StyledNavLink, StyleLogout, StyledNavBtn };
