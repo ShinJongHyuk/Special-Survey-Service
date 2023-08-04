@@ -38,13 +38,7 @@ const MultipleCheckText = styled.input.attrs({type : 'text'})`
   font-size: ${props => props.theme.fontSizes.small};
   color: ${props => props.theme.colors.black};
 `;
-const Image_Container = styled.div.attrs({})`
-    display : flex;
-    width : 200px;
-    height : 200px;
-    margin-top : 15px;
-    margin-left: 87px;
-` ;
+
 
 const MultipleCheck = styled.input.attrs({ type: 'radio' })`
     display : flex;
@@ -66,11 +60,11 @@ const Add_Button_Container = styled.button.attrs({})`
 const AddButton = styled.button.attrs({})`
     display : flex;
     flex-direction : row-reverse;
-    width : 73%;
-    min-width : 400px;
+    width : 76.8%;
+    min-width : 200px;
     text-align : center;
     justify-content : center;
-
+    margin-left : 8px;
     border : 1px solid ${props => props.theme.colors.purple};
     border-radius : 20px;
     
@@ -104,51 +98,6 @@ const DeleteButton = styled.button.attrs({})`
   
 `;
 
-const UploadImage = styled.input.attrs({type : 'file'})`
-    display : none;
-`;
-
-
-const Image_Delete_Button = styled.button`
-    content: 'X';
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: ${props => props.theme.colors.purple};
-    color: white;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    border : 3px solid lightgray;
-    cursor: pointer;
-    opacity: 0; 
-    transition: opacity 0.2s ease-in-out; 
-`;
-
-const ImagePreiew_Box = styled.div`
-    display: flex;
-    position : relative;
-
-    width: 100%;
-    height: 100%;
-    
-    &:hover {
-        ${Image_Delete_Button} {
-            opacity: 1; 
-        }
-    }
-`;
-
-const ImagePreview = styled.img`
-  width: 100%;
-  height : 100%;
-  border-radius : 6px;
-
-`;
-
 const ImageWrapper = styled.div`
   position: relative;
   cursor: pointer;
@@ -158,16 +107,19 @@ const ImageWrapper = styled.div`
 const LinkSelect_List = styled.select.attrs({})`
   display : flex;
   text-align : center;
-  width: 94%;
+  width: 72.5%;
   margin-left : 25.5px;
+  margin-top : 10px;
   height: 30px;
 
   border : none;
-
-
   font-size: ${props => props.theme.fontSizes.xsmall};
   color: ${props => props.theme.colors.purple};
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+  box-sizing : border-box;
+  box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
+  border : 1px solid ${props => props.theme.colors.lightgray};
+  border-radius : 10px;
   
 `
 const LinkSelect_Option = styled.option.attrs({})`
@@ -177,4 +129,4 @@ const LinkSelect_Option = styled.option.attrs({})`
 `;
 
 
-export {Add_Button_Container,Delete_Button_Container,LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleCheck,MultipleCheckText,MultipleChoice_Box}
+export {Add_Button_Container,Delete_Button_Container,LinkSelect_List,LinkSelect_Option,ImageWrapper,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleCheck,MultipleCheckText,MultipleChoice_Box}

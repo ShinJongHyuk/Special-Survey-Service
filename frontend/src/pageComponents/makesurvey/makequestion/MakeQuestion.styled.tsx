@@ -27,6 +27,8 @@ const Survey_Inner_Container = styled.div.attrs({})`
     display: flex;
     flex-direction : column;
     width: 55%;
+    max-width : 768px;
+    min-width : 400px;
     min-height: 100%;
 
     position: absolute;
@@ -71,7 +73,7 @@ const Survey_MainImage_Container = styled.div.attrs({})`
     border : 1px solid ${props => props.theme.colors.lightgray};
     background-color : ${props => props.theme.colors.lightpurple};
     border-radius : 30px;
-    padding : 20px 0px 0px 55px;
+    padding : 0px 0px 0px 55px;
 `;
 
 const Title_Inner_Container = styled.div.attrs({})`
@@ -107,8 +109,11 @@ const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설�
 const Image_Inner_Container = styled.div.attrs({})`
     display : flex;
     justify-content : space-between;
+    align-items : center;
     width : 100%;
     height: 100%;
+    padding-right : 50px;
+
 
 `
 
@@ -125,7 +130,7 @@ const Inner_Icon_Container = styled.div.attrs({})`
     display : flex;
     justify-content : center;
     align-items : center;
-    width : 60px;
+    width : 13%;
     height: 80%; 
     margin-right : 40px;
     border-radius : 100%;
@@ -135,8 +140,9 @@ const Inner_Icon_Container = styled.div.attrs({})`
 
 const Image_Text_Header = styled.label.attrs({})`
     display: flex;
+    align-items : center;
     width: 100%;
-    height: 30%;
+    height: 60%;
     border: none;
     color : white;
     background-color: ${props => props.theme.colors.lightpurple};
@@ -149,9 +155,9 @@ const Image_Text_Header = styled.label.attrs({})`
 
 const Image_Text_Content = styled.label.attrs({})`
     display: flex;
+    align-items : top;
     width: 100%;
-    height: 30%;
-    margin-top : 10px;
+    height: 40%;
     border: none;
     color : white;
     background-color: ${props => props.theme.colors.lightpurple};

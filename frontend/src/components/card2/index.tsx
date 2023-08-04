@@ -43,9 +43,8 @@ const Card2Component = (props: CardType) => {
         </StyledProbability>
       </StyledCardLeft>
 
-      <StyledImg {...props}>
-        <Image src={imgsrc} style={{ borderRadius: "100px" }} priority={true} width={125} height={125} alt="gift" />
-      </StyledImg>
+      <StyledImg src={imgsrc} />
+
     </StyledCard>
   );
 };

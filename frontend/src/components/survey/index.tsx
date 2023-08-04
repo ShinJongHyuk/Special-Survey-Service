@@ -1,11 +1,12 @@
 import React, {useState,useEffect} from 'react';
 import styled, {ThemeProvider} from 'styled-components'
 import theme from '@/styles/DefaultTheme'
-import {Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box, Question_Inner_Container,SelectBox_Option,SelectBox_List,SelectBox,Main_Container,Question_Container
+import {ImagePreiew_Box,ImagePreview,UploadImage,Image_Delete_Button,Image_Container,Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box, Question_Inner_Container,SelectBox_Option,SelectBox_List,SelectBox,Main_Container,Question_Container
     ,Question_Header,Question_Header_Container,
     Question_Content,Question_Content_Container,
     CheckBox_Input,CheckBox_Label,CheckBox_Switch} from '@/components/survey/Survey.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
+import ImageIcon from '/public/survey/ImageIcon.png'
 import SurveyType from './Survey.type';
 import Image from 'next/image'
 import etc from '/public/survey/etc.png'
@@ -19,6 +20,7 @@ import Time from './time';
 const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
     const {surveyComponents} = useSurveyStore();
     const [surveyState,setSurveyState] = useState('multiplechoice')
+    const [imgurl,setImgUrl] = useState('')
     const [selectedOption, setSelectedOption] = useState(''); 
     const [listOption, setListOption] = useState(false);
     const [checked, setChecked] = useState(false); 
@@ -78,7 +80,31 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     const LinkOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setListOption((prevOption) => !prevOption);
     };
-      
+
+        const handleImageClick = (index : number) => {
+        const uploadButton = document.getElementById(`upload-button-${componentKey}-${index}`);
+        if (uploadButton) {
+          uploadButton.click();
+        }
+    };       
+    const handleImageChange = (index: number, event: any) => {
+      const file = event.target.files[0];
+
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        setImgUrl(imageUrl);
+        event.target.value = null;
+      }
+
+    };
+    const handleImageDelete = (index: number) => {
+      setImgUrl('')
+    };
+
+    const positionImage = surveyState === 'dates' || surveyState === 'time'
+        ? { marginLeft: '252px' }
+        : {};
+
     return (
         <ThemeProvider theme={theme}>
             <Main_Container>
@@ -93,7 +119,12 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                         <Question_Content_Container>
                             <Question_Content onChange={handleHeaderDetailChange} value={headerDetailText} index={index} />
                         </Question_Content_Container>
+
+           
                     </Question_Container>
+                    <ImageWrapper onClick={() => handleImageClick(index)}>
+                    <Image src={ImageIcon} alt="ImageIcon" />
+                </ImageWrapper>
                     <SelectBox>
                             <SelectBox_List onChange={handleOptionChange} value={selectedOption}>
                                 <SelectBox_Option value="multiplechoice">객관식 답변</SelectBox_Option>
@@ -104,6 +135,16 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
+                <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
+                {imgurl && (
+                <Image_Container style={positionImage}> 
+                <ImagePreiew_Box>
+                    <ImagePreview src={imgurl} alt={`${index + 1}번 이미지`} />
+                    
+                    <Image_Delete_Button onClick={() => handleImageDelete(index)}>X</Image_Delete_Button>
+                </ImagePreiew_Box>
+                </Image_Container>
+                )}  
                 {surveyState === 'multiplechoice' && <MultipleChoice componentKey={componentKey} isLink={listOption} />}
                 {surveyState === 'checkbox' && <CheckBox componentKey={componentKey} isLink={listOption} />}
                 {surveyState === 'dropdown' && <DropDown componentKey={componentKey} isLink={listOption} />}

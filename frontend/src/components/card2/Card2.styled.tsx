@@ -11,9 +11,8 @@ const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
       height: 100%;
 
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 45px;
+      justify-content: space-around;
 
       border-radius: 13px;
       border: 1px solid ${lightgray};
@@ -114,16 +113,14 @@ const StyledRemainTime = styled.div.attrs<CardType>((props) => ({}))`
   }};
 `;
 
-const StyledImg = styled.div.attrs<CardType>((props) => ({}))`
+const StyledImg = styled.img.attrs<any>((props) => ({}))`
   ${(props) => {
     const purple = props.theme.colors.purple;
 
     return css`
-      border: 2px dashed ${purple};
+      border: 2.5px dashed ${purple};
       border-radius: 100px;
       width: 130px;
-      padding-top: 2px;
-      padding-left: 2px;
     `;
   }};
 `;

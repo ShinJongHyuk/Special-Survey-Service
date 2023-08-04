@@ -15,26 +15,29 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-   async (response) => {
-    
-    if(!response.data.success){
-      if(response.data.apiError.status === 1005){
-        // console.log(localStorage.getItem("accessToken"))
+  async (response) => {
+
+    if (!response.data.success) {
+      if (response.data.apiError.status === 1005) {
+        console.log(localStorage.getItem("accessToken"))
         const refreshToken = localStorage.getItem("refreshToken");
         const email = localStorage.getItem("email");
         const password = localStorage.getItem("password");
-        await api.post("/refresh",{
+        await api.post("/refresh", {
           email,
           refreshToken,
           password
         })
-        .then((res)=>{
-        // console.log(res.data.response.accessToken)
-        response.config.headers["Authorization"] = `Bearer ${res.data.response.accessToken}`
-        localStorage.setItem("accessToken", res.data.response.accessToken)
-        console.log(response.config.headers) 
-        return api(response.config)
-      })
+          .then((res) => {
+            const accessToken = res.data?.response?.accessToken;
+            if (res.data.success) {
+              // console.log(res.data.response.accessToken)
+              response.config.headers["Authorization"] = `Bearer ${res.data.response.accessToken}`
+              localStorage.setItem("accessToken", res.data.response.accessToken)
+              console.log(response.config.headers)
+              return api(response.config)
+            }
+          })
       }
     }
     return response;
