@@ -6,7 +6,7 @@ const Survey_Container = styled.div.attrs({})`
     min-height: 100%;
 
     justify-content: center;
-    background-image: url("/survey/background_survey2.png");
+    background-image: url("/survey/background_survey3.png");
     background-repeat: repeat;
     position: absolute;
     top: 27%;
