@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import axios from 'axios'
 
 import { useCookies } from 'react-cookie'
+import loginPost from "@/api/user/loginPost"
+import loginGet from "@/api/user/loginGet"
 
 interface User {
     email : String,
@@ -89,13 +91,7 @@ export const useLoginHook = () => {
 
         else {
             try {
-                const res = await axios({
-                  method: 'post',
-                  url: 'http://221.164.64.185:8080/api/authenticate',
-                  data: { ...user },
-                });
-                // setAccessToken(res.data.response.accessToken);
-                // setRefreshToken(res.data.response.refreshToken);
+                const res = await loginPost(user)
                 localStorage.setItem("email", user.email)
                 localStorage.setItem("password", user.password)
                 localStorage.setItem("accessToken", res.data.response.accessToken)
@@ -106,13 +102,7 @@ export const useLoginHook = () => {
                   setCookie("rememberUserId", user.email, { path: '/' });
                 }
           
-                const response = await axios({
-                  method: 'get',
-                  url: `http://221.164.64.185:8080/api/user`,
-                  headers: {
-                    Authorization: `Bearer ${res.data.response.accessToken}`
-                  }
-                });
+                const response = await loginGet(res.data.response.accessToken)
                 console.log(response.data.response)
                 await setUserInformation(response.data.response);
                 
@@ -120,6 +110,39 @@ export const useLoginHook = () => {
               } catch (err) {
                 console.log(err);
               }
+
+            //   try {
+            //     const res = await axios({
+            //       method: 'post',
+            //       url: 'http://221.164.64.185:8080/api/authenticate',
+            //       data: { ...user },
+            //     });
+            //     // setAccessToken(res.data.response.accessToken);
+            //     // setRefreshToken(res.data.response.refreshToken);
+            //     localStorage.setItem("email", user.email)
+            //     localStorage.setItem("password", user.password)
+            //     localStorage.setItem("accessToken", res.data.response.accessToken)
+            //     localStorage.setItem("refreshToken", res.data.response.refreshToken)
+            //     login();
+                
+            //     if (isRemember) {
+            //       setCookie("rememberUserId", user.email, { path: '/' });
+            //     }
+          
+            //     const response = await axios({
+            //       method: 'get',
+            //       url: `http://221.164.64.185:8080/api/user`,
+            //       headers: {
+            //         Authorization: `Bearer ${res.data.response.accessToken}`
+            //       }
+            //     });
+            //     console.log(response.data.response)
+            //     await setUserInformation(response.data.response);
+                
+            //     await router.push('/')
+            //   } catch (err) {
+            //     console.log(err);
+            //   }
         }
     }
     return {handleChange, handleSubmit, handleUserId, handleOnChange, inputState, user, isRemember}
