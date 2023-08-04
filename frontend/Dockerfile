@@ -51,6 +51,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+
+ARG ENV
+
 RUN echo "MY_ENV_VAR = $ENV" && \
     echo "NEXT_PUBLIC_API_URL=${ENV}" > .env
 RUN npm run build
@@ -63,9 +66,6 @@ FROM node:18-alpine
 WORKDIR /app
 
 COPY --from=builder /app ./
-
-ARG ENV
-
 
 EXPOSE 3000
 CMD ["npm", "run", "start"]
