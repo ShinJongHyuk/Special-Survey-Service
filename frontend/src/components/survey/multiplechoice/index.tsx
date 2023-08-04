@@ -8,7 +8,7 @@ import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();
     const [items,setItems] = useState<any[]>([
-      { id: `${componentKey}_1`, text: '', imageUrl: '', linkNumber: 0 },
+      { id: `${componentKey}_1`, text: '', linkNumber: 0 },
 
     ])
     const [count, setCount] = useState(3);
@@ -52,7 +52,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     const handleAddItem = () => {
       setItems((prevItems : any) => [
         ...prevItems,
-        { id: `${componentKey}_${count}`, text: '', imageUrl: '',linkNumber: 0 },
+        { id: `${componentKey}_${count}`, text: '',linkNumber: 0 },
       ]);
       setCount((prevCount) => prevCount + 1);
     };
@@ -133,7 +133,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
               ))}
             </LinkSelect_List>
             )}
-            {/* 
+{/*             
             <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
            
             
