@@ -26,6 +26,8 @@ const Survey_Inner_Container = styled.div.attrs({})`
     display: flex;
     flex-direction : column;
     width: 55%;
+    max-width : 768px;
+    min-width : 400px;
     min-height: 100%;
 
     position: absolute;
@@ -71,7 +73,7 @@ const Survey_Detail_Container = styled.div.attrs({})`
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
-    padding : 25px 5px 25px 55px;
+    padding : 20px 30px 20px 30px;
 `;
 
 const Element_Detail_Container = styled.div.attrs({})`
@@ -167,7 +169,7 @@ const Element_Input = styled.input.attrs({})`
 `
 
 const Gender_Button = styled.button.attrs<any>((props => {
-    genderSelected : props.genderSelected
+    genderselected : props.genderselected
 }))`
     display: flex;
     flex-direction: column;
@@ -189,7 +191,7 @@ const Gender_Button = styled.button.attrs<any>((props => {
 `;
 
 const Age_Button = styled.button.attrs<any>((props => {
-    ageSelected : props.ageSelected
+    ageselected : props.ageselected
 }))`
     display: flex;
     flex-direction: column;
@@ -292,7 +294,6 @@ const Condition_Title = styled.div.attrs({})`
     color : ${props => props.theme.colors.lightpurple};
     
 `
-
 const Condition_Detail_Title = styled.div.attrs({})`
     display: flex;
     align-items : center;
@@ -351,7 +352,7 @@ const Bottom_Type1_Container = styled.div.attrs<any>((props => {
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 10px;
-    background-color: ${(props) => (props.selected === "whatshot" ? props.theme.colors.purple : props.theme.colors.lightgray)};
+    background-color: ${(props) => (props.selected === "NORMAL" ? props.theme.colors.purple : props.theme.colors.lightgray)};
     font-size: ${(props) => props.theme.fontSizes.small};
     font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
     color: ${(props) => props.theme.colors.black};
@@ -371,7 +372,7 @@ const Bottom_Type2_Container = styled.div.attrs<any>((props => {
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 10px;
-    background-color: ${(props) => (props.selected === "instant" ? props.theme.colors.yellow : props.theme.colors.lightgray)};
+    background-color: ${(props) => (props.selected === "INSTANT_WIN" ? props.theme.colors.yellow : props.theme.colors.lightgray)};
     font-size: ${(props) => props.theme.fontSizes.small};
     font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
     color: ${(props) => props.theme.colors.black};
