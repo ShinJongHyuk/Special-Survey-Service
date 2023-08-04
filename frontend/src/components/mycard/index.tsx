@@ -23,7 +23,7 @@ const Mycard = (props: MycardType) => {
     3: {
       imagePath: "/card/smile.svg",
       text: "응답자수",
-      value: props.headcount + "/" + props.closedHeadCount
+      value: props.headcount + "/" + props.closedheadcount
     }
   };
   const { imagePath, text, value } = settingByBtn[selectBtn] || {};

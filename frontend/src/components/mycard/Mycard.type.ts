@@ -8,10 +8,10 @@ export interface MycardType {
   giveaways: string;
 
   remaintime: string;
-  probability: string;
+  probability?: string;
   endtime: string;
 
   headcount?: string;
-  closedHeadCount?: string;
+  closedheadcount?: string;
 }
 
