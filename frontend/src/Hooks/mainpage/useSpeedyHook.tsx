@@ -11,7 +11,7 @@ const useSpeedyHook = () => {
     const fetchList = async () => {
       const accessToken = localStorage.getItem('accessToken');
 
-      if (accessToken === null) {
+      if (accessToken === "") {
         const data = await timeListGet();
         setCards(data.slice(0, 5));
       } else {

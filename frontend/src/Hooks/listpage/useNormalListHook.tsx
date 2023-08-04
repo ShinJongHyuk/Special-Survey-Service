@@ -12,7 +12,7 @@ const useNormalListHook = () => {
     const fetchList = async () => {
       const accessToken = localStorage.getItem('accessToken');
 
-      if (accessToken === null) {
+      if (accessToken === "") {
         const data = await normalListGet();
         setSurveys(data);
       } else {

@@ -29,11 +29,14 @@ api.interceptors.response.use(
           password
         })
           .then((res) => {
-            // console.log(res.data.response.accessToken)
-            response.config.headers["Authorization"] = `Bearer ${res.data.response.accessToken}`
-            localStorage.setItem("accessToken", res.data.response.accessToken)
-            console.log(response.config.headers)
-            return api(response.config)
+            const accessToken = res.data?.response?.accessToken;
+            if (res.data.success) {
+              // console.log(res.data.response.accessToken)
+              response.config.headers["Authorization"] = `Bearer ${res.data.response.accessToken}`
+              localStorage.setItem("accessToken", res.data.response.accessToken)
+              console.log(response.config.headers)
+              return api(response.config)
+            }
           })
       }
     }

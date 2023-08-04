@@ -14,7 +14,7 @@ const useInstantListHook = () => {
     const fetchList = async () => {
       const accessToken = localStorage.getItem('accessToken');
 
-      if (accessToken === null) {
+      if (accessToken === "") {
         const data = await instantListGet();
         setSurveys(data);
       } else {
