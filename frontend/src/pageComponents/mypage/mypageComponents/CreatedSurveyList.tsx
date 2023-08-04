@@ -1,7 +1,6 @@
-import CardList from "./cardlist";
-
+"use client"
 const CreatedSurveyList = () => {
-  return <div>{/* <CardList ></CardList> */}</div>;
+  return <div>Created</div>;
 };
 
 export default CreatedSurveyList;

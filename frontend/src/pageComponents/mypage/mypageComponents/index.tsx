@@ -1,7 +1,7 @@
 "use client";
 
 import CreatedSurveyList from "./CreatedSurveyList";
-import ResponsedSurveyList from "./ResponsedSurveyList";
+import ResponsedSurveyList from "./AnsweredSurveyList";
 import UserInfoList from "./UserInfoList";
 import Winlist from "./Winlist";
 
@@ -10,7 +10,7 @@ const MypageComponents = (props: any) => {
   console.log(path);
 
   if (path === "2") {
-    return <ResponsedSurveyList />;
+    return <ResponsedSurveyList selectBtn={path} />;
   } else if (path === "3") {
     return <CreatedSurveyList />;
   } else if (path === "4") {

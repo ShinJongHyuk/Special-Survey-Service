@@ -1,6 +1,5 @@
 "use client";
-import InstantWinConfirm from "@/pageComponents/instantWinConfirm";
-import { StyledList } from "./Wincardlist.styled";
+import { StyledList } from "@/pageComponents/mypage/Mypage.styled";
 import Wincard from "./wincard/Wincard";
 import { useRouter } from "next/navigation";
 

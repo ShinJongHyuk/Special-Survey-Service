@@ -1,10 +1,13 @@
 "use client";
 import { useMypageStore } from "@/stores/mypage/useMypageStore";
-import MypageComponents from "./mypageComponents";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import Banner from "./mypageComponents/banner";
 import useUserStore from "@/stores/useUserStore";
+import MypageComponents from "./mypageComponents";
+import Banner from "./mypageComponents/components/banner";
+// import dynamic from "next/dynamic";
+// const Banner = dynamic(() => import('./mypageComponents/components/banner'), { ssr: false })
+// const MypageComponents = dynamic(() => import('./mypageComponents'), { ssr: false })
 
 const Mypage = () => {
   const isLogin = useUserStore((state: any) => state.isLogin);
@@ -13,15 +16,22 @@ const Mypage = () => {
     if (!isLogin) {
       router.push("/login");
     }
-  }, [isLogin, router]);
+  }, [isLogin]);
 
   const selectBtn = useMypageStore((state) => state.selectBtn);
-  return isLogin ? (
-    <>
-      <Banner />
-      <MypageComponents selectBtn={selectBtn} />
-    </>
-  ) : null;
+
+
+  return (
+    <div>
+
+      {isLogin ? (
+        <>
+          <Banner />
+          <MypageComponents selectBtn={selectBtn} />
+        </>
+      ) : <></>}
+    </div>
+  )
 };
 
 export default Mypage;
