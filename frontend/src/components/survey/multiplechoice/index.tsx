@@ -2,9 +2,8 @@ import React,{useState,useEffect} from 'react';
 import MultipleChoiceType from './MultipleChoice.type';
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
-import {Add_Button_Container,Delete_Button_Container,LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
+import {Add_Button_Container,Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
-// import useItemStore from '@/stores/useItemStore';
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();
     const [items,setItems] = useState<any[]>([
@@ -70,33 +69,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
 
       setItems(updatedItems);
       
-    };
-
-    const handleImageClick = (index : number) => {
-        const uploadButton = document.getElementById(`upload-button-${componentKey}-${index}`);
-        if (uploadButton) {
-          uploadButton.click();
-        }
-    };              
-
-    const handleImageChange = (index: number, event: any) => {
-      const file = event.target.files[0];
-
-      if (file) {
-        const imageUrl = URL.createObjectURL(file);
-        const updatedItems = [...items];
-        updatedItems[index].imageUrl = imageUrl;
-        setItems(updatedItems);
-        event.target.value = null;
-      }
-
-    };
-
-    const handleImageDelete = (index: number) => {
-      const updatedItems = [...items];
-      updatedItems[index].imageUrl = '';
-      setItems(updatedItems);
-    };
+    };   
     
     const handleOptionChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
       const value = parseInt(event.target.value);
@@ -105,7 +78,6 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
       setItems(updatedItems);
     };
     
-
 
     return (
       <MultipleChoice_Box>
@@ -117,9 +89,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
               value = {item.text}
             />
-            {/* <ImageWrapper onClick={() => handleImageClick(index)}>
-       
-            </ImageWrapper> */}
+
             <Delete_Button_Container>
             {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
             </Delete_Button_Container>
@@ -133,20 +103,6 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
               ))}
             </LinkSelect_List>
             )}
-{/*             
-            <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
-           
-            
-            {item.imageUrl && (
-            <Image_Container> margin-left: auto;
-              <ImagePreiew_Box>
-                <ImagePreview src={item.imageUrl} alt={`${index + 1}번 이미지`} />
-                
-                  <Image_Delete_Button onClick={() => handleImageDelete(index)}>X</Image_Delete_Button>
-              </ImagePreiew_Box>
-            </Image_Container>
-            )}  
-            */}
           </MultipleChoice_content_Box>
         ))}
         <Add_Button_Container>

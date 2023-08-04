@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
-import {Delete_Button_Container,LinkSelect_List,LinkSelect_Option,Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
+import {Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore'
 
 
@@ -58,32 +58,8 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
           
         };
     
-        const handleImageClick = (index : number) => {
-            const uploadButton = document.getElementById(`upload-button-${componentKey}-${index}`);
-            if (uploadButton) {
-              uploadButton.click();
-            }
-        };              
-    
-        const handleImageChange = (index: number, event: any) => {
-          const file = event.target.files[0];
-        
-          if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            const updatedItems = [...items];
-            updatedItems[index].imageUrl = imageUrl;
-            setItems(updatedItems);
-            event.target.value = null;
-          }
-    
-        };
-    
-        const handleImageDelete = (index: number) => {
-          const updatedItems = [...items];
-          updatedItems[index].imageUrl = '';
-          setItems(updatedItems);
-        };
-        
+  
+
         const handleOptionChange = (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
           const value = parseInt(event.target.value);
           const updatedItems = [...items];
@@ -101,11 +77,6 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
                   value = {item.text}
                  />
-                {/* <ImageWrapper onClick={() => handleImageClick(index)}>
-                  <Image src={ImageIcon} alt="ImageIcon" />
-                </ImageWrapper> */}
-
-                <UploadImage id={`upload-button-${componentKey}-${index}`} onChange={(e: any) => handleImageChange(index, e)} />
                 <Delete_Button_Container>
                   {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
                 </Delete_Button_Container>
@@ -119,16 +90,6 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
                   ))}
                 </LinkSelect_List>
                 )}
-                {/* 
-                {item.imageUrl && (
-                <Image_Container>
-                  <ImagePreiew_Box>
-                    <ImagePreview src={item.imageUrl} alt={`${index + 1}번 이미지`} />
-                    <Image_Delete_Button onClick={() => handleImageDelete(index)}>X</Image_Delete_Button>
-                  </ImagePreiew_Box>
-                </Image_Container>
-                )}  
-                */}
               </CheckBox_content_Box>
             ))}
             <AddButton onClick={() => handleAddItem()}>문항 추가</AddButton>
