@@ -40,7 +40,6 @@ const MultipleChoiceComponent = (props:any) => {
     return (
         <RadioContainer>
             {multipleChoices && multipleChoices.map((multipleChoice:any) => {
-                setLinkNumber(multipleChoice.linkNumber)
                 return (
                     <RadioFlex key={multipleChoice.id} >
                         <RadioInput id={multipleChoice.id} name={questionNumber} onClick={onClick}/>
