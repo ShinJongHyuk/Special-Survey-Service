@@ -76,7 +76,6 @@ function MakeQuestion() {
   return (
     
       <Survey_Container>
-        {/* <img src="/survey/background_survey.png" style={{ width: "100%", position: "absolute", height: "680px", zIndex: "-1", backgroundRepeat : "repeat" }}></img> */}
         <Survey_Inner_Container>
         <Survey_Title_Container>
           <Title_Inner_Container>
@@ -88,8 +87,7 @@ function MakeQuestion() {
           <Image_Inner_Container>
               <Inner_Text_Container>
                 <Image_Text_Header>설문 대표 이미지 1장</Image_Text_Header>
-                <Image_Text_Content>jpg 또는 png 이미지 (선택사항)</Image_Text_Content>
-                
+                <Image_Text_Content>jpg 또는 png 이미지 (선택사항)</Image_Text_Content>    
               </Inner_Text_Container>
               <UploadImage id={`upload-button`} onChange={(e: any) => handleImageChange(e)} />
               {imgUrl ?  (
@@ -103,11 +101,7 @@ function MakeQuestion() {
               }
           </Image_Inner_Container>
         </Survey_MainImage_Container>
-        {/* <Background_Container>
-        <Image src={backgroundImage} alt="배경" />
-        <Image src={backgroundImage} alt="배경" />
-        </Background_Container> */}
-          <Component_Container>
+        <Component_Container>
           <Toolbar />
         </Component_Container>  
         </Survey_Inner_Container>

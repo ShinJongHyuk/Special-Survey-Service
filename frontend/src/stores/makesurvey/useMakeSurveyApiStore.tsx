@@ -10,8 +10,7 @@ export interface MakeSurveyApiState {
     startsurvey?: any;
     endsurvey?: any;
     selectedbutton?: string;
-    genderselected?: string;
-    ageselected?: any[];
+    targetselected?: any[];
     setTitleText: (value: string)=> void;
     setTitleContent: (value: string) => void;
     setConditionText: (value: string) => void;
@@ -20,8 +19,7 @@ export interface MakeSurveyApiState {
     setStartsurvey: (value: any) => void;
     setEndsurvey: (value: any) => void;
     setSelectedbutton: (value: string) => void;
-    setGenderselected: (value: any) => void;
-    setAgeSelected: (value: any) => void;
+    setTargetSelected: (value: any) => void;
   };
 
 const useMakeSurveyApiStore = create<MakeSurveyApiState>((set) => ({
@@ -33,8 +31,7 @@ const useMakeSurveyApiStore = create<MakeSurveyApiState>((set) => ({
   startsurvey: '',
   endsurvey: '',
   selectedbutton: '',
-  genderselected: '',
-  ageselected: [],
+  targetselected: [],
   setTitleText: (value) => set({ titleText: value }),
   setTitleContent: (value) => set({ titleContent: value }),
   setConditionText: (value) => set({ conditionText: value }),
@@ -43,8 +40,18 @@ const useMakeSurveyApiStore = create<MakeSurveyApiState>((set) => ({
   setStartsurvey: (value) => set({ startsurvey: value }),
   setEndsurvey: (value) => set({ endsurvey: value }),
   setSelectedbutton: (value) => set({ selectedbutton: value }),
-  setGenderselected: (value) => set({ genderselected: value }),
-  setAgeSelected: (value) => set({ ageselected: value }),
+  setTargetSelected: (value) => {
+    set((state : any) => {
+      const index = state.targetselected.indexOf(value);
+      if (index !== -1) {
+        const updatedTargetSelected = state.targetselected.filter((category : string) => category !== value);
+        return { targetselected: updatedTargetSelected };
+      } else {
+        const updatedTargetSelected = [...state.targetselected, value];
+        return { targetselected: updatedTargetSelected };
+      }
+    });
+  },
 }));
 
 export default useMakeSurveyApiStore;

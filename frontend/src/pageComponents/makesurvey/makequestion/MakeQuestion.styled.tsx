@@ -146,7 +146,6 @@ const Inner_Icon_Container = styled.div.attrs({})`
     align-items : center;
     width : 70px;
     height: 70px; 
-    margin-right : 40px;
     border-radius : 100%;
     background-color : #C6BEE5;
     cursor: pointer;

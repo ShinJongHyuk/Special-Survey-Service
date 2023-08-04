@@ -14,8 +14,8 @@ const MakesruveyComponent = (props: any) => {
     return (
         <StyledMidComp pathname={pathname}>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }} >
-                <StyledTitleInput onChange={handleTitleChange} value={titleText}></StyledTitleInput>
+            <div style={{ display: "flex", flexDirection: "column", gap: "4px",maxWidth : "600px"}} >
+                <StyledTitleInput onChange={handleTitleChange} value={titleText} style={{minWidth : "600px",maxWidth : "600px"}}></StyledTitleInput>
                 <StyledText>
                     <Image src='/survey/check.png' width={12} height={12} style={{ marginRight: "10px" }} alt="체크" />
                     모든 변경사항이 반영되었습니다.

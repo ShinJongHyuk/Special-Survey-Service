@@ -171,30 +171,9 @@ const Element_Input = styled.input.attrs({})`
 
 `
 
-const Gender_Button = styled.button.attrs<any>((props => {
-    genderselected : props.genderselected
-}))`
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    box-sizing : border-box;
-    margin : 10px 10px;
-    box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
-    border : 1px solid ${props => props.theme.colors.lightgray};
-    border-radius : 10px;
-    background-color: ${(props) =>
-    props.selected === "MAN" ? props.theme.colors.purple : props.selected === "WOMAN" ? props.theme.colors.lightgray : "white"};
-    font-size: ${(props) => props.theme.fontSizes.small};
-    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
-    color: ${(props) => props.theme.colors.black};
-    cursor: pointer;
-`;
 
-const Age_Button = styled.button.attrs<any>((props => {
-    ageselected : props.ageselected
+const Target_Button = styled.button.attrs<any>((props => {
+    selected : props.selected
 }))`
     display: flex;
     flex-direction: column;
@@ -208,7 +187,7 @@ const Age_Button = styled.button.attrs<any>((props => {
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 10px;
     background-color: ${(props) =>
-    props.selected === "MAN" ? props.theme.colors.purple : props.selected === "WOMAN" ? props.theme.colors.lightgray : "white"};
+    props.selected ? props.theme.colors.purple : 'white'};
     font-size: ${(props) => props.theme.fontSizes.small};
     font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
     color: ${(props) => props.theme.colors.black};
@@ -295,6 +274,7 @@ const Condition_Title = styled.div.attrs({})`
     font-size: ${props => props.theme.fontSizes.large};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     color : ${props => props.theme.colors.lightpurple};
+    padding : 0px 26px;
     
 `
 const Condition_Detail_Title = styled.div.attrs({})`
@@ -410,4 +390,4 @@ const MarkText = styled.mark.attrs({})`
     
 `;
 
-export {MarkText,Age_Button,Gender_Button,Condition_Select_Container,Bottom_Type2_Container,Bottom_Type1_Container,Element_Bottom_Row_Container,Element_Detail_Title,Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title,Survey_Container,Component_Container,Survey_Inner_Container,Background_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input}
+export {MarkText,Target_Button,Condition_Select_Container,Bottom_Type2_Container,Bottom_Type1_Container,Element_Bottom_Row_Container,Element_Detail_Title,Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title,Survey_Container,Component_Container,Survey_Inner_Container,Background_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input}
