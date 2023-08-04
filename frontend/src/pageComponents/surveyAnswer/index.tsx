@@ -24,7 +24,7 @@ const SurveyAnswer = (props:any) => {
     },[])
     useEffect(() => {
         if (surveyInformation) {
-            // console.log(surveyInformation);
+            console.log(surveyInformation);
         }
     }, [surveyInformation]);
 
@@ -39,7 +39,9 @@ const SurveyAnswer = (props:any) => {
             </BackButtonContainer>
 
             <Title title={surveyInformation?.title} type={surveyInformation?.surveyCategoryType}></Title>
-            <ProgressBar 
+            <ProgressBar
+            id={surveyInformation?.id}
+            questionsCount={surveyInformation?.questions.length}
             type={surveyInformation?.surveyCategoryType} 
             closedHeadCount={surveyInformation?.closedHeadCount}
             headCount={surveyInformation?.headCount}

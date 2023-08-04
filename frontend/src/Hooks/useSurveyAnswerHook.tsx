@@ -2,10 +2,10 @@
 import api from "@/api/api"
 import { useState } from "react"
 import {SurveyInformationType} from './types/useSurveyAnswerHook.type'
-import GetSurvey from "@/api/surveyAnswer/GetSurvey"
+import GetSurvey from "@/api/surveyAnswer/surveyGet"
 export const useSurveyAnswerHook = () => {
     const [surveyInformation, setSurveyInformation] = useState<SurveyInformationType | null>(null)
-    const survey_id = 1
+    const survey_id = 16
 
     const getSurveyQuestion = async () => {
         const data = await GetSurvey(survey_id)
