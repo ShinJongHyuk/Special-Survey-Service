@@ -6,9 +6,9 @@ const Survey_Container = styled.div.attrs({})`
     min-height: 300%;
     justify-content: center;
 
-    background-image: url("/survey/background_survey.png");
+    background-image: url("/survey/background_survey2.png");
     background-repeat: repeat;
-    
+
     position: absolute;
     top: 27%;
     flex-wrap: wrap;
@@ -27,13 +27,14 @@ const Component_Container = styled.div.attrs({})`
 const Survey_Inner_Container = styled.div.attrs({})`
     display: flex;
     flex-direction : column;
-    width: 55%;
-    max-width : 768px;
+    width: 70%;
+    max-width : 900px;
     min-width : 400px;
     min-height: 100%;
-
+    background-color : white;
     position: absolute;
-  
+    z-index : 1;
+    padding : 40px 70px 40px 70px;
 `;
 
 const Background_Container = styled.div.attrs({})`

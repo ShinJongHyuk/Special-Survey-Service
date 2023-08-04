@@ -33,7 +33,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       padding: 8px 30px;
 
       position: fixed;
-      z-index: 1;
+      z-index: 2;
     `;
   }};
 `;
@@ -60,6 +60,7 @@ const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
       justify-content: ${jc};
       align-items: ${ai};
       gap: 30px;
+    
     `;
   }};
 `;

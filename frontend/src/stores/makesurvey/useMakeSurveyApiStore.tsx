@@ -11,7 +11,7 @@ export interface MakeSurveyApiState {
     endsurvey?: any;
     selectedbutton?: string;
     genderselected?: string;
-    ageselected?: string;
+    ageselected?: any[];
     setTitleText: (value: string)=> void;
     setTitleContent: (value: string) => void;
     setConditionText: (value: string) => void;
@@ -34,7 +34,7 @@ const useMakeSurveyApiStore = create<MakeSurveyApiState>((set) => ({
   endsurvey: '',
   selectedbutton: '',
   genderselected: '',
-  ageselected: '',
+  ageselected: [],
   setTitleText: (value) => set({ titleText: value }),
   setTitleContent: (value) => set({ titleContent: value }),
   setConditionText: (value) => set({ conditionText: value }),

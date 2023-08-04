@@ -3,11 +3,11 @@ import styled from 'styled-components'
 const Survey_Container = styled.div.attrs({})`
     display: flex;
     width: 100%;
-    min-height: 300%;
+    min-height: 100%;
 
     justify-content: center;
-    /* background-image: url("/survey/background_survey.png");
-    background-repeat: repeat; */
+    background-image: url("/survey/background_survey2.png");
+    background-repeat: repeat;
     position: absolute;
     top: 27%;
     flex-wrap: wrap;
@@ -25,12 +25,14 @@ const Component_Container = styled.div.attrs({})`
 const Survey_Inner_Container = styled.div.attrs({})`
     display: flex;
     flex-direction : column;
-    width: 55%;
-    max-width : 768px;
+    width: 70%;
+    max-width : 900px;
     min-width : 400px;
     min-height: 100%;
-
-    position: absolute;
+    background-color : white;
+    position: relative;
+    z-index : 1;
+    padding : 40px 70px 40px 70px;
   
 `;
 
@@ -51,7 +53,7 @@ const Survey_Title_Container = styled.div.attrs({})`
 
     width : 100%;
     min-width : 600px;
-    height : 120px;
+    min-height : 120px;
 
     box-sizing : border-box;
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
@@ -65,7 +67,7 @@ const Survey_MainImage_Container = styled.div.attrs({})`
     flex-direction : column;
     width : 100%;
     min-width : 600px;
-    height : 100px;
+    min-height : 100px;
     margin-top : 10px;
     box-sizing : border-box;
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;

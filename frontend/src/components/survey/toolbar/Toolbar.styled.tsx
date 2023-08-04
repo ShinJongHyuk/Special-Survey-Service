@@ -17,7 +17,7 @@ const ToolbarBox = styled.div.attrs<ToolbarType>((props) => ({
     background-color: black;
     /* border : 3px solid ${props => props.theme.colors.purple}; */
     position: absolute;
-    right: calc(100% + 10px); 
+    right: calc(10% + -100px); 
     top: ${({ height }) => (height > 320 ? height : 320)}px;
   `;
   
