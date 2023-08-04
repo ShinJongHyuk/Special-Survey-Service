@@ -1,8 +1,15 @@
 import styled, { css }from 'styled-components';
 
-const RadioContainer = styled.div`
+const RadioContainer = styled.div.attrs<any>((props) => ({
+  disabled : props.disabled || false
+}))`
   display: flex;
   flex-direction: column;
+  ${(props) => props.disabled && css`
+    opacity: 0.5;
+    pointer-events: none; 
+
+  `}
 `;
 
 

@@ -11,9 +11,9 @@ const ProgressContainer = styled.div.attrs<any>((props) => ({}))`
 
 const ProgressBar = styled.div.attrs<any>((props) => ({}))`
     height: 100%;
-    width: ${(props) => props.width}; 
-    background-color: ${(props) => props.type === "즉시당첨"? props.theme.colors.yellow : props.theme.colors.purple};
-    cursor: ${(props) => props.width === "100%" ? "pointer" : null}
+    width: ${(props) => props.width}%; 
+    background-color: ${(props) => props.type === "NORMAL"?  props.theme.colors.purple : props.theme.colors.yellow};
+    cursor: ${(props) => props.width === 100 ? "pointer" : null}
 `
 const ProgressBarPercentage = styled.div.attrs<any>((props) => ({}))`
     z-index: 1;
@@ -23,7 +23,7 @@ const ProgressBarPercentage = styled.div.attrs<any>((props) => ({}))`
     position: absolute;
     right: 50%;
     margin-top: 6px;
-    cursor: ${(props) => props.width === "100%" ? "pointer" : null}
+    cursor: ${(props) => props.width === 100 ? "pointer" : null}
 `
 
 
