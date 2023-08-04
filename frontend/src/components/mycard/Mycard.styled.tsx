@@ -1,12 +1,16 @@
 "use client";
 import styled, { css } from "styled-components";
 import { MycardType } from "./Mycard.type";
+import moment from "moment";
 
 const StyledCard = styled.div.attrs<MycardType>((props) => ({}))`
   ${(props) => {
     const white = props.theme.colors.white;
     const gray = props.theme.colors.lightgray;
-    const bgcolor = props.remaintime === "" ? gray : white;
+    const now = moment();
+    const deadLineTime = moment(props.endtime, "YYYY-MM-DDTHH:mm:ss");
+    let diffTime = deadLineTime.diff(now);
+    const bgcolor = diffTime <= 0 ? gray : white;
 
     return css`
       width: 100%;
@@ -63,7 +67,6 @@ const StyledCardHeader = styled.div.attrs<MycardType>((props) => ({}))`
     const font = props.theme.fonts.HangeulFontSemiBold;
     const black = props.theme.colors.black;
     const gray = props.theme.colors.gray;
-    const white = props.theme.colors.white;
     const small = props.theme.fontSizes.small;
     const xsmall = props.theme.fontSizes.xsmall;
 
@@ -89,30 +92,6 @@ const StyledCardHeader = styled.div.attrs<MycardType>((props) => ({}))`
         font-size: ${xsmall};
         color: ${gray};
       }
-    `;
-  }};
-`;
-
-const StyledProbability = styled.div.attrs<MycardType>((props) => ({}))`
-  ${(props) => {
-    const font = props.theme.fonts.EnglishFontBold;
-    const size = props.theme.fontSizes.large;
-    const black = props.theme.colors.black;
-    const white = props.theme.colors.white;
-    const purple = props.theme.colors.purple;
-
-    let color;
-    if (props.type === "NORMAL") {
-      color = purple;
-    } else {
-      color = black;
-    }
-
-    return css`
-      color: ${color};
-      text-align: right;
-      font-family: ${font};
-      font-size: ${size};
     `;
   }};
 `;
@@ -145,6 +124,7 @@ const StyledBottomText = styled.div.attrs<MycardType>((props) => ({}))`
   }};
 `;
 
+
 const StyledImg = styled.img.attrs<any>((props) => ({}))`
   ${(props) => {
     const yellow = props.theme.colors.yellow;
@@ -159,9 +139,10 @@ const StyledImg = styled.img.attrs<any>((props) => ({}))`
     return css`
       border: 2.5px dashed ${color};
       border-radius: 48px;
-      width: 90x;
+      width: 90px;
     `;
   }};
 `;
+
 
 export { StyledCard, StyledTag, StyledCardHeader, StyledBottomText, StyledImg };

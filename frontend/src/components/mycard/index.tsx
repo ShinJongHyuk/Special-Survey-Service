@@ -5,10 +5,10 @@ import { MycardType } from "./Mycard.type";
 import { StyledCard, StyledTag, StyledCardHeader, StyledBottomText, StyledImg } from "./Mycard.styled";
 import { useMypageStore } from "@/stores/mypage/useMypageStore";
 
-const CardComponent = (props: MycardType) => {
+const Mycard = (props: MycardType) => {
   const images: { [key: string]: string } = {
-    chicken: "/card/chicken.png",
-    coffee: "/card/coffee.png",
+    CHICKEN: "/card/chicken.png",
+    COFFEE: "/card/coffee.png",
   };
   const imgsrc = images[props.giveaways];
 
@@ -23,10 +23,14 @@ const CardComponent = (props: MycardType) => {
     3: {
       imagePath: "/card/smile.svg",
       text: "응답자수",
-      value: props.headcount
+      value: props.headcount + "/" + props.closedHeadCount
     }
   };
   const { imagePath, text, value } = settingByBtn[selectBtn] || {};
+
+  const [unit1, unit2] = props.remaintime ? props.remaintime.split(', ') : ["00분", "00초"];
+  const [value1, label1] = unit1.split(':');
+  const [value2, label2] = unit2.split(':');
 
   const newProps = { ...props, typename: typeName };
   return (
@@ -43,11 +47,13 @@ const CardComponent = (props: MycardType) => {
       <StyledCardHeader {...newProps}>
         <div className="title">{props.title}</div>
         <div className="writer" style={{ margin: "0px 10px" }} {...props}>
-          {props.nickname}
+          {props.writername}
         </div>
       </StyledCardHeader>
 
-      <StyledImg src={imgsrc} />
+      <div style={{ width: "90px", height: "90px" }}>
+        <StyledImg src={imgsrc} />
+      </div>
 
 
       <StyledBottomText {...newProps}>
@@ -55,7 +61,10 @@ const CardComponent = (props: MycardType) => {
           <Image src="/card/yellowblackclock.svg" priority={true} width={22} height={22} alt="remaintime" />
           <div className="text">남은 시간</div>
         </div>
-        {props.remaintime || "00:00:00"}
+        <div style={{ width: "80px", display: "flex", justifyContent: "flex-end", gap: "5px" }}>
+          <div><span>{value1}</span><span>{label1}</span></div>
+          <div><span>{value2}</span><span>{label2}</span></div>
+        </div>
       </StyledBottomText>
 
       <StyledBottomText {...newProps}>
@@ -70,4 +79,4 @@ const CardComponent = (props: MycardType) => {
   );
 };
 
-export default CardComponent;
+export default Mycard;
