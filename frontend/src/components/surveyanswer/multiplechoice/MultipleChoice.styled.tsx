@@ -1,18 +1,25 @@
 import styled, { css }from 'styled-components';
 
-const RadioContainer = styled.div`
+const RadioContainer = styled.div.attrs<any>((props) => ({
+  disabled : props.disabled || false
+}))`
   display: flex;
   flex-direction: column;
+  ${(props) => props.disabled && css`
+    opacity: 0.5;
+    pointer-events: none; 
+
+  `}
 `;
 
 
-const RadioFlex = styled.div`
+const RadioFlex = styled.div.attrs<any>((props) => ({}))`
   display: flex;
   align-items: center;
   margin: 3px;
 `
 
-const RadioInput = styled.input.attrs({ type: 'radio' })`
+const RadioInput = styled.input.attrs<any>({ type: 'radio' })`
   margin-right: 8px;
   width: 16px;
   height: 16px;

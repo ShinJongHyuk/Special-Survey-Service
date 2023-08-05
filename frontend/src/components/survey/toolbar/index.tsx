@@ -4,9 +4,9 @@ import {v4 as uuidv4} from 'uuid';
 import theme from '@/styles/DefaultTheme';
 import Image from 'next/image';
 import { ToolbarBox, Toolbar_InnerBox } from './Toolbar.styled';
-import plus from '../../../../public/survey/plus.png';
-import minus from '../../../../public/survey/minus.png';
-import duplicate from '../../../../public/survey/duplicate.png'
+import plus from '../../../../public/survey/plus.svg';
+import minus from '../../../../public/survey/minus.svg';
+import duplicate from '../../../../public/survey/duplicate.svg'
 import Survey from '../../survey';
 import useSurveyFocusStore from '@/stores/makesurvey/useSurveyFocusStore';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
@@ -114,13 +114,13 @@ const Toolbar = () => {
     < >
       <ToolbarBox height={height}>
       <Toolbar_InnerBox>
-          <Image src={plus} alt="추가" onClick={handlePlusClick} />
+        <Image src={plus} alt="추가" onClick={handlePlusClick} style={{ cursor: 'pointer' }} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-        <Image src={minus} alt="삭제" onClick={handleMinusClick} />
+        <Image src={minus} alt="삭제" onClick={handleMinusClick} style={{ cursor: 'pointer' }} />
         </Toolbar_InnerBox>
         <Toolbar_InnerBox>
-          <Image src={duplicate} alt="복제" onClick={duplicateSurveyComponent} />
+          <Image src={duplicate} width={22} height={22} alt="복제" onClick={duplicateSurveyComponent} style={{ cursor: 'pointer' }}/>
         </Toolbar_InnerBox>
       </ToolbarBox>
       {surveyComponents && surveyComponents.map((component, index) => (

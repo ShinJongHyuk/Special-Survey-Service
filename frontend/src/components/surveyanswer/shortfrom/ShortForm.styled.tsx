@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 const ShortInput = styled.input.attrs<any>((props) => ({
     placeholder : props.placeholder,
+    disabled : props.disabled || false
 }))`
     display: flex;
     padding: 10px;

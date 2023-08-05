@@ -1,16 +1,15 @@
 import React,{useState,useEffect} from 'react';
 import Toolbar from '@/components/survey/toolbar';
 import {Component_Container,Survey_Inner_Container,ImagePreiew_Box,ImagePreview,Image_Delete_Button,UploadImage,Image_Text_Content,Image_Text_Header,Inner_Icon_Container,Inner_Text_Container,Image_Inner_Container,Title_Content,Title_input,Title_Inner_Container,Survey_Container, Background_Container, Survey_MainImage_Container,Survey_Title_Container } from './MakeQuestion.styled';
-import backgroundImage from '/public/survey/MakeSurvey_Background.png'
 import Main_Image from '/public/survey/Main_Image.png'
 import Image from 'next/Image'
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import axios from 'axios'
 
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
-  const [titleText,setTitleText] = useState('')
-  const [titleContent,setTitleContent] = useState('')
+  const {titleText,setTitleText,titleContent,setTitleContent} = useMakeSurveyApiStore();
   const [imgUrl,setImgUrl] = useState('')
 
   const saveComponentDataToLocalStorage = (data: any) => {
@@ -25,20 +24,16 @@ function MakeQuestion() {
   useEffect(() => {
       const storedData = loadComponentDataFromLocalStorage();
       if (storedData) {
-        setTitleText(storedData.titleText);
-        setTitleContent(storedData.titleContent);
         setImgUrl(storedData.imgUrl);
       }
     }, []);
 
   useEffect(() => {
       const componentData = {
-        titleText,
-        titleContent,
         imgUrl,
       };
       saveComponentDataToLocalStorage(componentData);
-    }, [titleText,titleContent,imgUrl]);
+    }, [imgUrl]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitleText(event.target.value);
@@ -79,7 +74,9 @@ function MakeQuestion() {
     }
   });
   return (
+    
       <Survey_Container>
+        {/* <img src="/survey/background_survey.png" style={{ width: "100%", position: "absolute", height: "680px", zIndex: "-1", backgroundRepeat : "repeat" }}></img> */}
         <Survey_Inner_Container>
         <Survey_Title_Container>
           <Title_Inner_Container>

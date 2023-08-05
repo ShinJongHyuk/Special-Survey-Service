@@ -2,14 +2,18 @@ export interface MycardType {
   type: string;
 
   title: string;
-  nickname: string;
+
+  writername: string;
 
   giveaways: string;
 
   remaintime: string;
-  probability: string;
-  headcount?: string;
+  probability?: string;
+  endtime: string;
 
-  contentype?: string;
+  headcount?: string;
+  closedheadcount?: string;
+  onClick?: (e: any) => any;
+
 }
 

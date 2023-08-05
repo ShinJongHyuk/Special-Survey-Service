@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import timeListGet from "@/api/surveylist/timeListGet";
+import userTimeListGet from "@/api/surveylist/userTimeListGet";
 
 const useSpeedyHook = () => {
   const [cards, setCards] = useState<any>([]);
@@ -8,9 +9,20 @@ const useSpeedyHook = () => {
 
   useEffect(() => {
     const fetchList = async () => {
-      const data = await timeListGet();
-      setCards(data.slice(0, 5));
-      console.log(data);
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        const data = await timeListGet();
+        const sortData = data.map((prev: any) => {
+          return { ...prev, remainTime: useTimerHook(prev.endTime) };
+        })
+        setCards(sortData.slice(0, 5));
+      } else {
+        const data = await userTimeListGet(accessToken);
+        const sortData = data.map((prev: any) => {
+          return { ...prev, remainTime: useTimerHook(prev.endTime) };
+        })
+        setCards(sortData.slice(0, 5));
+      }
     };
     fetchList();
 

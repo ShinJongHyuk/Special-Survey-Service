@@ -10,13 +10,12 @@ import Category from '/public/survey/Category.png'
 import Image from 'next/Image'
 import axios from 'axios'
 
-
 function MakeSettings() {
     const [titleText,setTitleText] = useState('')
     const [titleContent,setTitleContent] = useState('')
     const [conditionText, setConditionText] = useState('');
     const [conditionContent, setConditionContent] = useState('');
-    const [conditionVisible, setConditionVisible] = useState(false); 
+    const [conditionVisible, setConditionVisible] = useState(true); 
     const [headCount,setHeadCount] = useState('');
     const [startSurvey,setStartSurvey] = useState('');
     const [endSurvey,setEndSurvey] = useState('');
@@ -24,6 +23,8 @@ function MakeSettings() {
     const [genderSelected, setGenderSelected] = useState('');
     const [ageSelected, setAgeSelected] = useState('');
 
+
+    console.log([headCount,startSurvey,endSurvey,selectedButton])
     const toggleCondition = () => {
       setConditionVisible(!conditionVisible);
     };
@@ -167,12 +168,12 @@ function MakeSettings() {
                           
                       </Element_Top_Container>
                       <Element_Bottom_Row_Container>
-                        <Bottom_Type1_Container selected={selectedButton} onClick={() => handleButtonClick("whatshot")}>
-                          <Image src="/card/whatshot.svg" width={50} height={50} alt="whatshot" />
+                        <Bottom_Type1_Container selected={selectedButton} onClick={() => handleButtonClick("NORMAL")}>
+                          <Image src="/card/whatshot.svg" width={50} height={50} alt="NORMAL" />
                           타임어택
                         </Bottom_Type1_Container>
-                        <Bottom_Type2_Container selected={selectedButton} onClick={() => handleButtonClick("instant")}>
-                          <Image src="/card/bolt.svg" width={50} height={50} alt="instant" />
+                        <Bottom_Type2_Container selected={selectedButton} onClick={() => handleButtonClick("INSTANT_WIN")}>
+                          <Image src="/card/bolt.svg" width={50} height={50} alt="INSTANT_WIN" />
                           즉시당첨
                         </Bottom_Type2_Container>
                       </Element_Bottom_Row_Container>

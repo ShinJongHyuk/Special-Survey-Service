@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import axios from 'axios'
 import { SignupHookType } from "../types/useSignupHook.type"
+import signupPost from "@/api/user/signupPost"
   
 export const useSignupHook = ():SignupHookType => {
     const router = useRouter()
@@ -55,7 +56,7 @@ export const useSignupHook = ():SignupHookType => {
         })
     }
 
-    const handleSubmit = (e:any) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault()
 
         if (user.email === "") {
@@ -123,16 +124,18 @@ export const useSignupHook = ():SignupHookType => {
         }
 
         else {
-            axios({
-                method : 'post',
-                url : 'http://221.164.64.185:8080/api/signup',
-                data : {...user}
-            })
-            .then(res => {
+            try {
+                const res = await signupPost(user)
                 console.log(res)
-                router.push('/')
-            })
-            .catch(err => console.log(err))
+                if (res.data.success === true) {
+                    alert('회원가입에 성공하였습니다')
+                    router.push('/')
+                } else if (res.data.success === false) {
+                    alert(res.data.apiError.message)
+                }
+            } catch (err) {
+                console.log(err)
+            }
         return
         }
     }

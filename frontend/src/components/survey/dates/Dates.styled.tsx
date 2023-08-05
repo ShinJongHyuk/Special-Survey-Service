@@ -17,28 +17,18 @@ const Dates_content_Box = styled.div.attrs({})`
     justify-content : center;
     flex-direction : row;
 
-    width : 700px;
+    width : 100%;
     min-height : 10%;
     
 `
 
-
-const Image_Container = styled.div.attrs({})`
-    display : flex;
-    width : 300px;
-    height : 300px;
-    margin-left :25%;
-    margin-right :25%;
-    margin-bottom : 35px;
-` ;
-
 const MultipleCheck = styled.input.attrs({ type: 'date' })`
     display : flex;
-    width : 44%;
+    width : 40%;
     height: 40px;
     border-radius : 50px;
-    margin-left : 70px;
-    margin-right : 40px;
+    margin-right : 50px; 
+
     border : 2px solid ${props => props.theme.colors.purple};
     letter-spacing : 7px;
     text-indent : 10px;
@@ -53,7 +43,7 @@ const AddButton = styled.button.attrs({})`
     display : flex;
     width : 74px;
     text-align : center;
-
+    
     border : 1px solid ${props => props.theme.colors.purple};
     border-radius : 20px;
     margin-left : 71px;
@@ -75,59 +65,4 @@ const DeleteButton = styled.button.attrs({})`
   
 `;
 
-const UploadImage = styled.input.attrs({type : 'file'})`
-    display : none;
-`;
-
-
-const Image_Delete_Button = styled.button`
-    content: 'X';
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: ${props => props.theme.colors.purple};
-    color: white;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    border : 3px solid lightgray;
-    cursor: pointer;
-    opacity: 0; 
-    transition: opacity 0.2s ease-in-out; 
-`;
-
-const ImagePreiew_Box = styled.div`
-    display: flex;
-    position : relative;
-
-    width: 100%;
-    height: 100%;
-    
-    &:hover {
-        ${Image_Delete_Button} {
-            opacity: 1; 
-        }
-    }
-`;
-
-const ImagePreview = styled.img`
-  width: 100%;
-  height : 100%;
-  border-radius : 6px;
-
-`;
-
-const ImageWrapper = styled.div`
-  position: relative;
-  cursor: pointer;
-  
-
-`;
-
-
-
-
-export {Image_Container,Image_Delete_Button,ImagePreiew_Box,ImageWrapper,UploadImage,ImagePreview,DeleteButton,AddButton,Dates_content_Box,MultipleCheck,Dates_Box}
+export {DeleteButton,AddButton,Dates_content_Box,MultipleCheck,Dates_Box}
