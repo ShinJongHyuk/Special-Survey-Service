@@ -1,17 +1,16 @@
 "use client";
-import { StyledTitleBox, StyledBox, StyledWinBox } from "./InstantWinConfirm.styled";
+import { StyledTitleBox, StyledBox, StyledWinBox } from "./Wincheck";
 import Button from "@/components/button";
 import { useRouter } from "next/navigation";
-import useScratchHook from "@/Hooks/instantwinconfirm/useScratchHook";
-import useUserStore from "@/stores/useUserStore";
-import instantWinConfirmGet from "@/api/win/instantWinConfirmGet";
+import useScratchHook from "@/Hooks/wincheck/useScratchHook";
+import instantwinCheckGet from "@/api/win/instantwinCheckGet";
 import { useEffect, useState } from "react";
 
-const InstantWinConfirm = (props: any) => {
+const Instantwincheck = (props: any) => {
   const [winConfirm, setWinConfirm] = useState<any>([]);
   useEffect(() => {
     const fetchList = async () => {
-      const data = await instantWinConfirmGet(props.surveyid);
+      const data = await instantwinCheckGet(props.surveyid);
       setWinConfirm(data);
       console.log("data : ", data);
     };
@@ -19,8 +18,8 @@ const InstantWinConfirm = (props: any) => {
   }, []);
 
   const images: { [key: string]: string } = {
-    chicken: "/card/chicken.png",
-    coffee: "/card/coffee.png",
+    CHICKEN: "/card/chicken.png",
+    COFFEE: "/card/coffee.png",
   };
   const imgsrc = images[props.giveaways];
 
@@ -29,15 +28,15 @@ const InstantWinConfirm = (props: any) => {
     router.push("/");
   };
 
-  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/instantwin/board.png");
+  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png", true);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>
-      <img src="/instantwin/instantwin.png" style={{ position: "absolute", width: "100%", height: "100%", zIndex: "-1" }}></img>
+      <img src="/wincheck/instantwin.png" style={{ position: "absolute", width: "100%", height: "100%", zIndex: "-1" }}></img>
 
       <StyledBox>
         <StyledTitleBox>
-          <img src="/instantwin/money.png" style={{ width: "70px", height: "70px" }} alt="money" />
+          <img src="/wincheck/money.png" style={{ width: "70px", height: "70px" }} alt="money" />
           <div className="title"> 즉시 당첨 확인하기 </div>
           <div className="subtitle"> 당첨여부를 확인하고 상품을 받아가세요! </div>
         </StyledTitleBox>
@@ -45,11 +44,11 @@ const InstantWinConfirm = (props: any) => {
           {isCanvasLoaded &&
             (winConfirm.win ? (
               <div style={{ position: "absolute", width: "140px", height: "140px", zIndex: "0" }}>
-                <img src="/card/chicken.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+                <img src={imgsrc} style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
               </div>
             ) : (
               <div style={{ position: "absolute", width: "300px", height: "120px", zIndex: "0" }}>
-                <img src="/instantwin/bomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+                <img src="/wincheck/bomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
               </div>
             ))}
           <canvas
@@ -75,4 +74,4 @@ const InstantWinConfirm = (props: any) => {
   );
 };
 
-export default InstantWinConfirm;
+export default Instantwincheck;
