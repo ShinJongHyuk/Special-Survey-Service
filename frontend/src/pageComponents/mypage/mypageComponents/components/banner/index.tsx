@@ -1,29 +1,31 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyledBanner, StyledText } from "./Banner.styled";
 import Image from "next/image";
 import useUserStore from "@/stores/useUserStore";
-const Banner = () => {
-  const userInformation = useUserStore((state: any) => state.userInformation);
+import userDetailGet from "@/api/user/userDetailGet";
+const Banner = (props: any) => {
+  // const userInformation = useUserStore((state: any) => state.userInformation);
 
   const genderInfo: any = {
     WOMAN: {
       text: "여성",
-      img: "/womanIcon.png",
+      profileimg: "/womanIcon.png",
     },
     MAN: {
       text: "남성",
-      img: "/manIcon.png",
+      profileimg: "/manIcon.png",
     },
   };
 
+  const userInformation = props.userInfo;
   const userGender = userInformation.gender;
 
   return (
     <div style={{ backgroundColor: "#FFF129", height: "230px" }}>
       <StyledBanner>
         <div style={{ width: "30%", textAlign: "right" }}>
-          <Image src={genderInfo[userGender].img} alt="man" width={120} height={120} style={{ border: "1px solid black", borderRadius: "50%" }} />
+          <img src={genderInfo[userGender].profileimg} style={{ border: "1px solid black", borderRadius: "50%", width: "120px", height: "120px" }} />
         </div>
         <StyledText style={{ width: "30%" }}>
           <div className="email">{userInformation.email}</div>
