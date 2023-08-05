@@ -8,6 +8,7 @@ const WinCardlist = (props: any) => {
 
   const router = useRouter();
 
+  console.log(lists);
   return (
     <StyledList>
       {lists.map((list: any, index: any) => (
@@ -16,7 +17,7 @@ const WinCardlist = (props: any) => {
             <Wincard
               surveytitle={list.surveyTitle}
               surveywriter={list.surveyWriter}
-              usercheck={list.userCheck}
+              usercheck={list.userCheck.toString()}
               win={list.win.toString()}
               giveawaytype={list.giveawayType}
               answerdatetime={list.answerDateTime}
