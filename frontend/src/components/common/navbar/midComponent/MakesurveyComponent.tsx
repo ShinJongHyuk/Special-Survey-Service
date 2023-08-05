@@ -4,13 +4,29 @@ import { StyledText, StyledMidComp, StyledTitleInput } from "../Navbar.styled";
 import Image from "next/image";
 import Button from "@/components/button";
 import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
+import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
+
+
 const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
     const {titleText,setTitleText} = useMakeSurveyApiStore();
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitleText(event.target.value);
       };
-
+    const handleCreateButtonClick = () => { 
+        const surveyData = {
+            titleText,
+        }
+        console.log(surveyData)
+        makeSurveyPost(surveyData)
+   
+        .then((responseData) => {
+        console.log("Survey created successfully:", responseData);
+        })
+        .catch((error) => {
+        console.error("Error :", error);
+        });
+    };
     return (
         <StyledMidComp pathname={pathname}>
 
@@ -26,7 +42,7 @@ const MakesruveyComponent = (props: any) => {
                     <Button use="gray" label="임시저장" />
                 </div>
                 <div style={{ width: "93px", height: "35px" }}>
-                    <Button use="longYellow" label="생성하기" />
+                    <Button use="longYellow" label="생성하기" onClick={handleCreateButtonClick} />
                 </div>
             </div>
         </StyledMidComp>

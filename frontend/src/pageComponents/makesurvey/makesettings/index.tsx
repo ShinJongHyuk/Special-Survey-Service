@@ -232,7 +232,7 @@ function MakeSettings() {
              </Element_Detail_Container>
               </>
             )}
-            
+            <p>굿</p>
           </Survey_Detail_Container>
         </Survey_Inner_Container>
       </Survey_Container>

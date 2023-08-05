@@ -63,16 +63,6 @@ function MakeQuestion() {
     setImgUrl('');
   };
 
-  const allData = surveyComponents.map((componentKey) => {
-    const multipleChoiceData = JSON.parse(localStorage.getItem(`multiplechoice_multiplechoice_${componentKey.key}`) ?? 'null');
-    const entireData = JSON.parse(localStorage.getItem('entire') ?? 'null');
-    const surveyStateData = JSON.parse(localStorage.getItem(componentKey.key) ?? 'null');
-    return {
-      multipleChoiceData,
-      entireData,
-      surveyStateData,                                                    
-    }
-  });
   return (
     
       <Survey_Container>
