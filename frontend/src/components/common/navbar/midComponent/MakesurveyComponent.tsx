@@ -9,13 +9,32 @@ import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 
 const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
-    const {titleText,setTitleText} = useMakeSurveyApiStore();
-    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+        titleText,
+        setTitleText,
+        titleContent,
+        conditionText,
+        conditionContent,
+        headcount,
+        startsurvey,
+        endsurvey,
+        selectedbutton,
+        targetselected,
+      } = useMakeSurveyApiStore(); 
+      const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitleText(event.target.value);
       };
     const handleCreateButtonClick = () => { 
         const surveyData = {
             titleText,
+            titleContent,
+            conditionText,
+            conditionContent,
+            headcount,
+            startsurvey,
+            endsurvey,
+            selectedbutton,
+            targetselected,
         }
         console.log(surveyData)
         makeSurveyPost(surveyData)

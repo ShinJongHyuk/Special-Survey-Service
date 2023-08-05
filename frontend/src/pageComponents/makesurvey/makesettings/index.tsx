@@ -9,7 +9,6 @@ import People from '/public/survey/People.png'
 import Category from '/public/survey/Category.png'
 import Image from 'next/Image'
 import useMakeSurveyApiStore, {MakeSurveyApiState} from '../../../stores/makesurvey/useMakeSurveyApiStore';
-import axios from 'axios'
 
 
 function MakeSettings() {
@@ -19,10 +18,6 @@ function MakeSettings() {
       setTitleText,
       titleContent,
       setTitleContent,
-      conditionText,
-      setConditionText,
-      conditionContent,
-      setConditionContent,
       headcount,
       setHeadcount,
       startsurvey,
@@ -46,15 +41,11 @@ function MakeSettings() {
     const handleTitleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setTitleContent(event.target.value);
     };
-    const handleConditionTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setConditionText(event.target.value);
-    };
     
-    const handleConditionContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setConditionContent(event.target.value);
-    };
     const handleheadcountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setHeadcount(event.target.value);
+      const { value } = event.target;
+      const onlyNumber = value.replace(/[^0-9]/g, '');
+      setHeadcount(onlyNumber);
     };
     const handlestartsurveyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setStartsurvey(event.target.value);
@@ -66,24 +57,76 @@ function MakeSettings() {
     const handleButtonClick = (alt : any) => {
       setSelectedbutton(alt);
     };
+    //하드 코딩,, 나중에 리팩토링
     const handleTargetButtonClick = (Category: string) => {
       if (Category === "GENDER_ALL") {
-        setTargetSelected("MAN");
-        setTargetSelected("WOMAN");
-      } else if (Category === "AGE_ALL") {
-        setTargetSelected("UNDER_TEENS")
-        setTargetSelected("TEENS")
-        setTargetSelected("TWENTIES")
-        setTargetSelected("THIRTIES")
-        setTargetSelected("FORTIES")
-        setTargetSelected("FIFTIES")
-        setTargetSelected("SIXTIES")
+
+          if (targetselected) {
+            if (targetselected.includes("MAN")) {
+                setTargetSelected("MAN")
+            } 
+            if (targetselected.includes("WOMAN")) {
+              {
+                setTargetSelected("WOMAN")
+              }
+            }
+            setTargetSelected("MAN");
+            setTargetSelected("WOMAN");
+          }
+          else {
+            setTargetSelected("MAN");
+            setTargetSelected("WOMAN");
+          }
+        }
+      else if (Category === "AGE_ALL") {
+        if (targetselected) {
+          if (targetselected.includes("UNDER_TEENS")) {
+              setTargetSelected("UNDER_TEENS")
+          } 
+          if (targetselected.includes("TEENS")) {
+            {
+              setTargetSelected("TEENS")
+            }
+          }
+          if (targetselected.includes("TWENTIES")) {
+            {
+              setTargetSelected("TWENTIES")
+            }
+          }
+          if (targetselected.includes("THIRTIES")) {
+            {
+              setTargetSelected("THIRTIES")
+            }
+          }
+          if (targetselected.includes("FORTIES")) {
+            {
+              setTargetSelected("FORTIES")
+            }
+          }
+          if (targetselected.includes("FIFTIES")) {
+            {
+              setTargetSelected("FIFTIES")
+            }
+          }
+          if (targetselected.includes("SIXTIES")) {
+            {
+              setTargetSelected("SIXTIES")
+            }
+          }
+          setTargetSelected("UNDER_TEENS")
+          setTargetSelected("TEENS")
+          setTargetSelected("TWENTIES")
+          setTargetSelected("THIRTIES")
+          setTargetSelected("FORTIES")
+          setTargetSelected("FIFTIES")
+          setTargetSelected("SIXTIES")
+        }
       } else {
         setTargetSelected(Category);
       }
-      }
+    }
     
-
+    console.log(targetselected)
     const isSelected = (selectedValues: any[] | undefined, currentValue: string): boolean => {
       if (selectedValues) {
         return selectedValues.includes(currentValue);
@@ -122,9 +165,11 @@ function MakeSettings() {
                 <Element_Detail_Inner_Container>
                     <Element_Top_Container>
                         <Element_Title><MarkText>설문 인원을 작성해 주세요! (숫자만 기입)</MarkText></Element_Title>
+
                     </Element_Top_Container>
                     <Element_Bottom_Container>
                     <Element_Input value={headcount} onChange={handleheadcountChange} />
+                   
                     </Element_Bottom_Container>
                 </Element_Detail_Inner_Container>
              </Element_Detail_Container>
@@ -232,7 +277,6 @@ function MakeSettings() {
              </Element_Detail_Container>
               </>
             )}
-            <p>굿</p>
           </Survey_Detail_Container>
         </Survey_Inner_Container>
       </Survey_Container>
