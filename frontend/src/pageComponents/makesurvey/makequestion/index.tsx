@@ -4,12 +4,12 @@ import {Component_Container,Survey_Inner_Container,ImagePreiew_Box,ImagePreview,
 import Main_Image from '/public/survey/Main_Image.png'
 import Image from 'next/Image'
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
-import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
+import useSettingSurveyApiStore from '@/stores/makesurvey/useSettingSurveyApiStore';
 import axios from 'axios'
 
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
-  const {title,setTitle,titleContent,setTitleContent} = useMakeSurveyApiStore();
+  const {title,setTitle,titleContent,setTitleContent} = useSettingSurveyApiStore();
   const [imgUrl,setImgUrl] = useState('')
 
   const saveComponentDataToLocalStorage = (data: any) => {
@@ -62,7 +62,7 @@ function MakeQuestion() {
   const handleImageDelete = () => {
     setImgUrl('');
   };
-
+  console.log()
   return (
     
       <Survey_Container>

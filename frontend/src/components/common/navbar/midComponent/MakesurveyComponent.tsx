@@ -3,7 +3,7 @@ import React from "react";
 import { StyledText, StyledMidComp, StyledTitleInput } from "../Navbar.styled";
 import Image from "next/image";
 import Button from "@/components/button";
-import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
+import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiStore";
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 
 
@@ -18,7 +18,7 @@ const MakesruveyComponent = (props: any) => {
         endTime,
         type,
         surveyTarget,
-      } = useMakeSurveyApiStore(); 
+      } = useSettingSurveyApiStore(); 
       const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
       };

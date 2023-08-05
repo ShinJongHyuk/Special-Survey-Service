@@ -43,6 +43,7 @@ const Toolbar = () => {
       key: newComponentKey,
       index : index+1,
     };
+    index
     setSurveyComponents([...surveyComponents, newComponent]);
     setIndex(index);
   };

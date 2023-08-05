@@ -8,7 +8,7 @@ import Calendar from '/public/survey/Calendar.png'
 import People from '/public/survey/People.png'
 import Category from '/public/survey/Category.png'
 import Image from 'next/Image'
-import useMakeSurveyApiStore, {MakeSurveyApiState} from '../../../stores/makesurvey/useMakeSurveyApiStore';
+import useSettingSurveyApiStore from '../../../stores/makesurvey/useSettingSurveyApiStore';
 
 
 function MakeSettings() {
@@ -28,7 +28,7 @@ function MakeSettings() {
       setType,
       surveyTarget,
       setSurveyTarget,
-    } = useMakeSurveyApiStore(); 
+    } = useSettingSurveyApiStore(); 
 
 
     // 날짜 변환 함수
@@ -61,7 +61,7 @@ function MakeSettings() {
         const parsedStartTime = new Date(formattedDate);
         const parsedEndTime = new Date(endTime);
         if (parsedEndTime <= parsedStartTime) {
-          alert("시작 시간보다 마감 시간이 빠릅니다.");
+          alert("시작 시간보다 마감 시간 이 빠릅니다.");
           return
         } else {
           setStartTime(formattedDate)

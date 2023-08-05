@@ -12,6 +12,7 @@ import Image from 'next/image'
 import etc from '/public/survey/etc.png'
 import DragIcon from '/public/survey/DragIcon.png'
 import MultipleChoice from './multiplechoice';
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import CheckBox from './checkbox';
 import DropDown from './dropdown';
 import Dates from './dates';
@@ -19,6 +20,7 @@ import Time from './time';
 
 const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
     const {surveyComponents} = useSurveyStore();
+    const { surveyList, setSurveyList } = useMakeSurveyApiStore();
     const [surveyState,setSurveyState] = useState('multiplechoice')
     const [imgurl,setImgUrl] = useState('')
     const [selectedOption, setSelectedOption] = useState(''); 
@@ -26,7 +28,6 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     const [checked, setChecked] = useState(false); 
     const [headerText, setHeaderText] = useState('');
     const [headerDetailText, setHeaderDetailText] = useState('');
-
     const saveComponentDataToLocalStorage = (componentKey: string, data: any) => {
         localStorage.setItem(componentKey, JSON.stringify(data));
       };
@@ -45,11 +46,10 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
           setHeaderText(storedData.headerText);
           setHeaderDetailText(storedData.headerDetailText)
           setListOption(storedData.listOption)
-          setImgUrl(storedData.imgurl)
         }
       }, [componentKey]);
 
-    useEffect(() => {
+      useEffect(() => {
         const componentData = {
           surveyState,
           selectedOption,
@@ -57,11 +57,12 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
           headerText,
           headerDetailText,
           listOption,
-          imgurl,
-          
         };
         saveComponentDataToLocalStorage(componentKey, componentData);
-      }, [imgurl,surveyState, selectedOption, checked,headerText,headerDetailText,listOption]);
+        setSurveyList(index+1, componentData); 
+      }, [surveyState, selectedOption, checked, headerText, headerDetailText, listOption]);
+
+    console.log(surveyList)
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(e.target.checked)
