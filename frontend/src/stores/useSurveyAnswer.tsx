@@ -22,9 +22,6 @@ const useSurveyAnswerStore = create(
             }
             return state;
         }),
-        // setLinkNumber : (data:any) => set((state:any) => ({
-        //     linkNumber : [...state.linkNumber, data]
-        // })),
 
         removeLinkNumber : (data:any) => set((state:any) => {
             const NewLinkNumber = state.linkNumber.filter((element:any) => {
