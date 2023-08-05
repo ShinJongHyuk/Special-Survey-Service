@@ -47,7 +47,6 @@ const SurveyAnswer = (props:any) => {
             headCount={surveyInformation?.headCount}
             ></ProgressBar>
             {questions && questions.map((question:questionType) => {
-                // console.log(question)
                 return (
                 <Question
                     key={question.id}
@@ -60,10 +59,6 @@ const SurveyAnswer = (props:any) => {
                    
                 )
             })}
-            {/* <Question type="multiplechoice"></Question>
-            <Question type="checkbox"></Question>
-            <Question type="shortform"></Question>
-            <Question type="longform"></Question> */}
         </SurveyAnswerPage>
     )
 }
