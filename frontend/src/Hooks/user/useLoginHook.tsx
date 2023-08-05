@@ -90,11 +90,6 @@ export const useLoginHook = () => {
             try {
                 const res = await loginPost(user)
                 if (res.data.success === true) {
-                    console.log("true")
-                    localStorage.setItem("email", user.email)
-                    localStorage.setItem("password", user.password)
-                    localStorage.setItem("accessToken", res.data.response.accessToken)
-                    localStorage.setItem("refreshToken", res.data.response.refreshToken)
                     login();
                     
                     if (isRemember) {
@@ -106,6 +101,7 @@ export const useLoginHook = () => {
                     await setUserInformation(response.data.response);
                     
                     await router.push('/')
+                    alert('로그인에 성공하였습니다.')
                 } else if (res.data.success === false) {
                     alert(res.data.apiError.message)
                 }
