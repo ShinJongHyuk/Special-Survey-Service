@@ -4,7 +4,6 @@ import { StyledBanner, StyledText } from "./Banner.styled";
 import Image from "next/image";
 import useUserStore from "@/stores/useUserStore";
 const Banner = () => {
-
   const userInformation = useUserStore((state: any) => state.userInformation);
 
   const genderInfo: any = {
@@ -24,13 +23,7 @@ const Banner = () => {
     <div style={{ backgroundColor: "#FFF129", height: "230px" }}>
       <StyledBanner>
         <div style={{ width: "30%", textAlign: "right" }}>
-          <Image
-            src={genderInfo[userGender].img}
-            alt="man"
-            width={120}
-            height={120}
-            style={{ border: "1px solid black", borderRadius: "50%" }}
-          />
+          <Image src={genderInfo[userGender].img} alt="man" width={120} height={120} style={{ border: "1px solid black", borderRadius: "50%" }} />
         </div>
         <StyledText style={{ width: "30%" }}>
           <div className="email">{userInformation.email}</div>

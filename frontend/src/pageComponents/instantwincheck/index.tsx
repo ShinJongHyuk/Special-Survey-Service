@@ -1,17 +1,16 @@
 "use client";
-import { StyledTitleBox, StyledBox, StyledWinBox } from "./InstantWinConfirm.styled";
+import { StyledTitleBox, StyledBox, StyledWinBox } from "./Wincheck";
 import Button from "@/components/button";
 import { useRouter } from "next/navigation";
-import useScratchHook from "@/Hooks/instantwinconfirm/useScratchHook";
-import useUserStore from "@/stores/useUserStore";
-import instantWinConfirmGet from "@/api/win/instantWinConfirmGet";
+import useScratchHook from "@/Hooks/wincheck/useScratchHook";
+import instantwinCheckGet from "@/api/win/instantwinCheckGet";
 import { useEffect, useState } from "react";
 
-const InstantWinConfirm = (props: any) => {
+const Instantwincheck = (props: any) => {
   const [winConfirm, setWinConfirm] = useState<any>([]);
   useEffect(() => {
     const fetchList = async () => {
-      const data = await instantWinConfirmGet(props.surveyid);
+      const data = await instantwinCheckGet(props.surveyid);
       setWinConfirm(data);
       console.log("data : ", data);
     };
@@ -19,8 +18,8 @@ const InstantWinConfirm = (props: any) => {
   }, []);
 
   const images: { [key: string]: string } = {
-    chicken: "/card/chicken.png",
-    coffee: "/card/coffee.png",
+    CHICKEN: "/card/chicken.png",
+    COFFEE: "/card/coffee.png",
   };
   const imgsrc = images[props.giveaways];
 
@@ -45,7 +44,7 @@ const InstantWinConfirm = (props: any) => {
           {isCanvasLoaded &&
             (winConfirm.win ? (
               <div style={{ position: "absolute", width: "140px", height: "140px", zIndex: "0" }}>
-                <img src="/card/chicken.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+                <img src={imgsrc} style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
               </div>
             ) : (
               <div style={{ position: "absolute", width: "300px", height: "120px", zIndex: "0" }}>
@@ -75,4 +74,4 @@ const InstantWinConfirm = (props: any) => {
   );
 };
 
-export default InstantWinConfirm;
+export default Instantwincheck;

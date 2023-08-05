@@ -1,12 +1,13 @@
 import api from "../api";
 
-const instantWinConfirmGet = async (surveyid: any) => {
+const myGiveawayCheckPatch = async (giveawayid: any) => {
   try {
-    const response = await api.get("/user/survey/" + surveyid, {
+    const response = await api.patch(`/user/survey-result/check/` + giveawayid, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     });
+    console.log("myGiveawayCheckPath : ", response);
     return response.data.response;
   } catch (error) {
     console.error("Error: ", error);
@@ -14,4 +15,4 @@ const instantWinConfirmGet = async (surveyid: any) => {
   }
 };
 
-export default instantWinConfirmGet;
+export default myGiveawayCheckPatch;
