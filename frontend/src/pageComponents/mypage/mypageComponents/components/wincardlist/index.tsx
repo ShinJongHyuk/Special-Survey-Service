@@ -4,13 +4,18 @@ import Wincard from "./wincard/Wincard";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Modal from "@/components/modal";
+import myGiveawayCheckPatch from "@/api/win/myGiveawayCheckPatch";
 
 const WinCardlist = (props: any) => {
   const lists = props.winConfirmList;
 
   const [isOpen, setIsOpen] = useState(false);
-  const [toModalData, setToModalData] = useState({ giveawayType: "", win: "" });
+  const [toModalData, setToModalData] = useState({ surveyid: "", giveawayType: "", win: "" });
   const router = useRouter();
+
+  const fetchList = async () => {
+    await myGiveawayCheckPatch(toModalData.surveyid);
+  };
 
   console.log(lists);
   return (
@@ -27,15 +32,25 @@ const WinCardlist = (props: any) => {
               answerdatetime={list.answerDateTime}
               // onClick={() => router.push("/mywincheck/" + list.giveawayId)} // 모바일에서 사용
               onClick={() => {
-                setIsOpen(true);
-                setToModalData({ giveawayType: list.giveawayType, win: list.win.toString() });
+                if (list.userCheck.toString() !== "true") {
+                  setIsOpen(true);
+                  setToModalData({ surveyid: list.surveyid, giveawayType: list.giveawayType, win: list.win.toString() });
+                }
               }}
             />
           </div>
         </div>
       ))}
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} giveawayType={toModalData.giveawayType} win={toModalData.win} />
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+          fetchList();
+        }}
+        giveawayType={toModalData.giveawayType}
+        win={toModalData.win}
+      />
     </StyledList>
   );
 };

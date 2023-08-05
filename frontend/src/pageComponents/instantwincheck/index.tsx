@@ -28,7 +28,7 @@ const Instantwincheck = (props: any) => {
     router.push("/");
   };
 
-  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png");
+  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png", true);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>

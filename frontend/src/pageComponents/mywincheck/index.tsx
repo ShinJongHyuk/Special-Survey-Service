@@ -34,8 +34,6 @@ const Mywincheck = (props: any) => {
     router.push("/mypage");
   };
 
-  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png");
-
   return (
     <></>
     // <div style={{ position: "relative", width: "100%", height: "100vh" }}>
