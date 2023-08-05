@@ -9,7 +9,7 @@ const WinCardlist = (props: any) => {
   const lists = props.winConfirmList;
 
   const [isOpen, setIsOpen] = useState(false);
-  const [toModalData, SetToModalData] = useState({ giveawayType: "", win: "" });
+  const [toModalData, setToModalData] = useState({ giveawayType: "", win: "" });
   const router = useRouter();
 
   console.log(lists);
@@ -28,7 +28,7 @@ const WinCardlist = (props: any) => {
               // onClick={() => router.push("/mywincheck/" + list.giveawayId)} // 모바일에서 사용
               onClick={() => {
                 setIsOpen(true);
-                SetToModalData({ giveawayType: list.giveawayType, win: list.win.toString() });
+                setToModalData({ giveawayType: list.giveawayType, win: list.win.toString() });
               }}
             />
           </div>

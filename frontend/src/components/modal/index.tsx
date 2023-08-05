@@ -11,7 +11,7 @@ const Modal = (props: ModalType) => {
   };
 
   const imgsrc = images[props.giveawayType];
-  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png");
+  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png", props.isOpen);
 
   return props.isOpen ? (
     <StyledModal>
@@ -34,8 +34,6 @@ const Modal = (props: ModalType) => {
           ))}
         <canvas
           ref={canvasRef}
-          width={360}
-          height={140}
           onMouseDown={() => {
             mouseDown.current = true;
           }}
