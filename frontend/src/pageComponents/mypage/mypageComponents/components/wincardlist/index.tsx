@@ -7,9 +7,6 @@ const WinCardlist = (props: any) => {
   const lists = props.winConfirmList;
 
   const router = useRouter();
-  const goConfirm = () => {
-    console.log("당첨확인페이지로 이동");
-  };
 
   return (
     <StyledList>
@@ -20,10 +17,10 @@ const WinCardlist = (props: any) => {
               surveytitle={list.surveyTitle}
               surveywriter={list.surveyWriter}
               usercheck={list.userCheck}
-              win={list.win}
+              win={list.win.toString()}
               giveawaytype={list.giveawayType}
               answerdatetime={list.answerDateTime}
-              onClick={goConfirm}
+              onClick={() => router.push("/mywincheck/" + list.giveawayId)}
             />
           </div>
         </div>
