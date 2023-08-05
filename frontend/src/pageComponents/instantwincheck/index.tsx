@@ -28,15 +28,15 @@ const Instantwincheck = (props: any) => {
     router.push("/");
   };
 
-  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/instantwin/board.png");
+  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png");
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>
-      <img src="/instantwin/instantwin.png" style={{ position: "absolute", width: "100%", height: "100%", zIndex: "-1" }}></img>
+      <img src="/wincheck/instantwin.png" style={{ position: "absolute", width: "100%", height: "100%", zIndex: "-1" }}></img>
 
       <StyledBox>
         <StyledTitleBox>
-          <img src="/instantwin/money.png" style={{ width: "70px", height: "70px" }} alt="money" />
+          <img src="/wincheck/money.png" style={{ width: "70px", height: "70px" }} alt="money" />
           <div className="title"> 즉시 당첨 확인하기 </div>
           <div className="subtitle"> 당첨여부를 확인하고 상품을 받아가세요! </div>
         </StyledTitleBox>
@@ -48,7 +48,7 @@ const Instantwincheck = (props: any) => {
               </div>
             ) : (
               <div style={{ position: "absolute", width: "300px", height: "120px", zIndex: "0" }}>
-                <img src="/instantwin/bomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+                <img src="/wincheck/bomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
               </div>
             ))}
           <canvas
