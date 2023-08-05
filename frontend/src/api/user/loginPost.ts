@@ -8,6 +8,13 @@ const loginPost = async (user:any) => {
         ...user
       }
     })
+    if (res.data.success === true) {
+      console.log("true")
+      localStorage.setItem("email", user.email)
+      localStorage.setItem("password", user.password)
+      localStorage.setItem("accessToken", res.data.response.accessToken)
+      localStorage.setItem("refreshToken", res.data.response.refreshToken)
+    } 
       return res
   } 
 
