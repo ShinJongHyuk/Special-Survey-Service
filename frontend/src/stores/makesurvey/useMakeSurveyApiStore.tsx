@@ -1,54 +1,54 @@
 import create from 'zustand';
 
 export interface MakeSurveyApiState {
-    titleText?: string;
+    title?: string;
     titleContent?: string;
     conditionText?: string;
     conditionContent?: string;
     conditionVisible?: boolean;
-    headcount?: string;
-    startsurvey?: any;
-    endsurvey?: any;
-    selectedbutton?: string;
-    targetselected?: any[];
-    setTitleText: (value: string)=> void;
+    closedHeadCount?: number;
+    startTime?: any;
+    endTime?: any;
+    type?: string;
+    surveyTarget?: any[];
+    setTitle: (value: string)=> void;
     setTitleContent: (value: string) => void;
     setConditionText: (value: string) => void;
     setConditionContent: (value: string) => void;
-    setHeadcount: (value: string) => void;
-    setStartsurvey: (value: any) => void;
-    setEndsurvey: (value: any) => void;
-    setSelectedbutton: (value: string) => void;
-    setTargetSelected: (value: any) => void;
+    setClosedHeadCount: (value: string) => void;
+    setStartTime: (value: any) => void;
+    setEndTime: (value: any) => void;
+    setType: (value: string) => void;
+    setSurveyTarget: (value: any) => void;
   };
 
 const useMakeSurveyApiStore = create<MakeSurveyApiState>((set) => ({
-  titleText: '',
+  title: '',
   titleContent: '',
   conditionText: '',
   conditionContent: '',
-  headcount: '',
-  startsurvey: '',
-  endsurvey: '',
-  selectedbutton: '',
-  targetselected: [],
-  setTitleText: (value) => set({ titleText: value }),
+  closedHeadCount: 0,
+  startTime: '',
+  endTime: '',
+  type: '',
+  surveyTarget: [],
+  setTitle: (value) => set({ title: value }),
   setTitleContent: (value) => set({ titleContent: value }),
   setConditionText: (value) => set({ conditionText: value }),
   setConditionContent: (value) => set({ conditionContent: value }),
-  setHeadcount: (value) => set({ headcount: value }),
-  setStartsurvey: (value) => set({ startsurvey: value }),
-  setEndsurvey: (value) => set({ endsurvey: value }),
-  setSelectedbutton: (value) => set({ selectedbutton: value }),
-  setTargetSelected: (value) => {
+  setClosedHeadCount: (value) => set({ closedHeadCount: parseInt(value) }),
+  setStartTime: (value) => set({ startTime: value }),
+  setEndTime: (value) => set({ endTime: value }),
+  setType: (value) => set({ type: value }),
+  setSurveyTarget: (value) => {
     set((state : any) => {
-      const index = state.targetselected.indexOf(value);
+      const index = state.surveyTarget.indexOf(value);
       if (index !== -1) {
-        const updatedTargetSelected = state.targetselected.filter((category : string) => category !== value);
-        return { targetselected: updatedTargetSelected };
+        const updatedsurveyTarget = state.surveyTarget.filter((category : string) => category !== value);
+        return { surveyTarget: updatedsurveyTarget };
       } else {
-        const updatedTargetSelected = [...state.targetselected, value];
-        return { targetselected: updatedTargetSelected };
+        const updatedsurveyTarget = [...state.surveyTarget, value];
+        return { surveyTarget: updatedsurveyTarget };
       }
     });
   },

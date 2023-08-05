@@ -14,119 +14,155 @@ import useMakeSurveyApiStore, {MakeSurveyApiState} from '../../../stores/makesur
 function MakeSettings() {
     const [conditionVisible, setConditionVisible] = useState(false); 
     const {
-      titleText,
-      setTitleText,
+      title,
+      setTitle,
       titleContent,
       setTitleContent,
-      headcount,
-      setHeadcount,
-      startsurvey,
-      setStartsurvey,
-      endsurvey,
-      setEndsurvey,
-      selectedbutton,
-      setSelectedbutton,
-      targetselected,
-      setTargetSelected,
+      closedHeadCount,
+      setClosedHeadCount,
+      startTime,
+      setStartTime,
+      endTime,
+      setEndTime,
+      type,
+      setType,
+      surveyTarget,
+      setSurveyTarget,
     } = useMakeSurveyApiStore(); 
+
+
+    // 날짜 변환 함수
+    function formatNumber(number : number) {
+      return number.toString().padStart(2, '0');
+    }
 
     const toggleCondition = () => {
       setConditionVisible(!conditionVisible);
     };
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setTitleText(event.target.value);
+      setTitle(event.target.value);
 
     };
     const handleTitleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setTitleContent(event.target.value);
     };
     
-    const handleheadcountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleClosedHeadCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
       const onlyNumber = value.replace(/[^0-9]/g, '');
-      setHeadcount(onlyNumber);
+      setClosedHeadCount(onlyNumber);
     };
-    const handlestartsurveyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setStartsurvey(event.target.value);
+    const handleStartTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      const parsedDate = new Date(value);
+      const formattedDate = `${parsedDate.getFullYear()}-${formatNumber(parsedDate.getMonth() + 1)}-${formatNumber(parsedDate.getDate())} ${formatNumber(parsedDate.getHours())}:${formatNumber(parsedDate.getMinutes())}`;
+      if (endTime) {
+        const parsedStartTime = new Date(formattedDate);
+        const parsedEndTime = new Date(endTime);
+        if (parsedEndTime <= parsedStartTime) {
+          alert("시작 시간보다 마감 시간이 빠릅니다.");
+          return
+        } else {
+          setStartTime(formattedDate)
+        }
+      } else {
+          setStartTime(formattedDate)
+      }
     };
 
-    const handleendsurveyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEndsurvey(event.target.value);
+    const handleEndTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      const parsedDate = new Date(value);
+      const formattedDate = `${parsedDate.getFullYear()}-${formatNumber(parsedDate.getMonth() + 1)}-${formatNumber(parsedDate.getDate())} ${formatNumber(parsedDate.getHours())}:${formatNumber(parsedDate.getMinutes())}`;
+
+      if (startTime) {
+        const parsedStartTime = new Date(startTime);
+        const parsedEndTime = new Date(formattedDate);
+        if (parsedEndTime <= parsedStartTime) {
+          alert("시작 시간보다 마감 시간이 빠릅니다.");
+          return
+        } else {
+          setEndTime(formattedDate)
+        }
+      } else {
+        alert("시작 시간을 먼저 선택해주세요!");   
+      }   
     };
+
     const handleButtonClick = (alt : any) => {
-      setSelectedbutton(alt);
+      setType(alt);
     };
+
     //하드 코딩,, 나중에 리팩토링
     const handleTargetButtonClick = (Category: string) => {
       if (Category === "GENDER_ALL") {
 
-          if (targetselected) {
-            if (targetselected.includes("MAN")) {
-                setTargetSelected("MAN")
+          if (surveyTarget) {
+            if (surveyTarget.includes("MAN")) {
+                setSurveyTarget("MAN")
             } 
-            if (targetselected.includes("WOMAN")) {
+            if (surveyTarget.includes("WOMAN")) {
               {
-                setTargetSelected("WOMAN")
+                setSurveyTarget("WOMAN")
               }
             }
-            setTargetSelected("MAN");
-            setTargetSelected("WOMAN");
+            setSurveyTarget("MAN");
+            setSurveyTarget("WOMAN");
           }
           else {
-            setTargetSelected("MAN");
-            setTargetSelected("WOMAN");
+            setSurveyTarget("MAN");
+            setSurveyTarget("WOMAN");
           }
         }
       else if (Category === "AGE_ALL") {
-        if (targetselected) {
-          if (targetselected.includes("UNDER_TEENS")) {
-              setTargetSelected("UNDER_TEENS")
+        if (surveyTarget) {
+          if (surveyTarget.includes("UNDER_TEENS")) {
+              setSurveyTarget("UNDER_TEENS")
           } 
-          if (targetselected.includes("TEENS")) {
+          if (surveyTarget.includes("TEENS")) {
             {
-              setTargetSelected("TEENS")
+              setSurveyTarget("TEENS")
             }
           }
-          if (targetselected.includes("TWENTIES")) {
+          if (surveyTarget.includes("TWENTIES")) {
             {
-              setTargetSelected("TWENTIES")
+              setSurveyTarget("TWENTIES")
             }
           }
-          if (targetselected.includes("THIRTIES")) {
+          if (surveyTarget.includes("THIRTIES")) {
             {
-              setTargetSelected("THIRTIES")
+              setSurveyTarget("THIRTIES")
             }
           }
-          if (targetselected.includes("FORTIES")) {
+          if (surveyTarget.includes("FORTIES")) {
             {
-              setTargetSelected("FORTIES")
+              setSurveyTarget("FORTIES")
             }
           }
-          if (targetselected.includes("FIFTIES")) {
+          if (surveyTarget.includes("FIFTIES")) {
             {
-              setTargetSelected("FIFTIES")
+              setSurveyTarget("FIFTIES")
             }
           }
-          if (targetselected.includes("SIXTIES")) {
+          if (surveyTarget.includes("SIXTIES")) {
             {
-              setTargetSelected("SIXTIES")
+              setSurveyTarget("SIXTIES")
             }
           }
-          setTargetSelected("UNDER_TEENS")
-          setTargetSelected("TEENS")
-          setTargetSelected("TWENTIES")
-          setTargetSelected("THIRTIES")
-          setTargetSelected("FORTIES")
-          setTargetSelected("FIFTIES")
-          setTargetSelected("SIXTIES")
+          setSurveyTarget("UNDER_TEENS")
+          setSurveyTarget("TEENS")
+          setSurveyTarget("TWENTIES")
+          setSurveyTarget("THIRTIES")
+          setSurveyTarget("FORTIES")
+          setSurveyTarget("FIFTIES")
+          setSurveyTarget("SIXTIES")
         }
       } else {
-        setTargetSelected(Category);
+        setSurveyTarget(Category);
       }
     }
     
-    console.log(targetselected)
     const isSelected = (selectedValues: any[] | undefined, currentValue: string): boolean => {
       if (selectedValues) {
         return selectedValues.includes(currentValue);
@@ -134,13 +170,13 @@ function MakeSettings() {
       return false;
     };
     
-    console.log(targetselected)
+
     return (
       <Survey_Container>
         <Survey_Inner_Container>
           <Survey_Title_Container>
             <Title_Inner_Container>
-                <Title_input onChange={handleTitleChange} value={titleText} />
+                <Title_input onChange={handleTitleChange} value={title} />
                 <Title_Content onChange={handleTitleContentChange} value={titleContent} />
             </Title_Inner_Container>
           </Survey_Title_Container>
@@ -168,7 +204,7 @@ function MakeSettings() {
 
                     </Element_Top_Container>
                     <Element_Bottom_Container>
-                    <Element_Input value={headcount} onChange={handleheadcountChange} />
+                    <Element_Input value={closedHeadCount} onChange={handleClosedHeadCountChange} />
                    
                     </Element_Bottom_Container>
                 </Element_Detail_Inner_Container>
@@ -190,40 +226,40 @@ function MakeSettings() {
                       <Element_Bottom_Container>
                         <Element_Detail_Title>성별</Element_Detail_Title>
                           <Condition_Select_Container>
-                                <Target_Button selected={isSelected(targetselected, "MAN")} targetselected={"MAN"} onClick={() => handleTargetButtonClick("MAN")}>
+                                <Target_Button selected={isSelected(surveyTarget, "MAN")} surveyTarget={"MAN"} onClick={() => handleTargetButtonClick("MAN")}>
                                   남성 
                                 </Target_Button>
-                                <Target_Button selected={isSelected(targetselected, "WOMAN")} targetselected={"WOMAN"} onClick={() => handleTargetButtonClick("WOMAN")}>
+                                <Target_Button selected={isSelected(surveyTarget, "WOMAN")} surveyTarget={"WOMAN"} onClick={() => handleTargetButtonClick("WOMAN")}>
                                   여성
                                 </Target_Button>
-                                <Target_Button selected={isSelected(targetselected, "GENDER_ALL")} targetselected={"GENDER_ALL"} onClick={() => handleTargetButtonClick("GENDER_ALL")}>
+                                <Target_Button selected={isSelected(surveyTarget, "GENDER_ALL")} surveyTarget={"GENDER_ALL"} onClick={() => handleTargetButtonClick("GENDER_ALL")}>
                                   성별 무관
                                 </Target_Button>
                           </Condition_Select_Container>
                         <Element_Detail_Title>나이</Element_Detail_Title>
                           <Condition_Select_Container>
-                            <Target_Button selected={isSelected(targetselected, "UNDER_TEENS")} targetselected={"UNDER_TEENS"} onClick={() => handleTargetButtonClick("UNDER_TEENS")}>
+                            <Target_Button selected={isSelected(surveyTarget, "UNDER_TEENS")} surveyTarget={"UNDER_TEENS"} onClick={() => handleTargetButtonClick("UNDER_TEENS")}>
                               10세 이하
                             </Target_Button>
-                            <Target_Button selected={isSelected(targetselected, "TEENS")} targetselected={"TEENS"} onClick={() => handleTargetButtonClick("TEENS")}>
+                            <Target_Button selected={isSelected(surveyTarget, "TEENS")} surveyTarget={"TEENS"} onClick={() => handleTargetButtonClick("TEENS")}>
                               10대
                             </Target_Button>
-                            <Target_Button selected={isSelected(targetselected, "TWENTIES")} targetselected={"TWENTIES"} onClick={() => handleTargetButtonClick("TWENTIES")}>
+                            <Target_Button selected={isSelected(surveyTarget, "TWENTIES")} surveyTarget={"TWENTIES"} onClick={() => handleTargetButtonClick("TWENTIES")}>
                               20대
                             </Target_Button>
-                            <Target_Button selected={isSelected(targetselected, "THIRTIES")} targetselected={"THIRTIES"} onClick={() => handleTargetButtonClick("THIRTIES")}>
+                            <Target_Button selected={isSelected(surveyTarget, "THIRTIES")} surveyTarget={"THIRTIES"} onClick={() => handleTargetButtonClick("THIRTIES")}>
                               30대
                             </Target_Button>
-                            <Target_Button selected={isSelected(targetselected, "FORTIES")} targetselected={"FORTIES"} onClick={() => handleTargetButtonClick("FORTIES")}>
+                            <Target_Button selected={isSelected(surveyTarget, "FORTIES")} surveyTarget={"FORTIES"} onClick={() => handleTargetButtonClick("FORTIES")}>
                               40대
                             </Target_Button>
-                            <Target_Button selected={isSelected(targetselected, "FIFTIES")} targetselected={"FIFTIES"} onClick={() => handleTargetButtonClick("FIFTIES")}>
+                            <Target_Button selected={isSelected(surveyTarget, "FIFTIES")} surveyTarget={"FIFTIES"} onClick={() => handleTargetButtonClick("FIFTIES")}>
                               50대
                             </Target_Button>
-                            <Target_Button selected={isSelected(targetselected, "SIXTIES")} targetselected={"SIXTIES"} onClick={() => handleTargetButtonClick("SIXTIES")}>
+                            <Target_Button selected={isSelected(surveyTarget, "SIXTIES")} surveyTarget={"SIXTIES"} onClick={() => handleTargetButtonClick("SIXTIES")}>
                               60대 이상
                             </Target_Button>
-                            <Target_Button selected={isSelected(targetselected, "AGE_ALL")} targetselected={"AGE_ALL"} onClick={() => handleTargetButtonClick("AGE_ALL")}>
+                            <Target_Button selected={isSelected(surveyTarget, "AGE_ALL")} surveyTarget={"AGE_ALL"} onClick={() => handleTargetButtonClick("AGE_ALL")}>
                               나이 무관
                             </Target_Button>
                           </Condition_Select_Container>
@@ -243,11 +279,11 @@ function MakeSettings() {
                           
                       </Element_Top_Container>
                       <Element_Bottom_Row_Container>
-                        <Bottom_Type1_Container selected={selectedbutton} onClick={() => handleButtonClick("NORMAL")}>
+                        <Bottom_Type1_Container selected={type} onClick={() => handleButtonClick("NORMAL")}>
                           <Image src="/card/whatshot.svg" width={50} height={50} alt="NORMAL" />
                           타임어택
                         </Bottom_Type1_Container>
-                        <Bottom_Type2_Container selected={selectedbutton} onClick={() => handleButtonClick("INSTANT_WIN"
+                        <Bottom_Type2_Container selected={type} onClick={() => handleButtonClick("INSTANT_WIN"
                         )}>
                           <Image src="/card/bolt.svg" width={50} height={50} alt="instant" />
                           즉시당첨
@@ -268,10 +304,10 @@ function MakeSettings() {
                       </Element_Top_Container>
                       <Element_Bottom_Container>
                         <Element_Detail_Title>시작</Element_Detail_Title>
-                        <Element_Input type={'datetime-local'} value={startsurvey} onChange={handlestartsurveyChange} />
+                        <Element_Input type={'datetime-local'} value={startTime} onChange={handleStartTimeChange} />
                         <hr/>
                         <Element_Detail_Title>마감</Element_Detail_Title>
-                        <Element_Input type={'datetime-local'} value={endsurvey} onChange={handleendsurveyChange} />
+                        <Element_Input type={'datetime-local'} value={endTime} onChange={handleEndTimeChange} />
                       </Element_Bottom_Container>
                   </Element_Detail_Inner_Container>
              </Element_Detail_Container>

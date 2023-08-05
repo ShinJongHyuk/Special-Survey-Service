@@ -9,7 +9,7 @@ import axios from 'axios'
 
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
-  const {titleText,setTitleText,titleContent,setTitleContent} = useMakeSurveyApiStore();
+  const {title,setTitle,titleContent,setTitleContent} = useMakeSurveyApiStore();
   const [imgUrl,setImgUrl] = useState('')
 
   const saveComponentDataToLocalStorage = (data: any) => {
@@ -36,7 +36,7 @@ function MakeQuestion() {
     }, [imgUrl]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitleText(event.target.value);
+    setTitle(event.target.value);
   };
   const handleTitleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitleContent(event.target.value);
@@ -69,7 +69,7 @@ function MakeQuestion() {
         <Survey_Inner_Container>
         <Survey_Title_Container>
           <Title_Inner_Container>
-            <Title_input onChange={handleTitleChange} value={titleText} />
+            <Title_input onChange={handleTitleChange} value={title} />
             <Title_Content onChange={handleTitleContentChange} value={titleContent} />
           </Title_Inner_Container>
         </Survey_Title_Container>
