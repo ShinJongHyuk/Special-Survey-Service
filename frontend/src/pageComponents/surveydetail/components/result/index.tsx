@@ -1,14 +1,5 @@
 "use client";
-import {
-  SurveyResultComent,
-  StyledImg,
-  StyledMsg,
-  HighLightFont,
-  PercentageContainer,
-  Percentage,
-  PercentageCard,
-  PercentageElement,
-} from "./Result.styled";
+import { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard } from "./Result.styled";
 import Image from "next/image";
 
 const ResultComponent = (props: any) => {
