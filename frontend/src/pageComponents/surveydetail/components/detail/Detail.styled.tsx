@@ -106,7 +106,7 @@ const SurveyInformationContent = styled.div.attrs<any>((props) => ({}))`
 const SurveyCard = styled.div.attrs<any>((props) => ({}))`
   display: flex;
   padding: 15px 20px;
-  width: 140px;
+  min-width: 130px;
   height: 90px;
   flex-direction: column;
   align-items: flex-end;
@@ -138,22 +138,6 @@ const SurveyCardText = styled.div.attrs<any>((props) => ({}))`
     font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
   }
 `;
-// ----------------------------
-
-const SurveyCardContentHangeul = styled.div.attrs<any>((props) => ({}))`
-  color: ${(props) => props.theme.colors.black};
-  font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-  font-size: ${(props) => props.theme.fontSizes.medium};
-  display: flex;
-  justify-content: flex-end;
-  height: 30px;
-  align-items: flex-end;
-`;
-const SurveyCardContainer = styled.div.attrs<any>((props) => ({}))`
-  display: flex;
-  align-items: flex-end;
-  gap: 15px;
-`;
 
 const SurveyCardTime = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => props.theme.colors.black};
@@ -164,14 +148,6 @@ const SurveyCardTime = styled.div.attrs<any>((props) => ({}))`
   justify-content: flex-end;
   height: 30px;
   align-items: flex-end;
-`;
-
-const ButtonAndShare = styled.div.attrs<any>((props) => ({}))`
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  width: 450px;
-  height: 48px;
 `;
 
 export {
@@ -187,7 +163,4 @@ export {
   SurveyCardTitle,
   SurveyCardText,
   SurveyCardTime,
-  SurveyCardContentHangeul,
-  SurveyCardContainer,
-  ButtonAndShare,
 };

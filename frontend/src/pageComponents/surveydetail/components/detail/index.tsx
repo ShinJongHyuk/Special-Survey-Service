@@ -10,20 +10,16 @@ import {
   SurveyCardTitle,
   SurveyCardText,
   SurveyCardTime,
-  SurveyCardContentHangeul,
-  SurveyCardContainer,
-  ButtonAndShare,
 } from "./Detail.styled";
 
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
 import { DetailProps } from "./Detail.type";
+import useTimerHook from "@/Hooks/card/useTimerHook";
+import { useEffect, useState } from "react";
 
 const DetailComponent = (props: DetailProps) => {
-  // const detail = props.detailProps;
-  // console.log("detail: ", detail);
-
   const formatDate = (datetime: string) => {
     const date = new Date(datetime);
     // return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
@@ -33,17 +29,32 @@ const DetailComponent = (props: DetailProps) => {
   const endtimestr = formatDate(props.endtime);
   const starttimestr = formatDate(props.starttime);
 
+  const now = moment();
+  const endTime = moment(props.endtime, "YYYY-MM-DD-HH-mm");
+  const isExpired = now.isAfter(endTime);
   let typeName = "일 반";
   if (props.type === "INSTANT_WIN") {
     typeName = "즉시당첨";
   } else if (props.type === "NORMAL") {
-    const now = moment();
-    const endTime = moment(props.endtime, "YYYY-MM-DD-HH-mm");
     const diffHours = endTime.diff(now, "hours");
     if (diffHours < 24) {
       typeName = "타임어택";
     }
   }
+
+  const [remaintime, setRemainTime] = useState("00분, 00초");
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRemainTime(useTimerHook(props.endtime));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [props.endtime]);
+
+  const [unit1, unit2] = remaintime ? remaintime.split(", ") : ["00분", "00초"];
+  const [value1, label1] = unit1.split(":");
+  const [value2, label2] = unit2.split(":");
 
   return (
     <StyledDetailContainer>
@@ -130,18 +141,31 @@ const DetailComponent = (props: DetailProps) => {
 
           <SurveyCard>
             <SurveyCardTitle>남은 시간</SurveyCardTitle>
-            <SurveyCardTime>{}</SurveyCardTime>
+            <SurveyCardTime>
+              <div>
+                <span>{value1}</span>
+                <span>{label1}</span>
+              </div>
+              <div style={{ paddingLeft: "8px" }}>
+                <span>{value2}</span>
+                <span>{label2}</span>
+              </div>
+            </SurveyCardTime>
           </SurveyCard>
         </div>
 
-        <ButtonAndShare>
+        <div style={{ display: "flex", gap: "12px" }}>
           <Image src="/surveyDetail/shareIcon.png" alt="share" width={48} height={48}></Image>
-          {props.type === "타임어택" ? (
-            <Button use="detailTimeAttack" label="지금 응답하기"></Button>
+          {!isExpired ? (
+            props.type === "NORMAL" ? (
+              <Button use="purple" label="지금 응답하기"></Button>
+            ) : (
+              <Button use="longYellow" label="지금 응답하기"></Button>
+            )
           ) : (
-            <Button use="longYellow" label="지금 응답하기"></Button>
+            <Button use="bgGray" label="마감된 설문입니다."></Button>
           )}
-        </ButtonAndShare>
+        </div>
       </StyledSurveyContent>
     </StyledDetailContainer>
   );
