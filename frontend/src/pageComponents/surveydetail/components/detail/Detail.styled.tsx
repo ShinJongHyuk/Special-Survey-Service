@@ -1,147 +1,166 @@
-import styled from 'styled-components'
+import styled, { css } from "styled-components";
 
-const SurveyDetailContainer = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    width: 100%;
-    padding: 20px 300px 40px 300px;
-    gap: 136px;
-    justify-content: space-between;
-    background-color: ${(props) => props.theme.colors.white};
-`
+const StyledDetailContainer = styled.div.attrs<any>((props) => ({}))`
+  display: flex;
+  width: 100%;
+  padding: 0px 0px 40px 0px;
+  gap: 66px;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.white};
+`;
 
-const SurveyContent = styled.div.attrs<any>((props) => ({}))`
-    height: 600px;
-    width: 450px;
-    padding: 20px 0px;
-`
+const StyledSurveyContent = styled.div.attrs<any>((props) => ({}))`
+  width: 450px;
+  padding: 20px 0px;
 
-const SurveyTitle =styled.div.attrs<any>((props) => ({}))`
-    width: 100%;
-    color: ${(props) => props.theme.colors.black};
-    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
-    font-size: ${(props) => props.theme.fontSizes.xlarge};
-    margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
 
-`
+const StyledTag = styled.div.attrs<any>((props) => ({}))`
+  ${(props) => {
+    const type = props.type;
 
-const SurveyProfile = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    align-items: center;
-    gap: 8px;
-`
+    const lightpurple = "linear-gradient(0deg, rgba(168, 140, 255, 0.2) 0%, rgba(168, 140, 255, 0.2) 100%), #fff";
+    const lightyellow = "linear-gradient(0deg, rgba(255, 241, 41, 0.30) 0%, rgba(255, 241, 41, 0.30) 100%), #FFF";
+    const bgcolor = type === "NORMAL" ? lightpurple : lightyellow;
 
-const SurveyProfileName = styled.div.attrs<any>((props) => ({}))`
-    color: ${(props) => props.theme.colors.gray};
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-`
+    const bcolor = type === "NORMAL" ? "rgba(168, 140, 255, 0.10)" : "rgba(255, 241, 41, 0.20)";
+    const color = type === "NORMAL" ? props.theme.colors.blue : props.theme.colors.orange;
+    const font = props.theme.fonts.HangeulFontSemiBold;
+    const xsmall = props.theme.fontSizes.xsmall;
+    return css`
+      display: flex;
+
+      padding: 4px 6px 4px 4px;
+      align-items: center;
+      justify-content: space-around;
+
+      gap: 1.5px;
+      border-radius: 6px;
+      border: 0.7px solid ${bcolor};
+      background: ${bgcolor};
+      width: 70px;
+
+      .type-text {
+        font-family: ${font};
+        font-size: ${xsmall};
+        color: ${color};
+      }
+    `;
+  }};
+`;
+
+const SurveyTitle = styled.div.attrs<any>((props) => ({}))`
+  color: ${(props) => props.theme.colors.black};
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.large};
+`;
+
 const SurveyPurpose = styled.div.attrs<any>((props) => ({}))`
-    margin-top: 20px;
-    color: ${(props) => props.theme.colors.black};
-    font-family:  ${(props) => props.theme.fonts.HangeulFontMedium};
-    width: 100%;
-`
+  color: ${(props) => props.theme.colors.black};
+  font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+`;
 
 const SurveyInformation = styled.div.attrs<any>((props) => ({}))`
-    height: 46px;
-    padding: 12px 0px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-`
+  /* height: 46px; */
+  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
 
-const SurveyInformationTitle = styled.div.attrs<any>((props) => ({}))`
-    color: #6D7075;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: ${(props) => props.theme.fontSizes.small};
-    width: 60px;
-`
+const StyledText = styled.div.attrs<any>((props) => ({}))`
+  ${(props) => {
+    const purple = props.theme.colors.purple;
+    const orange = props.theme.colors.orange;
+
+    return css`
+      color: ${(props) => props.theme.colors.gray};
+      font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+      font-size: ${(props) => props.theme.fontSizes.small};
+
+      padding: 10px 0px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .bold {
+        font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+        width: 80px;
+      }
+      .end {
+        color: ${props.type === "NORMAL" ? purple : orange};
+      }
+    `;
+  }};
+`;
+
 const SurveyInformationContent = styled.div.attrs<any>((props) => ({}))`
-   color: #45474D;
-    text-align: right;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: ${(props) => props.theme.fontSizes.small};
-`
-const SurveyInformationContentHighLight = styled.span.attrs<any>((props) => ({}))`
-    color: ${(props) => props.theme.colors.purple};;
-    font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: ${(props) => props.theme.fontSizes.small};
-`
-
-const SurveyFooter =  styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    gap: 20px;
-    align-self: stretch;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-`
-
-const SurveyCardContainer = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    align-items: flex-end;
-    gap: 15px;
-`
+  color: ${(props) => props.theme.colors.gray};
+  font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+  font-size: ${(props) => props.theme.fontSizes.small};
+`;
 
 const SurveyCard = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    padding: 10px 24px;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-    border: 1px solid black;
-    border-radius: 16px;
-    width: 140px;
-    height: 90px;
-`
+  display: flex;
+  padding: 15px 20px;
+  min-width: 130px;
+  height: 90px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 13px;
 
+  border: 1px solid ${(props) => props.theme.colors.black};
+  border-radius: 16px;
+`;
 const SurveyCardTitle = styled.div.attrs<any>((props) => ({}))`
-    width: 90px;
-    height: 20px;
-    color: #6D7075;
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: ${(props) => props.theme.fontSizes.small};
-    `
-    
+  color: ${(props) => props.theme.colors.gray};
+  font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  align-self: stretch;
+`;
 
-const SurveyCardContent = styled.div.attrs<any>((props) => ({}))`
-    color: ${(props) => props.theme.colors.black};
+const SurveyCardText = styled.div.attrs<any>((props) => ({}))`
+  color: ${(props) => props.theme.colors.black};
+  font-size: ${(props) => props.theme.fontSizes.medium};
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+  align-items: flex-end;
+
+  .number {
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: ${(props) => props.theme.fontSizes.medium};
-    display: flex;
-    justify-content: flex-end;
-    height: 30px;
-    align-items: flex-end;
-`
+  }
+
+  .hangeul {
+    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+  }
+`;
 
 const SurveyCardTime = styled.div.attrs<any>((props) => ({}))`
-    color: ${(props) => props.theme.colors.black};
-    font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: ${(props) => props.theme.fontSizes.medium};
-    color : ${(props) => props.theme.colors.purple};
-    display: flex;
-    justify-content: flex-end;
-    height: 30px;
-    align-items: flex-end;
-`
+  color: ${(props) => props.theme.colors.black};
+  font-family: ${(props) => props.theme.fonts.EnglishFontLight};
+  font-size: ${(props) => props.theme.fontSizes.medium};
+  color: ${(props) => (props.type === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange)};
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+  align-items: flex-end;
+`;
 
-const SurveyCardContentHangeul = styled.div.attrs<any>((props) => ({}))`
-    color: ${(props) => props.theme.colors.black};
-    font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-    font-size: ${(props) => props.theme.fontSizes.medium};
-    display: flex;
-    justify-content: flex-end;
-    height: 30px;
-    align-items: flex-end;
-`
-
-const ButtonAndShare = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    width: 450px;
-    height: 48px;
-`
-
-export { SurveyDetailContainer, SurveyContent, SurveyTitle,SurveyProfile, SurveyProfileName, SurveyPurpose, SurveyInformation, 
-    SurveyInformationTitle, SurveyInformationContent, SurveyInformationContentHighLight, SurveyFooter, SurveyCard, SurveyCardTitle, 
-    SurveyCardContent, SurveyCardTime, SurveyCardContentHangeul, SurveyCardContainer, ButtonAndShare}
+export {
+  StyledDetailContainer,
+  StyledSurveyContent,
+  StyledTag,
+  SurveyTitle,
+  SurveyPurpose,
+  SurveyInformation,
+  StyledText,
+  SurveyInformationContent,
+  SurveyCard,
+  SurveyCardTitle,
+  SurveyCardText,
+  SurveyCardTime,
+};
