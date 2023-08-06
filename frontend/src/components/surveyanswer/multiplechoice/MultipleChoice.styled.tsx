@@ -13,13 +13,13 @@ const RadioContainer = styled.div.attrs<any>((props) => ({
 `;
 
 
-const RadioFlex = styled.div`
+const RadioFlex = styled.div.attrs<any>((props) => ({}))`
   display: flex;
   align-items: center;
   margin: 3px;
 `
 
-const RadioInput = styled.input.attrs({ type: 'radio' })`
+const RadioInput = styled.input.attrs<any>({ type: 'radio' })`
   margin-right: 8px;
   width: 16px;
   height: 16px;

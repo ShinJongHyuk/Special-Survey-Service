@@ -2,8 +2,14 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import axios from 'axios'
 import { SignupHookType } from "../types/useSignupHook.type"
+import signupPost from "@/api/user/signupPost"
+import loginPost from "@/api/user/loginPost"
+import useUserStore from "@/stores/useUserStore"
+import loginGet from "@/api/user/loginGet"
   
 export const useSignupHook = ():SignupHookType => {
+    const login = useUserStore((state:any) => state.login)
+    const setUserInformation = useUserStore((state:any) => state.setUserInformation)
     const router = useRouter()
     const [user, setUser] = useState({
         email: "",
@@ -55,7 +61,7 @@ export const useSignupHook = ():SignupHookType => {
         })
     }
 
-    const handleSubmit = (e:any) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault()
 
         if (user.email === "") {
@@ -123,16 +129,35 @@ export const useSignupHook = ():SignupHookType => {
         }
 
         else {
-            axios({
-                method : 'post',
-                url : 'http://221.164.64.185:8080/api/signup',
-                data : {...user}
-            })
-            .then(res => {
+            try {
+                const res = await signupPost(user)
                 console.log(res)
-                router.push('/')
-            })
-            .catch(err => console.log(err))
+                if (res.data.success === true) {
+                    alert('회원가입에 성공하였습니다')
+                    try {
+                        const res = await loginPost(user)
+                        if (res.data.success === true) {
+                            login();
+                    
+                            const response = await loginGet(res.data.response.accessToken)
+                            console.log(response.data.response)
+                            await setUserInformation(response.data.response);
+                            
+                            await router.push('/')
+                        } else if (res.data.success === false) {
+                            alert(res.data.apiError.message)
+                        }
+                        
+                      } catch (err) {
+                        console.log(err);
+                      }
+                    router.push('/')
+                } else if (res.data.success === false) {
+                    alert(res.data.apiError.message)
+                }
+            } catch (err) {
+                console.log(err)
+            }
         return
         }
     }

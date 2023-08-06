@@ -1,6 +1,6 @@
 import api from "../api";
 
-const instantWinConfirmGet = async (surveyid: any) => {
+const instantwinCheckGet = async (surveyid: any) => {
   try {
     const response = await api.get("/user/survey/" + surveyid, {
       headers: {
@@ -14,4 +14,4 @@ const instantWinConfirmGet = async (surveyid: any) => {
   }
 };
 
-export default instantWinConfirmGet;
+export default instantwinCheckGet;

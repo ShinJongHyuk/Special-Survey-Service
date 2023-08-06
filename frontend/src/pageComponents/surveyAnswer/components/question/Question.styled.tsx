@@ -6,7 +6,7 @@ const Survey_Container =  styled.div.attrs<any>((props) => ({}))`
     justify-content: center;
 `;
 
-const Survey_Title_Container = styled.div.attrs({})`
+const Survey_Title_Container = styled.div.attrs<any>((props) => ({}))`
     display : flex;
     flex-direction : column;
     width : 600px;

@@ -20,11 +20,11 @@ interface questionType {
 const SurveyAnswer = (props:any) => {
     const { surveyInformation, getSurveyQuestion } = useSurveyAnswerHook()
     useEffect(() => {
-        getSurveyQuestion()
+        getSurveyQuestion(props.id)
     },[])
     useEffect(() => {
         if (surveyInformation) {
-            // console.log(surveyInformation);
+            console.log(surveyInformation);
         }
     }, [surveyInformation]);
 
@@ -39,13 +39,14 @@ const SurveyAnswer = (props:any) => {
             </BackButtonContainer>
 
             <Title title={surveyInformation?.title} type={surveyInformation?.surveyCategoryType}></Title>
-            <ProgressBar 
+            <ProgressBar
+            id={surveyInformation?.id}
+            questionsCount={surveyInformation?.questions.length}
             type={surveyInformation?.surveyCategoryType} 
             closedHeadCount={surveyInformation?.closedHeadCount}
             headCount={surveyInformation?.headCount}
             ></ProgressBar>
             {questions && questions.map((question:questionType) => {
-                // console.log(question)
                 return (
                 <Question
                     key={question.id}
@@ -58,10 +59,6 @@ const SurveyAnswer = (props:any) => {
                    
                 )
             })}
-            {/* <Question type="multiplechoice"></Question>
-            <Question type="checkbox"></Question>
-            <Question type="shortform"></Question>
-            <Question type="longform"></Question> */}
         </SurveyAnswerPage>
     )
 }

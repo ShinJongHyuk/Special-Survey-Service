@@ -20,7 +20,7 @@ import {
   ButtonAndShare,
 } from "./Detail.styled";
 import Image from "next/image";
-import Button from "@/components/Button";
+import Button from "@/components/button";
 import { StyledTag } from "@/components/card/Card.styled";
 const DetailComponent = (props: any) => {
   return (
@@ -56,9 +56,9 @@ const DetailComponent = (props: any) => {
         <div style={{ width: "450px" }}>
           <SurveyInformation>
             {props.type === "타임어택" ? (
-              <Image src="surveyDetail/agency_purple.svg" alt="agency" width={40} height={17.8}></Image>
+              <Image src="/surveyDetail/agency_purple.svg" alt="agency" width={40} height={17.8}></Image>
             ) : (
-              <Image src="surveyDetail/agency.svg" alt="agency" width={40} height={17.8}></Image>
+              <Image src="/surveyDetail/agency.svg" alt="agency" width={40} height={17.8}></Image>
             )}
             <SurveyInformationTitle>설문 기관</SurveyInformationTitle>
             <SurveyInformationContent>(주) 얼라이언스</SurveyInformationContent>
@@ -66,9 +66,9 @@ const DetailComponent = (props: any) => {
 
           <SurveyInformation>
             {props.type === "타임어택" ? (
-              <Image src="surveyDetail/period_purple.svg" alt="period" width={40} height={17.8}></Image>
+              <Image src="/surveyDetail/period_purple.svg" alt="period" width={40} height={17.8}></Image>
             ) : (
-              <Image src="surveyDetail/period.svg" alt="period" width={40} height={17.8}></Image>
+              <Image src="/surveyDetail/period.svg" alt="period" width={40} height={17.8}></Image>
             )}
             <SurveyInformationTitle>설문 기간</SurveyInformationTitle>
             <SurveyInformationContent>2023년 7월 19일부터 2023년 7월 30일까지</SurveyInformationContent>
@@ -76,9 +76,9 @@ const DetailComponent = (props: any) => {
 
           <SurveyInformation>
             {props.type === "타임어택" ? (
-              <Image src="surveyDetail/reward_purple.svg" alt="reward" width={40} height={17.8}></Image>
+              <Image src="/surveyDetail/reward_purple.svg" alt="reward" width={40} height={17.8}></Image>
             ) : (
-              <Image src="surveyDetail/reward.svg" alt="reward" width={40} height={17.8}></Image>
+              <Image src="/surveyDetail/reward.svg" alt="reward" width={40} height={17.8}></Image>
             )}
             <SurveyInformationTitle>리워드</SurveyInformationTitle>
             <SurveyInformationContent>스타벅스 10,000원권</SurveyInformationContent>
@@ -86,9 +86,9 @@ const DetailComponent = (props: any) => {
 
           <SurveyInformation>
             {props.type === "타임어택" ? (
-              <Image src="surveyDetail/res_purple.svg" alt="res" width={40} height={17.8}></Image>
+              <Image src="/surveyDetail/res_purple.svg" alt="res" width={40} height={17.8}></Image>
             ) : (
-              <Image src="surveyDetail/res.svg" alt="res" width={40} height={17.8}></Image>
+              <Image src="/surveyDetail/res.svg" alt="res" width={40} height={17.8}></Image>
             )}
             <SurveyInformationTitle>응답수</SurveyInformationTitle>
             <SurveyInformationContent>209/300</SurveyInformationContent>
