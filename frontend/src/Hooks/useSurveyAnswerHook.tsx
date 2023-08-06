@@ -5,23 +5,11 @@ import {SurveyInformationType} from './types/useSurveyAnswerHook.type'
 import GetSurvey from "@/api/surveyAnswer/surveyGet"
 export const useSurveyAnswerHook = () => {
     const [surveyInformation, setSurveyInformation] = useState<SurveyInformationType | null>(null)
-    const survey_id = 16
 
-    const getSurveyQuestion = async () => {
-        const data = await GetSurvey(survey_id)
+
+    const getSurveyQuestion = async (surveyId:any) => {
+        const data = await GetSurvey(surveyId)
         setSurveyInformation(data)
     }
-    // const getSurveyQuestion = async (accessToken:any) => {
-    //     try {
-    //         const res = await api.get(`/survey/${survey_id}`,{
-    //             headers : {
-    //                 Authorization : `Bearer ${accessToken}`
-    //             }
-    //         })
-    //         await setSurveyInformation(res.data.response)
-    //     } catch(err) {
-    //         console.log(err)
-    //     } 
-    // }
     return { surveyInformation, getSurveyQuestion }
 } 

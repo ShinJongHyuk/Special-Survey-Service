@@ -20,7 +20,7 @@ interface questionType {
 const SurveyAnswer = (props:any) => {
     const { surveyInformation, getSurveyQuestion } = useSurveyAnswerHook()
     useEffect(() => {
-        getSurveyQuestion()
+        getSurveyQuestion(props.id)
     },[])
     useEffect(() => {
         if (surveyInformation) {
