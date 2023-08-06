@@ -6,23 +6,28 @@ import userInstantListGet from "@/api/surveylist/userInstantListGet";
 const useInstantHook = () => {
   const [cards, setCards] = useState<any>([]);
 
-
   useEffect(() => {
-
     const fetchList = async () => {
-      const accessToken = localStorage.getItem('accessToken');
+      const accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken) {
         const data = await instantListGet();
+
+        if (!data) {
+          return <div> loading... </div>;
+        }
         const sortData = data.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
-        })
+        });
         setCards(sortData.slice(0, 5));
       } else {
         const data = await userInstantListGet(accessToken);
+        if (!data) {
+          return <div> loading... </div>;
+        }
         const sortData = data.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
-        })
+        });
         setCards(sortData.slice(0, 5));
       }
     };
