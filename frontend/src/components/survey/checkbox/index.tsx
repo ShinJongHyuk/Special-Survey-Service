@@ -3,12 +3,13 @@ import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore'
-
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 
 const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
         const {surveyComponents} = useSurveyStore();
+        const {surveyList,setSurveyList} = useMakeSurveyApiStore();
         const [items, setItems] = useState<any[]>([
-          { id: `${componentKey}_1`, text: '', imageUrl: '' },
+          { id: `${componentKey}_1`, text: '' ,linkNumber : 0},
         ]
         );
         const [count, setCount] = useState(3);
@@ -25,6 +26,15 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
           saveCheckBoxToLocalStorage(`checkbox_${componentKey}`, items);
         }, [componentKey,items]);
       
+        useEffect(() => {
+  
+          const checkBoxData = items.map((item) => ({
+            content: item.text,
+            linkNumber: item.linkNumber
+          }));
+      
+          setSurveyList(componentKey,{...surveyList[componentKey], checkBox : checkBoxData });
+        }, [componentKey, items]);
 
         const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
           localStorage.setItem(`checkbox_${componentKey}`, JSON.stringify(items));
@@ -40,7 +50,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         const handleAddItem = () => {
           setItems((prevItems) => [
             ...prevItems,
-            { id: `${componentKey}_${count}`, text: '', imageUrl: '' },
+            { id: `${componentKey}_${count}`, text: '', linknumber :0 },
           ]);
           setCount((prevCount) => prevCount + 1);
         };

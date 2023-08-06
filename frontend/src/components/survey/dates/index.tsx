@@ -3,9 +3,7 @@ import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {DeleteButton,AddButton,Dates_content_Box,Dates_Box,MultipleCheck} from './Dates.styled';
 
-
 const Dates = ({ componentKey }: { componentKey: string }) => {
-
         const [items, setItems] = useState<any[]>([
           { id: `${componentKey}_1`, date: ''},
         ]);
@@ -21,7 +19,7 @@ const Dates = ({ componentKey }: { componentKey: string }) => {
         useEffect(() => {
           saveDateToLocalStorage(`dates_${componentKey}`, items);
         }, [componentKey,items]);
-      
+
         const saveDateToLocalStorage = (componentKey: string, items: any[]) => {
           localStorage.setItem(`dates_${componentKey}`, JSON.stringify(items));
         };

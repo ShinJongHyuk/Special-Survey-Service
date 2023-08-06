@@ -10,10 +10,11 @@ import duplicate from '../../../../public/survey/duplicate.svg'
 import Survey from '../../survey';
 import useSurveyFocusStore from '@/stores/makesurvey/useSurveyFocusStore';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
-
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 
 const Toolbar = () => {
   const {surveyComponents, setSurveyComponents } = useSurveyStore();
+  const {surveyList,setSurveyList,removeSurveyItem} = useMakeSurveyApiStore();
   const { selectedSurvey, prevSelectedSurvey, setSelectedSurvey } = useSurveyFocusStore();
   const componentRefs = useRef<any[]>([]);
   const [height, setHeight] = useState<any>(null); 
@@ -43,7 +44,6 @@ const Toolbar = () => {
       key: newComponentKey,
       index : index+1,
     };
-    index
     setSurveyComponents([...surveyComponents, newComponent]);
     setIndex(index);
   };
@@ -56,18 +56,22 @@ const Toolbar = () => {
   const handleMinusClick = async () => {
     if (selectedSurvey > 1) {
       const selectedKey = surveyComponents[selectedSurvey - 1]?.key;
-      const updatedComponents = surveyComponents.filter((component) => component.key !== selectedKey
-      );
+      const updatedComponents = surveyComponents.filter((component) => component.key !== selectedKey);
+
       
       await setSurveyComponents(updatedComponents);
+      await removeSurveyItem(selectedKey)
       await setSelectedSurvey(selectedSurvey-1);
 
       
     } else if (selectedSurvey === 1) {
+      const selectedKey = surveyComponents[0]?.key;
       const updatedComponents = [...surveyComponents];
       updatedComponents?.splice(0, 1);    
+
       await setSurveyComponents(updatedComponents);
-      await setSelectedSurvey(1);
+      await setSelectedSurvey(1)
+      await removeSurveyItem(selectedKey); 
     }
 
   };

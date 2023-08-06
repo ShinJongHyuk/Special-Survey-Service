@@ -4,6 +4,7 @@ import { StyledText, StyledMidComp, StyledTitleInput } from "../Navbar.styled";
 import Image from "next/image";
 import Button from "@/components/button";
 import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiStore";
+import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 
 
@@ -19,10 +20,15 @@ const MakesruveyComponent = (props: any) => {
         type,
         surveyTarget,
       } = useSettingSurveyApiStore(); 
+
+    const {surveyList} = useMakeSurveyApiStore();
+
       const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
       };
     const handleCreateButtonClick = () => { 
+
+
         const surveyData = {
             title,
             titleContent,
@@ -31,15 +37,46 @@ const MakesruveyComponent = (props: any) => {
             endTime,
             type,
             surveyTarget,
+            questions: Object.entries(surveyList).map(([questionNumber, questionData],index) => ({
+                questionNumber : index +1,
+                ...questionData,
+                
+            })),
+        }
+        const Inner_hasEmptyValue = surveyData.questions.some((questionData : any) => {
+           
+            if (questionData.title === "" || questionData.content === "" || questionData.type === "") {
+              return true;
+            }
+            if (questionData.multipleChoices) {
+              return questionData.multipleChoices.some((choice : any) => choice.content === "");
+            }           
+            if (questionData.checkBox) {
+              return questionData.checkBox.some((checkbox : any) => checkbox.content === "");
+            }
+            return false;
+          });
+
+        const Outer_hasEmptyValue =
+            surveyData.title === "" ||
+            surveyData.closedHeadCount === 0 ||
+            surveyData.endTime === 0 ||
+            surveyData.startTime === 0 ||
+            (surveyData.surveyTarget === undefined || surveyData.surveyTarget.length === 0) ||
+            surveyData.type === ""
+        
+        if (Inner_hasEmptyValue || Outer_hasEmptyValue) {
+            alert("모든 필드를 채워주시기 바랍니다.");
+            return;
         }
         console.log(surveyData)
         makeSurveyPost(surveyData)
    
         .then((responseData) => {
-        console.log("Survey created successfully:", responseData);
+        console.log("설문 제출에 성공하였습니다:", responseData);
         })
         .catch((error) => {
-        console.error("Error :", error);
+        console.error("설문 제출에 실패하였습니다", error);
         });
     };
     return (

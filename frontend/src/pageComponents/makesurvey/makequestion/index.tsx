@@ -62,7 +62,6 @@ function MakeQuestion() {
   const handleImageDelete = () => {
     setImgUrl('');
   };
-  console.log()
   return (
     
       <Survey_Container>
