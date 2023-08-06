@@ -139,9 +139,9 @@ const DetailComponent = (props: DetailProps) => {
             </SurveyCardText>
           </SurveyCard>
 
-          <SurveyCard>
+          <SurveyCard style={{ width: "160px" }}>
             <SurveyCardTitle>남은 시간</SurveyCardTitle>
-            <SurveyCardTime>
+            <SurveyCardTime {...props}>
               <div>
                 <span>{value1}</span>
                 <span>{label1}</span>

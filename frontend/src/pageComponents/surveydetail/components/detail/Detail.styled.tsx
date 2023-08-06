@@ -143,7 +143,7 @@ const SurveyCardTime = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => props.theme.colors.black};
   font-family: ${(props) => props.theme.fonts.EnglishFontLight};
   font-size: ${(props) => props.theme.fontSizes.medium};
-  color: ${(props) => props.theme.colors.purple};
+  color: ${(props) => (props.type === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange)};
   display: flex;
   justify-content: flex-end;
   height: 30px;
