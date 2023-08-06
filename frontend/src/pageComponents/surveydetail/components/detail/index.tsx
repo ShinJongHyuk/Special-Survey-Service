@@ -15,11 +15,11 @@ import {
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
-import { DetailProps } from "./Detail.type";
+import { DetailType } from "./Detail.type";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import { useEffect, useState } from "react";
 
-const DetailComponent = (props: DetailProps) => {
+const DetailComponent = (props: DetailType) => {
   const formatDate = (datetime: string) => {
     const date = new Date(datetime);
     // return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;

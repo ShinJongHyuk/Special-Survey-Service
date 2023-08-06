@@ -5,7 +5,7 @@ import Detail from "./components/detail";
 import Result from "./components/result";
 import useSurveyDetailHook from "@/Hooks/useSurveyDetailHook";
 import { StyledSurveyResultContainer } from "./SurveyDetail.styled";
-import { DetailProps } from "./components/detail/Detail.type";
+import { DetailType } from "./components/detail/Detail.type";
 
 const SurveyDetail = (props: any) => {
   console.log("SurveyDetail: " + props.id);
@@ -13,7 +13,7 @@ const SurveyDetail = (props: any) => {
   const { surveyDetail } = useSurveyDetailHook(props.id);
   console.log(surveyDetail);
 
-  const detailProps: DetailProps = {
+  const detailProps: DetailType = {
     closedheadcount: surveyDetail.closedHeadCount,
     endtime: surveyDetail.endTime,
     headcount: surveyDetail.headCount,
@@ -26,6 +26,12 @@ const SurveyDetail = (props: any) => {
     giveawaynames: surveyDetail.giveawayNames,
   };
 
+  const resultProps: DetailType = {
+    headcount: surveyDetail.headCount,
+    type: surveyDetail.surveyCategoryType,
+    giveawaynames: surveyDetail.giveawayNames,
+  };
+
   return (
     <div style={{ backgroundColor: "#FAFAFA" }}>
       <div style={{ paddingTop: "70px", paddingLeft: "30px" }}>
@@ -34,7 +40,7 @@ const SurveyDetail = (props: any) => {
 
       <Detail {...detailProps}></Detail>
       <StyledSurveyResultContainer>
-        <Result type="즉시당첨"></Result>
+        <Result {...resultProps}></Result>
         <Board type="즉시당첨"></Board>
       </StyledSurveyResultContainer>
     </div>

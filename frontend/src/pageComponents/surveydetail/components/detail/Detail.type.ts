@@ -1,12 +1,12 @@
-export type DetailProps = {
-  closedheadcount: number;
-  endtime: string;
-  headcount: number;
-  questioncount: number;
-  requiredtime: number;
-  starttime: string;
-  type: string;
-  title: string;
-  writername: string;
-  giveawaynames: string;
+export type DetailType = {
+  closedheadcount?: number;
+  endtime?: string;
+  headcount?: number;
+  questioncount?: number;
+  requiredtime?: number;
+  starttime?: string;
+  type?: string;
+  title?: string;
+  writername?: string;
+  giveawaynames?: string;
 };
