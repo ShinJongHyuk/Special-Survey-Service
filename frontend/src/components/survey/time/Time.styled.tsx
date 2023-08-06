@@ -22,7 +22,7 @@ const Time_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheck = styled.input.attrs({ type: 'time' })`
+const MultipleCheck = styled.input.attrs({ type: 'time' , disabled : true})`
     display : flex;
     width : 40%;
     height: 40px;

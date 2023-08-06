@@ -23,7 +23,7 @@ const Toggle_Component = styled.button.attrs<any>((props) =>({
     background-color: white;
     align-items: center;
     justify-content: center;
-    font-size: ${props => props.theme.fontSizes.small};
+    font-size: ${props => props.theme.fontSizes.medium};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
 
     ${props =>

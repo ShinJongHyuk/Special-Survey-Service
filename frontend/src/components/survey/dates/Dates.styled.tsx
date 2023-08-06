@@ -22,7 +22,7 @@ const Dates_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheck = styled.input.attrs({ type: 'date' })`
+const MultipleCheck = styled.input.attrs({ type: 'date', disabled : true })`
     display : flex;
     width : 40%;
     height: 40px;

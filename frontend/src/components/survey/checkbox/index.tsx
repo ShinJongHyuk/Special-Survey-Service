@@ -99,7 +99,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
                   .filter((component, idx) => idx+1 > selectedSurvey) 
                   .map((component, idx) => (
                     <LinkSelect_Option key={idx+selectedSurvey+1} value={idx+selectedSurvey+1}>
-                      {`${idx+selectedSurvey+1}번 질문으로 연결됨`}
+                      {`${idx+selectedSurvey+1}번 질문`}
                     </LinkSelect_Option>
                   ))}
               </LinkSelect_List>

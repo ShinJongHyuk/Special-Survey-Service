@@ -7,7 +7,7 @@ const DropDown_Box = styled.div.attrs({})`
     min-height : 5px;
 
     gap : 30px;
-    padding: 28px 23px;
+    padding: 28px 0px 28px 15px;
 `
 
 const DropDown_content_Box = styled.div.attrs({})`
@@ -21,17 +21,18 @@ const DropDown_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheckText = styled.input.attrs({type : 'text'})`
+const MultipleCheckText = styled.input.attrs({})`
   display: flex;
   flex-wrap: wrap;
-
+  resize : vertical;
+  overflow : auto;
   width : 40%;
   min-width : 100px;
-  height : 22px;
+  min-height : 22px;
   border: none;
   outline: none;
-
-  word-break: break-all;
+  resize: vertical; 
+  overflow: auto;
   background: white;
   cursor: pointer;
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
@@ -53,13 +54,13 @@ const MultipleCheck = styled.label.attrs({})`
 const AddButton = styled.button.attrs({})`
     display : flex;
     flex-direction : row-reverse;
-    width : 73%;
+    width : 65%;
     height : 35px;
     min-width : 200px;
     align-items : center;
     justify-content : center;
     text-align : center;
-    margin-left : 22px;
+    margin-left : 30px;
     border : 1px solid ${props => props.theme.colors.purple};
     border-radius : 20px;
     
@@ -79,31 +80,28 @@ const DeleteButton = styled.button.attrs({})`
   display: flex;
   border : none;
   background-color: white;
+  margin-right : 25%;
   font-size: ${props => props.theme.fontSizes.medium};
   color: red;
   cursor: pointer;
-
   
 `;
 
 const LinkSelect_List = styled.select.attrs({})`
   display : flex;
   text-align : center;
-  width: 72.5%;
-  margin-left : 25.5px;
-  margin-top : 10px;
+  width: 24%;
+
   height: 35px;
 
   border : none;
   background-color : white;
   font-family: ${props => props.theme.fonts.HangeulFontRegular};
-  font-size: ${props => props.theme.fontSizes.small};
-  color: ${props => props.theme.colors.purple};
-
+  font-size: 12.5px;
+  color: black;
   box-sizing : border-box;
-  box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
-  border : 1px solid ${props => props.theme.colors.lightgray};
-  border-radius : 10px;
+  border : 1px solid ${props => props.theme.colors.purple};
+  border-radius : 18px;
   cursor : pointer;
   
 `

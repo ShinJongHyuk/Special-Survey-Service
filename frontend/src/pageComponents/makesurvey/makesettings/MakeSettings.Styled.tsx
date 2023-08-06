@@ -161,6 +161,8 @@ const Element_Input = styled.input.attrs({})`
     font-size: ${props => props.theme.fontSizes.small};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     color : ${props => props.theme.colors.black};
+    resize: vertical;
+    overflow: auto; 
     box-sizing : border-box;
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.purple};
@@ -241,6 +243,7 @@ const Title_input = styled.input.attrs({ placeholder : "설문지 제목"})`
     width: 100%;
     height: 60%;
     border: none;
+    resize : vertical;
     font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     &::placeholder {
@@ -256,6 +259,8 @@ const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설�
     width: 100%;
     height: 40%;
     border: none;
+    resize: vertical;
+    overflow: auto; 
     font-size: ${props => props.theme.fontSizes.small};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
     &::placeholder {

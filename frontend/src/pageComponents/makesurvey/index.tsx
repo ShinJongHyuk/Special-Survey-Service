@@ -5,7 +5,7 @@ import MakeSettings from './makesettings';
 
 
 function MakeSurvey() {
-  const [selectedOption, setSelectedOption] = useState('question');
+  const [selectedOption, setSelectedOption] = useState('setting');
   const handleButtonClick = (option : any) => {
     setSelectedOption(option);
   };
