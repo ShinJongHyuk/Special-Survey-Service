@@ -4,12 +4,12 @@ import {Component_Container,Survey_Inner_Container,ImagePreiew_Box,ImagePreview,
 import Main_Image from '/public/survey/Main_Image.png'
 import Image from 'next/Image'
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
-import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
+import useSettingSurveyApiStore from '@/stores/makesurvey/useSettingSurveyApiStore';
 import axios from 'axios'
 
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
-  const {titleText,setTitleText,titleContent,setTitleContent} = useMakeSurveyApiStore();
+  const {title,setTitle,titleContent,setTitleContent} = useSettingSurveyApiStore();
   const [imgUrl,setImgUrl] = useState('')
 
   const saveComponentDataToLocalStorage = (data: any) => {
@@ -36,7 +36,7 @@ function MakeQuestion() {
     }, [imgUrl]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitleText(event.target.value);
+    setTitle(event.target.value);
   };
   const handleTitleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitleContent(event.target.value);
@@ -62,25 +62,13 @@ function MakeQuestion() {
   const handleImageDelete = () => {
     setImgUrl('');
   };
-
-  const allData = surveyComponents.map((componentKey) => {
-    const multipleChoiceData = JSON.parse(localStorage.getItem(`multiplechoice_multiplechoice_${componentKey.key}`) ?? 'null');
-    const entireData = JSON.parse(localStorage.getItem('entire') ?? 'null');
-    const surveyStateData = JSON.parse(localStorage.getItem(componentKey.key) ?? 'null');
-    return {
-      multipleChoiceData,
-      entireData,
-      surveyStateData,                                                    
-    }
-  });
   return (
     
       <Survey_Container>
-        {/* <img src="/survey/background_survey.png" style={{ width: "100%", position: "absolute", height: "680px", zIndex: "-1", backgroundRepeat : "repeat" }}></img> */}
         <Survey_Inner_Container>
         <Survey_Title_Container>
           <Title_Inner_Container>
-            <Title_input onChange={handleTitleChange} value={titleText} />
+            <Title_input onChange={handleTitleChange} value={title} />
             <Title_Content onChange={handleTitleContentChange} value={titleContent} />
           </Title_Inner_Container>
         </Survey_Title_Container>
@@ -88,8 +76,7 @@ function MakeQuestion() {
           <Image_Inner_Container>
               <Inner_Text_Container>
                 <Image_Text_Header>설문 대표 이미지 1장</Image_Text_Header>
-                <Image_Text_Content>jpg 또는 png 이미지 (선택사항)</Image_Text_Content>
-                
+                <Image_Text_Content>jpg 또는 png 이미지 (선택사항)</Image_Text_Content>    
               </Inner_Text_Container>
               <UploadImage id={`upload-button`} onChange={(e: any) => handleImageChange(e)} />
               {imgUrl ?  (
@@ -103,11 +90,7 @@ function MakeQuestion() {
               }
           </Image_Inner_Container>
         </Survey_MainImage_Container>
-        {/* <Background_Container>
-        <Image src={backgroundImage} alt="배경" />
-        <Image src={backgroundImage} alt="배경" />
-        </Background_Container> */}
-          <Component_Container>
+        <Component_Container>
           <Toolbar />
         </Component_Container>  
         </Survey_Inner_Container>

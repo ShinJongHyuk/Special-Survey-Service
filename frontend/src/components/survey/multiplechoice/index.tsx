@@ -4,8 +4,10 @@ import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {Add_Button_Container,Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();
+    const {surveyList,setSurveyList} = useMakeSurveyApiStore();
     const [items,setItems] = useState<any[]>([
       { id: `${componentKey}_1`, text: '', linkNumber: 0 },
 
@@ -32,7 +34,16 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     }, [componentKey,items]);
 
 
-
+    useEffect(() => {
+  
+      const multipleChoicesData = items.map((item) => ({
+        content: item.text,
+        linkNumber: item.linkNumber
+      }));
+  
+      setSurveyList(componentKey,{...surveyList[componentKey], multipleChoices : multipleChoicesData });
+    }, [componentKey, items]);
+  
 
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
@@ -77,7 +88,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
       updatedItems[index].linkNumber = value;
       setItems(updatedItems);
     };
-    
+    console.log(items)
 
     return (
       <MultipleChoice_Box>

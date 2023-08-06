@@ -6,7 +6,7 @@ const Survey_Container = styled.div.attrs({})`
     min-height: 100%;
 
     justify-content: center;
-    background-image: url("/survey/background_survey2.png");
+    background-image: url("/survey/background_survey3.png");
     background-repeat: repeat;
     position: absolute;
     top: 27%;
@@ -146,7 +146,6 @@ const Inner_Icon_Container = styled.div.attrs({})`
     align-items : center;
     width : 70px;
     height: 70px; 
-    margin-right : 40px;
     border-radius : 100%;
     background-color : #C6BEE5;
     cursor: pointer;

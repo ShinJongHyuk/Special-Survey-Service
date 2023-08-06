@@ -12,6 +12,7 @@ import Image from 'next/image'
 import etc from '/public/survey/etc.png'
 import DragIcon from '/public/survey/DragIcon.png'
 import MultipleChoice from './multiplechoice';
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import CheckBox from './checkbox';
 import DropDown from './dropdown';
 import Dates from './dates';
@@ -19,14 +20,14 @@ import Time from './time';
 
 const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
     const {surveyComponents} = useSurveyStore();
-    const [surveyState,setSurveyState] = useState('multiplechoice')
+    const { surveyList, setSurveyList } = useMakeSurveyApiStore();
+    const [surveyState,setSurveyState] = useState('MULTIPLE_CHOICE')
     const [imgurl,setImgUrl] = useState('')
     const [selectedOption, setSelectedOption] = useState(''); 
     const [listOption, setListOption] = useState(false);
     const [checked, setChecked] = useState(false); 
     const [headerText, setHeaderText] = useState('');
     const [headerDetailText, setHeaderDetailText] = useState('');
-
     const saveComponentDataToLocalStorage = (componentKey: string, data: any) => {
         localStorage.setItem(componentKey, JSON.stringify(data));
       };
@@ -48,18 +49,27 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
         }
       }, [componentKey]);
 
-    useEffect(() => {
+      useEffect(() => {
         const componentData = {
-          surveyState,
-          selectedOption,
-          checked,
-          headerText,
-          headerDetailText,
-          listOption,
-          
-        };
+            surveyState,
+            selectedOption,
+            checked,
+            headerText,
+            headerDetailText,
+            listOption,
+          };
+
+        const SendData = {
+            type : surveyState,
+            isEssential : checked,
+            title : headerText,
+            listOption,
+            };
         saveComponentDataToLocalStorage(componentKey, componentData);
-      }, [surveyState, selectedOption, checked,headerText,headerDetailText,listOption]);
+        setSurveyList(componentKey,SendData); 
+      }, [surveyState, selectedOption, checked, headerText, headerDetailText, listOption]);
+
+    console.log(surveyList)
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(e.target.checked)
@@ -108,9 +118,6 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     return (
         <ThemeProvider theme={theme}>
             <Main_Container>
-                {/* <ImageWrapper>
-                  <Image src={DragIcon} alt="옮기기" />
-                </ImageWrapper> */}
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>
@@ -127,11 +134,11 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                 </ImageWrapper>
                     <SelectBox>
                             <SelectBox_List onChange={handleOptionChange} value={selectedOption}>
-                                <SelectBox_Option value="multiplechoice">객관식 답변</SelectBox_Option>
-                                <SelectBox_Option value="checkbox">체크 박스</SelectBox_Option>
-                                <SelectBox_Option value="dropdown">드롭 다운</SelectBox_Option>
-                                <SelectBox_Option value="dates">날짜 선택</SelectBox_Option>
-                                <SelectBox_Option value="time">시간 선택</SelectBox_Option>
+                                <SelectBox_Option value="MULTIPLE_CHOICE">객관식 답변</SelectBox_Option>
+                                <SelectBox_Option value="CHECKBOX">체크 박스</SelectBox_Option>
+                                <SelectBox_Option value="DROPDOWN">드롭 다운</SelectBox_Option>
+                                <SelectBox_Option value="DATE_FORM">날짜 선택</SelectBox_Option>
+                                <SelectBox_Option value="TIME_FORM">시간 선택</SelectBox_Option>
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
@@ -145,11 +152,11 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                 </ImagePreiew_Box>
                 </Image_Container>
                 )}  
-                {surveyState === 'multiplechoice' && <MultipleChoice componentKey={componentKey} isLink={listOption} />}
-                {surveyState === 'checkbox' && <CheckBox componentKey={componentKey} isLink={listOption} />}
-                {surveyState === 'dropdown' && <DropDown componentKey={componentKey} isLink={listOption} />}
-                {surveyState === 'dates' && <Dates componentKey={componentKey}/>}
-                {surveyState === 'time' && <Time componentKey={componentKey} />}
+                {surveyState === 'MULTIPLE_CHOICE' && <MultipleChoice componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'CHECKBOX' && <CheckBox componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'DROPDOWN' && <DropDown componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'DATE_FORM' && <Dates componentKey={componentKey}/>}
+                {surveyState === 'TIME_FORM' && <Time componentKey={componentKey} />}
                         
                 <hr/>
                 <Bottom_Box>

@@ -1,11 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import {Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,DropDown_content_Box,DropDown_Box,MultipleCheck,MultipleCheckText } from './DropDown.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
+
 
 const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
     const {surveyComponents} = useSurveyStore();
+    const {surveyList,setSurveyList} = useMakeSurveyApiStore();
     const [items, setItems] = useState<any[]>([
-        { id: `${componentKey}_1`, text: ''},
+        { id: `${componentKey}_1`, text: '',linkNumber : 0},
       
       ]);
 
@@ -30,6 +33,21 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
         localStorage.setItem(`dropdown_${componentKey}`, JSON.stringify(items));
   
       };
+
+      useEffect(() => {
+  
+        const dropDownData = items.map((item) => ({
+          content: item.text,
+          linkNumber: item.linkNumber
+        }));
+    
+        setSurveyList(componentKey,{...surveyList[componentKey], dropDown : dropDownData });
+      }, [componentKey, items]);
+
+      const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
+        localStorage.setItem(`checkbox_${componentKey}`, JSON.stringify(items));
+
+      };
     
       const loadDropBoxFromLocalStorage = (componentKey: string) => {
         const storedData = localStorage.getItem(`dropdown_${componentKey}`);
@@ -40,7 +58,7 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
     const handleAddItem = () => {
     setItems((prevItems) => [
         ...prevItems,
-        { id: `${componentKey}_${count}`, text: ''},
+        { id: `${componentKey}_${count}`, text: '', linkNumber : 0},
     ]);
     setCount((prevCount) => prevCount + 1);
     };
