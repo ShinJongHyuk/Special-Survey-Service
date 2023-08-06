@@ -20,6 +20,7 @@ const UserInfoList = () => {
     
 })
 
+
 const [newUser, setNewUser] = useState({
   email : user.email,
   password : "",
@@ -30,12 +31,18 @@ const [newUser, setNewUser] = useState({
 }) 
 
 
+const [postUser, setPostUser] = useState({})
 
 const hanleChange = (e:any) => {
   const {name, value} = e.target
   setNewUser({
     ...newUser,
-    [name] : [value]
+    [name] : value
+  })
+
+  setPostUser({
+    ...postUser,
+    [name] : value
   })
 
   setInputState({
@@ -53,13 +60,17 @@ const handleage = (e:any) => {
     ...newUser,
     ["age"] : e.target.id
   })
+  setPostUser({
+    ...postUser,
+    ["age"] : e.target.id
+  })
 }
 
 
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
   useEffect(() => {
-    console.log(newUser)
-  },[newUser])
+    console.log(postUser)
+  },[postUser])
 
 
  
@@ -103,10 +114,9 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?
     } 
 
     else {
-      //axios요청 (뭐 담을지?)
-      // newUser해서 passwords 추가?  
+      // axios요청
         console.log("회원정보수정 완료")
-        console.log(newUser)
+        console.log(postUser)
     }
   }
   return (
