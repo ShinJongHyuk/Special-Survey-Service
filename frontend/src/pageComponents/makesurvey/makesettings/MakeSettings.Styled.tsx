@@ -10,7 +10,7 @@ const Survey_Container = styled.div.attrs({})`
     background-repeat: repeat;
 
     position: absolute;
-    top: 27%;
+    top: 18%;
     flex-wrap: wrap;
   
 `;

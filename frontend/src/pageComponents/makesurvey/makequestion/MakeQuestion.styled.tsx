@@ -9,7 +9,7 @@ const Survey_Container = styled.div.attrs({})`
     background-image: url("/survey/background_survey3.png");
     background-repeat: repeat;
     position: absolute;
-    top: 27%;
+    top: 18%;
     flex-wrap: wrap;
 `;
 
