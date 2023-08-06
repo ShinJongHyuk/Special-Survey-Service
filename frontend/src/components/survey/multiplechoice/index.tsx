@@ -5,9 +5,12 @@ import ImageIcon from '/public/survey/ImageIcon.png'
 import {Add_Button_Container,Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,MultipleChoice_content_Box,MultipleChoice_Box,MultipleCheck,MultipleCheckText } from './MultipleChoice.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
+import useSurveyFocus from '@/stores/makesurvey/useSurveyFocusStore';
+
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();
     const {surveyList,setSurveyList} = useMakeSurveyApiStore();
+    const {selectedSurvey} = useSurveyFocus();
     const [items,setItems] = useState<any[]>([
       { id: `${componentKey}_1`, text: '', linkNumber: 0 },
 
@@ -88,7 +91,6 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
       updatedItems[index].linkNumber = value;
       setItems(updatedItems);
     };
-    console.log(items)
 
     return (
       <MultipleChoice_Box>
@@ -104,15 +106,17 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
             <Delete_Button_Container>
             {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
             </Delete_Button_Container>
-           {isLink && (
-            <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
+            {isLink && (
+              <LinkSelect_List value={item.linkNumber} onChange={(e: any) => handleOptionChange(index, e)}>
                 <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
-              {surveyComponents.map((component, idx) => (
-                <LinkSelect_Option key={idx} value={idx + 1}>
-                  {`${idx + 1}번 질문으로 연결됨`}
-                </LinkSelect_Option>
-              ))}
-            </LinkSelect_List>
+                {surveyComponents
+                  .filter((component, idx) => idx+1 > selectedSurvey) 
+                  .map((component, idx) => (
+                    <LinkSelect_Option key={idx+selectedSurvey+1} value={idx+selectedSurvey+1}>
+                      {`${idx+selectedSurvey+1}번 질문으로 연결됨`}
+                    </LinkSelect_Option>
+                  ))}
+              </LinkSelect_List>
             )}
           </MultipleChoice_content_Box>
         ))}

@@ -10,7 +10,7 @@ const Survey_Container = styled.div.attrs({})`
     background-repeat: repeat;
 
     position: absolute;
-    top: 27%;
+    top: 18%;
     flex-wrap: wrap;
   
 `;
@@ -32,9 +32,9 @@ const Survey_Inner_Container = styled.div.attrs({})`
     min-width : 400px;
     min-height: 100%;
     background-color : white;
-    position: absolute;
-    z-index : 1;
     padding : 40px 70px 40px 70px;
+    position : absolute;
+
 `;
 
 const Background_Container = styled.div.attrs({})`
@@ -241,11 +241,15 @@ const Title_input = styled.input.attrs({ placeholder : "설문지 제목"})`
     width: 100%;
     height: 60%;
     border: none;
-    font-size: ${props => props.theme.fontSizes.large};
+    font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     &::placeholder {
         color : ${props => props.theme.colors.lightpurple};
     }
+    &:focus {
+        outline : none;
+    }
+    
 `
 const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설명을 적어주세요 (선택사항)"})`
     display: flex;
@@ -256,6 +260,9 @@ const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설�
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
     &::placeholder {
       color: ${props => props.theme.colors.gray};
+    }
+    &:focus {
+        outline : none;
     }
 `
 const Condition_Inner_Container = styled.div.attrs({})`
@@ -271,7 +278,7 @@ const Condition_Title = styled.div.attrs({})`
     width: 93%;
     height: 50%;
     border: none;
-    font-size: ${props => props.theme.fontSizes.large};
+    font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     color : ${props => props.theme.colors.lightpurple};
     padding : 0px 26px;
@@ -299,7 +306,7 @@ const Condition_Select_Container = styled.div.attrs({})`
     width: 100%;
     min-height: 60px;
     border: none;
-    font-size: ${props => props.theme.fontSizes.large};
+    font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     color : ${props => props.theme.colors.black};
     

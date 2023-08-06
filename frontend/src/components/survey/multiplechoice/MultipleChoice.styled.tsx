@@ -44,7 +44,7 @@ const MultipleCheck = styled.input.attrs({ type: 'radio' })`
     display : flex;
     width : 12%;
     height: 22px;
-  
+    outline : none;
 
 `;
 
@@ -61,9 +61,11 @@ const AddButton = styled.button.attrs({})`
     display : flex;
     flex-direction : row-reverse;
     width : 76.8%;
+    height : 35px;
     min-width : 200px;
-    text-align : center;
+    align-items : center;
     justify-content : center;
+    text-align : center;
     margin-left : 8px;
     border : 1px solid ${props => props.theme.colors.purple};
     border-radius : 20px;
@@ -86,6 +88,7 @@ const Delete_Button_Container = styled.div.attrs({})`
     width : 10%;
     min-width : 160px;
     justify-content : flex-end;
+
 `
 
 const DeleteButton = styled.button.attrs({})`
@@ -94,7 +97,7 @@ const DeleteButton = styled.button.attrs({})`
   background-color: white;
   font-size: ${props => props.theme.fontSizes.medium};
   color: red;
-
+  cursor: pointer;
   
 `;
 
@@ -110,16 +113,19 @@ const LinkSelect_List = styled.select.attrs({})`
   width: 72.5%;
   margin-left : 25.5px;
   margin-top : 10px;
-  height: 30px;
+  height: 35px;
 
   border : none;
-  font-size: ${props => props.theme.fontSizes.xsmall};
+  background-color : white;
+  font-family: ${props => props.theme.fonts.HangeulFontRegular};
+  font-size: ${props => props.theme.fontSizes.small};
   color: ${props => props.theme.colors.purple};
-  font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+
   box-sizing : border-box;
   box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
   border : 1px solid ${props => props.theme.colors.lightgray};
   border-radius : 10px;
+  cursor : pointer;
   
 `
 const LinkSelect_Option = styled.option.attrs({})`

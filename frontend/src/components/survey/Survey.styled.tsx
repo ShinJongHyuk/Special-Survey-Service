@@ -3,13 +3,13 @@ import styled,{ThemeProvider} from 'styled-components'
 
 const SelectBox = styled.div.attrs({})`
   display: flex;
-  width: 47%;
+  width: 40%;
   min-width : 100px;
   height: 44px;
   border-radius: 8px;
   border : 0px solid ${props => props.theme.colors.purple};
   padding : 20px, 20px;
-  margin-left : 13%;
+  margin-left : 2%;
   cursor: pointer;
 `
 const SelectBox_List = styled.select.attrs({})`
@@ -36,7 +36,7 @@ const SelectBox_Option = styled.option.attrs({})`
 
 `;
 
-const Main_Container = styled.div.attrs({})`
+const Main_Container = styled.div.attrs({tabIndex : 0})`
     display : flex;
     flex-direction : column;
 
@@ -49,6 +49,12 @@ const Main_Container = styled.div.attrs({})`
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
     padding : 30px 30px 30px 30px;
+    &:focus {
+      box-sizing : border-box;
+      border : 1.5px solid ${props => props.theme.colors.purple};
+      box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightpurple} ;
+
+    }
     
     hr {
     width : 710px;
@@ -76,7 +82,7 @@ const Question_Container = styled.div.attrs({})`
     border-left: 3px solid #8E69FF;
     
     width: 100%;
-    min-width : 350px;
+    min-width : 360px;
     height: 10%;
     padding: 0px 20px;
     
@@ -115,6 +121,9 @@ const Question_Header = styled.input.attrs<any>((props) => ({
     &::placeholder {
       color: ${props => props.theme.colors.black};
     }
+    &:focus {
+        outline : none;
+    }
   `;
 
 const Question_Content_Container = styled.div.attrs({})`
@@ -132,8 +141,12 @@ const Question_Content = styled.input.attrs<any>(props => ({
     width: 100%;
     height: 100%;
     border: none;
+    outline : none;
     font-size: ${props => props.theme.fontSizes.small};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
+    &:focus {
+        outline : none;
+    }
   `;
 
 
@@ -250,7 +263,7 @@ const CheckBox_Switch = styled.div.attrs({})`
 const CheckBox_Input = styled.input.attrs({type : "checkbox"})`
   display: none;
   width : 100%;
-
+  outline : none;
   &:checked + ${CheckBox_Switch} {
     background-color : ${props => props.theme.colors.purple};
     &:before {
@@ -277,6 +290,7 @@ const ImageWrapper = styled.div`
 
 const UploadImage = styled.input.attrs({type : 'file'})`
     display : none;
+    outline : none;
 `;
 
 
