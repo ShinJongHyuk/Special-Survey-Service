@@ -31,7 +31,6 @@ const Survey_Inner_Container = styled.div.attrs({})`
     min-height: 100%;
     background-color : white;
     position: relative;
-    z-index : 1;
     padding : 40px 70px 40px 70px;
   
 `;
@@ -74,7 +73,7 @@ const Survey_MainImage_Container = styled.div.attrs({})`
     border : 1px solid ${props => props.theme.colors.lightgray};
     background-color : ${props => props.theme.colors.lightpurple};
     border-radius : 30px;
-    padding : 0px 0px 0px 55px;
+    padding : 0px 0px 0px 57px;
 `;
 
 const Title_Inner_Container = styled.div.attrs({})`
@@ -82,6 +81,7 @@ const Title_Inner_Container = styled.div.attrs({})`
     flex-direction : column;
     width : 100%;
     height : 100%;
+
     border : none;
 `
 const Title_input = styled.input.attrs({ placeholder : "설문지 제목"})`
@@ -89,16 +89,14 @@ const Title_input = styled.input.attrs({ placeholder : "설문지 제목"})`
     width: 100%;
     height: 60%;
     border: none;
-    font-size: ${props => props.theme.fontSizes.large};
+    font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+    overflow: auto;
     &::placeholder {
       color: ${props => props.theme.colors.black};
     }
     &:focus {
-        box-sizing : border-box;
-        box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
-        border : 3px solid ${props => props.theme.colors.lightgray};
-        border-radius : 5px;
+        outline : none;
     }
 `
 const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설명을 적어주세요 (선택사항)"})`
@@ -112,10 +110,7 @@ const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설�
       color: ${props => props.theme.colors.gray};
     }
     &:focus {
-        box-sizing : border-box;
-        box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
-        border : 3px solid ${props => props.theme.colors.lightgray};
-        border-radius : 5px;
+        outline : none;
     }
 
 `
@@ -171,10 +166,11 @@ const Image_Text_Content = styled.label.attrs({})`
     align-items : top;
     width: 100%;
     height: 40%;
+    margin-left : 3px;
     border: none;
     color : white;
     background-color: ${props => props.theme.colors.lightpurple};
-    font-size: ${props => props.theme.fontSizes.small};
+    font-size: 12px;
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
     &::placeholder {
       color: white;

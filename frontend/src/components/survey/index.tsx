@@ -17,6 +17,7 @@ import CheckBox from './checkbox';
 import DropDown from './dropdown';
 import Dates from './dates';
 import Time from './time';
+import Short from './short';
 
 const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
     const {surveyComponents} = useSurveyStore();
@@ -28,6 +29,9 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     const [checked, setChecked] = useState(false); 
     const [headerText, setHeaderText] = useState('');
     const [headerDetailText, setHeaderDetailText] = useState('');
+    const [isFocused, setIsFocused] = useState(false);
+
+
     const saveComponentDataToLocalStorage = (componentKey: string, data: any) => {
         localStorage.setItem(componentKey, JSON.stringify(data));
       };
@@ -69,7 +73,6 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
         setSurveyList(componentKey,SendData); 
       }, [surveyState, selectedOption, checked, headerText, headerDetailText, listOption]);
 
-    console.log(surveyList)
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(e.target.checked)
@@ -115,9 +118,19 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
         ? { marginLeft: '252px' }
         : {};
 
+
+    const handleFocus = () => {
+        setIsFocused(true);
+        };
+    
+    const handleBlur = () => {
+        setIsFocused(false);
+        };
+
+    
     return (
         <ThemeProvider theme={theme}>
-            <Main_Container>
+             <Main_Container onFocus={handleFocus} onBlur={handleBlur} tabIndex={0}>
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>
@@ -131,14 +144,16 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                     </Question_Container>
                     <ImageWrapper onClick={() => handleImageClick(index)}>
                     <Image src={ImageIcon} alt="ImageIcon" />
-                </ImageWrapper>
+                    </ImageWrapper>
                     <SelectBox>
                             <SelectBox_List onChange={handleOptionChange} value={selectedOption}>
                                 <SelectBox_Option value="MULTIPLE_CHOICE">객관식 답변</SelectBox_Option>
-                                <SelectBox_Option value="CHECKBOX">체크 박스</SelectBox_Option>
-                                <SelectBox_Option value="DROPDOWN">드롭 다운</SelectBox_Option>
+                                <SelectBox_Option value="SHORT_FORM">주관식 답변</SelectBox_Option>
+                                <SelectBox_Option value="CHECK_BOX">체크 박스</SelectBox_Option>
+                                <SelectBox_Option value="DROP_DOWN">드롭 다운</SelectBox_Option>
                                 <SelectBox_Option value="DATE_FORM">날짜 선택</SelectBox_Option>
                                 <SelectBox_Option value="TIME_FORM">시간 선택</SelectBox_Option>
+                               
                             </SelectBox_List>
                     </SelectBox>
                 </Question_Inner_Container>
@@ -153,10 +168,11 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                 </Image_Container>
                 )}  
                 {surveyState === 'MULTIPLE_CHOICE' && <MultipleChoice componentKey={componentKey} isLink={listOption} />}
-                {surveyState === 'CHECKBOX' && <CheckBox componentKey={componentKey} isLink={listOption} />}
-                {surveyState === 'DROPDOWN' && <DropDown componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'CHECK_BOX' && <CheckBox componentKey={componentKey} isLink={listOption} />}
+                {surveyState === 'DROP_DOWN' && <DropDown componentKey={componentKey} isLink={listOption} />}
                 {surveyState === 'DATE_FORM' && <Dates componentKey={componentKey}/>}
                 {surveyState === 'TIME_FORM' && <Time componentKey={componentKey} />}
+                {surveyState === 'SHORT_FORM' && <Short componentKey={componentKey} />}
                         
                 <hr/>
                 <Bottom_Box>
@@ -170,9 +186,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                         </LinkSelectBox>
                     </Link_Question_Box>
                     <Elements_Box>
-                        <ImageWrapper>
-                        </ImageWrapper>
-                            <Image src={etc} alt="etc"></Image>
+
                         </Elements_Box>
                     <Essential_Question_Box>
                         <Essential_Question_Title>필수 여부</Essential_Question_Title>

@@ -60,12 +60,13 @@ const Add_Button_Container = styled.button.attrs({})`
 const AddButton = styled.button.attrs({})`
     display : flex;
     flex-direction : row-reverse;
-    width : 72.5%;
+    width : 73%;
+    height : 35px;
     min-width : 200px;
-    text-align : center;
+    align-items : center;
     justify-content : center;
-    margin-left : 27px;
-
+    text-align : center;
+    margin-left : 22px;
     border : 1px solid ${props => props.theme.colors.purple};
     border-radius : 20px;
     
@@ -95,7 +96,7 @@ const DeleteButton = styled.button.attrs({})`
   background-color: white;
   font-size: ${props => props.theme.fontSizes.medium};
   color: red;
-
+  cursor: pointer;
   
 `;
 
@@ -111,18 +112,22 @@ const LinkSelect_List = styled.select.attrs({})`
   width: 72.5%;
   margin-left : 25.5px;
   margin-top : 10px;
-  height: 30px;
+  height: 35px;
 
   border : none;
-  font-size: ${props => props.theme.fontSizes.xsmall};
+  background-color : white;
+  font-family: ${props => props.theme.fonts.HangeulFontRegular};
+  font-size: ${props => props.theme.fontSizes.small};
   color: ${props => props.theme.colors.purple};
-  font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+
   box-sizing : border-box;
   box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
   border : 1px solid ${props => props.theme.colors.lightgray};
   border-radius : 10px;
+  cursor : pointer;
   
 `
+
 const LinkSelect_Option = styled.option.attrs({})`
     color: ${props => props.theme.colors.gray};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
