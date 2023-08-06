@@ -1,50 +1,83 @@
-import styled from 'styled-components'
+import styled, { css } from "styled-components";
 
 const SurveyResultComent = styled.div.attrs<any>((props) => ({}))`
-    width: 418px;
-    height: 96px;
-    color: ${(props) => props.theme.colors.black};;
-    text-align: center;
-    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
-    font-size: ${(props) => props.theme.fontSizes.medium};
-`
-const HighLightFont = styled.span.attrs<any>((props) => ({}))`
+  color: ${(props) => props.theme.colors.black};
+  text-align: center;
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.medium};
+
+  .purple {
     color: ${(props) => props.theme.colors.purple};
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: ${(props) => props.theme.fontSizes.medium};
-    font-style: normal;
-`
+  }
+  .orange {
+    color: ${(props) => props.theme.colors.orange};
+    font-family: ${(props) => props.theme.fonts.EnglishFontLight};
+  }
+`;
 
-const PercentageContainer = styled.div.attrs<any>((props) => ({}))`
-    width: 480px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`
+const StyledImg = styled.img.attrs<any>((props) => ({}))`
+  ${(props) => {
+    const orange = props.theme.colors.orange;
+    const purple = props.theme.colors.purple;
 
-const Percentage = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-`
+    let color;
+    if (props.type === "NORMAL") {
+      color = purple;
+    } else {
+      color = orange;
+    }
+
+    return css`
+      position: relative;
+      border: 2.5px solid ${color};
+      border-radius: 90px;
+      width: 180px;
+    `;
+  }};
+`;
+
+const StyledMsg = styled.img`
+  position: absolute;
+  right: -30px;
+  bottom: -20px;
+  transform: rotate(13.438deg);
+`;
+
 const PercentageCard = styled.div.attrs<any>((props) => ({}))`
-    width: 70px;
-    height: 90px;
-    display: flex;
-    padding: 20px 20px 8px 20px;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    border-radius: 16px;
-    border: 1px solid ${(props) => props.theme.colors.lightgray};
-    background: #FFF;
-`
-const PercentageElement = styled.div.attrs<any>((props) => ({}))`
-    color : ${(props) =>  props.theme.colors.purple };
-    text-align: right;
-    font-family: ${(props) => props.theme.fonts.EnglishFontBold};
-    font-size: ${(props) => props.theme.fontSizes.xxxlarge};
-    `
-export { SurveyResultComent, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement }
+  ${(props) => {
+    const orange = props.theme.colors.orange;
+    const purple = props.theme.colors.purple;
+    const color = props.type === "NORMAL" ? purple : orange;
+    return css`
+      width: 70px;
+      height: 80px;
+
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 16px;
+      border: 1px solid ${(props) => props.theme.colors.lightgray};
+      background: #fff;
+
+      color: ${color};
+      font-family: ${(props) => props.theme.fonts.EnglishFontBold};
+      font-size: ${(props) => props.theme.fontSizes.xxxlarge};
+    `;
+  }};
+`;
+const Percentage = styled.div.attrs<any>((props) => ({}))`
+  ${(props) => {
+    const orange = props.theme.colors.orange;
+    const purple = props.theme.colors.purple;
+    const color = props.type === "NORMAL" ? purple : orange;
+    return css`
+      color: ${color};
+      font-family: ${(props) => props.theme.fonts.EnglishFontBold};
+      font-size: ${(props) => props.theme.fontSizes.xxxlarge};
+    `;
+  }};
+`;
+export { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard };
