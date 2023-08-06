@@ -5,13 +5,14 @@ import Detail from "./components/detail";
 import Result from "./components/result";
 import useSurveyDetailHook from "@/Hooks/useSurveyDetailHook";
 import { StyledSurveyResultContainer } from "./SurveyDetail.styled";
-import { DetailType } from "./components/detail/Detail.type";
+import { useRouter } from "next/navigation";
+import { DetailType } from "./SurvveyDetailType.type";
 
 const SurveyDetail = (props: any) => {
   console.log("SurveyDetail: " + props.id);
 
   const { surveyDetail } = useSurveyDetailHook(props.id);
-
+  const router = useRouter();
   if (!surveyDetail.surveyGiveaways) {
     return <div> Loading... </div>;
   }
@@ -41,7 +42,7 @@ const SurveyDetail = (props: any) => {
   return (
     <div style={{ backgroundColor: "#FAFAFA" }}>
       <div style={{ paddingTop: "70px", paddingLeft: "30px" }}>
-        <Image src="/surveyDetail/BackImg.png" alt="back" width={48} height={48} style={{ cursor: "pointer" }}></Image>
+        <Image src="/surveyDetail/BackImg.png" alt="back" width={48} height={48} style={{ cursor: "pointer" }} onClick={() => router.back()}></Image>
       </div>
 
       <Detail {...detailProps}></Detail>
