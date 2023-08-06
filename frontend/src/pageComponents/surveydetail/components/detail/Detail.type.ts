@@ -9,4 +9,6 @@ export type DetailType = {
   title?: string;
   writername?: string;
   giveawaynames?: string;
+  giveaways?: string;
+  percent?: string;
 };

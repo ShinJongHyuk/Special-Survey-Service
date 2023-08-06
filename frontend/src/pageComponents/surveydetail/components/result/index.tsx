@@ -1,14 +1,25 @@
 "use client";
-import { SurveyResultComent, StyledImg, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement } from "./Result.styled";
+import {
+  SurveyResultComent,
+  StyledImg,
+  StyledMsg,
+  HighLightFont,
+  PercentageContainer,
+  Percentage,
+  PercentageCard,
+  PercentageElement,
+} from "./Result.styled";
 import Image from "next/image";
 
 const ResultComponent = (props: any) => {
   const images: { [key: string]: string } = {
-    BBQ후라이드치킨: "/card/chicken.png",
+    CHICKEN: "/card/chicken.png",
     COFFEE: "/card/coffee.png",
   };
-  //   const imgsrc = images[props.giveawaynames[0]];
-  //   console.log(imgsrc);
+  const imgsrc = images[props.giveaways];
+  const percentArray = props.percent.toString().split("");
+  console.log(percentArray);
+
   return (
     <>
       <SurveyResultComent>
@@ -23,29 +34,25 @@ const ResultComponent = (props: any) => {
         )}
       </SurveyResultComent>
 
-      {/* <SurveyProduct> */}
-      {/* <div style={{ width: "80px", height: "80px" }}>
-        <StyledImg src={imgsrc} />
-      </div> */}
-      {/* </SurveyProduct> */}
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}>
+        <StyledImg src={imgsrc} {...props} />
+        {props.type === "NORMAL" ? <StyledMsg src="/surveydetail/purple/message.svg" /> : <StyledMsg src="/surveydetail/yellow/message.svg" />}
+      </div>
 
-      <PercentageContainer>
-        <Percentage>
-          <PercentageCard>
-            <PercentageElement {...props}>0</PercentageElement>
+      <div style={{ display: "flex", alignItems: "flex-end", gap: "4px" }}>
+        {percentArray.map((num: any, index: any) => (
+          <PercentageCard key={index} {...props}>
+            {num}
           </PercentageCard>
-          <PercentageCard>
-            <PercentageElement {...props}>9</PercentageElement>
-          </PercentageCard>
-          <PercentageCard>
-            <PercentageElement {...props}>8</PercentageElement>
-          </PercentageCard>
+        ))}
+        <Percentage {...props}>%</Percentage>
+      </div>
 
-          <PercentageElement {...props}>%</PercentageElement>
-        </Percentage>
-
-        <Image src="/surveyDetail/woman.png" alt="woman" width={350} height={307}></Image>
-      </PercentageContainer>
+      {props.type === "NORMAL" ? (
+        <Image src="/surveyDetail/purple/woman.png" alt="woman" width={350} height={307}></Image>
+      ) : (
+        <Image src="/surveyDetail/yellow/woman.png" alt="woman" width={350} height={307}></Image>
+      )}
     </>
   );
 };

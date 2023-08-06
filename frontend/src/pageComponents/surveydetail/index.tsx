@@ -11,7 +11,12 @@ const SurveyDetail = (props: any) => {
   console.log("SurveyDetail: " + props.id);
 
   const { surveyDetail } = useSurveyDetailHook(props.id);
-  console.log(surveyDetail);
+
+  if (!surveyDetail.surveyGiveaways) {
+    return <div> Loading... </div>;
+  }
+  console.log("sd : ", surveyDetail);
+  console.log(surveyDetail.surveyGiveaways[0].giveawayResponse.giveawayType);
 
   const detailProps: DetailType = {
     closedheadcount: surveyDetail.closedHeadCount,
@@ -23,13 +28,14 @@ const SurveyDetail = (props: any) => {
     type: surveyDetail.surveyCategoryType,
     title: surveyDetail.title,
     writername: surveyDetail.writerName,
-    giveawaynames: surveyDetail.giveawayNames,
+    giveawaynames: surveyDetail.surveyGiveaways[0].giveawayResponse.name,
   };
 
   const resultProps: DetailType = {
     headcount: surveyDetail.headCount,
     type: surveyDetail.surveyCategoryType,
-    giveawaynames: surveyDetail.giveawayNames,
+    giveaways: surveyDetail.surveyGiveaways[0].giveawayResponse.giveawayType,
+    percent: surveyDetail.winningPercent,
   };
 
   return (
