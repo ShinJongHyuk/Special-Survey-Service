@@ -1,6 +1,7 @@
 package com.logwiki.specialsurveyservice.api.service.survey;
 
 
+import com.logwiki.specialsurveyservice.api.controller.sse.response.SurveyAnswerResponse;
 import com.logwiki.specialsurveyservice.api.service.account.AccountService;
 import com.logwiki.specialsurveyservice.api.service.survey.request.GiveawayAssignServiceRequest;
 import com.logwiki.specialsurveyservice.api.service.survey.request.SurveyCreateServiceRequest;
@@ -9,6 +10,7 @@ import com.logwiki.specialsurveyservice.api.service.survey.response.SurveyRespon
 import com.logwiki.specialsurveyservice.api.service.targetnumber.TargetNumberService;
 import com.logwiki.specialsurveyservice.api.service.targetnumber.request.TargetNumberCreateServiceRequest;
 import com.logwiki.specialsurveyservice.domain.account.Account;
+import com.logwiki.specialsurveyservice.domain.account.AccountRepository;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCode;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCodeRepository;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCodeType;
@@ -23,16 +25,21 @@ import com.logwiki.specialsurveyservice.domain.surveyresult.SurveyResult;
 import com.logwiki.specialsurveyservice.domain.surveyresult.SurveyResultRepository;
 import com.logwiki.specialsurveyservice.domain.surveytarget.SurveyTarget;
 import com.logwiki.specialsurveyservice.domain.targetnumber.TargetNumber;
+import com.logwiki.specialsurveyservice.domain.targetnumber.TargetNumberRepository;
 import com.logwiki.specialsurveyservice.exception.BaseException;
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -45,6 +52,10 @@ public class SurveyService {
     private final AccountCodeRepository accountCodeRepository;
     private final SurveyCategoryRepository surveyCategoryRepository;
     private final SurveyResultRepository surveyResultRepository;
+    private final TargetNumberRepository targetNumberRepository;
+    private final AccountRepository accountRepository;
+
+    private static final String LOSEPRODUCT = "꽝";
 
     public SurveyResponse addSurvey(SurveyCreateServiceRequest dto) {
         Account account = accountService.getCurrentAccountBySecurity();
@@ -145,7 +156,6 @@ public class SurveyService {
                 .collect(Collectors.toList());
     }
 
-
     public List<AbstractSurveyResponse> getRecommendNormalSurveyForUser() {
         List<Survey> surveys = getRecommendSurveysBySurveyCategoryType(SurveyCategoryType.NORMAL);
 
@@ -228,6 +238,51 @@ public class SurveyService {
         surveys.sort(Comparator.comparingInt(Survey::getRequiredTimeInSeconds));
     }
 
+    public List<SurveyAnswerResponse> getSurveyAnswers(Long surveyId) {
+        Optional<Survey> targetSurveyOptional = surveyRepository.findById(surveyId);
+        if(targetSurveyOptional.isEmpty()) {
+            throw new BaseException("없는 설문입니다.",3005);
+        }
+        Survey targetSurvey = targetSurveyOptional.get();
+
+        List<SurveyAnswerResponse> surveyResponseResults = new ArrayList<>();
+        if(targetSurvey.getSurveyResults() != null) {
+            for (SurveyResult surveyResult : targetSurvey.getSurveyResults()) {
+                String giveawayName = LOSEPRODUCT;
+                boolean isWin = false;
+                if(targetSurvey.getSurveyCategory().getType().equals(SurveyCategoryType.INSTANT_WIN)) {
+                    Optional<TargetNumber> tn = targetNumberRepository.findFirstBySurveyAndNumber(
+                            targetSurvey, surveyResult.getSubmitOrder());
+                    if (tn.isPresent()) {
+                        isWin = true;
+                        giveawayName = tn.get().getGiveaway().getName();
+                    }
+                }
+                surveyResponseResults.add(SurveyAnswerResponse.from(surveyResult,giveawayName,isWin));
+            }
+        }
+        return surveyResponseResults;
+    }
+    public AbstractSurveyResponse getSurveyDetail(Long surveyId) {
+        Optional<Survey> targetSurveyOptional =  surveyRepository.findById(surveyId);
+
+        if(targetSurveyOptional.isEmpty()) {
+            throw new BaseException("없는 설문입니다." , 3005);
+        }
+        Survey targetSurvey = targetSurveyOptional.get();
+        List<SurveyGiveaway> surveyGiveaways = targetSurvey.getSurveyGiveaways();
+        List<String> giveawayNames = new ArrayList<>();
+        for(SurveyGiveaway surveyGiveaway : surveyGiveaways) {
+            giveawayNames.add(surveyGiveaway.getGiveaway().getName());
+        }
+
+        Optional<Account> writerAccount =  accountRepository.findById(targetSurvey.getWriter());
+        if(writerAccount.isEmpty()){
+            throw new BaseException("설문 작성자가 존재하지 않습니다.", 3013);
+        }
+        return AbstractSurveyResponse.from(targetSurvey, writerAccount.get().getName());
+    }
+
     public SurveyResponse getSurvey(Long surveyId) {
         return SurveyResponse.from(surveyRepository.findById(surveyId)
                 .orElseThrow(() -> new BaseException("없는 설문입니다.", 3005)));
@@ -257,5 +312,4 @@ public class SurveyService {
                         -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
                 .collect(Collectors.toList());
     }
-
 }

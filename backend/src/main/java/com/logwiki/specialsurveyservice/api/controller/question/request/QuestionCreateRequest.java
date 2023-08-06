@@ -21,6 +21,9 @@ public class QuestionCreateRequest {
     private Long questionNumber;
 
     @NotEmpty(message = "질문내용은 필수입니다.")
+    private String title;
+
+    @NotEmpty(message = "질문 내용은 필수입니다.")
     private String content;
 
     private String imgAddress;
@@ -33,7 +36,7 @@ public class QuestionCreateRequest {
 
     @Builder
     public QuestionCreateRequest(Long questionNumber, String content, String imgAddress,
-                                 QuestionCategoryType type, List<MultipleChoiceCreateRequest> multipleChoices) {
+            QuestionCategoryType type, List<MultipleChoiceCreateRequest> multipleChoices) {
         this.questionNumber = questionNumber;
         this.content = content;
         this.imgAddress = imgAddress;
@@ -52,6 +55,7 @@ public class QuestionCreateRequest {
         if (multipleChoices != null) {
             return QuestionCreateServiceRequest.builder()
                     .questionNumber(questionNumber)
+                    .title(title)
                     .content(content)
                     .imgAddress(imgAddress)
                     .type(type)
@@ -62,6 +66,7 @@ public class QuestionCreateRequest {
         }
         return QuestionCreateServiceRequest.builder()
                 .questionNumber(questionNumber)
+                .title(title)
                 .content(content)
                 .imgAddress(imgAddress)
                 .type(type)
