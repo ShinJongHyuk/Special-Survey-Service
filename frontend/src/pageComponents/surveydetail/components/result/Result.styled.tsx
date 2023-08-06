@@ -15,9 +15,6 @@ const SurveyResultComent = styled.div.attrs<any>((props) => ({}))`
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
   }
 `;
-const HighLightFont = styled.span.attrs<any>((props) => ({}))`
-  font-size: ${(props) => props.theme.fontSizes.medium};
-`;
 
 const StyledImg = styled.img.attrs<any>((props) => ({}))`
   ${(props) => {
@@ -45,13 +42,6 @@ const StyledMsg = styled.img`
   right: -30px;
   bottom: -20px;
   transform: rotate(13.438deg);
-`;
-
-const PercentageContainer = styled.div.attrs<any>((props) => ({}))`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const PercentageCard = styled.div.attrs<any>((props) => ({}))`
@@ -90,5 +80,4 @@ const Percentage = styled.div.attrs<any>((props) => ({}))`
     `;
   }};
 `;
-const PercentageElement = styled.div.attrs<any>((props) => ({}))``;
-export { SurveyResultComent, StyledImg, StyledMsg, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement };
+export { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard };
