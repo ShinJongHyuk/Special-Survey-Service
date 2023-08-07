@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import TextAreaAutoSize from 'react-textarea-autosize'
 
 const Survey_Container = styled.div.attrs({})`
     display: flex;
@@ -239,25 +240,28 @@ const Title_Inner_Container = styled.div.attrs({})`
     border : none;
     padding : 0px 40px;
 `
-const Title_input = styled.textarea.attrs({ placeholder : "설문지 제목"})`
+const Title_input = styled(TextAreaAutoSize)`
     display: flex;
     width: 100%;
-    height : 50px;
+    height: 50px;
     min-height: 50px;
-    margin-top : 13px;
-    resize : none;
+    margin-top: 13px;
+    resize: none;
     border: none;
     font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+    
     &::placeholder {
-        color : ${props => props.theme.colors.lightpurple};
-    }
-    &:focus {
-        outline : none;
+        color: ${props => props.theme.colors.lightpurple}; 
+        font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+        font-size: ${props => props.theme.fontSizes.mediumlarge};
     }
     
-`
-const Title_Content = styled.textarea.attrs({ placeholder : "제목에 대한 설명을 적어주세요 (선택사항)"})`
+    &:focus {
+        outline: none;
+    }
+`;
+const Title_Content = styled(TextAreaAutoSize)`
     display: flex;
     width: 100%;
     height: 40px;

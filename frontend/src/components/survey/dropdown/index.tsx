@@ -3,7 +3,7 @@ import {Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,A
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import useSurveyFocus from '@/stores/makesurvey/useSurveyFocusStore';
-
+import TextAreaAutoSize from 'react-textarea-autosize'
 const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
     const {surveyComponents} = useSurveyStore();
     const {surveyList,setSurveyList} = useMakeSurveyApiStore();
@@ -16,7 +16,7 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
     const [count, setCount] = useState(3);
 
     useEffect(() => {
-        const storedItems = loadDropBoxFromLocalStorage(`dropdown_${componentKey}`);
+        const storedItems = loadDropBoxFromLocalStorage(`DROP_DOWN_${componentKey}`);
         if (storedItems) {
           setItems(storedItems);
         }
@@ -25,13 +25,13 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
   
       useEffect(() => {
   
-        saveDropBoxToLocalStorage(`dropdown_${componentKey}`, items);
+        saveDropBoxToLocalStorage(`DROP_DOWN_${componentKey}`, items);
   
       }, [componentKey,items]);
     
   
       const saveDropBoxToLocalStorage = (componentKey: string, items: any[]) => {
-        localStorage.setItem(`dropdown_${componentKey}`, JSON.stringify(items));
+        localStorage.setItem(`DROP_DOWN_${componentKey}`, JSON.stringify(items));
   
       };
 
@@ -46,12 +46,12 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
       }, [componentKey, items]);
 
       const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
-        localStorage.setItem(`checkbox_${componentKey}`, JSON.stringify(items));
+        localStorage.setItem(`DROP_DOWN_${componentKey}`, JSON.stringify(items));
 
       };
     
       const loadDropBoxFromLocalStorage = (componentKey: string) => {
-        const storedData = localStorage.getItem(`dropdown_${componentKey}`);
+        const storedData = localStorage.getItem(`DROP_DOWN_${componentKey}`);
     
         return storedData ? JSON.parse(storedData) : null;
       };
@@ -96,7 +96,8 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
             <MultipleCheck>{index+1}  .</MultipleCheck>
             <MultipleCheckText
               placeholder={`문항 ${index + 1}`}
-              rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+              minRows={1}
+             onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
               onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
               value = {item.text}
             />

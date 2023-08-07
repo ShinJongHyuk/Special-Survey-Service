@@ -1,5 +1,5 @@
 import styled,{ThemeProvider} from 'styled-components'
-
+import TextAreaAutosize from 'react-textarea-autosize'
 const DropDown_Box = styled.div.attrs({})`
     display : flex;
     flex-direction : column;
@@ -21,21 +21,23 @@ const DropDown_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheckText = styled.textarea.attrs({})`
+const MultipleCheckText = styled(TextAreaAutosize)`
   display: flex;
   flex-wrap: wrap;
   resize : none;
+
   width : 40%;
   min-width : 100px;
   min-height : 22px;
   border: none;
   outline: none;
-  resize: none;
+
+  word-break: break-all;
   background: white;
   cursor: pointer;
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${props => props.theme.fontSizes.small};
- 
+  color: ${props => props.theme.colors.black};
 `;
 
 const MultipleCheck = styled.label.attrs({})`

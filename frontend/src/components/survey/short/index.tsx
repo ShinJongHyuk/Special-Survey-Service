@@ -9,7 +9,7 @@ const Short = ({ componentKey }: { componentKey: string }) => {
         ]);
         
         useEffect(() => {
-          const storedItems = loadShortFromLocalStorage(`Short_${componentKey}`);
+          const storedItems = loadShortFromLocalStorage(`SHORT_FORM_${componentKey}`);
           if (storedItems) {
             setItems(storedItems);
           }
@@ -17,15 +17,15 @@ const Short = ({ componentKey }: { componentKey: string }) => {
     
     
         useEffect(() => {
-          saveShortToLocalStorage(`Short_${componentKey}`, items);
+          saveShortToLocalStorage(`SHORT_FORM_${componentKey}`, items);
         }, [componentKey,items]);
 
         const saveShortToLocalStorage = (componentKey: string, items: any[]) => {
-          localStorage.setItem(`Short_${componentKey}`, JSON.stringify(items));
+          localStorage.setItem(`SHORT_FORM_${componentKey}`, JSON.stringify(items));
         };
       
         const loadShortFromLocalStorage = (componentKey: string) => {
-          const storedData = localStorage.getItem(`Short_${componentKey}`);
+          const storedData = localStorage.getItem(`SHORT_FORM_${componentKey}`);
       
           return storedData ? JSON.parse(storedData) : null;
         };

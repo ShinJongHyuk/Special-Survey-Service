@@ -6,7 +6,7 @@ import {Add_Button_Container,Delete_Button_Container,LinkSelect_List,LinkSelect_
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import useSurveyFocus from '@/stores/makesurvey/useSurveyFocusStore';
-
+import TextAreaAutoSize from 'react-textarea-autosize'
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();
     const {surveyList,setSurveyList} = useMakeSurveyApiStore();
@@ -20,7 +20,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     useEffect(() => {
     
       const loadDataFromLocalStorage = async () => {
-        const storedItems = await loadMultipleChoiceFromLocalStorage(`multiplechoice_${componentKey}`);
+        const storedItems = await loadMultipleChoiceFromLocalStorage(`MULTIPLE_CHOICE_${componentKey}`);
         
         if (storedItems) {
           setItems(storedItems);
@@ -31,7 +31,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     }, [componentKey]);
 
     useEffect(() => {
-        saveMultipleChoiceToLocalStorage(`multiplechoice_${componentKey}`, items);
+        saveMultipleChoiceToLocalStorage(`MULTIPLE_CHOICE_${componentKey}`, items);
       
      
     }, [componentKey,items]);
@@ -51,20 +51,21 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
       if (items) {
-        localStorage.setItem(`multiplechoice_${componentKey}`, JSON.stringify(items));
+        localStorage.setItem(`MULTIPLE_CHOICE_${componentKey}`, JSON.stringify(items));
       }
    
     };
   
     const loadMultipleChoiceFromLocalStorage = (componentKey: string) => {
-      const storedData = localStorage.getItem(`multiplechoice_${componentKey}`); 
+      const storedData = localStorage.getItem(`MULTIPLE_CHOICE_${componentKey}`); 
       return storedData ? JSON.parse(storedData) : null;
     };
 
     const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      const textarea = event.currentTarget;
-      textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`;
+        const textarea = event.currentTarget;
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+
     };
 
     const handleAddItem = () => {
@@ -104,7 +105,8 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
             <MultipleCheck name="radioGroup1" />
             <MultipleCheckText
               placeholder={`문항 ${index + 1}`}
-              rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+              minRows={1}
+             onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
               onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
               value = {item.text}
             />
