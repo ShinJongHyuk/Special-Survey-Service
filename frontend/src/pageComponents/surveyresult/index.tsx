@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Toggle_Component,Top_Option_Container } from './SurveyResult.styled';
 import Question from './components/question';
-import Response from './components/response';
+import Statistics from './components/statistics';
 import Payment from './components/payment';
-
+import { useSurveyAnswerHook } from '@/Hooks/useSurveyAnswerHook';
 
 function SurveyResult(props : any) {
   const [selectedOption, setSelectedOption] = useState('question');
+  const { surveyInformation, getSurveyQuestion } = useSurveyAnswerHook()
   const handleButtonClick = (option : any) => {
     setSelectedOption(option);
   };
@@ -20,8 +21,8 @@ function SurveyResult(props : any) {
           질문
         </Toggle_Component>
         <Toggle_Component
-          onClick={() => handleButtonClick('response')}
-          isSelected={selectedOption === 'response'}
+          onClick={() => handleButtonClick('Statistics')}
+          isSelected={selectedOption === 'Statistics'}
         >
           응답
         </Toggle_Component>
@@ -33,7 +34,7 @@ function SurveyResult(props : any) {
         </Toggle_Component>
       </Top_Option_Container>
       {selectedOption === 'question' ? <Question /> :
-       selectedOption === 'response' ? <Response /> :
+       selectedOption === 'Statistics' ? <Statistics /> :
        selectedOption === 'payment' ? <Payment /> : null }
     </>
   );
