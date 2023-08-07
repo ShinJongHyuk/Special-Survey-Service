@@ -3,18 +3,21 @@ import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {Delete_Button_Container,LinkSelect_List,LinkSelect_Option,DeleteButton,AddButton,CheckBox_content_Box,CheckBox_Box,MultipleCheck,MultipleCheckText } from './CheckBox.styled';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore'
-
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
+import useSurveyFocus from '@/stores/makesurvey/useSurveyFocusStore';
 
 const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boolean }) => {
         const {surveyComponents} = useSurveyStore();
+        const {surveyList,setSurveyList} = useMakeSurveyApiStore();
+        const {selectedSurvey} = useSurveyFocus();
         const [items, setItems] = useState<any[]>([
-          { id: `${componentKey}_1`, text: '', imageUrl: '' },
+          { id: `${componentKey}_1`, text: '' ,linkNumber : 0},
         ]
         );
         const [count, setCount] = useState(3);
 
         useEffect(() => {
-          const storedItems = loadCheckBoxFromLocalStorage(`checkbox_${componentKey}`);
+          const storedItems = loadCheckBoxFromLocalStorage(`CHECK_BOX_${componentKey}`);
           if (storedItems) {
             setItems(storedItems);
           }
@@ -22,25 +25,40 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
 
 
         useEffect(() => {
-          saveCheckBoxToLocalStorage(`checkbox_${componentKey}`, items);
+          saveCheckBoxToLocalStorage(`CHECK_BOX_${componentKey}`, items);
         }, [componentKey,items]);
       
+        useEffect(() => {
+  
+          const checkBoxData = items.map((item) => ({
+            content: item.text,
+            linkNumber: item.linkNumber
+          }));
+      
+          setSurveyList(componentKey,{...surveyList[componentKey], checkBox : checkBoxData });
+        }, [componentKey, items]);
 
         const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
-          localStorage.setItem(`checkbox_${componentKey}`, JSON.stringify(items));
+          localStorage.setItem(`CHECK_BOX_${componentKey}`, JSON.stringify(items));
 
         };
       
         const loadCheckBoxFromLocalStorage = (componentKey: string) => {
-          const storedData = localStorage.getItem(`checkbox_${componentKey}`);
+          const storedData = localStorage.getItem(`CHECK_BOX_${componentKey}`);
       
           return storedData ? JSON.parse(storedData) : null;
-        };     
+        };
+
+        const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+          const textarea = event.currentTarget;
+          textarea.style.height = 'auto';
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        };
 
         const handleAddItem = () => {
           setItems((prevItems) => [
             ...prevItems,
-            { id: `${componentKey}_${count}`, text: '', imageUrl: '' },
+            { id: `${componentKey}_${count}`, text: '', linknumber :0 },
           ]);
           setCount((prevCount) => prevCount + 1);
         };
@@ -51,7 +69,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
           setItems(updatedItems);
         };
       
-        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>) => {
           const updatedItems = [...items];
           updatedItems[index].text = event.target.value;
           setItems(updatedItems);
@@ -73,23 +91,29 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
               <CheckBox_content_Box key={item.id}>
                 <MultipleCheck name="radioGroup1" />
                 <MultipleCheckText
-                  placeholder={`문항 ${index + 1}`}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
-                  value = {item.text}
-                 />
+                    placeholder={`문항 ${index + 1}`}
+                    minRows={1}
+                    
+                  onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
+                    value = {item.text}
+                  />
+
                 <Delete_Button_Container>
                   {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
                 </Delete_Button_Container>
                 {isLink && (
-                <LinkSelect_List value={item.linkNumber} onChange={(e : any) => handleOptionChange(index, e)}>
-                    <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
-                    {surveyComponents.map((component, idx) => (
-                    <LinkSelect_Option key={idx} value={idx + 1}>
-                      {`${idx + 1}번 질문으로 연결됨`}
+              <LinkSelect_List value={item.linkNumber} onChange={(e: any) => handleOptionChange(index, e)}>
+                <LinkSelect_Option value="0">연계할 설문 번호를 선택</LinkSelect_Option>
+                {surveyComponents
+                  .filter((component, idx) => idx+1 > selectedSurvey) 
+                  .map((component, idx) => (
+                    <LinkSelect_Option key={idx+selectedSurvey+1} value={idx+selectedSurvey+1}>
+                      {`${idx+selectedSurvey+1}번 질문`}
                     </LinkSelect_Option>
                   ))}
-                </LinkSelect_List>
-                )}
+              </LinkSelect_List>
+            )}
               </CheckBox_content_Box>
             ))}
             <AddButton onClick={() => handleAddItem()}>문항 추가</AddButton>

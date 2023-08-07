@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import axios from 'axios'
 
 import { useCookies } from 'react-cookie'
+import loginPost from "@/api/user/loginPost"
+import loginGet from "@/api/user/loginGet"
 
 interface User {
     email : String,
@@ -13,9 +15,6 @@ interface User {
 export const useLoginHook = () => {
     const router = useRouter()
     const setUserInformation = useUserStore((state:any) => state.setUserInformation)
-    // const setAccessToken = useUserStore((state:any) => state.setAccessToken)
-    // const setRefreshToken = useUserStore((state:any) => state.setRefreshToken)
-    // const accessToken = useUserStore((state:any) => state.accessToken)
     const userInformation = useUserStore((state:any) => state.userInformation)
     const login = useUserStore((state:any) => state.login)
     
@@ -89,37 +88,28 @@ export const useLoginHook = () => {
 
         else {
             try {
-                const res = await axios({
-                  method: 'post',
-                  url: 'http://221.164.64.185:8080/api/authenticate',
-                  data: { ...user },
-                });
-                // setAccessToken(res.data.response.accessToken);
-                // setRefreshToken(res.data.response.refreshToken);
-                localStorage.setItem("email", user.email)
-                localStorage.setItem("password", user.password)
-                localStorage.setItem("accessToken", res.data.response.accessToken)
-                localStorage.setItem("refreshToken", res.data.response.refreshToken)
-                login();
-                
-                if (isRemember) {
-                  setCookie("rememberUserId", user.email, { path: '/' });
+                const res = await loginPost(user)
+                if (res.data.success === true) {
+                    login();
+                    
+                    if (isRemember) {
+                    setCookie("rememberUserId", user.email, { path: '/' });
+                    }
+            
+                    const response = await loginGet(res.data.response.accessToken)
+                    console.log(response.data.response)
+                    await setUserInformation(response.data.response);
+                    
+                    await router.push('/')
+                    alert('로그인에 성공하였습니다.')
+                } else if (res.data.success === false) {
+                    alert(res.data.apiError.message)
                 }
-          
-                const response = await axios({
-                  method: 'get',
-                  url: `http://221.164.64.185:8080/api/user`,
-                  headers: {
-                    Authorization: `Bearer ${res.data.response.accessToken}`
-                  }
-                });
-                console.log(response.data.response)
-                await setUserInformation(response.data.response);
                 
-                await router.push('/')
               } catch (err) {
                 console.log(err);
               }
+
         }
     }
     return {handleChange, handleSubmit, handleUserId, handleOnChange, inputState, user, isRemember}

@@ -6,6 +6,7 @@ type ToolbarType = {
 
 const ToolbarBox = styled.div.attrs<ToolbarType>((props) => ({
     height : props.height,
+   
   }))`
   
     display: flex;
@@ -17,8 +18,9 @@ const ToolbarBox = styled.div.attrs<ToolbarType>((props) => ({
     background-color: black;
     /* border : 3px solid ${props => props.theme.colors.purple}; */
     position: absolute;
-    right: calc(100% + 10px); 
-    top: ${({ height }) => (height > 320 ? height : 320)}px;
+    right: calc(10% + -100px); 
+    top: ${({ height }) => (height > 360 ? height+40 : 360)}px;
+    transition: top 0.4s ease;
   `;
   
   const Toolbar_InnerBox = styled.div.attrs({})`

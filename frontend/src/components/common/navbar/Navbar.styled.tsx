@@ -9,7 +9,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
     const surveylistcolor = props.selectBtn === "1" ? "#C6B6FF" : "#FFFAAE";
 
-    const height = props.pathname === "/makesurvey" ? '72px' : '56px';
+    const height = props.pathname === "/makesurvey" ? "72px" : "56px";
 
     switch (props.pathname) {
       case "/surveylist":
@@ -23,6 +23,11 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       default:
         bgColor = yellow;
     }
+
+    if (props.pathname.includes("surveyAnswer")) {
+      bgColor = "#white"
+    }
+
     return css`
       width: 100%;
       height: ${height};
@@ -38,24 +43,22 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
   }};
 `;
 
-
-
 const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === "/makesurvey" ? '15%' : '20%';
+    const size = props.pathname === "/makesurvey" ? "15%" : "20%";
     return css`
-      width : ${size};
+      width: ${size};
     `;
   }};
 `;
 
 const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === "/makesurvey" ? '85%' : '60%';
-    const jc = props.pathname === "/makesurvey" ? 'space-between' : 'center';
-    const ai = props.pathname === "/makesurvey" ? 'center' : '';
+    const size = props.pathname === "/makesurvey" ? "85%" : "60%";
+    const jc = props.pathname === "/makesurvey" ? "space-between" : "center";
+    const ai = props.pathname === "/makesurvey" ? "center" : "";
     return css`
-      width : ${size};
+      width: ${size};
       display: flex;
       justify-content: ${jc};
       align-items: ${ai};
@@ -65,16 +68,15 @@ const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
 `;
 const StyledEndComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === "/makesurvey" ? '10%' : '20%';
+    const size = props.pathname === "/makesurvey" ? "10%" : "20%";
     return css`
-      width : ${size};
+      width: ${size};
       display: flex;
       justify-content: flex-end;
       gap: 10px;
     `;
   }};
 `;
-
 
 const StyledNavLink = styled(Link)`
   padding: 0px 10px;
@@ -89,29 +91,39 @@ const StyleLogout = styled.div`
   font-size: ${(props) => props.theme.fontSizes.small};
   color: ${(props) => props.theme.colors.black};
   cursor: pointer;
-`
+`;
 
-// const StyledNavBtn = styled.button`
-//   background: transparent;
-//   border: none;
-//   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
-//   font-size: ${(props) => props.theme.fontSizes.small};
-//   color: ${(props) => props.theme.colors.black};
-//   cursor: pointer;
-// `;
-
-const StyledNavBtn = styled.button.attrs<any>((props) => ({}))`
+const StyledSurveyListNavBtn = styled.button.attrs<any>((props) => ({}))`
   ${(props) => {
     const purple = props.theme.colors.purple;
     const orange = props.theme.colors.orange;
     const black = props.theme.colors.black;
+
+    const color = props.isactive ? (props.btntype === "1" ? purple : orange) : black;
     return css`
       background: transparent;
       border: none;
       font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
       font-size: ${(props) => props.theme.fontSizes.small};
       cursor: pointer;
-      color: ${black};
+      color: ${color};
+    `;
+  }};
+`;
+
+const StyledMypageNavBtn = styled.button.attrs<any>((props) => ({}))`
+  ${(props) => {
+    const orange = props.theme.colors.orange;
+    const black = props.theme.colors.black;
+
+    const color = props.selectBtn === props.colorCode ? orange : black;
+    return css`
+      background: transparent;
+      border: none;
+      font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+      font-size: ${(props) => props.theme.fontSizes.small};
+      cursor: pointer;
+      color: ${color};
     `;
   }};
 `;
@@ -130,34 +142,45 @@ const StyledProfileName = styled.div`
   color: ${(props) => props.theme.colors.black};
 `;
 
-
 const StyledTitleInput = styled.input.attrs({ placeholder: "설문지 제목" })`
-    
-    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-    font-weight : 800;
-    
-    font-size: ${props => props.theme.fontSizes.medium};
-    color: ${props => props.theme.colors.black};
-    background-color: ${props => props.theme.colors.white};
-    border: 0px;
-    &::placeholder {
-      color: ${props => props.theme.colors.gray};
-      font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-      font-size: ${props => props.theme.fontSizes.medium};
-    }
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-weight: 800;
+  height : 30px;
+  font-size: ${(props) => props.theme.fontSizes.medium};
+  color: ${(props) => props.theme.colors.black};
+  background-color: ${(props) => props.theme.colors.white};
+  text-overflow: ellipsis;
+  border: 0px;
+  &::placeholder {
+    color: ${(props) => props.theme.colors.gray};
+    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+    font-size: ${(props) => props.theme.fontSizes.medium};
+  }
 
-    &:focus {
-      outline: none;
-        box-shadow: 0 0 1px ${props => props.theme.colors.black};
-        border-radius: 5px;
-    }
-`
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1px ${(props) => props.theme.colors.black};
+    border-radius: 5px;
+  }
+`;
 
 const StyledText = styled.div`
-    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-    font-size: ${props => props.theme.fontSizes.xsmall};
-    color: ${props => props.theme.colors.gray};
-    margin-left : 4px;
-`
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.xsmall};
+  color: ${(props) => props.theme.colors.gray};
+`;
 
-export { StyledText, StyledTitleInput, StyledStartComp, StyledMidComp, StyledEndComp, StyledPropfileLink, StyledProfileName, StyledNavbar, StyledNavLink, StyleLogout, StyledNavBtn };
+export {
+  StyledText,
+  StyledTitleInput,
+  StyledStartComp,
+  StyledMidComp,
+  StyledEndComp,
+  StyledPropfileLink,
+  StyledProfileName,
+  StyledNavbar,
+  StyledNavLink,
+  StyleLogout,
+  StyledSurveyListNavBtn,
+  StyledMypageNavBtn,
+};

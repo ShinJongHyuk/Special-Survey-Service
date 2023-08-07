@@ -3,15 +3,13 @@ import Image from 'next/image'
 import ImageIcon from '/public/survey/ImageIcon.png'
 import {DeleteButton,AddButton,Dates_content_Box,Dates_Box,MultipleCheck} from './Dates.styled';
 
-
 const Dates = ({ componentKey }: { componentKey: string }) => {
-
         const [items, setItems] = useState<any[]>([
           { id: `${componentKey}_1`, date: ''},
         ]);
         
         useEffect(() => {
-          const storedItems = loadDateFromLocalStorage(`dates_${componentKey}`);
+          const storedItems = loadDateFromLocalStorage(`DATE_FORM_${componentKey}`);
           if (storedItems) {
             setItems(storedItems);
           }
@@ -19,15 +17,15 @@ const Dates = ({ componentKey }: { componentKey: string }) => {
     
     
         useEffect(() => {
-          saveDateToLocalStorage(`dates_${componentKey}`, items);
+          saveDateToLocalStorage(`DATE_FORM_${componentKey}`, items);
         }, [componentKey,items]);
-      
+
         const saveDateToLocalStorage = (componentKey: string, items: any[]) => {
-          localStorage.setItem(`dates_${componentKey}`, JSON.stringify(items));
+          localStorage.setItem(`DATE_FORM_${componentKey}`, JSON.stringify(items));
         };
       
         const loadDateFromLocalStorage = (componentKey: string) => {
-          const storedData = localStorage.getItem(`dates_${componentKey}`);
+          const storedData = localStorage.getItem(`DATE_FORM_${componentKey}`);
       
           return storedData ? JSON.parse(storedData) : null;
         };

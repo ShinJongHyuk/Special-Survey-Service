@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import TextAreaAutoSize from 'react-textarea-autosize'
 
 const Survey_Container = styled.div.attrs({})`
     display: flex;
@@ -6,11 +7,11 @@ const Survey_Container = styled.div.attrs({})`
     min-height: 300%;
     justify-content: center;
 
-    background-image: url("/survey/background_survey.png");
+    background-image: url("/survey/background_survey2.png");
     background-repeat: repeat;
-    
+
     position: absolute;
-    top: 27%;
+    top: 18%;
     flex-wrap: wrap;
   
 `;
@@ -27,13 +28,14 @@ const Component_Container = styled.div.attrs({})`
 const Survey_Inner_Container = styled.div.attrs({})`
     display: flex;
     flex-direction : column;
-    width: 55%;
-    max-width : 768px;
+    width: 70%;
+    max-width : 900px;
     min-width : 400px;
     min-height: 100%;
+    background-color : white;
+    padding : 40px 70px 40px 70px;
+    position : absolute;
 
-    position: absolute;
-  
 `;
 
 const Background_Container = styled.div.attrs({})`
@@ -53,14 +55,15 @@ const Survey_Title_Container = styled.div.attrs({})`
 
     width : 100%;
     min-width : 600px;
-    height : 120px;
+    height : 20%;
+    min-height : 120px;
     margin-bottom : 20px;
 
     box-sizing : border-box;
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
-    padding : 10px 5px 10px 55px;
+    padding : 10px 5px 10px 10px;
 `;
 
 const Survey_Detail_Container = styled.div.attrs({})`
@@ -170,30 +173,9 @@ const Element_Input = styled.input.attrs({})`
 
 `
 
-const Gender_Button = styled.button.attrs<any>((props => {
-    genderselected : props.genderselected
-}))`
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    box-sizing : border-box;
-    margin : 10px 10px;
-    box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
-    border : 1px solid ${props => props.theme.colors.lightgray};
-    border-radius : 10px;
-    background-color: ${(props) =>
-    props.selected === "MAN" ? props.theme.colors.purple : props.selected === "WOMAN" ? props.theme.colors.lightgray : "white"};
-    font-size: ${(props) => props.theme.fontSizes.small};
-    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
-    color: ${(props) => props.theme.colors.black};
-    cursor: pointer;
-`;
 
-const Age_Button = styled.button.attrs<any>((props => {
-    ageselected : props.ageselected
+const Target_Button = styled.button.attrs<any>((props => {
+    selected : props.selected
 }))`
     display: flex;
     flex-direction: column;
@@ -207,7 +189,7 @@ const Age_Button = styled.button.attrs<any>((props => {
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 10px;
     background-color: ${(props) =>
-    props.selected === "MAN" ? props.theme.colors.purple : props.selected === "WOMAN" ? props.theme.colors.lightgray : "white"};
+    props.selected ? props.theme.colors.purple : 'white'};
     font-size: ${(props) => props.theme.fontSizes.small};
     font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
     color: ${(props) => props.theme.colors.black};
@@ -254,28 +236,46 @@ const Title_Inner_Container = styled.div.attrs({})`
     flex-direction : column;
     width : 100%;
     height : 100%;
+    min-height : 100px;
     border : none;
+    padding : 0px 40px;
 `
-const Title_input = styled.input.attrs({ placeholder : "설문지 제목"})`
+const Title_input = styled(TextAreaAutoSize)`
     display: flex;
     width: 100%;
-    height: 60%;
+    height: 50px;
+    min-height: 50px;
+    margin-top: 13px;
+    resize: none;
     border: none;
-    font-size: ${props => props.theme.fontSizes.large};
+    font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+    
     &::placeholder {
-        color : ${props => props.theme.colors.lightpurple};
+        color: ${props => props.theme.colors.lightpurple}; 
+        font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+        font-size: ${props => props.theme.fontSizes.mediumlarge};
     }
-`
-const Title_Content = styled.input.attrs({ placeholder : "제목에 대한 설명을 적어주세요 (선택사항)"})`
+    
+    &:focus {
+        outline: none;
+    }
+`;
+const Title_Content = styled(TextAreaAutoSize)`
     display: flex;
     width: 100%;
-    height: 40%;
+    height: 40px;
+    min-height : 40px;
     border: none;
+    resize: none;
+    overflow: auto; 
     font-size: ${props => props.theme.fontSizes.small};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
     &::placeholder {
       color: ${props => props.theme.colors.gray};
+    }
+    &:focus {
+        outline : none;
     }
 `
 const Condition_Inner_Container = styled.div.attrs({})`
@@ -291,9 +291,10 @@ const Condition_Title = styled.div.attrs({})`
     width: 93%;
     height: 50%;
     border: none;
-    font-size: ${props => props.theme.fontSizes.large};
+    font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     color : ${props => props.theme.colors.lightpurple};
+    padding : 0px 26px;
     
 `
 const Condition_Detail_Title = styled.div.attrs({})`
@@ -318,7 +319,7 @@ const Condition_Select_Container = styled.div.attrs({})`
     width: 100%;
     min-height: 60px;
     border: none;
-    font-size: ${props => props.theme.fontSizes.large};
+    font-size: ${props => props.theme.fontSizes.mediumlarge};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     color : ${props => props.theme.colors.black};
     
@@ -409,4 +410,4 @@ const MarkText = styled.mark.attrs({})`
     
 `;
 
-export {MarkText,Age_Button,Gender_Button,Condition_Select_Container,Bottom_Type2_Container,Bottom_Type1_Container,Element_Bottom_Row_Container,Element_Detail_Title,Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title,Survey_Container,Component_Container,Survey_Inner_Container,Background_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input}
+export {MarkText,Target_Button,Condition_Select_Container,Bottom_Type2_Container,Bottom_Type1_Container,Element_Bottom_Row_Container,Element_Detail_Title,Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title,Survey_Container,Component_Container,Survey_Inner_Container,Background_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input}

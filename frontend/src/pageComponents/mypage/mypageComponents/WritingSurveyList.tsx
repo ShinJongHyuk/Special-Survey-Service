@@ -2,9 +2,11 @@
 import useWritingListHook from "@/Hooks/mypage/useWritingListHook";
 import { StyledList } from "../Mypage.styled";
 import Mycard from "@/components/mycard";
+import { useRouter } from "next/navigation";
 
 const WritingSurveyList = (props: any) => {
   const { surveys } = useWritingListHook();
+  const router = useRouter();
 
   return (
     <div>
@@ -21,6 +23,7 @@ const WritingSurveyList = (props: any) => {
                 endtime={survey.endTime}
                 headcount={survey.headCount}
                 closedheadcount={survey.closedHeadCount}
+                onClick={() => router.push("/surveydetail/" + survey.id)}
               />
             </div>
           </div>

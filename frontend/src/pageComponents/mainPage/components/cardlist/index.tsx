@@ -1,8 +1,10 @@
 import Card from "@/components/card";
 import { StyledCardList } from "./CardList.styled";
+import { useRouter } from "next/navigation";
 
 const CardList = (props: any) => {
   const cards = props.cards;
+  const router = useRouter();
   return (
     <StyledCardList>
       {cards.map((survey: any, index: any) => (
@@ -18,6 +20,7 @@ const CardList = (props: any) => {
               endtime={survey.endTime}
               responsedtime={survey.requiredTimeInSeconds + "분"}
               contentype={props.contentType}
+              onClick={() => router.push("/surveydetail/" + survey.id)}
             />
           </div>
         </div>

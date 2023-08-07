@@ -3,13 +3,13 @@ import styled,{ThemeProvider} from 'styled-components'
 
 const SelectBox = styled.div.attrs({})`
   display: flex;
-  width: 47%;
+  width: 40%;
   min-width : 100px;
   height: 44px;
   border-radius: 8px;
   border : 0px solid ${props => props.theme.colors.purple};
   padding : 20px, 20px;
-  margin-left : 13%;
+  margin-left : 2%;
   cursor: pointer;
 `
 const SelectBox_List = styled.select.attrs({})`
@@ -20,7 +20,7 @@ const SelectBox_List = styled.select.attrs({})`
   text-align : center;
 
   border: 1px solid ${props => props.theme.colors.purple};
-  border-radius: 8px;
+  border-radius: 18px;
   background-color: white;
   padding: 10px;
   font-size: ${props => props.theme.fontSizes.small};
@@ -36,7 +36,7 @@ const SelectBox_Option = styled.option.attrs({})`
 
 `;
 
-const Main_Container = styled.div.attrs({})`
+const Main_Container = styled.div.attrs({tabIndex : 0})`
     display : flex;
     flex-direction : column;
 
@@ -49,6 +49,12 @@ const Main_Container = styled.div.attrs({})`
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
     padding : 30px 30px 30px 30px;
+    &:focus {
+      box-sizing : border-box;
+      border : 1.5px solid ${props => props.theme.colors.purple};
+      box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightpurple} ;
+
+    }
     
     hr {
     width : 710px;
@@ -76,44 +82,50 @@ const Question_Container = styled.div.attrs({})`
     border-left: 3px solid #8E69FF;
     
     width: 100%;
-    min-width : 350px;
-    height: 10%;
-    padding: 0px 20px;
+    min-width : 360px;
+    height: 100%;
+    padding: 0px 15px;
+
     
 `
 const Question_Inner_Container = styled.div.attrs({})`
     display : flex;
     flex-direction : row;
     
-    
     width : 100%;
     min-width : 400px;
-    height : 5%;
-    padding : 5px 20px;
+    height : 100%;
+    padding : 5px 5px 5px 20px;
 `
 
 const Question_Header_Container = styled.div.attrs({})`
     display : flex;
     flex-direction : column;
-    width : 70%;
+    width : 60%;
     min-width : 300px;
-    height : 10%;
+    height : 20%;
+    
     
 `
 
-const Question_Header = styled.input.attrs<any>((props) => ({
+const Question_Header = styled.textarea.attrs<any>((props) => ({
     placeholder: `질문${props.index + 1}*`,
   }))`
     display: flex;
     width: 100%;
-    min-width : 10px;
-    height: 100%;
-    margin-bottom : 10px;
+    height: 30px;
+    resize : none;
+    margin-bottom : 5px;
     border: none;
+    resize : none;
     font-size: ${props => props.theme.fontSizes.medium};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     &::placeholder {
       color: ${props => props.theme.colors.black};
+    }
+    &:focus {
+        outline : none;
+        height: 30px;
     }
   `;
 
@@ -125,15 +137,21 @@ const Question_Content_Container = styled.div.attrs({})`
     border : none;
 `
 
-const Question_Content = styled.input.attrs<any>(props => ({
+const Question_Content = styled.textarea.attrs<any>(props => ({
     placeholder: `질문${props.index + 1}에 대한 설명`,
   }))`
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 25px;
     border: none;
+    resize : none;
+    outline : none;
     font-size: ${props => props.theme.fontSizes.small};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
+    &:focus {
+        outline : none;
+        height: 25px;
+    }
   `;
 
 
@@ -158,9 +176,9 @@ const Link_Question_Title = styled.label.attrs({})`
     display : flex;
     align-items : center;
     
-    width : 70px;
+    width : 80px;
     height : 100%;
-    font-size : ${props => props.theme.fontSizes.xsmall};
+    font-size : 14px;
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
 `
 const LinkSelectBox = styled.div.attrs({})`
@@ -182,7 +200,7 @@ const LinkSelect_List = styled.select.attrs({})`
   cursor: pointer;
 
 
-  font-size: ${props => props.theme.fontSizes.xsmall};
+  font-size : 14px;
   color: ${props => props.theme.colors.purple};
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
   
@@ -223,7 +241,7 @@ const Essential_Question_Title =  styled.label.attrs({})`
     
     width : 50%;
     height : 100%;
-    font-size : ${props => props.theme.fontSizes.xsmall};
+    font-size : 14px;
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
 `
 const CheckBox_Switch = styled.div.attrs({})`
@@ -232,6 +250,7 @@ const CheckBox_Switch = styled.div.attrs({})`
   background: #b3b3b3;
   border-radius: 32px;
   padding: 4px;
+
   &:before {
     content: "";
     margin-top : 1.1px;
@@ -242,6 +261,8 @@ const CheckBox_Switch = styled.div.attrs({})`
     border-radius: 35px;
     background: ${props => props.theme.colors.lightpurple};
     transform: translate(0, -50%);
+    transition : inherit;
+    
 
   }
 `;
@@ -250,11 +271,12 @@ const CheckBox_Switch = styled.div.attrs({})`
 const CheckBox_Input = styled.input.attrs({type : "checkbox"})`
   display: none;
   width : 100%;
-
+  outline : none;
   &:checked + ${CheckBox_Switch} {
     background-color : ${props => props.theme.colors.purple};
     &:before {
       transform: translate(22px, -50%);
+      
      }
    }
 `;
@@ -277,6 +299,7 @@ const ImageWrapper = styled.div`
 
 const UploadImage = styled.input.attrs({type : 'file'})`
     display : none;
+    outline : none;
 `;
 
 

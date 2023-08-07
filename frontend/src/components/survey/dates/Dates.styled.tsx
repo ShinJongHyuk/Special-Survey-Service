@@ -22,12 +22,12 @@ const Dates_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheck = styled.input.attrs({ type: 'date' })`
+const MultipleCheck = styled.input.attrs({ type: 'date', disabled : true })`
     display : flex;
     width : 40%;
     height: 40px;
     border-radius : 50px;
-    margin-right : 50px; 
+    margin-right : 20px;
 
     border : 2px solid ${props => props.theme.colors.purple};
     letter-spacing : 7px;

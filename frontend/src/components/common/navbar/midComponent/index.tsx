@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import DefaultComponent from "./DefaultComponent";
 import SurveylistComponent from "./SurveylistComponent";
 import MypageComponent from "./MypageComponent";
 import SurveyDetailComponent from "./SurveyDetailComponent";
 import MakesruveyComponent from "./MakesurveyComponent";
+import SurveyAnswerComponent from "./SurveyAnswerCompnent";
 
 const MidComponent = (props: any) => {
   const pathname = props.pathname;
@@ -17,6 +18,9 @@ const MidComponent = (props: any) => {
     return <MypageComponent pathname={pathname} />;
   } else if (pathname === "/makesurvey") {
     return <MakesruveyComponent pathname={pathname} />
+  }  
+  else if (pathname.includes("/surveyAnswer")) {
+    return 
   }
   return <DefaultComponent pathname={pathname} />;
 };

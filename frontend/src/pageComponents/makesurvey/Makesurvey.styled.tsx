@@ -17,13 +17,13 @@ const Toggle_Component = styled.button.attrs<any>((props) =>({
     cursor: pointer;
     display: flex;
     width: 70px;
-    height: 60px;
+    height: 50px;
     border: none;
 
     background-color: white;
     align-items: center;
     justify-content: center;
-    font-size: ${props => props.theme.fontSizes.small};
+    font-size: ${props => props.theme.fontSizes.medium};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
 
     ${props =>

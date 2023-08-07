@@ -1,9 +1,11 @@
 import useAnsweredListHook from "@/Hooks/mypage/useAnsweredListHook";
 import { StyledList } from "../Mypage.styled";
 import Mycard from "@/components/mycard";
+import { useRouter } from "next/navigation";
 
 const AnsweredSurveyList = (props: any) => {
   const { surveys } = useAnsweredListHook();
+  const router = useRouter();
   return (
     <div>
       <StyledList>
@@ -17,7 +19,8 @@ const AnsweredSurveyList = (props: any) => {
                 giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
                 remaintime={survey.remainTime || ""}
                 endtime={survey.endTime}
-                probability={survey.winningPercent + "%"} />
+                probability={survey.winningPercent + "%"}
+                onClick={() => router.push("/surveydetail/" + survey.id)} />
             </div>
           </div>
         ))}
