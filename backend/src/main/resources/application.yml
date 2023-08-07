@@ -11,6 +11,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  cache:
+    redis:
+      time-to-live: 3600 # 데이터 유지 시간(sec)
+      cache-null-values: true # null 캐싱 여부
+      host: localhost
+      port: 6379
 
 jwt:
   header: Authorization
@@ -18,6 +24,19 @@ jwt:
   refresh-secret: dGhpcy1pcy10aGUtc3BlY2lhbC1zdXJ2ZXktc2VydmljZS1tYWRlLWJ5LXNpeC1kZXZlbG9wZXItaXQtY2FuLWJlLXRoZS1iZXN0LXNlcnZpY2UtaW4tNy10ZWFtCg==
   access-token-validity-in-seconds: 3600 # 1시간 3600
   refresh-token-validity-in-seconds: 1296000 # 15일 1296000
+
+apikey:
+  iamport-apikey: 7343166512186774
+  iamport-secretkey: AFgMzlcN1niQMqo4QjGlV7hyBuQOmuKFnKHqtHRzeCme37sbo6b8zKRhfAMtQKzX5BgPSrbE0pfdAEDK
+  iamport-storekey: imp36635434
+  naver-accesskey: mgIU1Z68m4jAneZU7f37
+  naver-secretkey: DpDVZgrDqbK5neoRR9oqlAAReOn6vBPzAmsMEBvj
+  naver-message-servickey: ncp:sms:kr:299147416082:supersurveyservice
+
+sender:
+  phone-number: "01055014037"
+
+
 
 ---
 spring:
@@ -55,6 +74,7 @@ spring:
   sql:
     init:
       mode: never
+
 ---
 spring:
   config:
@@ -74,3 +94,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    defer-datasource-initialization: true
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: logs/basic.log
+  logback:
+    rolling-policy:
+      file-name-pattern: "logs/basic.%d{yyyy-MM-dd}.%i"
+      max-history: 30

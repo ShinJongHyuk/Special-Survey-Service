@@ -23,28 +23,35 @@ public class Question {
 
     private Long questionNumber;
 
+    private String title;
+
     private String content;
 
     private String imgAddress;
+
+    private boolean essential;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "survey_id")
     private Survey survey;
 
+    @Enumerated(EnumType.STRING)
     private QuestionCategoryType type;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MultipleChoice> multipleChoice;
 
     @Builder
-    public Question(Long questionNumber, String content, String imgAddress, Survey survey,
-            QuestionCategoryType type, List<MultipleChoice> multipleChoice) {
+    public Question(String title, Long questionNumber, String content, String imgAddress, Survey survey,
+            QuestionCategoryType type, List<MultipleChoice> multipleChoice, boolean essential) {
         this.questionNumber = questionNumber;
+        this.title = title;
         this.content = content;
         this.imgAddress = imgAddress;
         this.survey = survey;
         this.type = type;
         this.multipleChoice = multipleChoice;
+        this.essential = essential;
     }
 
     public void updateQuestion(QuestionModifyServiceRequest questionModifyServiceRequest) {
