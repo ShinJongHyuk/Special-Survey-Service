@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@lombok.Generated
 public class SurveyResult extends BaseEntity {
 
     @Id
@@ -63,6 +64,10 @@ public class SurveyResult extends BaseEntity {
 
     public void checkResult() {
         this.userCheck = true;
+    }
+
+    public boolean isResponse() {
+        return (userCheck == false || win) && survey.isClosed();
     }
 
 }
