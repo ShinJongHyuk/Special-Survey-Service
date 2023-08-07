@@ -3,6 +3,7 @@ import useSSEHook from "@/Hooks/sse/useSSEHook";
 import { ResultPropsType } from "../../SurveyDetailType.type";
 import { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard } from "./Result.styled";
 import Image from "next/image";
+import React, { useState, useEffect } from "react";
 
 const ResultComponent = (props: any) => {
   const { surveyDetail } = props;
@@ -28,8 +29,14 @@ const ResultComponent = (props: any) => {
 
   const percentSSE = useSSEHook(resultProps.id, "확률변동");
   console.log("percentSSE : ", percentSSE);
+  const [percentArray, setPercentArray] = useState(resultProps.percent.toString().split(""));
+  useEffect(() => {
+    if (percentSSE) {
+      setPercentArray(percentSSE.toString().split(""));
+    }
+  }, [percentSSE]);
 
-  const percentArray = resultProps.percent.toString().split("");
+  // const percentArray = resultProps.percent.toString().split("");
   return (
     <>
       <SurveyResultComent>
