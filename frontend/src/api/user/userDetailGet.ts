@@ -7,7 +7,11 @@ const userDetailGet = async () => {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
-    return response.data.response;
+    if (response.data.success) {
+      return response.data.response;
+    } else {
+      console.log("error: ", response.data.apiError.message);
+    }
   } catch (error) {
     console.error("Error: ", error);
     throw error;
