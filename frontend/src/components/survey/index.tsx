@@ -124,7 +124,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
       setImgUrl('')
     };
 
-    const positionImage = surveyState === 'dates' || surveyState === 'time'
+    const positionImage = surveyState === 'DATE_FORM' || surveyState === 'TIME_FORM' || surveyState === 'SHORT_FORM'
         ? { marginLeft: '252px' }
         : {};
 

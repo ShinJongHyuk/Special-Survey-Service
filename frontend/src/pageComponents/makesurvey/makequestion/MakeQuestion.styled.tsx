@@ -91,8 +91,8 @@ const Title_Inner_Container = styled.div.attrs({})`
 const Title_input = styled(TextAreaAutoSize)`
     display: flex;
     width: 100%;
-    height : 50px;
-    min-height: 50px;
+    height : 64px;
+    min-height: 64px;
     margin-top : 13px;
     resize : none;
     border: none;
