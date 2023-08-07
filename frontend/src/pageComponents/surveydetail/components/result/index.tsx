@@ -26,7 +26,7 @@ const ResultComponent = (props: any) => {
 
   const imgsrc = images[resultProps.giveawaytype];
 
-  // const percentSSE = useSSEHook(resultProps.id, "확률변동");
+  const percentSSE = useSSEHook(resultProps.id, "확률변동");
   // console.log("percentSSE : ", percentSSE)
   const percentArray = resultProps.percent.toString().split("");
   return (

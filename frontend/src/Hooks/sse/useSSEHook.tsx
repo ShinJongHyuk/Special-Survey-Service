@@ -1,42 +1,19 @@
 import api from "@/api/api";
 import { useEffect, useState } from "react";
 
-const useSSEHook = (want: any, surveyId: any) => {
+const useSSEHook = (surveyId: any, want: string) => {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    const eventSource = new EventSource(api.defaults.baseURL + `/subscribe/` + surveyId, {
-      withCredentials: true,
+
+    const eventSource = new EventSource(api.defaults.baseURL + '/subscribe/' + surveyId);
+
+    eventSource.addEventListener(want, (event) => {
+      console.log('Message from server :  ', event.data);
+      // const jsonData = JSON.parse(event.data);
+      // setData(jsonData);
     });
 
-    eventSource.onopen = () => {
-      console.log("open")
-    }
-
-    eventSource.onmessage = async (e: any) => {
-      const res = await e.data;
-      const parsedData = JSON.parse(res);
-      console.log("sse res: ", res);
-      console.log("sse parsedData: ", parsedData);
-      setData(parsedData)
-    }
-    // eventSource.addEventListener(want, function (event) {
-    //   console.log(event);
-    //   setData(JSON.parse(event.data));
-    // });
-
-
-    eventSource.onerror = (e: any) => {
-      eventSource.close();
-
-      if (e.error) {
-        console.log("sse Error")
-      }
-
-      if (e.target.readyState === EventSource.CLOSED) {
-        console.log("sse close")
-      }
-    };
 
     return () => {
       eventSource.close();

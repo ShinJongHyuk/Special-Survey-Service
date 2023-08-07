@@ -10,7 +10,7 @@ const userInstantListGet = async (accessToken: any) => {
         if (response.data.success) {
             return response.data.response;
         } else {
-            console.log("error: ", response.data.apiError.message);
+            console.log("error: ", response.data);
         }
     } catch (error) {
         console.error("Error: ", error);

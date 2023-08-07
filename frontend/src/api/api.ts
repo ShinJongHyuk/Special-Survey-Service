@@ -3,6 +3,9 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 api.interceptors.request.use(
@@ -19,7 +22,7 @@ api.interceptors.response.use(
 
     if (!response.data.success) {
       if (response.data.apiError.status === 1005) {
-        console.log(localStorage.getItem("accessToken"))
+        console.log("토큰이 실패했습니다.")
         const refreshToken = localStorage.getItem("refreshToken");
         const email = localStorage.getItem("email");
         const password = localStorage.getItem("password");
@@ -34,8 +37,10 @@ api.interceptors.response.use(
               // console.log(res.data.response.accessToken)
               response.config.headers["Authorization"] = `Bearer ${res.data.response.accessToken}`
               localStorage.setItem("accessToken", res.data.response.accessToken)
-              console.log(response.config.headers)
-              return api(response.config)
+              // console.log(response.config.headers)
+              console.log("성공")
+              console.log(api.request(response.config))
+              return api.request(response.config)
             }
           })
       }
