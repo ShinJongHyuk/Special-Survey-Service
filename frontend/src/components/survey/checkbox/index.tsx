@@ -31,12 +31,14 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         useEffect(() => {
   
           const checkBoxData = items.map((item) => ({
-            content: item.text,
-            linkNumber: item.linkNumber
-          }));
-      
-          setSurveyList(componentKey,{...surveyList[componentKey], checkBox : checkBoxData });
-        }, [componentKey, items]);
+              content: item.text,
+              linkNumber: item.linkNumber
+            }));
+        
+            setSurveyList(componentKey,{...surveyList[componentKey], multipleChoices : checkBoxData });
+          }, [componentKey, items]);
+
+  
 
         const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
           localStorage.setItem(`CHECK_BOX_${componentKey}`, JSON.stringify(items));
