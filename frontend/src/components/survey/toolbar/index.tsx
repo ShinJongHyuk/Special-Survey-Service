@@ -114,7 +114,6 @@ const Toolbar = () => {
       localStorage.setItem(newLocalStorageKey, JSON.stringify(parsedData));
     }
   };
-
   return (
     < >
       <ToolbarBox height={height}>

@@ -61,6 +61,11 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
       return storedData ? JSON.parse(storedData) : null;
     };
 
+    const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      const textarea = event.currentTarget;
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    };
 
     const handleAddItem = () => {
       setItems((prevItems : any) => [
@@ -77,7 +82,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     };
   
     
-    const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>) => {
       const updatedItems = [...items];
       updatedItems[index].text = event.target.value;
 
@@ -99,7 +104,8 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
             <MultipleCheck name="radioGroup1" />
             <MultipleCheckText
               placeholder={`문항 ${index + 1}`}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
+              rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
               value = {item.text}
             />
 

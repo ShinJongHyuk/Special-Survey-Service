@@ -140,11 +140,11 @@ const StyledProfileName = styled.div`
 const StyledTitleInput = styled.input.attrs({ placeholder: "설문지 제목" })`
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-weight: 800;
-  resize: vertical;
-  overflow: auto; 
+  height : 30px;
   font-size: ${(props) => props.theme.fontSizes.medium};
   color: ${(props) => props.theme.colors.black};
   background-color: ${(props) => props.theme.colors.white};
+  text-overflow: ellipsis;
   border: 0px;
   &::placeholder {
     color: ${(props) => props.theme.colors.gray};

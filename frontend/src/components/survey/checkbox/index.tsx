@@ -47,7 +47,13 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
           const storedData = localStorage.getItem(`checkbox_${componentKey}`);
       
           return storedData ? JSON.parse(storedData) : null;
-        };     
+        };
+
+        const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+          const textarea = event.currentTarget;
+          textarea.style.height = 'auto';
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        };
 
         const handleAddItem = () => {
           setItems((prevItems) => [
@@ -63,7 +69,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
           setItems(updatedItems);
         };
       
-        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>) => {
           const updatedItems = [...items];
           updatedItems[index].text = event.target.value;
           setItems(updatedItems);
@@ -86,9 +92,10 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
                 <MultipleCheck name="radioGroup1" />
                 <MultipleCheckText
                   placeholder={`문항 ${index + 1}`}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
+                  rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
                   value = {item.text}
-                 />
+                />
                 <Delete_Button_Container>
                   {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
                 </Delete_Button_Container>

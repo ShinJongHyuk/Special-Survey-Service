@@ -35,7 +35,7 @@ const Short = ({ componentKey }: { componentKey: string }) => {
           setItems(upShortdItems);
         };
 
-        const handleItemDateChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
           const updatedItems = [...items];
           updatedItems[index].date = event.target.value;
           setItems(updatedItems);
@@ -49,7 +49,7 @@ const Short = ({ componentKey }: { componentKey: string }) => {
                 {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
                 <MultipleCheck 
                   name="DateGroup"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemDateChange(index, event)}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
                   value={item.date} />
               </Short_content_Box>
             ))}

@@ -21,11 +21,11 @@ const MultipleChoice_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheckText = styled.input.attrs({})`
+const MultipleCheckText = styled.textarea.attrs({})`
   display: flex;
   flex-wrap: wrap;
-  resize : vertical;
-  overflow : auto;
+  resize : none;
+
   width : 40%;
   min-width : 100px;
   min-height : 22px;
@@ -86,9 +86,8 @@ const AddButton = styled.button.attrs({})`
 
 const Delete_Button_Container = styled.div.attrs({})`
     display : flex;
-    width : 10%;
-    min-width : 5px;
-    min-width : 160px;
+    width : 18%;
+    min-width : 50px;
     justify-content : flex-end;
 
 `
@@ -100,7 +99,6 @@ const DeleteButton = styled.button.attrs({})`
   background-color: white;
   font-size: ${props => props.theme.fontSizes.medium};
   color: red;
-  margin-right : 25%;
   cursor: pointer;
   
 `;
@@ -114,9 +112,10 @@ const ImageWrapper = styled.div`
 const LinkSelect_List = styled.select.attrs({})`
   display : flex;
   text-align : center;
-  width: 24%;
-
+  width: 28%;
+  min-width : 30px;
   height: 35px;
+  margin-left: 10px;
 
   border : none;
   background-color : white;

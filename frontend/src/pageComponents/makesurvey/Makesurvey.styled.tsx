@@ -17,7 +17,7 @@ const Toggle_Component = styled.button.attrs<any>((props) =>({
     cursor: pointer;
     display: flex;
     width: 70px;
-    height: 60px;
+    height: 50px;
     border: none;
 
     background-color: white;

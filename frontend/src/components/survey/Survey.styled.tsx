@@ -83,39 +83,41 @@ const Question_Container = styled.div.attrs({})`
     
     width: 100%;
     min-width : 360px;
-    height: 10%;
-    padding: 0px 20px;
+    height: 100%;
+    padding: 0px 15px;
+
     
 `
 const Question_Inner_Container = styled.div.attrs({})`
     display : flex;
     flex-direction : row;
     
-    
     width : 100%;
     min-width : 400px;
-    height : 5%;
-    padding : 5px 20px;
+    height : 100%;
+    padding : 5px 5px 5px 20px;
 `
 
 const Question_Header_Container = styled.div.attrs({})`
     display : flex;
     flex-direction : column;
-    width : 70%;
+    width : 60%;
     min-width : 300px;
-    height : 10%;
+    height : 20%;
+    
     
 `
 
-const Question_Header = styled.input.attrs<any>((props) => ({
+const Question_Header = styled.textarea.attrs<any>((props) => ({
     placeholder: `질문${props.index + 1}*`,
   }))`
     display: flex;
     width: 100%;
-    min-width : 10px;
-    height: 100%;
-    margin-bottom : 10px;
+    height: 30px;
+    resize : none;
+    margin-bottom : 5px;
     border: none;
+    resize : none;
     font-size: ${props => props.theme.fontSizes.medium};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     &::placeholder {
@@ -123,6 +125,7 @@ const Question_Header = styled.input.attrs<any>((props) => ({
     }
     &:focus {
         outline : none;
+        height: 30px;
     }
   `;
 
@@ -134,18 +137,20 @@ const Question_Content_Container = styled.div.attrs({})`
     border : none;
 `
 
-const Question_Content = styled.input.attrs<any>(props => ({
+const Question_Content = styled.textarea.attrs<any>(props => ({
     placeholder: `질문${props.index + 1}에 대한 설명`,
   }))`
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 25px;
     border: none;
+    resize : none;
     outline : none;
     font-size: ${props => props.theme.fontSizes.small};
     font-family: ${props => props.theme.fonts.HangeulFontRegular};
     &:focus {
         outline : none;
+        height: 25px;
     }
   `;
 

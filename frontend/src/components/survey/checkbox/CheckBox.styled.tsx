@@ -21,10 +21,10 @@ const CheckBox_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheckText = styled.input.attrs({})`
+const MultipleCheckText = styled.textarea.attrs({})`
   display: flex;
   flex-wrap: wrap;
-  resize : vertical;
+  resize : none;
   overflow : auto;
   width : 40%;
   min-width : 100px;
@@ -86,21 +86,22 @@ const AddButton = styled.button.attrs({})`
 `
 const Delete_Button_Container = styled.div.attrs({})`
     display : flex;
-    width : 5%;
-    min-width : 120px;
+    width : 18%;
+    min-width : 50px;
     justify-content : flex-end;
 `
 
 const DeleteButton = styled.button.attrs({})`
   display: flex;
   border : none;
-  background-color: white;
 
+  background-color: white;
   font-size: ${props => props.theme.fontSizes.medium};
   color: red;
   cursor: pointer;
   
 `;
+
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -111,9 +112,11 @@ const ImageWrapper = styled.div`
 const LinkSelect_List = styled.select.attrs({})`
   display : flex;
   text-align : center;
-  width: 24%;
+  width: 28%;
+  min-width : 30px;
   height: 35px;
-  margin-left : 3.5%;
+  margin-left: 10px;
+
   border : none;
   background-color : white;
   font-family: ${props => props.theme.fonts.HangeulFontRegular};
