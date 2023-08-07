@@ -8,7 +8,7 @@ import Calendar from '/public/survey/Calendar.png'
 import People from '/public/survey/People.png'
 import Category from '/public/survey/Category.png'
 import Image from 'next/Image'
-import useSettingSurveyApiStore from '../../../stores/makesurvey/useSettingSurveyApiStore';
+import useSettingSurveyApiStore from '../../../../stores/makesurvey/useSettingSurveyApiStore';
 
 
 function MakeSettings() {
