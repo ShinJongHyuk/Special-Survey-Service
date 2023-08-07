@@ -3,14 +3,20 @@ import surveyDetailGet from "@/api/surveydetail/surveyDetailGet";
 import { useEffect, useState } from "react"
 
 const useSurveyDetailHook = (id: any) => {
-    const [surveyDetail, setSurveyDetail] = useState<any>([]);
+    const [surveyDetail, setSurveyDetail] = useState<any>({});
 
-    console.log("detail hook : ", id);
+    console.log("hook")
     useEffect(() => {
+        console.log("useeffect  ");
         const fetchList = async () => {
             const data = await surveyDetailGet(id);
+            if (data.success) {
+                setSurveyDetail(data.response);
+                console.log("success : ", data.response);
 
-            setSurveyDetail(data);
+            } else {
+                console.log(data.apiError)
+            }
         };
         fetchList();
     }, []);

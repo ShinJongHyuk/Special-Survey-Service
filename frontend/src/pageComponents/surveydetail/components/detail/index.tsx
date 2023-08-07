@@ -15,27 +15,49 @@ import {
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
-import { DetailType } from "./Detail.type";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import { useEffect, useState } from "react";
+import { DetailPropsType } from "../../SurveyDetailType.type";
 
-const DetailComponent = (props: DetailType) => {
+const DetailComponent = (props: any) => {
+  const { surveyDetail } = props;
+  console.log("sd : ", surveyDetail);
+
+  const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
+    return {
+      closedheadcount: surveyDetail.closedHeadCount || "0",
+      endtime: surveyDetail.endTime || "",
+      headcount: surveyDetail.headCount || "0",
+      questioncount: surveyDetail.questionCount || "0",
+      requiredtime: surveyDetail.requiredTimeInSeconds || "0",
+      starttime: surveyDetail.startTime || "",
+      type: surveyDetail.surveyCategoryType || "",
+      title: surveyDetail.title || "",
+      writername: surveyDetail.writerName || "",
+      giveawaynames: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.name || "",
+      content: surveyDetail.content || "",
+    };
+  }
+
+  const detailProps = convertToDetailProps(surveyDetail);
+  console.log("props:", detailProps)
+
   const formatDate = (datetime: string) => {
     const date = new Date(datetime);
     // return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
-  const endtimestr = formatDate(props.endtime);
-  const starttimestr = formatDate(props.starttime);
+  const endtimestr = formatDate(detailProps.endtime || "");
+  const starttimestr = formatDate(detailProps.starttime || "");
 
   const now = moment();
-  const endTime = moment(props.endtime, "YYYY-MM-DD-HH-mm");
+  const endTime = moment(detailProps.endtime, "YYYY-MM-DD-HH-mm");
   const isExpired = now.isAfter(endTime);
   let typeName = "일 반";
-  if (props.type === "INSTANT_WIN") {
+  if (detailProps.type === "INSTANT_WIN") {
     typeName = "즉시당첨";
-  } else if (props.type === "NORMAL") {
+  } else if (detailProps.type === "NORMAL") {
     const diffHours = endTime.diff(now, "hours");
     if (diffHours < 24) {
       typeName = "타임어택";
@@ -46,11 +68,11 @@ const DetailComponent = (props: DetailType) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setRemainTime(useTimerHook(props.endtime));
+      setRemainTime(useTimerHook(detailProps.endtime));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [props.endtime]);
+  }, [detailProps.endtime]);
 
   const [unit1, unit2] = remaintime ? remaintime.split(", ") : ["00분", "00초"];
   const [value1, label1] = unit1.split(":");
@@ -62,8 +84,8 @@ const DetailComponent = (props: DetailType) => {
 
       <StyledSurveyContent>
         <div style={{ display: "flex", gap: "10px", flexDirection: "column" }}>
-          <StyledTag {...props}>
-            {props.type === "NORMAL" ? (
+          <StyledTag {...detailProps}>
+            {detailProps.type === "NORMAL" ? (
               <Image src="/card/whatshot.svg" priority={true} width={11} height={11} alt="whatshot" />
             ) : (
               <Image src="/card/bolt.svg" priority={true} width={11} height={11} alt="abc" />
@@ -71,23 +93,23 @@ const DetailComponent = (props: DetailType) => {
             <div className="type-text">{typeName}</div>
           </StyledTag>
 
-          <SurveyTitle>{props.title}</SurveyTitle>
-          <SurveyPurpose>설문 상세설명(이후 추가) 많은 관심과 참여 부탁드립니다.</SurveyPurpose>
+          <SurveyTitle>{detailProps.title}</SurveyTitle>
+          <SurveyPurpose>{detailProps.content || "많은 관심과 참여 부탁드립니다."}</SurveyPurpose>
         </div>
 
         <div>
           <StyledText>
-            {props.type === "NORMAL" ? (
+            {detailProps.type === "NORMAL" ? (
               <Image src="/surveyDetail/purple/agency_purple.svg" alt="agency" width={40} height={17.8}></Image>
             ) : (
               <Image src="/surveyDetail/yellow/agency.svg" alt="agency" width={40} height={17.8}></Image>
             )}
             <div className="bold">설문 작성자</div>
-            <div>{props.writername}</div>
+            <div>{detailProps.writername}</div>
           </StyledText>
 
-          <StyledText {...props}>
-            {props.type === "NORMAL" ? (
+          <StyledText {...detailProps}>
+            {detailProps.type === "NORMAL" ? (
               <Image src="/surveyDetail/purple/period_purple.svg" alt="period" width={40} height={17.8}></Image>
             ) : (
               <Image src="/surveyDetail/yellow/period.svg" alt="period" width={40} height={17.8}></Image>
@@ -100,24 +122,24 @@ const DetailComponent = (props: DetailType) => {
           </StyledText>
 
           <StyledText>
-            {props.type === "NORMAL" ? (
+            {detailProps.type === "NORMAL" ? (
               <Image src="/surveyDetail/purple/reward_purple.svg" alt="reward" width={40} height={40}></Image>
             ) : (
               <Image src="/surveyDetail/yellow/reward.svg" alt="reward" width={40} height={40}></Image>
             )}
             <div className="bold">리워드</div>
-            <div>{props.giveawaynames}</div>
+            <div>{detailProps.giveawaynames}</div>
           </StyledText>
 
           <StyledText>
-            {props.type === "NORMAL" ? (
+            {detailProps.type === "NORMAL" ? (
               <Image src="/surveyDetail/purple/res_purple.svg" alt="res" width={40} height={17.8}></Image>
             ) : (
               <Image src="/surveyDetail/yellow/res.svg" alt="res" width={40} height={17.8}></Image>
             )}
             <div className="bold">응답수</div>
             <div>
-              {props.headcount} / {props.closedheadcount}
+              {detailProps.headcount} / {detailProps.closedheadcount}
             </div>
           </StyledText>
         </div>
@@ -126,7 +148,7 @@ const DetailComponent = (props: DetailType) => {
           <SurveyCard>
             <SurveyCardTitle>문항수</SurveyCardTitle>
             <SurveyCardText style={{ display: "flex" }}>
-              <div className="number">{props.questioncount}</div>
+              <div className="number">{detailProps.questioncount}</div>
               <div className="hangeul">개</div>
             </SurveyCardText>
           </SurveyCard>
@@ -134,14 +156,14 @@ const DetailComponent = (props: DetailType) => {
           <SurveyCard>
             <SurveyCardTitle>예상 소요시간</SurveyCardTitle>
             <SurveyCardText style={{ display: "flex" }}>
-              <div className="number">{props.requiredtime}</div>
+              <div className="number">{detailProps.requiredtime}</div>
               <div className="hangeul">분</div>
             </SurveyCardText>
           </SurveyCard>
 
           <SurveyCard style={{ width: "160px" }}>
             <SurveyCardTitle>남은 시간</SurveyCardTitle>
-            <SurveyCardTime {...props}>
+            <SurveyCardTime {...detailProps}>
               <div>
                 <span>{value1}</span>
                 <span>{label1}</span>
@@ -157,7 +179,7 @@ const DetailComponent = (props: DetailType) => {
         <div style={{ display: "flex", gap: "12px" }}>
           <Image src="/surveyDetail/shareIcon.png" alt="share" width={48} height={48}></Image>
           {!isExpired ? (
-            props.type === "NORMAL" ? (
+            detailProps.type === "NORMAL" ? (
               <Button use="purple" label="지금 응답하기"></Button>
             ) : (
               <Button use="longYellow" label="지금 응답하기"></Button>
