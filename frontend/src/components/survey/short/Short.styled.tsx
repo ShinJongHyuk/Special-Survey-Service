@@ -22,7 +22,7 @@ const Short_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheck = styled.input.attrs({ type: 'text' })`
+const MultipleCheck = styled.input.attrs({disabled : true })`
     display : flex;
     width : 40%;
     height: 40px;

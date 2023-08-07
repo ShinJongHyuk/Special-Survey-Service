@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const LongInput = styled.textarea.attrs<any>((props) => ({
+const LongInput = styled.input.attrs<any>((props) => ({
     placeholder : props.placeholder,
     maxLength :255
 }))`

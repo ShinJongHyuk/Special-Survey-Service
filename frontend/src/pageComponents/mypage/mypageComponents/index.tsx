@@ -2,7 +2,7 @@
 
 import WritingSurveyList from "./WritingSurveyList";
 import AnsweredSurveyList from "./AnsweredSurveyList";
-import UserInfoList from "./UserInfoList";
+import UserInfoList from "./components/userinfo";
 import Winlist from "./Winlist";
 
 const MypageComponents = (props: any) => {

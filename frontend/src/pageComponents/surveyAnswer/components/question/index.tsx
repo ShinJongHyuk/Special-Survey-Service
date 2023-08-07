@@ -8,6 +8,7 @@ import LongForm from "@/components/surveyanswer/longform"
 import { useEffect } from 'react'
 const QuestionComponent = (props:any) => {
     useEffect(() => {
+        // console.log(props)
         // console.log(typeof props.questionNumber)
     })
     return (
@@ -22,9 +23,9 @@ const QuestionComponent = (props:any) => {
                 </SurveyQuestion>
                 </SurveyQuestionContainer>
                 {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props}></MultipleChoice>}
-                {props.type === "checkbox" && <CheckBox></CheckBox>}
+                {props.type === "CHECK_BOX" && <CheckBox {...props}></CheckBox>}
                 {props.type === "SHORT_FORM" && <ShortForm {...props}></ShortForm>}
-                {props.type === "longform" && <LongForm></LongForm>}
+                {/* {props.type === "longform" && <LongForm></LongForm>} */}
                 
             </Survey_Title_Container>
         </Survey_Container>

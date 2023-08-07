@@ -9,7 +9,7 @@ const Short = ({ componentKey }: { componentKey: string }) => {
         ]);
         
         useEffect(() => {
-          const storedItems = loadShortFromLocalStorage(`Short_${componentKey}`);
+          const storedItems = loadShortFromLocalStorage(`SHORT_FORM_${componentKey}`);
           if (storedItems) {
             setItems(storedItems);
           }
@@ -17,15 +17,15 @@ const Short = ({ componentKey }: { componentKey: string }) => {
     
     
         useEffect(() => {
-          saveShortToLocalStorage(`Short_${componentKey}`, items);
+          saveShortToLocalStorage(`SHORT_FORM_${componentKey}`, items);
         }, [componentKey,items]);
 
         const saveShortToLocalStorage = (componentKey: string, items: any[]) => {
-          localStorage.setItem(`Short_${componentKey}`, JSON.stringify(items));
+          localStorage.setItem(`SHORT_FORM_${componentKey}`, JSON.stringify(items));
         };
       
         const loadShortFromLocalStorage = (componentKey: string) => {
-          const storedData = localStorage.getItem(`Short_${componentKey}`);
+          const storedData = localStorage.getItem(`SHORT_FORM_${componentKey}`);
       
           return storedData ? JSON.parse(storedData) : null;
         };
@@ -35,7 +35,7 @@ const Short = ({ componentKey }: { componentKey: string }) => {
           setItems(upShortdItems);
         };
 
-        const handleItemDateChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
           const updatedItems = [...items];
           updatedItems[index].date = event.target.value;
           setItems(updatedItems);
@@ -49,7 +49,7 @@ const Short = ({ componentKey }: { componentKey: string }) => {
                 {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
                 <MultipleCheck 
                   name="DateGroup"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemDateChange(index, event)}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
                   value={item.date} />
               </Short_content_Box>
             ))}

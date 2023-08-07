@@ -9,7 +9,19 @@ const useUserStore = create(
     logout: () => set(() => ({ isLogin: false })),
     setUserInformation : (data:any) => set((state:any) => ({
       userInformation : data
-    }))
+    })),
+    setUserAge : (data:any) => set((state:any) => ({
+      userInformation : {
+        ...state.userInformation,
+        ["age"] : data
+      }
+    })),
+    setUserName : (data:any) => set((state:any) => ({
+      userInformation : {
+        ...state.userInformation,
+        ["name"] : data
+      }
+    })),
   }),{
     name: "userStore"
   })

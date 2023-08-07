@@ -30,8 +30,6 @@ function MakeSettings() {
       setSurveyTarget,
     } = useSettingSurveyApiStore(); 
 
-
-    // 날짜 변환 함수
     function formatNumber(number : number) {
       return number.toString().padStart(2, '0');
     }
@@ -40,11 +38,10 @@ function MakeSettings() {
       setConditionVisible(!conditionVisible);
     };
 
-    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setTitle(event.target.value);
-
+    const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setTitle(event.target.value)
     };
-    const handleTitleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleTitleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTitleContent(event.target.value);
     };
     
@@ -89,6 +86,14 @@ function MakeSettings() {
         alert("시작 시간을 먼저 선택해주세요!");   
       }   
     };
+
+
+    const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      const textarea = event.currentTarget;
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    };
+
 
     const handleButtonClick = (alt : any) => {
       setType(alt);
@@ -176,12 +181,12 @@ function MakeSettings() {
         <Survey_Inner_Container>
           <Survey_Title_Container>
             <Title_Inner_Container>
-                <Title_input onChange={handleTitleChange} value={title} />
-                <Title_Content onChange={handleTitleContentChange} value={titleContent} />
+                <Title_input minRows={1} placeholder="설문지 제목" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput} onChange={handleTitleChange} value={title}/>
+                <Title_Content minRows={1} placeholder="설문에 대한 설명을 적어주세요 (필수사항)" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}  onChange={handleTitleContentChange} value={titleContent} />
             </Title_Inner_Container>
           </Survey_Title_Container>
           <Survey_Detail_Container>
-            <Condition_Inner_Container>
+            <Condition_Inner_Container style={{marginBottom : "20px",marginTop : "20px"}}>
               
               <Condition_Title>
                 설문 조건
@@ -189,21 +194,21 @@ function MakeSettings() {
               </Condition_Title>
             </Condition_Inner_Container>
             {conditionVisible && (
-              <>
+            <>
              <Condition_Detail_Content>
                 <Condition_Detail_Title>
-                  <Image src={People} alt="인원" style={{marginRight : "12px"}} />
+                  <Image src={People} alt="인원" style={{marginRight : "12px"}}/>
                   설문 인원
                 </Condition_Detail_Title>
              </Condition_Detail_Content>
 
-             <Element_Detail_Container>
+             <Element_Detail_Container style={{height : "160px",padding : "40px 75px 20px 5px"}}>
                 <Element_Detail_Inner_Container>
                     <Element_Top_Container>
                         <Element_Title><MarkText>설문 인원을 작성해 주세요! (숫자만 기입)</MarkText></Element_Title>
 
                     </Element_Top_Container>
-                    <Element_Bottom_Container>
+                    <Element_Bottom_Container style={{padding : "0px 0px 20px 5px"}}>
                     <Element_Input value={closedHeadCount} onChange={handleClosedHeadCountChange} />
                    
                     </Element_Bottom_Container>
@@ -218,12 +223,12 @@ function MakeSettings() {
 
 
               </Condition_Detail_Content>
-              <Element_Detail_Container>
-                <Element_Detail_Inner_Container>
-                      <Element_Top_Container>
+              <Element_Detail_Container style={{height : "400px"}}>
+                <Element_Detail_Inner_Container style={{padding : "0px 0px 50px 10px"}}>
+                      <Element_Top_Container style={{height : "0px", padding : "0px 0px 35px 5px"}} >
                           <Element_Title><MarkText>설문 대상을 선택해 주세요! (복수 응답 가능)</MarkText></Element_Title>
                       </Element_Top_Container>
-                      <Element_Bottom_Container>
+                      <Element_Bottom_Container style={{padding : "0px 0px 20px 10px"}}>
                         <Element_Detail_Title>성별</Element_Detail_Title>
                           <Condition_Select_Container>
                                 <Target_Button selected={isSelected(surveyTarget, "MAN")} surveyTarget={"MAN"} onClick={() => handleTargetButtonClick("MAN")}>
@@ -272,7 +277,7 @@ function MakeSettings() {
                   설문 유형
                   </Condition_Detail_Title>
               </Condition_Detail_Content>
-              <Element_Detail_Container>
+              <Element_Detail_Container  style={{height : "220px",padding : "0px 0px 20px 5px"}}>
                 <Element_Detail_Inner_Container>
                       <Element_Top_Container>
                           <Element_Title><MarkText>설문 유형을 선택해 주세요! (단일 선택)</MarkText></Element_Title>
@@ -281,7 +286,7 @@ function MakeSettings() {
                       <Element_Bottom_Row_Container>
                         <Bottom_Type1_Container selected={type} onClick={() => handleButtonClick("NORMAL")}>
                           <Image src="/card/whatshot.svg" width={50} height={50} alt="NORMAL" />
-                          타임어택
+                          일반
                         </Bottom_Type1_Container>
                         <Bottom_Type2_Container selected={type} onClick={() => handleButtonClick("INSTANT_WIN"
                         )}>
@@ -298,11 +303,11 @@ function MakeSettings() {
                   </Condition_Detail_Title>
               </Condition_Detail_Content>
               <Element_Detail_Container>
-                <Element_Detail_Inner_Container>
-                      <Element_Top_Container>
-                          <Element_Title><MarkText>설문 기간을 작성해주세요! (숫자만 기입)</MarkText></Element_Title>
+                <Element_Detail_Inner_Container >
+                      <Element_Top_Container style={{height : "0px",padding : "0px 30px 40px 0px"}}>
+                          <Element_Title><MarkText>설문 기간을 선택해주세요 !</MarkText></Element_Title>
                       </Element_Top_Container>
-                      <Element_Bottom_Container>
+                      <Element_Bottom_Container style={{height : "200px",padding : "0px 5px 0px 0px"}}>
                         <Element_Detail_Title>시작</Element_Detail_Title>
                         <Element_Input type={'datetime-local'} value={startTime} onChange={handleStartTimeChange} />
                         <hr/>
@@ -311,8 +316,9 @@ function MakeSettings() {
                       </Element_Bottom_Container>
                   </Element_Detail_Inner_Container>
              </Element_Detail_Container>
-              </>
+             </>
             )}
+         
           </Survey_Detail_Container>
         </Survey_Inner_Container>
       </Survey_Container>

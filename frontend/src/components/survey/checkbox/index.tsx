@@ -17,7 +17,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         const [count, setCount] = useState(3);
 
         useEffect(() => {
-          const storedItems = loadCheckBoxFromLocalStorage(`checkbox_${componentKey}`);
+          const storedItems = loadCheckBoxFromLocalStorage(`CHECK_BOX_${componentKey}`);
           if (storedItems) {
             setItems(storedItems);
           }
@@ -25,7 +25,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
 
 
         useEffect(() => {
-          saveCheckBoxToLocalStorage(`checkbox_${componentKey}`, items);
+          saveCheckBoxToLocalStorage(`CHECK_BOX_${componentKey}`, items);
         }, [componentKey,items]);
       
         useEffect(() => {
@@ -39,15 +39,21 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         }, [componentKey, items]);
 
         const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
-          localStorage.setItem(`checkbox_${componentKey}`, JSON.stringify(items));
+          localStorage.setItem(`CHECK_BOX_${componentKey}`, JSON.stringify(items));
 
         };
       
         const loadCheckBoxFromLocalStorage = (componentKey: string) => {
-          const storedData = localStorage.getItem(`checkbox_${componentKey}`);
+          const storedData = localStorage.getItem(`CHECK_BOX_${componentKey}`);
       
           return storedData ? JSON.parse(storedData) : null;
-        };     
+        };
+
+        const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+          const textarea = event.currentTarget;
+          textarea.style.height = 'auto';
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        };
 
         const handleAddItem = () => {
           setItems((prevItems) => [
@@ -63,7 +69,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
           setItems(updatedItems);
         };
       
-        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>) => {
           const updatedItems = [...items];
           updatedItems[index].text = event.target.value;
           setItems(updatedItems);
@@ -85,10 +91,14 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
               <CheckBox_content_Box key={item.id}>
                 <MultipleCheck name="radioGroup1" />
                 <MultipleCheckText
-                  placeholder={`문항 ${index + 1}`}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
-                  value = {item.text}
-                 />
+                    placeholder={`문항 ${index + 1}`}
+                    minRows={1}
+                    
+                  onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
+                    value = {item.text}
+                  />
+
                 <Delete_Button_Container>
                   {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
                 </Delete_Button_Container>
@@ -99,7 +109,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
                   .filter((component, idx) => idx+1 > selectedSurvey) 
                   .map((component, idx) => (
                     <LinkSelect_Option key={idx+selectedSurvey+1} value={idx+selectedSurvey+1}>
-                      {`${idx+selectedSurvey+1}번 질문으로 연결됨`}
+                      {`${idx+selectedSurvey+1}번 질문`}
                     </LinkSelect_Option>
                   ))}
               </LinkSelect_List>

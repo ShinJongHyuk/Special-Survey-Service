@@ -26,7 +26,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     const [imgurl,setImgUrl] = useState('')
     const [selectedOption, setSelectedOption] = useState(''); 
     const [listOption, setListOption] = useState(false);
-    const [checked, setChecked] = useState(false); 
+    const [checked, setChecked] = useState(true); 
     const [headerText, setHeaderText] = useState('');
     const [headerDetailText, setHeaderDetailText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
@@ -50,6 +50,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
           setHeaderText(storedData.headerText);
           setHeaderDetailText(storedData.headerDetailText)
           setListOption(storedData.listOption)
+          setImgUrl(storedData.imgurl)
         }
       }, [componentKey]);
 
@@ -61,6 +62,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
             headerText,
             headerDetailText,
             listOption,
+            imgurl
           };
 
         const SendData = {
@@ -71,7 +73,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
             };
         saveComponentDataToLocalStorage(componentKey, componentData);
         setSurveyList(componentKey,SendData); 
-      }, [surveyState, selectedOption, checked, headerText, headerDetailText, listOption]);
+      }, [surveyState, selectedOption, checked, headerText, headerDetailText, listOption,imgurl]);
 
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,13 +84,20 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
       setSurveyState(event.target.value);
     };
 
-    const handleHeaderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleHeaderChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setHeaderText(event.target.value);
       };
     
-    const handleHeaderDetailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleHeaderDetailChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setHeaderDetailText(event.target.value);
       };
+
+    const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        const textarea = event.currentTarget;
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    };
+  
 
     const LinkOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setListOption((prevOption) => !prevOption);
@@ -129,15 +138,14 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
 
     
     return (
-        <ThemeProvider theme={theme}>
              <Main_Container onFocus={handleFocus} onBlur={handleBlur} tabIndex={0}>
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>
-                            <Question_Header onChange={handleHeaderChange} value={headerText} index={index}/>
+                            <Question_Header rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput} onChange={handleHeaderChange} value={headerText} index={index}/>
                         </Question_Header_Container>            
                         <Question_Content_Container>
-                            <Question_Content onChange={handleHeaderDetailChange} value={headerDetailText} index={index} />
+                            <Question_Content rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput} onChange={handleHeaderDetailChange} value={headerDetailText} index={index} />
                         </Question_Content_Container>
 
            
@@ -197,7 +205,6 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                     </Essential_Question_Box>
                 </Bottom_Box>
             </Main_Container>
-        </ThemeProvider>
     )
 }
 
