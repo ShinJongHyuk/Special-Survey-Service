@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import TextAreaAutosize from 'react-textarea-autosize'
+
 
 const MultipleChoice_Box = styled.div.attrs({})`
     display : flex;
@@ -21,7 +23,7 @@ const MultipleChoice_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheckText = styled.textarea.attrs({})`
+const MultipleCheckText = styled(TextAreaAutosize)`
   display: flex;
   flex-wrap: wrap;
   resize : none;
