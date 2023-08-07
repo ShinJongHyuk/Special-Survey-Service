@@ -64,7 +64,6 @@ const BoardComponent = (props: any) => {
     setNowtime(formattedNow);
   }, []);
 
-  console.log("answer props: ", answerPropsArray);
   return (
     <Board>
       <BoardTop>
