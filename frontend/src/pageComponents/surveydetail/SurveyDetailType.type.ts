@@ -18,4 +18,5 @@ export interface ResultPropsType {
   type: string;
   giveawaytype: string;
   percent: string;
+  id: string;
 }

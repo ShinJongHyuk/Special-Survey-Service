@@ -5,26 +5,38 @@ const useSSEHook = (want: any, surveyId: any) => {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    const eventSource = new EventSource(api.defaults.baseURL + `/subscribe/` + surveyId);
-
-    eventSource.addEventListener(want, function (event) {
-      setData(JSON.parse(event.data));
+    const eventSource = new EventSource(api.defaults.baseURL + `/subscribe/` + surveyId, {
+      withCredentials: true,
     });
 
-    // error 검증 start
-    eventSource.addEventListener("open", (event) => {
-      console.log("Connection to server opened.");
-    });
+    eventSource.onopen = () => {
+      console.log("open")
+    }
 
-    eventSource.addEventListener("error", (event: any) => {
-      if (event.target.readyState === EventSource.CLOSED) {
-        console.log("Connection to server closed.");
-      } else if (event.target.readyState === EventSource.CONNECTING) {
-        console.log("Connection to server lost. Trying to reconnect...");
+    eventSource.onmessage = async (e: any) => {
+      const res = await e.data;
+      const parsedData = JSON.parse(res);
+      console.log("sse res: ", res);
+      console.log("sse parsedData: ", parsedData);
+      setData(parsedData)
+    }
+    // eventSource.addEventListener(want, function (event) {
+    //   console.log(event);
+    //   setData(JSON.parse(event.data));
+    // });
+
+
+    eventSource.onerror = (e: any) => {
+      eventSource.close();
+
+      if (e.error) {
+        console.log("sse Error")
       }
-    });
 
-    // error 검증 end
+      if (e.target.readyState === EventSource.CLOSED) {
+        console.log("sse close")
+      }
+    };
 
     return () => {
       eventSource.close();

@@ -40,7 +40,6 @@ const DetailComponent = (props: any) => {
   }
 
   const detailProps = convertToDetailProps(surveyDetail);
-  console.log("props:", detailProps)
 
   const formatDate = (datetime: string) => {
     const date = new Date(datetime);
