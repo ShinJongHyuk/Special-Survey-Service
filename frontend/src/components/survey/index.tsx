@@ -67,9 +67,9 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
 
         const SendData = {
             type : surveyState,
-            isEssential : checked,
+            essential : checked,
             title : headerText,
-            listOption,
+            content : headerDetailText,
             };
         saveComponentDataToLocalStorage(componentKey, componentData);
         setSurveyList(componentKey,SendData); 

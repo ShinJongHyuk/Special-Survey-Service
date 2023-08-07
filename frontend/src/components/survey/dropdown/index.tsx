@@ -41,8 +41,8 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
           content: item.text,
           linkNumber: item.linkNumber
         }));
-    
-        setSurveyList(componentKey,{...surveyList[componentKey], dropDown : dropDownData });
+
+        setSurveyList(componentKey,{...surveyList[componentKey], multipleChoices : dropDownData });
       }, [componentKey, items]);
 
       const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
