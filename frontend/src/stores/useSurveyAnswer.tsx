@@ -39,7 +39,29 @@ const useSurveyAnswerStore = create(
             return {
                 answer : [...newAnswer]
             }
-        })
+        }),
+
+        checkBoxAnswer : [],
+        setCheckBoxAnswer : (data:any) => set((state:any) => {
+            const checkBox = [...state.checkBoxAnswer]
+            const newCheckBox = state.checkBoxAnswer.filter((e:any) => {
+                return e.multipleChoiceAnswer != data.multipleChoiceAnswer
+            })
+            if (checkBox.length === newCheckBox.length) {
+                return {
+                    checkBoxAnswer : [
+                        ...newCheckBox,
+                        data
+                    ]
+                }
+            } else if (checkBox.length !== newCheckBox.length) {
+                return {
+                    checkBoxAnswer : [
+                        ...newCheckBox
+                    ]
+                }
+            }
+        }) 
 
     }))
 )

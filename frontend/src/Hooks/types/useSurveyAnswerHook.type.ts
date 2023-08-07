@@ -11,6 +11,7 @@ export interface SurveyInformationType {
     surveyGiveaways : any
     surveyTarget : any
     title : String
+    content : String
     totalGiveawayCount : String
     winningPercent : String
     writer : String

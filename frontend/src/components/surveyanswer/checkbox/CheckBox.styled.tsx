@@ -9,7 +9,7 @@ const CheckBoxContainer = styled.div`
 const CheckBoxFlex = styled.div`
     display: flex;
     align-items: center;
-    margin: 3px;
+    margin: 5px;
 `
 
 const CheckBoxInput = styled.input.attrs({ type: 'checkbox' })`
