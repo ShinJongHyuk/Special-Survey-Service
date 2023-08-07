@@ -50,6 +50,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
           setHeaderText(storedData.headerText);
           setHeaderDetailText(storedData.headerDetailText)
           setListOption(storedData.listOption)
+          setImgUrl(storedData.imgurl)
         }
       }, [componentKey]);
 
@@ -61,6 +62,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
             headerText,
             headerDetailText,
             listOption,
+            imgurl
           };
 
         const SendData = {
@@ -71,7 +73,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
             };
         saveComponentDataToLocalStorage(componentKey, componentData);
         setSurveyList(componentKey,SendData); 
-      }, [surveyState, selectedOption, checked, headerText, headerDetailText, listOption]);
+      }, [surveyState, selectedOption, checked, headerText, headerDetailText, listOption,imgurl]);
 
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

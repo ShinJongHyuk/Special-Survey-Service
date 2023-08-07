@@ -20,7 +20,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     useEffect(() => {
     
       const loadDataFromLocalStorage = async () => {
-        const storedItems = await loadMultipleChoiceFromLocalStorage(`multiplechoice_${componentKey}`);
+        const storedItems = await loadMultipleChoiceFromLocalStorage(`MULTIPLE_CHOICE_${componentKey}`);
         
         if (storedItems) {
           setItems(storedItems);
@@ -31,7 +31,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     }, [componentKey]);
 
     useEffect(() => {
-        saveMultipleChoiceToLocalStorage(`multiplechoice_${componentKey}`, items);
+        saveMultipleChoiceToLocalStorage(`MULTIPLE_CHOICE_${componentKey}`, items);
       
      
     }, [componentKey,items]);
@@ -51,13 +51,13 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
       if (items) {
-        localStorage.setItem(`multiplechoice_${componentKey}`, JSON.stringify(items));
+        localStorage.setItem(`MULTIPLE_CHOICE_${componentKey}`, JSON.stringify(items));
       }
    
     };
   
     const loadMultipleChoiceFromLocalStorage = (componentKey: string) => {
-      const storedData = localStorage.getItem(`multiplechoice_${componentKey}`); 
+      const storedData = localStorage.getItem(`MULTIPLE_CHOICE_${componentKey}`); 
       return storedData ? JSON.parse(storedData) : null;
     };
 

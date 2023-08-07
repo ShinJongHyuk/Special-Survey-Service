@@ -16,7 +16,7 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
     const [count, setCount] = useState(3);
 
     useEffect(() => {
-        const storedItems = loadDropBoxFromLocalStorage(`dropdown_${componentKey}`);
+        const storedItems = loadDropBoxFromLocalStorage(`DROP_DOWN_${componentKey}`);
         if (storedItems) {
           setItems(storedItems);
         }
@@ -25,13 +25,13 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
   
       useEffect(() => {
   
-        saveDropBoxToLocalStorage(`dropdown_${componentKey}`, items);
+        saveDropBoxToLocalStorage(`DROP_DOWN_${componentKey}`, items);
   
       }, [componentKey,items]);
     
   
       const saveDropBoxToLocalStorage = (componentKey: string, items: any[]) => {
-        localStorage.setItem(`dropdown_${componentKey}`, JSON.stringify(items));
+        localStorage.setItem(`DROP_DOWN_${componentKey}`, JSON.stringify(items));
   
       };
 
@@ -46,12 +46,12 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
       }, [componentKey, items]);
 
       const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
-        localStorage.setItem(`checkbox_${componentKey}`, JSON.stringify(items));
+        localStorage.setItem(`DROP_DOWN_${componentKey}`, JSON.stringify(items));
 
       };
     
       const loadDropBoxFromLocalStorage = (componentKey: string) => {
-        const storedData = localStorage.getItem(`dropdown_${componentKey}`);
+        const storedData = localStorage.getItem(`DROP_DOWN_${componentKey}`);
     
         return storedData ? JSON.parse(storedData) : null;
       };

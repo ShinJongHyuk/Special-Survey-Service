@@ -17,7 +17,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         const [count, setCount] = useState(3);
 
         useEffect(() => {
-          const storedItems = loadCheckBoxFromLocalStorage(`checkbox_${componentKey}`);
+          const storedItems = loadCheckBoxFromLocalStorage(`CHECK_BOX_${componentKey}`);
           if (storedItems) {
             setItems(storedItems);
           }
@@ -25,7 +25,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
 
 
         useEffect(() => {
-          saveCheckBoxToLocalStorage(`checkbox_${componentKey}`, items);
+          saveCheckBoxToLocalStorage(`CHECK_BOX_${componentKey}`, items);
         }, [componentKey,items]);
       
         useEffect(() => {
@@ -39,12 +39,12 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         }, [componentKey, items]);
 
         const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
-          localStorage.setItem(`checkbox_${componentKey}`, JSON.stringify(items));
+          localStorage.setItem(`CHECK_BOX_${componentKey}`, JSON.stringify(items));
 
         };
       
         const loadCheckBoxFromLocalStorage = (componentKey: string) => {
-          const storedData = localStorage.getItem(`checkbox_${componentKey}`);
+          const storedData = localStorage.getItem(`CHECK_BOX_${componentKey}`);
       
           return storedData ? JSON.parse(storedData) : null;
         };
