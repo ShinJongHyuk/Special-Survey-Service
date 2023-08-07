@@ -7,7 +7,13 @@ const myGiveawayCheckPatch = async (surveyid: any) => {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     });
-    console.log("myGiveawayCheckPath : ", response.data);
+
+    if (response.data.success) {
+      console.log("myGiveawayCheckPath : ", response.data);
+    } else {
+      console.log("error: ", response.data.apiError.message);
+    }
+
   } catch (error) {
     console.error("Error: ", error);
     throw error;

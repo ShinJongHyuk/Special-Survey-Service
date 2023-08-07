@@ -1,31 +1,19 @@
-import Card from '@/components/card'
-import React from 'react'
-import { StyledList } from './Cardlist.styled'
-import useNormalListHook from '@/Hooks/listpage/useNormalListHook';
-import { useRouter } from "next/navigation";
-const NormalCardlist = () => {
-    const { sortedSurveys } = useNormalListHook();
-    const router = useRouter();
-    return (
-        <StyledList>
-            {sortedSurveys.map((survey: any, index: any) => (
-                <div key={index} style={{ display: "flex", justifyContent: "center" }}>
-                    <div style={{ width: "220px" }}>
-                        <Card
-                            title={survey.title}
-                            nickname={survey.writerName}
-                            type={survey.surveyCategoryType}
-                            giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
-                            probability={survey.winningPercent + "%"}
-                            remaintime={survey.remainTime || ""}
-                            endtime={survey.endTime}
-                            onClick={() => router.push("/surveydetail/" + survey.id)}
-                        />
-                    </div>
-                </div>
-            ))}
-        </StyledList>
-    )
-}
+import Card from "@/components/card";
+import React from "react";
+import { StyledList } from "./Cardlist.styled";
+import useNormalListHook from "@/Hooks/listpage/useNormalListHook";
+import NormalCard from "./normalCard";
 
-export default NormalCardlist
+const NormalCardlist = () => {
+  const { sortedSurveys } = useNormalListHook();
+
+  return (
+    <StyledList>
+      {sortedSurveys.map((survey: any, index: any) => (
+        <NormalCard key={index} survey={survey} />
+      ))}
+    </StyledList>
+  );
+};
+
+export default NormalCardlist;
