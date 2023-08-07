@@ -4,9 +4,10 @@ import Button from '@/components/button'
 import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition } from "@/pageComponents/signup/Signup.styled";
 import useUserStore from '@/stores/useUserStore';
 import { useState, useEffect } from 'react';
+import userUpdatePost from '@/api/user/userUpdatePost';
 
 const UserInfoList = () => {
-  
+  const setUserInformation = useUserStore((state:any) => state.setUserInformation)
   const user = useUserStore((state:any) => state.userInformation)
   const [password2, setPassword] = useState("")
   const [inputState, setInputState] = useState({
@@ -73,8 +74,6 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?
   },[postUser])
 
 
- 
-
   const handleSubmit = async (e:any) => {
     e.preventDefault()
 
@@ -114,11 +113,25 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?
     } 
 
     else {
-      // axios요청
+      try {
+        const res = await userUpdatePost(postUser)
         console.log("회원정보수정 완료")
-        console.log(postUser)
+        if (res.data.success === true) {
+          setUserInformation(res.data.response)
+        } else {
+          alert(res.data.apiError.message)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+        
     }
   }
+
+useEffect(() => {
+  console.log(user)
+},[user])
+
   return (
     <SignUpPage>
         <SignUpContainer onSubmit={handleSubmit}>
@@ -162,7 +175,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?
             <SignUpItem>
             <SignUpText>성별</SignUpText>
             <InputBox>
-                <Input disabled="true" type="text" value={user.gender === "Man" ? "남성" : "여성"} name="gender" inputstate={inputState.email}/>
+                <Input disabled="true" type="text" value={user.gender === "MAN" ? "남성" : "여성"} name="gender" inputstate={inputState.email}/>
             </InputBox>
             </SignUpItem>
 
@@ -182,7 +195,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?
             <SignUpItem>
             <SignUpText>휴대폰 번호</SignUpText>
             <InputBox>
-                <Input type="tel" name="phoneNumber" value={newUser.phoneNumber} disabled="true" inputstate={inputState.email}/>
+                <Input type="tel" name="phoneNumber" value={user.phoneNumber} disabled="true" inputstate={inputState.phoneNumber}/>
             </InputBox>
             </SignUpItem>
         
