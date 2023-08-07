@@ -21,7 +21,6 @@ import { DetailPropsType } from "../../SurveyDetailType.type";
 
 const DetailComponent = (props: any) => {
   const { surveyDetail } = props;
-  console.log("sd : ", surveyDetail);
 
   const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
     return {

@@ -3,12 +3,15 @@ import Image from "next/image";
 import Board from "./components/board";
 import Detail from "./components/detail";
 import Result from "./components/result";
-import useSurveyDetailHook from "@/Hooks/useSurveyDetailHook";
+import useSurveyDetailHook from "@/Hooks/detailpage/useSurveyDetailHook";
 import { StyledSurveyResultContainer } from "./SurveyDetail.styled";
 import { useRouter } from "next/navigation";
+import useAnswerLogHoook from "@/Hooks/detailpage/useAnswerLogHoook";
 
 const SurveyDetail = (props: any) => {
   const { surveyDetail } = useSurveyDetailHook(props.id);
+  const { answerlog } = useAnswerLogHoook(props.id);
+
   const router = useRouter();
 
   return (
@@ -20,7 +23,7 @@ const SurveyDetail = (props: any) => {
       <Detail surveyDetail={surveyDetail}></Detail>
       <StyledSurveyResultContainer>
         <Result surveyDetail={surveyDetail}></Result>
-        {/* <Board type="즉시당첨"></Board> */}
+        <Board answerlog={answerlog}></Board>
       </StyledSurveyResultContainer>
     </div >
   );
