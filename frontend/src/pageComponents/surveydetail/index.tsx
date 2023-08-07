@@ -23,9 +23,10 @@ const SurveyDetail = (props: any) => {
       <Detail surveyDetail={surveyDetail}></Detail>
       <StyledSurveyResultContainer>
         <Result surveyDetail={surveyDetail}></Result>
-        <Board answerlog={answerlog}></Board>
+        <Board answerlog={answerlog} surveyDetail={surveyDetail}></Board>
+        {/* {answerlog.length !== 0 ? <Board answerlog={answerlog}></Board> : <></>} */}
       </StyledSurveyResultContainer>
-    </div >
+    </div>
   );
 };
 

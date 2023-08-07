@@ -20,14 +20,15 @@ const ResultComponent = (props: any) => {
       percent: surveyDetail.winningPercent || "0",
       id: surveyDetail.id || "0",
     };
-  }
+  };
 
   const resultProps = convertToDetailProps(surveyDetail);
 
   const imgsrc = images[resultProps.giveawaytype];
 
   const percentSSE = useSSEHook(resultProps.id, "확률변동");
-  // console.log("percentSSE : ", percentSSE)
+  console.log("percentSSE : ", percentSSE);
+
   const percentArray = resultProps.percent.toString().split("");
   return (
     <>

@@ -1,27 +1,23 @@
-'use client'
+"use client";
 import surveyAnswerLogGet from "@/api/surveydetail/surveyAnswerLogGet";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 const useAnswerLogHoook = (id: any) => {
-    const [answerlog, setAnswerlog] = useState<any>({});
+  const [answerlog, setAnswerlog] = useState<any>({});
 
-    useEffect(() => {
-        const fetchList = async () => {
-            const data = await surveyAnswerLogGet(id);
-            if (data.success) {
-                setAnswerlog(data.response);
-                console.log("success : ", data.response);
+  useEffect(() => {
+    const fetchList = async () => {
+      const data = await surveyAnswerLogGet(id);
+      if (data.success) {
+        setAnswerlog(data.response);
+      } else {
+        console.log(data);
+      }
+    };
+    fetchList();
+  }, []);
 
-            } else {
-                console.log(data)
-            }
-        };
-        fetchList();
-    }, []);
-
-
-    return { answerlog };
-}
+  return { answerlog };
+};
 
 export default useAnswerLogHoook;
-
