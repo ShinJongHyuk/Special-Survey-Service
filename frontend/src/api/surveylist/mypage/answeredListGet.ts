@@ -8,8 +8,11 @@ const answeredListGet = async () => {
                 Authorization: `Bearer ${accessToken}`
             }
         });
-        console.log("answer: ", response.data.response)
-        return response.data.response;
+        if (response.data.success) {
+            return response.data.response;
+        } else {
+            console.log("error: ", response.data.apiError.message);
+        }
     } catch (error) {
         console.error("Error: ", error);
         throw error;
