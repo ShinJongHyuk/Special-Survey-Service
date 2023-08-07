@@ -91,11 +91,14 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
               <CheckBox_content_Box key={item.id}>
                 <MultipleCheck name="radioGroup1" />
                 <MultipleCheckText
-                  placeholder={`문항 ${index + 1}`}
-                  rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
-                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
-                  value = {item.text}
-                />
+                    placeholder={`문항 ${index + 1}`}
+                    minRows={1}
+                    
+                  onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
+                    value = {item.text}
+                  />
+
                 <Delete_Button_Container>
                   {items.length > 1 && <DeleteButton onClick={() => handleDeleteItem(index)}>X</DeleteButton>}
                 </Delete_Button_Container>

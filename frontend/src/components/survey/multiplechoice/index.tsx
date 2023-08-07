@@ -6,7 +6,7 @@ import {Add_Button_Container,Delete_Button_Container,LinkSelect_List,LinkSelect_
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import useSurveyFocus from '@/stores/makesurvey/useSurveyFocusStore';
-
+import TextAreaAutoSize from 'react-textarea-autosize'
 const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink : boolean } ) => {
     const {surveyComponents} = useSurveyStore();
     const {surveyList,setSurveyList} = useMakeSurveyApiStore();
@@ -62,9 +62,10 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     };
 
     const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      const textarea = event.currentTarget;
-      textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`;
+        const textarea = event.currentTarget;
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+
     };
 
     const handleAddItem = () => {
@@ -104,7 +105,8 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
             <MultipleCheck name="radioGroup1" />
             <MultipleCheckText
               placeholder={`문항 ${index + 1}`}
-              rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+              minRows={1}
+             onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
               onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
               value = {item.text}
             />

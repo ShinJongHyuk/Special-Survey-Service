@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import TextAreaAutosize from 'react-textarea-autosize'
 
 const CheckBox_Box = styled.div.attrs({})`
     display : flex;
@@ -21,15 +22,14 @@ const CheckBox_content_Box = styled.div.attrs({})`
     
 `
 
-const MultipleCheckText = styled.textarea.attrs({})`
+const MultipleCheckText = styled(TextAreaAutosize)`
   display: flex;
   flex-wrap: wrap;
   resize : none;
-  overflow : auto;
+
   width : 40%;
   min-width : 100px;
   min-height : 22px;
-  
   border: none;
   outline: none;
 
