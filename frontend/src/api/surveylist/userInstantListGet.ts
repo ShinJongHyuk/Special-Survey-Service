@@ -7,8 +7,11 @@ const userInstantListGet = async (accessToken: any) => {
                 Authorization: `Bearer ${accessToken}`
             }
         });
-        console.log("user instant: ", response.data.response)
-        return response.data.response;
+        if (response.data.success) {
+            return response.data.response;
+        } else {
+            console.log("error: ", response.data.apiError.message);
+        }
     } catch (error) {
         console.error("Error: ", error);
         throw error;
