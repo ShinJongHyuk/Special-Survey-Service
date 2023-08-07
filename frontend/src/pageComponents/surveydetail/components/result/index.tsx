@@ -1,7 +1,9 @@
 "use client";
+import useSSEHook from "@/Hooks/sse/useSSEHook";
 import { ResultPropsType } from "../../SurveyDetailType.type";
 import { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard } from "./Result.styled";
 import Image from "next/image";
+import React, { useState, useEffect } from "react";
 
 const ResultComponent = (props: any) => {
   const { surveyDetail } = props;
@@ -17,14 +19,24 @@ const ResultComponent = (props: any) => {
       type: surveyDetail.surveyCategoryType || "0",
       giveawaytype: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.giveawayType || "0",
       percent: surveyDetail.winningPercent || "0",
+      id: surveyDetail.id || "0",
     };
-  }
+  };
 
   const resultProps = convertToDetailProps(surveyDetail);
-  console.log("result props:", resultProps)
 
   const imgsrc = images[resultProps.giveawaytype];
-  const percentArray = resultProps.percent.toString().split("");
+
+  const percentSSE = useSSEHook(resultProps.id, "확률변동");
+  console.log("percentSSE : ", percentSSE);
+  const [percentArray, setPercentArray] = useState(resultProps.percent.toString().split(""));
+  useEffect(() => {
+    if (percentSSE) {
+      setPercentArray(percentSSE.toString().split(""));
+    }
+  }, [percentSSE]);
+
+  // const percentArray = resultProps.percent.toString().split("");
   return (
     <>
       <SurveyResultComent>
