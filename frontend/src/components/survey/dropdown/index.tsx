@@ -64,13 +64,19 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
     setCount((prevCount) => prevCount + 1);
     };
 
+    const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      const textarea = event.currentTarget;
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    };
+
     const handleDeleteItem = (index: number) => {
         const updatedItems = [...items];
         updatedItems.splice(index, 1);
         setItems(updatedItems);
     };
     
-    const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleItemTextChange = (index: number, event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const updatedItems = [...items];
         updatedItems[index].text = event.target.value;
         setItems(updatedItems);
@@ -90,7 +96,8 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
             <MultipleCheck>{index+1}  .</MultipleCheck>
             <MultipleCheckText
               placeholder={`문항 ${index + 1}`}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleItemTextChange(index, event)}
+              rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
               value = {item.text}
             />
             <Delete_Button_Container>
@@ -103,7 +110,7 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
                   .filter((component, idx) => idx+1 > selectedSurvey) 
                   .map((component, idx) => (
                     <LinkSelect_Option key={idx+selectedSurvey+1} value={idx+selectedSurvey+1}>
-                      {`${idx+selectedSurvey+1}번 질문으로 연결됨`}
+                      {`${idx+selectedSurvey+1}번 질문`}
                     </LinkSelect_Option>
                   ))}
               </LinkSelect_List>

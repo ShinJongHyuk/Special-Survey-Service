@@ -35,12 +35,19 @@ function MakeQuestion() {
       saveComponentDataToLocalStorage(componentData);
     }, [imgUrl]);
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-  const handleTitleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitleContent(event.target.value);
-  };
+
+    const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      const textarea = event.currentTarget;
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    };
+
+    const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setTitle(event.target.value);
+    };
+    const handleTitleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setTitleContent(event.target.value);
+    };
   const handleImageClick = () => {
     const uploadButton = document.getElementById(`upload-button`);
     if (uploadButton) {
@@ -68,8 +75,8 @@ function MakeQuestion() {
         <Survey_Inner_Container>
         <Survey_Title_Container>
           <Title_Inner_Container>
-            <Title_input onChange={handleTitleChange} value={title} />
-            <Title_Content onChange={handleTitleContentChange} value={titleContent} />
+          <Title_input rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput} onChange={handleTitleChange} value={title}/>
+          <Title_Content rows={1} onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}  onChange={handleTitleContentChange} value={titleContent} />
           </Title_Inner_Container>
         </Survey_Title_Container>
         <Survey_MainImage_Container>
