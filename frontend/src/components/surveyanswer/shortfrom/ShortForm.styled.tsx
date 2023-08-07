@@ -11,6 +11,9 @@ const ShortInput = styled.input.attrs<any>((props) => ({
     background: #F7F8FB;
     font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
     font-size: ${(props) => props.theme.fontSizes.xsmall};
+    margin-top: auto;
+    margin-bottom: auto;
+
     &::placeholder {    
         color: #96989C;
     }

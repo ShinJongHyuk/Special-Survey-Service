@@ -1,6 +1,6 @@
 import api from "../api";
 
-const surveyPost = async (answers: any) => {
+const surveyPost = async (answers:any, surveyId:any) => {
   const accessToken = localStorage.getItem("accessToken")
   try {
     await api({
@@ -10,7 +10,7 @@ const surveyPost = async (answers: any) => {
             answers
         },
         params : {
-            surveyId : "16"
+            surveyId : surveyId
         },
         headers : {
             Authorization : `Bearer ${accessToken}`
