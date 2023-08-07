@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components'
 
 const Survey_Container =  styled.div.attrs<any>((props) => ({}))`
     display: flex;
-    min-height: 200px;
+    min-height: 300px;
     justify-content: center;
 `;
 

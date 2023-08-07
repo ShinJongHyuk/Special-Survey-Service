@@ -23,6 +23,11 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       default:
         bgColor = yellow;
     }
+
+    if (props.pathname.includes("surveyAnswer")) {
+      bgColor = "#white"
+    }
+
     return css`
       width: 100%;
       height: ${height};
