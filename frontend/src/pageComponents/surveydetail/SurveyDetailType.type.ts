@@ -11,4 +11,5 @@ export type DetailType = {
   giveawaynames?: string;
   giveaways?: string;
   percent?: string;
+  content?: string;
 };

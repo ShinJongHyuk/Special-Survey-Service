@@ -15,9 +15,9 @@ import {
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
-import { DetailType } from "./Detail.type";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import { useEffect, useState } from "react";
+import { DetailType } from "../../SurveyDetailType.type";
 
 const DetailComponent = (props: DetailType) => {
   const formatDate = (datetime: string) => {
@@ -26,8 +26,8 @@ const DetailComponent = (props: DetailType) => {
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
-  const endtimestr = formatDate(props.endtime);
-  const starttimestr = formatDate(props.starttime);
+  const endtimestr = formatDate(props.endtime || "");
+  const starttimestr = formatDate(props.starttime || "");
 
   const now = moment();
   const endTime = moment(props.endtime, "YYYY-MM-DD-HH-mm");
@@ -72,7 +72,7 @@ const DetailComponent = (props: DetailType) => {
           </StyledTag>
 
           <SurveyTitle>{props.title}</SurveyTitle>
-          <SurveyPurpose>설문 상세설명(이후 추가) 많은 관심과 참여 부탁드립니다.</SurveyPurpose>
+          <SurveyPurpose>{props.content || "많은 관심과 참여 부탁드립니다."}</SurveyPurpose>
         </div>
 
         <div>

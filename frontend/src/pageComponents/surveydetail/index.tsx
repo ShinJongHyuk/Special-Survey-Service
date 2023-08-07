@@ -6,16 +6,14 @@ import Result from "./components/result";
 import useSurveyDetailHook from "@/Hooks/useSurveyDetailHook";
 import { StyledSurveyResultContainer } from "./SurveyDetail.styled";
 import { useRouter } from "next/navigation";
-import { DetailType } from "./SurvveyDetailType.type";
+import { DetailType } from "./SurveyDetailType.type";
 
 const SurveyDetail = (props: any) => {
   console.log("SurveyDetail: " + props.id);
 
   const { surveyDetail } = useSurveyDetailHook(props.id);
   const router = useRouter();
-  if (!surveyDetail.surveyGiveaways) {
-    return <div> Loading... </div>;
-  }
+
   console.log("sd : ", surveyDetail);
   console.log(surveyDetail.surveyGiveaways[0].giveawayResponse.giveawayType);
 
@@ -30,6 +28,7 @@ const SurveyDetail = (props: any) => {
     title: surveyDetail.title,
     writername: surveyDetail.writerName,
     giveawaynames: surveyDetail.surveyGiveaways[0].giveawayResponse.name,
+    content: surveyDetail.content,
   };
 
   const resultProps: DetailType = {
