@@ -8,6 +8,7 @@ interface UseMakeSurveyApiState {
   headerDetailText?: string;
   content?: string;
   multipleChoices?: any[]; 
+  componentKey? : string;
   
 
 }

@@ -66,6 +66,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
           };
 
         const SendData = {
+            componentKey,
             type : surveyState,
             essential : checked,
             title : headerText,

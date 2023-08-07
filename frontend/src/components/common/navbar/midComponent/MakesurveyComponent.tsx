@@ -6,7 +6,7 @@ import Button from "@/components/button";
 import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiStore";
 import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
-
+import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
 
 const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
@@ -22,27 +22,28 @@ const MakesruveyComponent = (props: any) => {
       } = useSettingSurveyApiStore(); 
 
     const {surveyList} = useMakeSurveyApiStore();
-
-      const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {surveyComponents} = useSurveyStore();
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
       };
     const handleCreateButtonClick = () => { 
 
 
-        const surveyData = {
-            title,
-            titleContent,
-            closedHeadCount,
-            startTime,
-            endTime,
-            type,
-            surveyTarget,
-            questions: Object.entries(surveyList).map(([questionNumber, questionData],index) => ({
-                questionNumber : index +1,
-                ...questionData,
-                
-            })),
-        }
+      const surveyData = {
+        title,
+        titleContent,
+        closedHeadCount,
+        startTime,
+        endTime,
+        type,
+        surveyTarget,
+        questions: surveyComponents
+          .map((component, index) => {
+            const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
+            return dataWithoutComponentKey;
+          })
+          .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
+      };
         const Inner_hasEmptyValue = surveyData.questions.some((questionData : any) => {
            
             if (questionData.title === "" || questionData.content === "" || questionData.type === "") {

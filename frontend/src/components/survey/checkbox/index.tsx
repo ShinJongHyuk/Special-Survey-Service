@@ -94,7 +94,7 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
                 <MultipleCheck name="radioGroup1" />
                 <MultipleCheckText
                     placeholder={`문항 ${index + 1}`}
-                    minRows={1}
+                    minRows={1} maxRows={4}
                     
                   onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
                     onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
