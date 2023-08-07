@@ -2,6 +2,7 @@
 import {
   Board,
   BoardTop,
+  BoardCount,
   BoardTopLiveFont,
   BoardTopLivetime,
   TableContainer,
@@ -71,7 +72,7 @@ const BoardComponent = (props: any) => {
       <BoardTop>
         <div style={{ display: "flex", marginLeft: "40px", gap: "10px" }}>
           <BoardTopLiveFont>{answerPropsArray[0].type === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}</BoardTopLiveFont>
-          {/* <BoardTopLiveCount>117</BoardTopLiveCount> */}
+          <BoardCount>{answerPropsArray.length}</BoardCount>
         </div>
 
         <div style={{
@@ -96,13 +97,20 @@ const BoardComponent = (props: any) => {
               <TableHeaderCell style={{ width: "30%" }}>
                 <div className="text">리워드</div>
               </TableHeaderCell>
-              <TableHeaderCell style={{ width: "25%" }}>
-                <div className="text">당첨여부</div>
-              </TableHeaderCell>
+              {answerPropsArray[0].type === "NORMAL" ? (
+                <TableHeaderCell style={{ width: "25%" }}>
+                  <div className="text">추첨 번호 </div>
+                </TableHeaderCell>
+              ) : (
+                <TableHeaderCell style={{ width: "25%" }}>
+                  <div className="text">당첨여부</div>
+                </TableHeaderCell>
+              )}
+
             </TableRow>
           </TableHead>
           <tbody>
-            {answerPropsArray.map((answerProp, index) => (
+            {answerPropsArray.reverse().map((answerProp, index) => (
               <TableRow key={index} {...answerProp}>
                 <TableDataCell style={{ width: "25%" }}>
                   <div className="number">{formatAnswerTime(answerProp.answertime)}</div>
@@ -110,14 +118,29 @@ const BoardComponent = (props: any) => {
                 <TableDataCell style={{ width: "20%" }}>
                   <div className="korean">{answerProp.name}</div>
                 </TableDataCell>
-                <TableDataCell style={{ width: "30%" }}>
-                  <div className="korean">
-                    {answerProp.giveawayname}
-                  </div>
-                </TableDataCell>
-                <TableDataCell style={{ width: "25%" }}>
-                  <div className="korean">{answerProp.iswin ? "당첨" : "꽝"}</div>
-                </TableDataCell>
+                {answerProp.type === "NORMAL" ? (
+                  <TableDataCell style={{ width: "30%" }}>
+                    <div className="korean">
+                      이후 당첨 상품 확인
+                    </div>
+                  </TableDataCell>
+                ) : (
+                  <TableDataCell style={{ width: "30%" }}>
+                    <div className="korean">
+                      {answerProp.giveawayname}
+                    </div>
+                  </TableDataCell>
+                )}
+                {answerProp.type === "NORMAL" ? (
+                  <TableDataCell style={{ width: "25%" }}>
+                    <div className="korean">{answerProp.submitorder}</div>
+                  </TableDataCell>
+                ) : (
+                  <TableDataCell style={{ width: "25%" }}>
+                    <div className="korean">{answerProp.iswin ? "당첨" : "꽝"}</div>
+                  </TableDataCell>
+                )}
+
               </TableRow>
             ))}
 

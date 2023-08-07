@@ -25,7 +25,11 @@ const BoardTopLiveFont = styled.div`
     font-size: ${(props) => props.theme.fontSizes.medium}
 `
 
-
+const BoardCount = styled.div`
+font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+    font-size: ${(props) => props.theme.fontSizes.medium};
+    color: ${(props) => props.theme.colors.yellow};
+`
 const BoardTopLivetime = styled.div`
     color: #9EA4A3;
     font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
@@ -114,4 +118,5 @@ export {
     TableRow,
     TableHeaderCell,
     TableDataCell,
+    BoardCount
 }
