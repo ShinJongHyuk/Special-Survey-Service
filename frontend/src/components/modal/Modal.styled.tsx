@@ -1,11 +1,20 @@
 import styled, { css } from "styled-components";
+const StyledModalWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+`;
 
 const StyledModal = styled.div`
-  width: 380px;
-  height: 450px;
-
   border-radius: 15px;
-  box-shadow: 0px 0px 10px 5px ${(props) => props.theme.colors.lightgray};
+  box-shadow: 0px 0px 3px 1px ${(props) => props.theme.colors.gray};
   position: fixed;
   top: 50%;
   left: 50%;
@@ -15,32 +24,19 @@ const StyledModal = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 35px;
+  justify-content: space-around;
+  /* gap: 35px; */
 `;
 
-const StyledBox = styled.div.attrs<any>((props) => ({}))`
-  ${(props) => {
-    return css`
-      width: 100%;
-      height: 100%;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 35px;
-    `;
-  }};
-`;
-const StyledTitleBox = styled.div.attrs<any>((props) => ({}))`
+const StyledBigText = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     const font = props.theme.fonts.HangeulFontSemiBold;
     const black = props.theme.colors.black;
-    const ml = props.theme.fontSizes.mediumlarge;
+    const gray = props.theme.colors.gray;
+    const ml = props.theme.fontSizes.medium;
     const small = props.theme.fontSizes.small;
 
     return css`
-      color: ${black};
       font-family: ${font};
       text-align: center;
 
@@ -51,26 +47,16 @@ const StyledTitleBox = styled.div.attrs<any>((props) => ({}))`
       gap: 9px;
 
       .title {
+        color: ${black};
         font-size: ${ml};
       }
 
       .subtitle {
+        color: ${gray};
         font-size: ${small};
       }
     `;
   }};
 `;
 
-const StyledWinBox = styled.div.attrs<any>((props) => ({}))`
-  ${(props) => {
-    return css`
-      position: relative;
-      height: 140px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    `;
-  }};
-`;
-
-export { StyledModal, StyledTitleBox, StyledBox, StyledWinBox };
+export { StyledModalWrapper, StyledModal, StyledBigText };

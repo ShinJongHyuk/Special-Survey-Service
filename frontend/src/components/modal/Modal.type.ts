@@ -1,6 +1,11 @@
 export interface ModalType {
   isOpen: boolean;
   onClose: () => void;
-  giveawayType: string;
-  win: string;
+  bigtext: string;
+  smalltext?: string;
+  cancel: string;
+  confirm: string;
+
+  contenttype?: string;
+  surveyid?: string;
 }

@@ -1,53 +1,46 @@
-import { ModalType } from "./Modal.type";
-import { StyledBox, StyledModal, StyledTitleBox, StyledWinBox } from "./Modal.styled";
+import { useRouter } from "next/navigation";
 import Button from "../button";
-import useScratchHook from "@/Hooks/wincheck/useScratchHook";
+import { StyledModalWrapper, StyledModal, StyledBigText } from "./Modal.styled";
+import { ModalType } from "./Modal.type";
 
 const Modal = (props: ModalType) => {
-  const images: { [key: string]: string } = {
-    CHICKEN: "/card/chicken.png",
-    COFFEE: "/card/coffee.png",
-  };
-
-  const imgsrc = images[props.giveawayType];
-  const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png", props.isOpen);
-
-
+  const router = useRouter();
+  //   console.log("survey id : ", props.surveyid);
   return props.isOpen ? (
-    <StyledModal>
-      <StyledTitleBox>
-        <img src="/wincheck/money.png" style={{ width: "70px", height: "70px" }} alt="money" />
-        <div className="title"> 당첨 확인하기 </div>
-        <div className="subtitle"> 당첨여부를 확인하고 상품을 받아가세요! </div>
-      </StyledTitleBox>
-      <StyledWinBox>
-        {isCanvasLoaded &&
-          (props.win === "true" ? (
-            <div style={{ position: "absolute", width: "140px", height: "140px", zIndex: "0" }}>
-              <img src={imgsrc} style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+    <StyledModalWrapper>
+      <StyledModal style={{ backgroundColor: "white", width: "350px", height: "230px" }}>
+        <img src="/modal/screamer.png" style={{ width: "25%" }}></img>
+        <StyledBigText>
+          <div className="title">{props.bigtext}</div>
+          <div className="subtitle"> {props.smalltext} </div>
+        </StyledBigText>
+
+        <div style={{ display: "flex", justifyContent: "space-evenly", width: "100%" }}>
+          <div style={{ width: "43%", height: "38px" }}>
+            <Button use="bgGray" label={props.cancel} style={{ borderRadius: "5px" }} onClick={props.onClose} />
+          </div>
+          {props.contenttype === "NORMAL" ? (
+            <div style={{ width: "43%", height: "38px" }}>
+              <Button
+                use="purple"
+                label={props.confirm}
+                style={{ borderRadius: "5px" }}
+                onClick={() => router.push(`/surveyAnswer/${props.surveyid}`)}
+              />
             </div>
           ) : (
-            <div style={{ position: "absolute", width: "140px", height: "120px", zIndex: "0" }}>
-              <img src="/wincheck/onlybomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
+            <div style={{ width: "43%", height: "38px" }}>
+              <Button
+                use="longYellow"
+                label={props.confirm}
+                style={{ borderRadius: "5px" }}
+                onClick={() => router.push(`/surveyAnswer/${props.surveyid}`)}
+              />
             </div>
-          ))}
-        <canvas
-          ref={canvasRef}
-          onMouseDown={() => {
-            mouseDown.current = true;
-          }}
-          onMouseUp={() => {
-            mouseDown.current = false;
-          }}
-          onMouseMove={erase}
-          style={{ cursor: "pointer", transition: "opacity 1s", opacity: canvasOpacity, zIndex: "10" }}
-        />
-      </StyledWinBox>
-
-      <div style={{ width: "220px", height: "45px" }}>
-        <Button label="목록으로 이동하기" use="longYellow" onClick={props.onClose}></Button>
-      </div>
-    </StyledModal>
+          )}
+        </div>
+      </StyledModal>
+    </StyledModalWrapper>
   ) : null;
 };
 

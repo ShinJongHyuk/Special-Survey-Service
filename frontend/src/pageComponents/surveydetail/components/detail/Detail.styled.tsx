@@ -150,71 +150,6 @@ const SurveyCardTime = styled.div.attrs<any>((props) => ({}))`
   align-items: flex-end;
 `;
 
-const ModalWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-// 모달 컨테이너
-const ModalContainer = styled.div`
-  position: relative;
-  width: 250px;
-  height: 150px;
-  background-color: #fff;
-  border-radius: 20px;
-  padding-top: 30px;
-`;
-
-// 모달 내용
-const ModalContent = styled.p`
-  display: flex;
-  justify-content: center;
-  font-size: ${(props) => props.theme.fontSizes.medium};
-  font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-`;
-
-const ButtonContainer = styled.div`
-height: 40px;
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid black;
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-`
-
-// 닫기 버튼
-const CloseButton = styled.button`
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: ${(props) => props.theme.colors.white};
-  color:${(props) => props.theme.colors.black};
-  font-size: 16px;
-  cursor: pointer;
-  border-bottom-left-radius: 20px;
-`;
-
-// 응답 버튼
-const AnswerButton = styled.button.attrs<any>((props) => ({}))`
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: ${(props) => props.type === "NORMAL" ? props.theme.colors.purple : props.theme.colors.yellow};
-  color: ${(props) => props.type === "NORMAL" ? props.theme.colors.white: props.theme.colors.black};
-  font-size: ${(props) => props.theme.fontSizes.small};
-  cursor: pointer;
-  font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-  border-bottom-right-radius: 20px;
-`;
-
 export {
   StyledDetailContainer,
   StyledSurveyContent,
@@ -228,10 +163,4 @@ export {
   SurveyCardTitle,
   SurveyCardText,
   SurveyCardTime,
-  ModalWrapper,
-  ModalContainer,
-  ModalContent,
-  CloseButton,
-  AnswerButton,
-  ButtonContainer
 };

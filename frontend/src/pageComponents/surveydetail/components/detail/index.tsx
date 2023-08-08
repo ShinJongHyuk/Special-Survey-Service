@@ -10,12 +10,6 @@ import {
   SurveyCardTitle,
   SurveyCardText,
   SurveyCardTime,
-  ModalWrapper,
-  ModalContainer,
-  ModalContent,
-  CloseButton,
-  AnswerButton,
-  ButtonContainer,
 } from "./Detail.styled";
 
 import Image from "next/image";
@@ -23,29 +17,17 @@ import Button from "@/components/button";
 import moment from "moment";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import { useEffect, useState } from "react";
-import { DetailPropsType } from "../../SurveyDetailType.type";
+import { convertToDetailProps } from "../../SurveyDetailType.type";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/modal";
 
 const DetailComponent = (props: any) => {
-  const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   const { surveyDetail } = props;
 
-  const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
-    return {
-      closedheadcount: surveyDetail.closedHeadCount || "0",
-      endtime: surveyDetail.endTime || "",
-      headcount: surveyDetail.headCount || "0",
-      questioncount: surveyDetail.questionCount || "0",
-      requiredtime: surveyDetail.requiredTimeInSeconds || "0",
-      starttime: surveyDetail.startTime || "",
-      type: surveyDetail.surveyCategoryType || "",
-      title: surveyDetail.title || "",
-      writername: surveyDetail.writerName || "",
-      giveawaynames: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.name || "",
-      content: surveyDetail.content || "",
-    };
-  }
+  const [isOpen, setIsOpen] = useState(false);
+  const [toModalData, setToModalData] = useState({ surveyid: "" });
 
   const detailProps = convertToDetailProps(surveyDetail);
 
@@ -85,11 +67,6 @@ const DetailComponent = (props: any) => {
   const [value1, label1] = unit1.split(":");
   const [value2, label2] = unit2.split(":");
 
-  const goSurvey = () => {
-    router.push(`/surveyAnswer/${surveyDetail.id}`)
-  }
-
-  
   return (
     <StyledDetailContainer>
       <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600}></Image>
@@ -127,7 +104,7 @@ const DetailComponent = (props: any) => {
               <Image src="/surveyDetail/yellow/period.svg" alt="period" width={40} height={17.8}></Image>
             )}
             <div className="bold">설문 기간 </div>
-            <div>
+            <div style={{ minWidth: "275px" }}>
               {starttimestr}부터
               <span className="end"> {endtimestr}</span>까지
             </div>
@@ -192,35 +169,41 @@ const DetailComponent = (props: any) => {
           <Image src="/surveyDetail/shareIcon.png" alt="share" width={48} height={48}></Image>
           {!isExpired ? (
             detailProps.type === "NORMAL" ? (
-              <Button use="purple" label="지금 응답하기" onClick={() => setIsOpen(true)}></Button>
+              <Button
+                use="purple"
+                label="지금 응답하기"
+                onClick={() => {
+                  setToModalData({ surveyid: detailProps.surveyid });
+                  setIsOpen(true);
+                }}
+              ></Button>
             ) : (
-              <Button use="longYellow" label="지금 응답하기" onClick={() => setIsOpen(true)}></Button>
+              <Button
+                use="longYellow"
+                label="지금 응답하기"
+                onClick={() => {
+                  setToModalData({ surveyid: detailProps.surveyid });
+                  setIsOpen(true);
+                }}
+              ></Button>
             )
           ) : (
-            <Button use="bgGray" label="마감된 설문입니다." onClick={() => setIsOpen(true)}></Button>
+            <Button use="bgGray" label="마감된 설문입니다."></Button>
           )}
         </div>
       </StyledSurveyContent>
 
-      {isOpen && 
-      <ModalWrapper>
-        <ModalContainer>
-
-          <ModalContent>
-            설문을
-          </ModalContent>
-          <ModalContent>
-            시작하시겠습니까?
-          </ModalContent>
-
-          <ButtonContainer>
-          <CloseButton onClick={() => setIsOpen(false)}>닫기</CloseButton>
-          <AnswerButton onClick={goSurvey} type={detailProps.type}>응답하기</AnswerButton>
-          </ButtonContainer>
-          
-        </ModalContainer>
-      </ModalWrapper>
-      }
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        bigtext="설문을 시작하시겠습까?"
+        cancel="닫기"
+        confirm="응답하기"
+        contenttype={detailProps.type}
+        surveyid={toModalData.surveyid}
+      />
     </StyledDetailContainer>
   );
 };
