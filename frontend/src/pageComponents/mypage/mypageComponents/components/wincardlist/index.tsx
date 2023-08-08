@@ -2,11 +2,10 @@
 import { StyledList } from "@/pageComponents/mypage/Mypage.styled";
 import Wincard from "./wincard/Wincard";
 import { useState } from "react";
-import Modal from "@/components/modal";
+import Modal from "@/pageComponents/mypage/mypageComponents/components/modal";
 import myGiveawayCheckPatch from "@/api/win/myGiveawayCheckPatch";
 import useWinListHook from "@/Hooks/mypage/useWinListHook";
 import { useRouter } from "next/navigation";
-
 
 const WinCardlist = (props: any) => {
   const lists = props.winConfirmList;
@@ -18,8 +17,6 @@ const WinCardlist = (props: any) => {
     await myGiveawayCheckPatch(surveyid);
     // await props.refreshList();
   };
-
-
 
   console.log(lists);
   return (

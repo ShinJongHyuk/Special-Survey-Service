@@ -1,6 +1,6 @@
 import { ModalType } from "./Modal.type";
 import { StyledBox, StyledModal, StyledTitleBox, StyledWinBox } from "./Modal.styled";
-import Button from "../button";
+import Button from "../../../../../components/button";
 import useScratchHook from "@/Hooks/wincheck/useScratchHook";
 
 const Modal = (props: ModalType) => {
@@ -11,7 +11,6 @@ const Modal = (props: ModalType) => {
 
   const imgsrc = images[props.giveawayType];
   const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png", props.isOpen);
-
 
   return props.isOpen ? (
     <StyledModal>
