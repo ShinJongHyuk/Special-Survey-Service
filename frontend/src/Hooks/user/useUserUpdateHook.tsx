@@ -118,8 +118,8 @@ export const useUserUpdateHook = () => {
         try {
             const res = await userUpdatePatch(postUser)
             if (res.data.success === true) {
-            setUserInformation(res.data.response)
-            router.push("/")
+                router.push("/")
+                setUserInformation(res.data.response)
             } else {
             alert(res.data.apiError.message)
             }
@@ -130,13 +130,11 @@ export const useUserUpdateHook = () => {
         }
     }
 
-    useEffect(() => {
-    console.log(user)
-    },[user])
 
     const handleDeleteUser = async () => {
         const res = await userDelete()
         if (res.data.success === true) {
+        router.push('/')
         hanedleLogout()
         alert('회원탈퇴에 성공하였습니다')
         } else if (res.data.success === false) {
