@@ -1,4 +1,3 @@
-
 export interface DetailPropsType {
   closedheadcount: string;
   endtime: string;
@@ -11,6 +10,7 @@ export interface DetailPropsType {
   writername: string;
   giveawaynames: string;
   content: string;
+  surveyid: string;
 }
 
 export interface ResultPropsType {
@@ -30,3 +30,19 @@ export interface BoardPropsType {
   type: string;
 }
 
+export const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
+  return {
+    closedheadcount: surveyDetail.closedHeadCount || "0",
+    endtime: surveyDetail.endTime || "",
+    headcount: surveyDetail.headCount || "0",
+    questioncount: surveyDetail.questionCount || "0",
+    requiredtime: surveyDetail.requiredTimeInSeconds || "0",
+    starttime: surveyDetail.startTime || "",
+    type: surveyDetail.surveyCategoryType || "",
+    title: surveyDetail.title || "",
+    writername: surveyDetail.writerName || "",
+    giveawaynames: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.name || "",
+    content: surveyDetail.content || "",
+    surveyid: surveyDetail.id || "",
+  };
+};
