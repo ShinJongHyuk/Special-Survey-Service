@@ -53,13 +53,12 @@ const TableHead = styled.thead`
 const TableRow = styled.tr.attrs<any>((props) => ({}))`
   ${(props) => {
     const white = props.theme.colors.white;
-
     return css`
       display: flex;
       height: 60px;
       border-bottom: 1px solid lightgray;
       background-color: ${() => {
-        if (props.iswin) {
+        if (props.iswin === "true") {
           if (props.type === "NORMAL") {
             return "rgba(168, 140, 255, 0.30)";
           } else {

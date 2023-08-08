@@ -33,7 +33,8 @@ const BoardComponent = (props: any) => {
 
   const { answerlog, surveyDetail } = props;
 
-  const boardProps = convertToBoardProps(surveyDetail);
+  // const boardProps = convertToBoardProps(surveyDetail);
+
   useEffect(() => {
     scrollToBottom();
   }, []);
@@ -45,19 +46,9 @@ const BoardComponent = (props: any) => {
     }
   };
 
-  // const isArray = Array.isArray(answerlog);
-  // const answerPropsArray = (isArray ? answerlog : [answerlog]).map(convertToBoardProps);
   const [answerPropsArray, setAnswerPropsArray] = useState((Array.isArray(answerlog) ? answerlog : [answerlog]).map(convertToBoardProps));
 
-  // const [nowtime, setNowtime] = useState("Loading...");
-  const SSEdata = useSSEHook(boardProps.surveyid, "응답인원추가");
-
-  // useEffect(() => {
-  //   const now = moment();
-  //   const formattedNow = now.format("YYYY.MM.DD HH:mm:ss");
-  //   setNowtime(formattedNow);
-  // }, []);
-
+  const SSEdata = useSSEHook(surveyDetail.id, "응답인원추가");
   useEffect(() => {
     setAnswerPropsArray((Array.isArray(answerlog) ? answerlog : [answerlog]).map(convertToBoardProps));
   }, [answerlog]);
@@ -66,17 +57,17 @@ const BoardComponent = (props: any) => {
     if (SSEdata) {
       const newEntry = convertToBoardProps(SSEdata);
       setAnswerPropsArray((prevArray) => [...prevArray, newEntry]);
-      // console.log("answer array: ", answerPropsArray);
       scrollToBottom();
     }
   }, [SSEdata]);
 
-  // console.log("surveyDetail id : ", boardProps.surveyid);
+  console.log("surveyDetail: ", surveyDetail);
+  console.log("answer array: ", answerPropsArray);
   return (
     <Board>
       <BoardTop>
         <div style={{ display: "flex", marginLeft: "40px", gap: "10px" }}>
-          <BoardTopLiveFont>{boardProps.type === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}</BoardTopLiveFont>
+          <BoardTopLiveFont>{surveyDetail.type === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}</BoardTopLiveFont>
           <BoardCount>{answerPropsArray.length}</BoardCount>
         </div>
 
@@ -87,10 +78,7 @@ const BoardComponent = (props: any) => {
             alignItems: "center",
             marginRight: "20px",
           }}
-        >
-          {/* <BoardTopLivetime>{nowtime}</BoardTopLivetime>
-          <Image src="/surveyDetail/refresh.png" alt="refresh" width={16} height={16} style={{ cursor: "pointer" }}></Image> */}
-        </div>
+        ></div>
       </BoardTop>
 
       <TableContainer ref={tableContainerRef}>
@@ -142,7 +130,7 @@ const BoardComponent = (props: any) => {
                     </TableDataCell>
                   ) : (
                     <TableDataCell style={{ width: "25%" }}>
-                      <div className="korean">{answerProp.iswin ? "당첨" : "꽝"}</div>
+                      <div className="korean">{answerProp.iswin === "true" ? "당첨" : "꽝"}</div>
                     </TableDataCell>
                   )}
                 </TableRow>
