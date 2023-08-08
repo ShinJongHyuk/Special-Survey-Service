@@ -13,8 +13,9 @@ import {
 } from "./Board.styled";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
-import { BoardPropsType } from "../../SurveyDetailType.type";
+import { BoardPropsType, convertToBoardProps } from "../../SurveyDetailType.type";
 import moment from "moment";
+import useSSEHook from "@/Hooks/sse/useSSEHook";
 
 function formatAnswerTime(answerTime: string): string {
   const date = new Date(answerTime);
@@ -32,6 +33,7 @@ const BoardComponent = (props: any) => {
 
   const { answerlog, surveyDetail } = props;
 
+  const boardProps = convertToBoardProps(surveyDetail);
   useEffect(() => {
     scrollToBottom();
   }, []);
@@ -43,32 +45,38 @@ const BoardComponent = (props: any) => {
     }
   };
 
-  const convertToDetailProps = (surveyDetail: any): BoardPropsType => {
-    return {
-      answertime: surveyDetail.answerTime || "0",
-      name: surveyDetail.name || "",
-      giveawayname: surveyDetail.giveAwayName || "",
-      iswin: surveyDetail.isWin || "",
-      submitorder: surveyDetail.submitOrder || "0",
-      type: surveyDetail.surveyCategoryType || "",
-    };
-  };
+  // const isArray = Array.isArray(answerlog);
+  // const answerPropsArray = (isArray ? answerlog : [answerlog]).map(convertToBoardProps);
+  const [answerPropsArray, setAnswerPropsArray] = useState((Array.isArray(answerlog) ? answerlog : [answerlog]).map(convertToBoardProps));
 
-  const isArray = Array.isArray(answerlog);
-  const answerPropsArray = (isArray ? answerlog : [answerlog]).map(convertToDetailProps);
-  const [nowtime, setNowtime] = useState("Loading...");
+  // const [nowtime, setNowtime] = useState("Loading...");
+  const SSEdata = useSSEHook(boardProps.surveyid, "응답인원추가");
+
+  // useEffect(() => {
+  //   const now = moment();
+  //   const formattedNow = now.format("YYYY.MM.DD HH:mm:ss");
+  //   setNowtime(formattedNow);
+  // }, []);
 
   useEffect(() => {
-    const now = moment();
-    const formattedNow = now.format("YYYY.MM.DD HH:mm:ss");
-    setNowtime(formattedNow);
-  }, []);
+    setAnswerPropsArray((Array.isArray(answerlog) ? answerlog : [answerlog]).map(convertToBoardProps));
+  }, [answerlog]);
 
+  useEffect(() => {
+    if (SSEdata) {
+      const newEntry = convertToBoardProps(SSEdata);
+      setAnswerPropsArray((prevArray) => [...prevArray, newEntry]);
+      // console.log("answer array: ", answerPropsArray);
+      scrollToBottom();
+    }
+  }, [SSEdata]);
+
+  // console.log("surveyDetail id : ", boardProps.surveyid);
   return (
     <Board>
       <BoardTop>
         <div style={{ display: "flex", marginLeft: "40px", gap: "10px" }}>
-          <BoardTopLiveFont>{surveyDetail.surveyCategoryType === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}</BoardTopLiveFont>
+          <BoardTopLiveFont>{boardProps.type === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}</BoardTopLiveFont>
           <BoardCount>{answerPropsArray.length}</BoardCount>
         </div>
 
@@ -80,8 +88,8 @@ const BoardComponent = (props: any) => {
             marginRight: "20px",
           }}
         >
-          <BoardTopLivetime>{nowtime}</BoardTopLivetime>
-          <Image src="/surveyDetail/refresh.png" alt="refresh" width={16} height={16} style={{ cursor: "pointer" }}></Image>
+          {/* <BoardTopLivetime>{nowtime}</BoardTopLivetime>
+          <Image src="/surveyDetail/refresh.png" alt="refresh" width={16} height={16} style={{ cursor: "pointer" }}></Image> */}
         </div>
       </BoardTop>
 
@@ -109,7 +117,7 @@ const BoardComponent = (props: any) => {
               )}
             </TableRow>
           </TableHead>
-          {answerPropsArray.length > 0 && (
+          {[...answerPropsArray].length > 0 && (
             <tbody>
               {answerPropsArray.reverse().map((answerProp, index) => (
                 <TableRow key={index} {...answerProp}>

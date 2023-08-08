@@ -5,7 +5,7 @@ import { ModalType } from "./Modal.type";
 
 const Modal = (props: ModalType) => {
   const router = useRouter();
-  console.log("survey id : ", props.surveyid);
+  //   console.log("survey id : ", props.surveyid);
   return props.isOpen ? (
     <StyledModalWrapper>
       <StyledModal style={{ backgroundColor: "white", width: "350px", height: "230px" }}>

@@ -28,6 +28,7 @@ export interface BoardPropsType {
   iswin: string;
   submitorder: string;
   type: string;
+  surveyid: string;
 }
 
 export const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
@@ -43,6 +44,18 @@ export const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
     writername: surveyDetail.writerName || "",
     giveawaynames: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.name || "",
     content: surveyDetail.content || "",
+    surveyid: surveyDetail.id || "",
+  };
+};
+
+export const convertToBoardProps = (surveyDetail: any): BoardPropsType => {
+  return {
+    answertime: surveyDetail.answerTime || "0",
+    name: surveyDetail.name || "",
+    giveawayname: surveyDetail.giveAwayName || "",
+    iswin: surveyDetail.isWin || "",
+    submitorder: surveyDetail.submitOrder || "0",
+    type: surveyDetail.surveyCategoryType || "",
     surveyid: surveyDetail.id || "",
   };
 };
