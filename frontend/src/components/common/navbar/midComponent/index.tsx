@@ -6,6 +6,7 @@ import MypageComponent from "./MypageComponent";
 import SurveyDetailComponent from "./SurveyDetailComponent";
 import MakesruveyComponent from "./MakesurveyComponent";
 import SurveyAnswerComponent from "./SurveyAnswerCompnent";
+import SurveyResultComponent from "./SurveyResultComponent";
 
 const MidComponent = (props: any) => {
   const pathname = props.pathname;
@@ -18,6 +19,8 @@ const MidComponent = (props: any) => {
     return <MypageComponent pathname={pathname} />;
   } else if (pathname === "/makesurvey") {
     return <MakesruveyComponent pathname={pathname} />
+  } else if (pathname === "/surveyresult") {
+    return <SurveyResultComponent pathname={pathname} />
   }  
   else if (pathname.includes("/surveyAnswer")) {
     return 

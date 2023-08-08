@@ -8,7 +8,7 @@ import Calendar from '/public/survey/Calendar.png'
 import People from '/public/survey/People.png'
 import Category from '/public/survey/Category.png'
 import Image from 'next/Image'
-import useSettingSurveyApiStore from '../../../stores/makesurvey/useSettingSurveyApiStore';
+import useSettingSurveyApiStore from '../../../../stores/makesurvey/useSettingSurveyApiStore';
 
 
 function MakeSettings() {
@@ -181,8 +181,8 @@ function MakeSettings() {
         <Survey_Inner_Container>
           <Survey_Title_Container>
             <Title_Inner_Container>
-                <Title_input minRows={1} placeholder="설문지 제목" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput} onChange={handleTitleChange} value={title}/>
-                <Title_Content minRows={1} placeholder="설문에 대한 설명을 적어주세요 (필수사항)" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}  onChange={handleTitleContentChange} value={titleContent} />
+                <Title_input minRows={1} maxRows={2} placeholder="설문지 제목" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput} onChange={handleTitleChange} value={title}/>
+                <Title_Content minRows={1} maxRows={4} placeholder="설문에 대한 설명을 적어주세요 (필수사항)" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}  onChange={handleTitleContentChange} value={titleContent} />
             </Title_Inner_Container>
           </Survey_Title_Container>
           <Survey_Detail_Container>

@@ -41,8 +41,8 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
           content: item.text,
           linkNumber: item.linkNumber
         }));
-    
-        setSurveyList(componentKey,{...surveyList[componentKey], dropDown : dropDownData });
+
+        setSurveyList(componentKey,{...surveyList[componentKey], multipleChoices : dropDownData });
       }, [componentKey, items]);
 
       const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
@@ -96,7 +96,7 @@ const DropDown = ({ componentKey,isLink }: { componentKey: string, isLink : bool
             <MultipleCheck>{index+1}  .</MultipleCheck>
             <MultipleCheckText
               placeholder={`문항 ${index + 1}`}
-              minRows={1}
+              minRows={1} maxRows={4}
              onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}
               onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleItemTextChange(index, event)}
               value = {item.text}

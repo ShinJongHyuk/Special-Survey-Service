@@ -9,7 +9,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
     const surveylistcolor = props.selectBtn === "1" ? "#C6B6FF" : "#FFFAAE";
 
-    const height = props.pathname === "/makesurvey" ? "72px" : "56px";
+    const height = props.pathname === ("/makesurvey" || "/surveyresult") ? "72px" : "56px";
 
     switch (props.pathname) {
       case "/surveylist":
@@ -18,6 +18,9 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       case "/instantWinConfirm":
       case "/surveydetail":
       case "/makesurvey":
+        bgColor = white;
+        break;
+      case "/surveyresult" :
         bgColor = white;
         break;
       default:
@@ -45,7 +48,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
 const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === "/makesurvey" ? "15%" : "20%";
+    const size = props.pathname === ("/makesurvey" || "/surveyresult") ? "15%" : "20%";
     return css`
       width: ${size};
     `;
@@ -54,9 +57,9 @@ const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
 
 const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === "/makesurvey" ? "85%" : "60%";
-    const jc = props.pathname === "/makesurvey" ? "space-between" : "center";
-    const ai = props.pathname === "/makesurvey" ? "center" : "";
+    const size = props.pathname === ("/makesurvey" || "/surveyresult") ? "85%" : "60%";
+    const jc = props.pathname === ("/makesurvey" || "/surveyresult") ? "space-between" : "center";
+    const ai = props.pathname === ("/makesurvey" || "/surveyresult") ? "center" : "";
     return css`
       width: ${size};
       display: flex;
@@ -68,7 +71,7 @@ const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
 `;
 const StyledEndComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === "/makesurvey" ? "10%" : "20%";
+    const size = props.pathname === ("/makesurvey" || "/surveyresult") ? "10%" : "20%";
     return css`
       width: ${size};
       display: flex;

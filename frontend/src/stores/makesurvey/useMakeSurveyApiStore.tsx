@@ -6,10 +6,10 @@ interface UseMakeSurveyApiState {
   checked?: boolean;
   headerText?: string;
   headerDetailText?: string;
-  listOption?: boolean;
+  content?: string;
   multipleChoices?: any[]; 
-  checkBox?: any[]; 
-  dropDown?: any[]; 
+  componentKey? : string;
+  
 
 }
 
