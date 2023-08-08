@@ -1,13 +1,10 @@
 import api from "../api";
 
-const userUpdatePost = async (postUser:any) => {
+const userDelete = async () => {
     const accessToken = localStorage.getItem("accessToken")
     const response = await api({
-      method: 'patch',
+      method: 'delete',
       url: `/user`,
-      data : {
-        ...postUser
-      },
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
@@ -15,4 +12,4 @@ const userUpdatePost = async (postUser:any) => {
       return response
   } 
 
-  export default userUpdatePost
+  export default userDelete

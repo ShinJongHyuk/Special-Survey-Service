@@ -4,11 +4,15 @@ import Button from '@/components/button'
 import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition } from "@/pageComponents/signup/Signup.styled";
 import useUserStore from '@/stores/useUserStore';
 import { useState, useEffect } from 'react';
-import userUpdatePost from '@/api/user/userUpdatePost';
+import userUpdatePatch from '@/api/user/userUpdatePatch';
+import { DeleteUser } from './UserInfoList.styled';
+import userDelete from '@/api/user/userDelete';
+import { useLogoutHook } from '@/Hooks/user/useLogoutHook';
 
 const UserInfoList = () => {
   const setUserInformation = useUserStore((state:any) => state.setUserInformation)
   const user = useUserStore((state:any) => state.userInformation)
+  const {hanedleLogout} = useLogoutHook()
   const [password2, setPassword] = useState("")
   const [inputState, setInputState] = useState({
     email: 1,
@@ -23,12 +27,12 @@ const UserInfoList = () => {
 
 
 const [newUser, setNewUser] = useState({
-  email : user.email,
+  email : user?.email,
   password : "",
-  name: user.name,
-  birthday: user.birthday,
-  phoneNumber: user.phoneNumber,
-  age: user.age,
+  name: user?.name,
+  birthday: user?.birthday,
+  phoneNumber: user?.phoneNumber,
+  age: user?.age,
 }) 
 
 
@@ -114,7 +118,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?
 
     else {
       try {
-        const res = await userUpdatePost(postUser)
+        const res = await userUpdatePatch(postUser)
         console.log("회원정보수정 완료")
         if (res.data.success === true) {
           setUserInformation(res.data.response)
@@ -132,13 +136,23 @@ useEffect(() => {
   console.log(user)
 },[user])
 
+  const handleDeleteUser = async () => {
+    const res = await userDelete()
+    if (res.data.success === true) {
+      hanedleLogout()
+      alert('회원탈퇴에 성공하였습니다')
+    } else if (res.data.success === false) {
+      alert(res.data.apiError.message)
+    }
+  }
+
   return (
     <SignUpPage>
         <SignUpContainer onSubmit={handleSubmit}>
             <SignUpItem>
             <SignUpText>이메일</SignUpText>
             <InputBox>
-                <Input disabled="true" type="email" name="email" value={user.email} inputstate={inputState.email}/>
+                <Input disabled="true" type="email" name="email" value={user?.email} inputstate={inputState.email}/>
             </InputBox>
             </SignUpItem>
 
@@ -161,21 +175,21 @@ useEffect(() => {
             <SignUpItem>
             <SignUpText>이름</SignUpText>
             <InputBox>
-                <Input type="text" name="name" value={newUser.name} onChange={hanleChange} inputstate={inputState.name}/>
+                <Input type="text" name="name" value={newUser?.name} onChange={hanleChange} inputstate={inputState.name}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>생년월일</SignUpText>
             <InputBox>
-                <Input disabled="true" type="date" name="birthday" value={newUser.birthday} inputstate={inputState.birthday}/>
+                <Input disabled="true" type="date" name="birthday" value={newUser?.birthday} inputstate={inputState.birthday}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>성별</SignUpText>
             <InputBox>
-                <Input disabled="true" type="text" value={user.gender === "MAN" ? "남성" : "여성"} name="gender" inputstate={inputState.email}/>
+                <Input disabled="true" type="text" value={user?.gender === "MAN" ? "남성" : "여성"} name="gender" inputstate={inputState.email}/>
             </InputBox>
             </SignUpItem>
 
@@ -195,7 +209,7 @@ useEffect(() => {
             <SignUpItem>
             <SignUpText>휴대폰 번호</SignUpText>
             <InputBox>
-                <Input type="tel" name="phoneNumber" value={user.phoneNumber} disabled="true" inputstate={inputState.phoneNumber}/>
+                <Input type="tel" name="phoneNumber" value={user?.phoneNumber} disabled="true" inputstate={inputState.phoneNumber}/>
             </InputBox>
             </SignUpItem>
         
@@ -203,6 +217,11 @@ useEffect(() => {
                     <Button use="SignUpLogin" label="회원정보 수정" type="submit"/>
             </div>
         </SignUpContainer>
+        <div style={{width:"100px", height:"30px", position:"absolute", bottom:"3px", right:"30px"}}>
+            <DeleteUser onClick={handleDeleteUser}>
+                회원탈퇴
+            </DeleteUser>
+        </div>
         </SignUpPage>
   )
 };
