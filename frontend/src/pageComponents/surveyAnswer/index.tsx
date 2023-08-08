@@ -7,6 +7,7 @@ import Question from './components/question'
 import { useSurveyAnswerHook } from "@/Hooks/useSurveyAnswerHook"
 import { useEffect } from "react"
 import SurveyAnswerComponent from "@/components/common/navbar/midComponent/SurveyAnswerCompnent"
+import { useRouter } from "next/navigation"
 
 
 interface questionType {
@@ -20,6 +21,7 @@ interface questionType {
 }
 
 const SurveyAnswer = (props:any) => {
+    const router = useRouter()
     const { surveyInformation, getSurveyQuestion } = useSurveyAnswerHook()
     useEffect(() => {
         getSurveyQuestion(props.id)
@@ -39,7 +41,7 @@ const SurveyAnswer = (props:any) => {
             <div style={{display:"flex", backgroundColor:"white"}}>
             <BackButtonContainer bgcolor="white">
                 <BackButton>
-                <Image src="/surveyDetail/BackImg.png" alt="back" width={36} height={36}></Image>
+                <Image src="/surveyDetail/BackImg.png" alt="back" width={36} height={36} onClick={() => router.back()}></Image>
                 </BackButton>
             </BackButtonContainer>
 

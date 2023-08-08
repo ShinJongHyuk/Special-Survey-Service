@@ -18,8 +18,10 @@ import moment from "moment";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import { useEffect, useState } from "react";
 import { DetailPropsType } from "../../SurveyDetailType.type";
+import { useRouter } from "next/navigation";
 
 const DetailComponent = (props: any) => {
+  const router = useRouter()
   const { surveyDetail } = props;
 
   const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
@@ -76,6 +78,9 @@ const DetailComponent = (props: any) => {
   const [value1, label1] = unit1.split(":");
   const [value2, label2] = unit2.split(":");
 
+  const goSurvey = () => {
+    router.push(`/surveyAnswer/${surveyDetail.id}`)
+  } 
   return (
     <StyledDetailContainer>
       <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600}></Image>
@@ -178,12 +183,12 @@ const DetailComponent = (props: any) => {
           <Image src="/surveyDetail/shareIcon.png" alt="share" width={48} height={48}></Image>
           {!isExpired ? (
             detailProps.type === "NORMAL" ? (
-              <Button use="purple" label="지금 응답하기"></Button>
+              <Button use="purple" label="지금 응답하기" onClick={goSurvey}></Button>
             ) : (
-              <Button use="longYellow" label="지금 응답하기"></Button>
+              <Button use="longYellow" label="지금 응답하기" onClick={goSurvey}></Button>
             )
           ) : (
-            <Button use="bgGray" label="마감된 설문입니다."></Button>
+            <Button use="bgGray" label="마감된 설문입니다." onClick={goSurvey}></Button>
           )}
         </div>
       </StyledSurveyContent>
