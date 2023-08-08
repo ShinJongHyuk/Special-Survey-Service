@@ -20,6 +20,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@lombok.Generated
 public class Survey extends BaseEntity {
 
     @Id
@@ -28,9 +29,13 @@ public class Survey extends BaseEntity {
 
     private String title;
 
+    private String content;
+
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+    private String img;
 
     private int headCount;
 
@@ -60,15 +65,17 @@ public class Survey extends BaseEntity {
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SurveyResult> surveyResults = new ArrayList<>();
 
-    @OneToMany(mappedBy = "survey",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SurveyTarget> surveyTargets;
 
     @Builder
-    public Survey(String title, LocalDateTime startTime, LocalDateTime endTime, int headCount,
+    public Survey(String content, String img, String title, LocalDateTime startTime, LocalDateTime endTime, int headCount,
             int closedHeadCount, List<SurveyTarget> surveyTargets,
             Long writer, int totalGiveawayCount, int requiredTimeInSeconds, SurveyCategory type, List<Question> questions) {
         this.title = title;
         this.startTime = startTime;
+        this.content = content;
+        this.img = img;
         this.endTime = endTime;
         this.headCount = headCount;
         this.closedHeadCount = closedHeadCount;

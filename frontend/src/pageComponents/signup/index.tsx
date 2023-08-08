@@ -66,7 +66,7 @@ const Signup = () => {
             </SignUpItem>
 
             <SignUpItem>
-            <SignUpText>성별</SignUpText>
+            <SignUpText>나이</SignUpText>
             <InputRadioBox>
                 <Button use="age" label="~9" type="button" id="UNDER_TEENS" checkage={user.age} onClick={handleClick}></Button>
                 <Button use="age" label="10~19" type="button" id="TEENS " checkage={user.age} onClick={handleClick}></Button>

@@ -3,6 +3,7 @@ package com.logwiki.specialsurveyservice.domain.surveyresult;
 import com.logwiki.specialsurveyservice.domain.BaseEntity;
 import com.logwiki.specialsurveyservice.domain.account.Account;
 import com.logwiki.specialsurveyservice.domain.survey.Survey;
+import com.logwiki.specialsurveyservice.domain.surveycategory.SurveyCategoryType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@lombok.Generated
 public class SurveyResult extends BaseEntity {
 
     @Id
@@ -63,6 +65,16 @@ public class SurveyResult extends BaseEntity {
 
     public void checkResult() {
         this.userCheck = true;
+    }
+
+    public boolean isResponse() {
+        if (survey.getSurveyCategory().getType().equals(SurveyCategoryType.NORMAL)) {
+            if ((userCheck == false || win) && survey.isClosed()) {
+                return true;
+            }
+            return false;
+        }
+        return win;
     }
 
 }

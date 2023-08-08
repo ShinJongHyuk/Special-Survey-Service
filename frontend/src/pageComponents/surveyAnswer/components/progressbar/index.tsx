@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { ProgressContainer, ProgressBar, ProgressBarPercentage } from './ProgressBar.styeld'
 import useSurveyAnswerStore from '@/stores/useSurveyAnswer'
 import surveyPost from '@/api/surveyAnswer/surveyPost'
+import { useRouter } from 'next/navigation'
 
 interface propsType {
     id : any
@@ -11,6 +12,7 @@ interface propsType {
 }
 
 const ProgressBarComponent = (props:propsType) => {
+    const router = useRouter()
     const answer = useSurveyAnswerStore((state:any) => state.answer)
     const checkBoxAnswer = useSurveyAnswerStore((state:any) => state.checkBoxAnswer)
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
@@ -42,8 +44,18 @@ const ProgressBarComponent = (props:propsType) => {
                 ...checkBoxAnswer
             ]
 
-            await surveyPost(answers, props.id)
-            console.log(answers)
+            const res = await surveyPost(answers, props.id)
+            if (res?.data.success === true) {
+                if (props.type === "NORMAL") {
+                    alert('설문응답을 완료하였습니다')
+                    router.push("/")
+                } else {
+                    alert('설문응답을 완료하였습니다')
+                    router.push("/instantwincheck")
+                }
+            } else if (res?.data.success === false) {
+                alert(res.data.apiError.message)
+            }
         }
     }
     return (

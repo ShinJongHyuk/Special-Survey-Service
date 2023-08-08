@@ -18,4 +18,15 @@ export interface ResultPropsType {
   type: string;
   giveawaytype: string;
   percent: string;
+  id: string;
 }
+
+export interface BoardPropsType {
+  answertime: string;
+  name: string;
+  giveawayname: string;
+  iswin: string;
+  submitorder: string;
+  type: string;
+}
+
