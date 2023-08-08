@@ -61,8 +61,6 @@ const BoardComponent = (props: any) => {
     }
   }, [SSEdata]);
 
-  console.log("surveyDetail: ", surveyDetail);
-  console.log("answer array: ", answerPropsArray);
   return (
     <Board>
       <BoardTop>

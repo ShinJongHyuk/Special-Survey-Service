@@ -104,7 +104,7 @@ const DetailComponent = (props: any) => {
               <Image src="/surveyDetail/yellow/period.svg" alt="period" width={40} height={17.8}></Image>
             )}
             <div className="bold">설문 기간 </div>
-            <div>
+            <div style={{ minWidth: "275px" }}>
               {starttimestr}부터
               <span className="end"> {endtimestr}</span>까지
             </div>
