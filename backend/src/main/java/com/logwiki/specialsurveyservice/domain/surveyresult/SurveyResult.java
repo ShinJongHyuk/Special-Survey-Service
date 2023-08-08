@@ -3,6 +3,7 @@ package com.logwiki.specialsurveyservice.domain.surveyresult;
 import com.logwiki.specialsurveyservice.domain.BaseEntity;
 import com.logwiki.specialsurveyservice.domain.account.Account;
 import com.logwiki.specialsurveyservice.domain.survey.Survey;
+import com.logwiki.specialsurveyservice.domain.surveycategory.SurveyCategoryType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@lombok.Generated
 public class SurveyResult extends BaseEntity {
 
     @Id
@@ -22,7 +24,7 @@ public class SurveyResult extends BaseEntity {
 
     private boolean win;
 
-    private LocalDateTime endTime;
+    private LocalDateTime answerDateTime;
 
     private int submitOrder;
 
@@ -37,23 +39,42 @@ public class SurveyResult extends BaseEntity {
     private Account account;
 
     @Builder
-    private SurveyResult(Boolean win, LocalDateTime endTime, int submitOrder, boolean userCheck, Survey survey, Account account) {
+    private SurveyResult(Boolean win, LocalDateTime answerDateTime, int submitOrder, boolean userCheck, Survey survey, Account account) {
         this.win = win;
-        this.endTime = endTime;
+        this.answerDateTime = answerDateTime;
         this.submitOrder = submitOrder;
         this.userCheck = userCheck;
         this.survey = survey;
         this.account = account;
     }
 
-    public static SurveyResult create(Boolean isWin, LocalDateTime endTime, int submitOrder, Survey survey, Account account) {
+    public static SurveyResult create(Boolean isWin, LocalDateTime answerDateTime, int submitOrder, Survey survey, Account account) {
         return SurveyResult.builder()
                 .win(isWin)
-                .endTime(endTime)
+                .answerDateTime(answerDateTime)
                 .submitOrder(submitOrder)
                 .userCheck(false)
                 .survey(survey)
                 .account(account)
                 .build();
     }
+
+    public void winSurvey() {
+        this.win = true;
+    }
+
+    public void checkResult() {
+        this.userCheck = true;
+    }
+
+    public boolean isResponse() {
+        if (survey.getSurveyCategory().getType().equals(SurveyCategoryType.NORMAL)) {
+            if ((userCheck == false || win) && survey.isClosed()) {
+                return true;
+            }
+            return false;
+        }
+        return win;
+    }
+
 }

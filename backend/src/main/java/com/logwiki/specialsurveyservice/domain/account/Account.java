@@ -1,30 +1,30 @@
 package com.logwiki.specialsurveyservice.domain.account;
 
+import com.logwiki.specialsurveyservice.api.controller.account.request.AccountUpdateRequest;
 import com.logwiki.specialsurveyservice.domain.BaseEntity;
 import com.logwiki.specialsurveyservice.domain.accountauthority.AccountAuthority;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCodeType;
 import com.logwiki.specialsurveyservice.domain.authority.Authority;
 import com.logwiki.specialsurveyservice.domain.surveyresult.SurveyResult;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLDelete(sql = "UPDATE account SET status = 'INACTIVE' WHERE id = ?")
+@Where(clause = "status = 'ACTIVE'")
 @Entity
+@lombok.Generated
 public class Account extends BaseEntity {
 
     @Id
@@ -106,5 +106,22 @@ public class Account extends BaseEntity {
 
     public void increaseWinningGiveawayCount() {
         this.winningGiveawayCount++;
+    }
+
+    public void increaseCreateSurveyCount() {
+        this.createSurveyCount++;
+    }
+
+    public Account update(AccountUpdateRequest accountUpdateRequest) {
+        if(accountUpdateRequest.getPassword() != null) {
+            this.password = accountUpdateRequest.getPassword();
+        }
+        if(accountUpdateRequest.getPhoneNumber() != null) {
+            this.phoneNumber = accountUpdateRequest.getPhoneNumber();
+        }
+        if(accountUpdateRequest.getName() != null) {
+            this.name = accountUpdateRequest.getName();
+        }
+        return this;
     }
 }

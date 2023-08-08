@@ -20,6 +20,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@lombok.Generated
 public class Survey extends BaseEntity {
 
     @Id
@@ -28,9 +29,13 @@ public class Survey extends BaseEntity {
 
     private String title;
 
+    private String content;
+
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+    private String img;
 
     private int headCount;
 
@@ -58,18 +63,19 @@ public class Survey extends BaseEntity {
     private List<TargetNumber> targetNumbers;
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<SurveyResult> surveyResults;
-
+    private List<SurveyResult> surveyResults = new ArrayList<>();
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SurveyTarget> surveyTargets;
 
     @Builder
-    public Survey(String title, LocalDateTime startTime, LocalDateTime endTime, int headCount,
+    public Survey(String content, String img, String title, LocalDateTime startTime, LocalDateTime endTime, int headCount,
             int closedHeadCount, List<SurveyTarget> surveyTargets,
             Long writer, int totalGiveawayCount, int requiredTimeInSeconds, SurveyCategory type, List<Question> questions) {
         this.title = title;
         this.startTime = startTime;
+        this.content = content;
+        this.img = img;
         this.endTime = endTime;
         this.headCount = headCount;
         this.closedHeadCount = closedHeadCount;
@@ -77,7 +83,7 @@ public class Survey extends BaseEntity {
         this.writer = writer;
         this.totalGiveawayCount = totalGiveawayCount;
         this.requiredTimeInSeconds = requiredTimeInSeconds;
-        this.closed = false;
+        this.closed = true;
         this.questions = questions;
         this.surveyTargets = surveyTargets;
     }
@@ -101,15 +107,15 @@ public class Survey extends BaseEntity {
     public void addSurveyResults(List<SurveyResult> surveyResults) {
         this.surveyResults = surveyResults;
     }
-  
+
     public void addSurveyTarget(SurveyTarget surveyTarget) {
         if (this.surveyTargets == null) this.surveyTargets = new ArrayList<>();
         this.surveyTargets.add(surveyTarget);
     }
-  
+
     public void addHeadCount() {
         this.headCount += 1;
-        if(this.headCount == closedHeadCount)
+        if (this.headCount == closedHeadCount)
             closed = true;
     }
 

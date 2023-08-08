@@ -2,12 +2,15 @@ package com.logwiki.specialsurveyservice.api.service.survey;
 
 
 import com.logwiki.specialsurveyservice.api.service.account.AccountService;
+import com.logwiki.specialsurveyservice.api.service.sse.response.SurveyAnswerResponse;
 import com.logwiki.specialsurveyservice.api.service.survey.request.GiveawayAssignServiceRequest;
 import com.logwiki.specialsurveyservice.api.service.survey.request.SurveyCreateServiceRequest;
+import com.logwiki.specialsurveyservice.api.service.survey.response.AbstractSurveyResponse;
 import com.logwiki.specialsurveyservice.api.service.survey.response.SurveyResponse;
 import com.logwiki.specialsurveyservice.api.service.targetnumber.TargetNumberService;
 import com.logwiki.specialsurveyservice.api.service.targetnumber.request.TargetNumberCreateServiceRequest;
 import com.logwiki.specialsurveyservice.domain.account.Account;
+import com.logwiki.specialsurveyservice.domain.account.AccountRepository;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCode;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCodeRepository;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCodeType;
@@ -18,18 +21,25 @@ import com.logwiki.specialsurveyservice.domain.surveycategory.SurveyCategory;
 import com.logwiki.specialsurveyservice.domain.surveycategory.SurveyCategoryRepository;
 import com.logwiki.specialsurveyservice.domain.surveycategory.SurveyCategoryType;
 import com.logwiki.specialsurveyservice.domain.surveygiveaway.SurveyGiveaway;
+import com.logwiki.specialsurveyservice.domain.surveyresult.SurveyResult;
+import com.logwiki.specialsurveyservice.domain.surveyresult.SurveyResultRepository;
 import com.logwiki.specialsurveyservice.domain.surveytarget.SurveyTarget;
 import com.logwiki.specialsurveyservice.domain.targetnumber.TargetNumber;
+import com.logwiki.specialsurveyservice.domain.targetnumber.TargetNumberRepository;
 import com.logwiki.specialsurveyservice.exception.BaseException;
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -41,9 +51,16 @@ public class SurveyService {
     private final TargetNumberService targetNumberService;
     private final AccountCodeRepository accountCodeRepository;
     private final SurveyCategoryRepository surveyCategoryRepository;
+    private final SurveyResultRepository surveyResultRepository;
+    private final TargetNumberRepository targetNumberRepository;
+    private final AccountRepository accountRepository;
+
+    private static final String LOSEPRODUCT = "꽝";
 
     public SurveyResponse addSurvey(SurveyCreateServiceRequest dto) {
         Account account = accountService.getCurrentAccountBySecurity();
+
+        checkTimeValidate(dto);
 
         Survey survey = dto.toEntity(account.getId());
 
@@ -66,6 +83,7 @@ public class SurveyService {
         List<GiveawayAssignServiceRequest> giveawayAssignServiceRequests = dto.getGiveaways();
         List<SurveyGiveaway> surveyGiveaways = getSurveyGiveaways(survey,
                 giveawayAssignServiceRequests);
+        sortGiveawaysByPrice(surveyGiveaways);
         survey.addSurveyGiveaways(surveyGiveaways);
 
         TargetNumberCreateServiceRequest targetNumberCreateServiceRequest = TargetNumberCreateServiceRequest.create(
@@ -75,8 +93,22 @@ public class SurveyService {
         survey.addTargetNumbers(targetNumbers);
         surveyRepository.save(survey);
 
+        account.increaseCreateSurveyCount();
 
         return SurveyResponse.from(survey);
+    }
+
+    private static void checkTimeValidate(SurveyCreateServiceRequest dto) {
+        if (LocalDateTime.now().isAfter(dto.getEndTime())) {
+            throw new BaseException("설문 마감시간은 현재 시간보다 커야합니다.", 3017);
+        } else if (dto.getEndTime().isBefore(dto.getStartTime())) {
+            throw new BaseException("설문 마감시간은 시작 시간보다 커야합니다.", 3018);
+        }
+    }
+
+    private void sortGiveawaysByPrice(List<SurveyGiveaway> surveyGiveaways) {
+        surveyGiveaways
+                .sort(Comparator.comparing((SurveyGiveaway sg) -> sg.getGiveaway().getPrice()).reversed());
     }
 
     private List<SurveyGiveaway> getSurveyGiveaways(Survey survey,
@@ -91,32 +123,69 @@ public class SurveyService {
                 .collect(Collectors.toList());
     }
 
-    public List<SurveyResponse> getRecommendNormalSurvey() {
-        List<Survey> surveys = getRecommendSurveysBySurveyCategoryType(SurveyCategoryType.NORMAL);
+    public List<AbstractSurveyResponse> getRecommendNormalSurveyForAnonymous() {
+        List<Survey> surveys = surveyRepository.findRecommendSurveyForAnonymous(SurveyCategoryType.NORMAL.toString());
 
         sortByEndTime(surveys);
+
         return surveys.stream()
-                .map(SurveyResponse::from)
+                .map(survey
+                        -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
                 .collect(Collectors.toList());
     }
 
-    public List<SurveyResponse> getRecommendInstantSurvey() {
+    public List<AbstractSurveyResponse> getRecommendInstantSurveyForAnonymous() {
+        List<Survey> surveys = surveyRepository.findRecommendSurveyForAnonymous(SurveyCategoryType.INSTANT_WIN.toString());
+
+        sortByWinningPercent(surveys);
+
+        return surveys.stream()
+                .map(survey
+                        -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
+                .collect(Collectors.toList());
+    }
+
+    public List<AbstractSurveyResponse> getRecommendShortTimeSurveyForAnonymous() {
+        List<Survey> surveys = surveyRepository.findRecommendSurveyForAnonymous();
+
+        sortByRequiredTimeForSurvey(surveys);
+
+        return surveys.stream()
+                .map(survey
+                        -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
+                .collect(Collectors.toList());
+    }
+
+    public List<AbstractSurveyResponse> getRecommendNormalSurveyForUser() {
+        List<Survey> surveys = getRecommendSurveysBySurveyCategoryType(SurveyCategoryType.NORMAL);
+
+        sortByEndTime(surveys);
+
+        return surveys.stream()
+                .map(survey
+                        -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
+                .collect(Collectors.toList());
+    }
+
+    public List<AbstractSurveyResponse> getRecommendInstantSurveyForUser() {
         List<Survey> surveys = getRecommendSurveysBySurveyCategoryType(SurveyCategoryType.INSTANT_WIN);
 
         sortByWinningPercent(surveys);
 
         return surveys.stream()
-                .map(SurveyResponse::from)
+                .map(survey
+                        -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
                 .collect(Collectors.toList());
     }
 
-    public List<SurveyResponse> getRecommendShortTimeSurvey() {
+    public List<AbstractSurveyResponse> getRecommendShortTimeSurveyForUser() {
         List<Survey> surveys = getAllRecommendSurveys();
 
         sortByRequiredTimeForSurvey(surveys);
 
         return surveys.stream()
-                .map(SurveyResponse::from)
+                .map(survey
+                        -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
                 .collect(Collectors.toList());
     }
 
@@ -145,7 +214,7 @@ public class SurveyService {
         return surveyRepository.findRecommendSurvey(genderId, ageId);
     }
 
-    private static void sortByEndTime(List<Survey> surveys) {
+    private void sortByEndTime(List<Survey> surveys) {
         surveys.sort((survey1, survey2) -> {
             LocalDateTime survey1EndTime = survey1.getEndTime();
             LocalDateTime survey2EndTime = survey2.getEndTime();
@@ -153,7 +222,7 @@ public class SurveyService {
         });
     }
 
-    private static void sortByWinningPercent(List<Survey> surveys) {
+    private void sortByWinningPercent(List<Survey> surveys) {
         surveys.sort((survey1, survey2) -> {
             int survey1GiveawayCount = survey1.getTotalGiveawayCount();
             int survey2GiveawayCount = survey2.getTotalGiveawayCount();
@@ -165,7 +234,89 @@ public class SurveyService {
         });
     }
 
-    private static void sortByRequiredTimeForSurvey(List<Survey> surveys) {
+    private void sortByRequiredTimeForSurvey(List<Survey> surveys) {
         surveys.sort(Comparator.comparingInt(Survey::getRequiredTimeInSeconds));
+    }
+
+    public List<SurveyAnswerResponse> getSurveyAnswers(Long surveyId) {
+        Optional<Survey> targetSurveyOptional = surveyRepository.findById(surveyId);
+        if(targetSurveyOptional.isEmpty()) {
+            throw new BaseException("없는 설문입니다.",3005);
+        }
+        Survey targetSurvey = targetSurveyOptional.get();
+
+        List<SurveyAnswerResponse> surveyResponseResults = new ArrayList<>();
+        if(targetSurvey.getSurveyResults() != null) {
+            for (SurveyResult surveyResult : targetSurvey.getSurveyResults()) {
+                String giveawayName = LOSEPRODUCT;
+                boolean isWin = false;
+
+                Optional<TargetNumber> tn = targetNumberRepository.findFirstBySurveyAndNumber(
+                        targetSurvey, surveyResult.getSubmitOrder());
+                if (tn.isPresent()) {
+                    isWin = true;
+                    giveawayName = tn.get().getGiveaway().getName();
+                }
+
+                if (targetSurvey.getSurveyCategory().getType().equals(SurveyCategoryType.NORMAL)) {
+                    if(targetSurvey.isClosed() == false) {
+                        isWin = false;
+                        giveawayName = LOSEPRODUCT;
+                    }
+
+                }
+                surveyResponseResults.add(SurveyAnswerResponse.from(surveyResult,giveawayName,isWin));
+            }
+        }
+        return surveyResponseResults;
+    }
+    public AbstractSurveyResponse getSurveyDetail(Long surveyId) {
+        Optional<Survey> targetSurveyOptional =  surveyRepository.findById(surveyId);
+
+        if(targetSurveyOptional.isEmpty()) {
+            throw new BaseException("없는 설문입니다." , 3005);
+        }
+        Survey targetSurvey = targetSurveyOptional.get();
+        List<SurveyGiveaway> surveyGiveaways = targetSurvey.getSurveyGiveaways();
+        List<String> giveawayNames = new ArrayList<>();
+        for(SurveyGiveaway surveyGiveaway : surveyGiveaways) {
+            giveawayNames.add(surveyGiveaway.getGiveaway().getName());
+        }
+
+        Optional<Account> writerAccount =  accountRepository.findById(targetSurvey.getWriter());
+        if(writerAccount.isEmpty()){
+            throw new BaseException("설문 작성자가 존재하지 않습니다.", 3013);
+        }
+        return AbstractSurveyResponse.from(targetSurvey, writerAccount.get().getName());
+    }
+
+    public SurveyResponse getSurvey(Long surveyId) {
+        return SurveyResponse.from(surveyRepository.findById(surveyId)
+                .orElseThrow(() -> new BaseException("없는 설문입니다.", 3005)));
+    }
+
+    public List<AbstractSurveyResponse> getMySurveys() {
+        Account account = accountService.getCurrentAccountBySecurity();
+        List<Survey> mySurveys = surveyRepository.findAllByWriter(account.getId());
+
+        return mySurveys.stream()
+                .map(survey
+                        -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
+                .collect(Collectors.toList());
+    }
+
+    public List<AbstractSurveyResponse> getAnsweredSurveys() {
+        Account account = accountService.getCurrentAccountBySecurity();
+        List<SurveyResult> surveyResults = surveyResultRepository.findSurveyResultsByAccount_Id(
+                account.getId());
+
+        List<Survey> surveys = surveyResults.stream()
+                .map(SurveyResult::getSurvey)
+                .toList();
+
+        return surveys.stream()
+                .map(survey
+                        -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
+                .collect(Collectors.toList());
     }
 }
