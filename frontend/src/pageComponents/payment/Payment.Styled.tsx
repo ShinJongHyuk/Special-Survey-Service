@@ -23,8 +23,6 @@ const Main_Inner_Container = styled.div.attrs({}) `
 
 `
 
-
-
 const Top_Container = styled.div.attrs({}) `
     display : flex;
     width : 100%;
@@ -46,11 +44,11 @@ const Bottom_Container = styled.div.attrs({}) `
 
 const Pay_Container = styled.div.attrs<any>({})`
     display: flex;
-
-    width: 15%;
+    flex-direction : column;
+    width: 18%;
     min-width : 100px;
     height: 90%;
-    justify-content: center;
+    align-items :center;
     flex-wrap: wrap;
     margin-left : 100px;
     /* background-image: url("/survey/background_survey5.png");
@@ -60,7 +58,7 @@ const Pay_Container = styled.div.attrs<any>({})`
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
     
-    padding : 10px 10px 10px 10px;
+    padding : 40px 15px 15px 15px;
 
 
 `;
@@ -152,6 +150,52 @@ const Title_Text = styled.label.attrs({})`
     color : ${props => props.theme.colors.black};
 `
 
+const SelectBox = styled.div.attrs({})`
+  display: flex;
+  width: 90%;
+  min-width : 100px;
+  height: 8%;
+  border-radius: 8px;
+  border : 0px solid ${props => props.theme.colors.purple};
+  padding : 10px, 10px;
+  cursor: pointer;
+`
+const SelectBox_List = styled.select.attrs({})`
+  display : flex;
 
+  width: 100%;
+  height: 100%;
+  text-align : center;
 
-export {Info_LR_Box,Image_Wrapper,Info_Top_Box,Info_Bottom_Box,Info_Inner_Box,Bottom_Container,Top_Container,Main_Inner_Container,Title_Text,Main_Container,Information_Container,Pay_Container}
+  border: 1px solid ${props => props.theme.colors.black};
+  border-radius: 5px;
+  background-color: white;
+  padding: 10px;
+  font-size: ${props => props.theme.fontSizes.small};
+  color: ${props => props.theme.colors.black};
+  font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+  cursor: pointer;
+`
+
+const SelectBox_Option = styled.option.attrs({})`
+    color: ${props => props.theme.colors.black};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+    text-align : center;
+
+`;
+
+const Selected_Box = styled.div.attrs({})`
+    display : flex;
+    flex-direction :column;
+    align-items : center;
+    width : 90%;
+    height : 60%;
+    border : 1px solid black;
+    border-radius : 8px;
+    padding : 10px;
+    margin-top : 20px;
+    border : 1px solid black;
+    overflow : auto;
+`
+
+export {Selected_Box,SelectBox,SelectBox_List,SelectBox_Option,Info_LR_Box,Image_Wrapper,Info_Top_Box,Info_Bottom_Box,Info_Inner_Box,Bottom_Container,Top_Container,Main_Inner_Container,Title_Text,Main_Container,Information_Container,Pay_Container}
