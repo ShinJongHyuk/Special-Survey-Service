@@ -10,7 +10,7 @@ const useSSEHook = (surveyId: any, want: string) => {
     eventSource.addEventListener(want, (event) => {
       console.log("Message from server :  ", event.data);
       // const jsonData = JSON.parse(event.data);
-      setData(data);
+      setData(event.data);
     });
 
     return () => {

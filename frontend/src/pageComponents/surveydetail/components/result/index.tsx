@@ -29,6 +29,7 @@ const ResultComponent = (props: any) => {
 
   const percentSSE = useSSEHook(resultProps.id, "확률변동");
   console.log("percentSSE : ", percentSSE);
+
   const [percentArray, setPercentArray] = useState(resultProps.percent.toString().split(""));
   useEffect(() => {
     if (percentSSE) {
@@ -36,7 +37,10 @@ const ResultComponent = (props: any) => {
     }
   }, [percentSSE]);
 
-  // const percentArray = resultProps.percent.toString().split("");
+  useEffect(() => {
+    setPercentArray(resultProps.percent.toString().split(""));
+  }, [resultProps.percent]);
+
   return (
     <>
       <SurveyResultComent>
