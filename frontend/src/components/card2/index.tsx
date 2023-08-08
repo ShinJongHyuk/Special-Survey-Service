@@ -14,6 +14,12 @@ const Card2Component = (props: CardType) => {
   const [value1, label1] = unit1.split(':');
   const [value2, label2] = unit2.split(':');
 
+  const value = parseFloat(props.probability);
+  const formattedProbability = value % 1 === 0
+    ? Math.round(value) + '%'
+    : value.toFixed(1) + '%';
+
+
   return (
     <StyledCard {...props}>
       <StyledCardLeft>
@@ -38,7 +44,7 @@ const Card2Component = (props: CardType) => {
         <StyledProbability {...props}>
           <Image src="/card/percent.svg" priority={true} width={30} height={30} alt="remaintime" />
           <div className="text" {...props}>
-            {props.probability}
+            {formattedProbability}
           </div>
         </StyledProbability>
       </StyledCardLeft>
