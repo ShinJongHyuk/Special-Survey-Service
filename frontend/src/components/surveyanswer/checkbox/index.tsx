@@ -7,14 +7,14 @@ const CheckBoxComponent = (props:any) => {
     const questionNumber = props.questionNumber
     const setCheckBoxAnswer = useSurveyAnswerStore((state:any) => state.setCheckBoxAnswer)
     const checkBoxAnswer = useSurveyAnswerStore((state:any) => state.checkBoxAnswer)
-
+    const questionId = props.id
     useEffect(() => {
         console.log(checkBoxAnswer)
     },[checkBoxAnswer])
 
     const onClick = (e:any) => {
         const newResult = {
-            ["questionId"] : String(questionNumber),
+            ["questionId"] : String(questionId),
             ["multipleChoiceAnswer"] : e.target.id
         }
         setCheckBoxAnswer(newResult)
