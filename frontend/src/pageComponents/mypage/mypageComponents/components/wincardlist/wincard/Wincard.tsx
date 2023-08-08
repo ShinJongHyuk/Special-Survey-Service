@@ -7,6 +7,12 @@ const Wincard = (props: WincardType) => {
     COFFEE: "/card/coffee.png",
   };
 
+  const formatDate = (datetime: string) => {
+    const date = new Date(datetime);
+    // return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
+    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+  };
+
   const imgsrc = images[props.giveawaytype];
   return (
     <StyledCard {...props}>
@@ -22,7 +28,7 @@ const Wincard = (props: WincardType) => {
         {props.usercheck === "true" && (
           <div className="date">
             <div> 응답일 </div>
-            <div>{props.answerdatetime || "응답날짜"}</div>
+            <div>{formatDate(props.answerdatetime) || "응답날짜"}</div>
           </div>
         )}
         {props.usercheck !== "true" && <div className="confirm">당첨 확인하기</div>}
