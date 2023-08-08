@@ -41,7 +41,8 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
   
       const multipleChoicesData = items.map((item) => ({
         content: item.text,
-        linkNumber: item.linkNumber
+        linkNumber: item.linkNumber,
+        
       }));
   
       setSurveyList(componentKey,{...surveyList[componentKey], multipleChoices : multipleChoicesData });

@@ -1,16 +1,31 @@
 "use client";
 import React from "react";
+import { useState,useEffect } from "react";
 import { StyledText, StyledMidComp, StyledTitleInput } from "../Navbar.styled";
 import Image from "next/image";
 import Button from "@/components/button";
 import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiStore";
 import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
+import giveawayListGet from "@/api/givawaylist/giveAwayListGet";
 import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
 
 const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
-    const {
+    const [giveawaydata,setGiveaWayData] = useState([])
+    const {surveyList} = useMakeSurveyApiStore();
+    const {surveyComponents} = useSurveyStore();
+
+    useEffect(() => {
+      const fetchList = async () => {
+        const data = await giveawayListGet();
+        setGiveaWayData(data);
+        console.log("givaway :", data);
+      };
+      fetchList();
+      
+    }, []);
+      const {
         title,
         setTitle,
         titleContent,
@@ -19,16 +34,14 @@ const MakesruveyComponent = (props: any) => {
         endTime,
         type,
         surveyTarget,
-      } = useSettingSurveyApiStore(); 
+      } = useSettingSurveyApiStore();
 
-    const {surveyList} = useMakeSurveyApiStore();
-    const {surveyComponents} = useSurveyStore();
+
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
       };
+
     const handleCreateButtonClick = () => { 
-
-
       const surveyData = {
         title,
         titleContent,
@@ -37,13 +50,19 @@ const MakesruveyComponent = (props: any) => {
         endTime,
         type,
         surveyTarget,
-        questions: surveyComponents
-          .map((component, index) => {
-            const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
-            return dataWithoutComponentKey;
+        questions: surveyComponents.map((component, index) => {
+          const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
+          return {
+            ...dataWithoutComponentKey,
+            questionNumber: index + 1 
+            };
           })
           .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
-      };
+        giveaways : giveawaydata.map((item : any) => ({
+          id : item.id,
+          count : item.price
+        }))
+        };
         const Inner_hasEmptyValue = surveyData.questions.some((questionData : any) => {
            
             if (questionData.title === "" || questionData.content === "" || questionData.type === "") {
