@@ -9,6 +9,7 @@ const Mypage = () => {
   const selectBtn = useMypageStore((state) => state.selectBtn);
 
   const [userInformation, setUserInformation] = useState<any>({});
+
   useEffect(() => {
     const fetchList = async () => {
       const data = await userDetailGet();

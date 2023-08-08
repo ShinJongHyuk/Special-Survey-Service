@@ -10,15 +10,13 @@ import { useRouter } from "next/navigation";
 
 const WinCardlist = (props: any) => {
   const lists = props.winConfirmList;
-  const { refreshList } = useWinListHook();
-  const router = useRouter()
 
   const [isOpen, setIsOpen] = useState(false);
   const [toModalData, setToModalData] = useState({ surveyid: "", giveawayType: "", win: "" });
 
   const patchList = async (surveyid: any) => {
     await myGiveawayCheckPatch(surveyid);
-    refreshList();
+    // await props.refreshList();
   };
 
 
@@ -52,9 +50,9 @@ const WinCardlist = (props: any) => {
 
       <Modal
         isOpen={isOpen}
-        onClose={() => {
+        onClose={async () => {
+          await props.refreshList();
           setIsOpen(false);
-          router.push("/mypage");
         }}
         giveawayType={toModalData.giveawayType}
         win={toModalData.win}
