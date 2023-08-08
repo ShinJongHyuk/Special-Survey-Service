@@ -10,6 +10,12 @@ import {
   SurveyCardTitle,
   SurveyCardText,
   SurveyCardTime,
+  ModalWrapper,
+  ModalContainer,
+  ModalContent,
+  CloseButton,
+  AnswerButton,
+  ButtonContainer,
 } from "./Detail.styled";
 
 import Image from "next/image";
@@ -22,6 +28,7 @@ import { useRouter } from "next/navigation";
 
 const DetailComponent = (props: any) => {
   const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false);
   const { surveyDetail } = props;
 
   const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
@@ -80,7 +87,9 @@ const DetailComponent = (props: any) => {
 
   const goSurvey = () => {
     router.push(`/surveyAnswer/${surveyDetail.id}`)
-  } 
+  }
+
+  
   return (
     <StyledDetailContainer>
       <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600}></Image>
@@ -183,15 +192,35 @@ const DetailComponent = (props: any) => {
           <Image src="/surveyDetail/shareIcon.png" alt="share" width={48} height={48}></Image>
           {!isExpired ? (
             detailProps.type === "NORMAL" ? (
-              <Button use="purple" label="지금 응답하기" onClick={goSurvey}></Button>
+              <Button use="purple" label="지금 응답하기" onClick={() => setIsOpen(true)}></Button>
             ) : (
-              <Button use="longYellow" label="지금 응답하기" onClick={goSurvey}></Button>
+              <Button use="longYellow" label="지금 응답하기" onClick={() => setIsOpen(true)}></Button>
             )
           ) : (
-            <Button use="bgGray" label="마감된 설문입니다." onClick={goSurvey}></Button>
+            <Button use="bgGray" label="마감된 설문입니다." onClick={() => setIsOpen(true)}></Button>
           )}
         </div>
       </StyledSurveyContent>
+
+      {isOpen && 
+      <ModalWrapper>
+        <ModalContainer>
+
+          <ModalContent>
+            설문을
+          </ModalContent>
+          <ModalContent>
+            시작하시겠습니까?
+          </ModalContent>
+
+          <ButtonContainer>
+          <CloseButton onClick={() => setIsOpen(false)}>닫기</CloseButton>
+          <AnswerButton onClick={goSurvey} type={detailProps.type}>응답하기</AnswerButton>
+          </ButtonContainer>
+          
+        </ModalContainer>
+      </ModalWrapper>
+      }
     </StyledDetailContainer>
   );
 };
