@@ -21,8 +21,8 @@ public class SseConnectService {
         sseEmitter = emitterRepository.save(id , sseEmitter);
         try {
             sseEmitter.send(SseEmitter.event()
-                    .name("SSE연결")
-                    .data("SSE연결성공" , MediaType.TEXT_EVENT_STREAM)
+                    .name("connectName")
+                    .data("connectedMessage" , MediaType.TEXT_EVENT_STREAM)
             );
         }
         catch (IOException e) {
@@ -32,44 +32,36 @@ public class SseConnectService {
         sseEmitter.onCompletion(() -> {
             emitterRepository.deleteById(id);
         });
-        sseEmitter.onTimeout(sseEmitter::complete);
+        sseEmitter.onTimeout(() -> {
+            emitterRepository.deleteById(id);
+        });
         return sseEmitter;
     }
 
     public void refreshSurveyProbability(Long survey_id , String data) {
         Map<String, SseEmitter> targets = emitterRepository.findAllStartWithById(String.valueOf(survey_id));
-        log.info("확률전송");
         targets.forEach((key , value) -> {
             try {
-                log.info("확률변동 개별");
                 value.send(SseEmitter.event()
                         .id(String.valueOf(survey_id))
                         .name("확률변동")
                         .data(data));
             } catch (IOException e) {
-                emitterRepository.deleteById(key);
-//                throw new BaseException("Sse 이벤트 데이터(확률) 송신 과정에서 IO 예외발생" , 7001);
-            } catch (IllegalStateException e) {
-                emitterRepository.deleteById(key);
+                throw new BaseException("Sse 이벤트 데이터 송신 과정에서 IO 예외발생" , 7001);
             }
         });
     }
 
     public void refreshSurveyFinisher(Long survey_id , SurveyAnswerResponse data) {
         Map<String, SseEmitter> targets = emitterRepository.findAllStartWithById(String.valueOf(survey_id));
-        log.info("응답데이터 전송");
         targets.forEach((key , value) -> {
             try {
-                log.info("개별데이터 전송");
                 value.send(SseEmitter.event()
                         .id(String.valueOf(survey_id))
                         .name("응답인원추가")
                         .data(data));
             } catch (IOException e) {
-                emitterRepository.deleteById(key);
-//                throw new BaseException("Sse 이벤트 데이터(인원추가) 송신 과정에서 IO 예외발생" , 7001);
-            } catch (IllegalStateException e) {
-                emitterRepository.deleteById(key);
+                throw new BaseException("Sse 이벤트 데이터 송신 과정에서 IO 예외발생" , 7001);
             }
         });
     }
