@@ -4,7 +4,7 @@ const StyledBanner = styled.div`
   position:relative;
   width: 100%;
   height: 550px;
-
+  min-width:1000px;
 `
 const StyledBannerBox = styled.div`
 
