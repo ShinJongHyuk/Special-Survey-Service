@@ -6,10 +6,17 @@ import signupPost from "@/api/user/signupPost"
 import loginPost from "@/api/user/loginPost"
 import useUserStore from "@/stores/useUserStore"
 import loginGet from "@/api/user/loginGet"
+import messageCertPost from "@/api/user/messageCertPost"
+import messageCertPost2 from "@/api/user/messageCertPost2"
+import duplicationEmailPost from "@/api/user/duplicationEmailPost"
+import duplicationPhoneNumberPost from "@/api/user/duplicationPhoneNumberPost"
   
 export const useSignupHook = ():SignupHookType => {
     const login = useUserStore((state:any) => state.login)
     const setUserInformation = useUserStore((state:any) => state.setUserInformation)
+    const [isCert, setIsCert] = useState(false)
+    const [isEmailCert, setIsEmailCert] = useState(false)
+    const [isPhoneNumberCert, setIsPhoneNumberCert] = useState(false)
     const router = useRouter()
     const [user, setUser] = useState({
         email: "",
@@ -30,6 +37,7 @@ export const useSignupHook = ():SignupHookType => {
         birthday: 1,
         phoneNumber: 1,
         age: 1,
+        certNum: 1
         
     })
 
@@ -64,16 +72,16 @@ export const useSignupHook = ():SignupHookType => {
     const handleSubmit = async (e:any) => {
         e.preventDefault()
 
-        if (user.email === "") {
-            setInputState({
-                ...inputState,
-                ["email"] : 0
-            })
-            alert('이메일을 입력해주세요.')
-            return
-        } 
+        // if (user.email === "") {
+        //     setInputState({
+        //         ...inputState,
+        //         ["email"] : 0
+        //     })
+        //     alert('이메일을 입력해주세요.')
+        //     return
+        // } 
         
-        else if (!passwordRegex.test(user.password)) {
+        if (!passwordRegex.test(user.password)) {
             setInputState({
                 ...inputState,
                 ["password"] : 0
@@ -129,36 +137,42 @@ export const useSignupHook = ():SignupHookType => {
         }
 
         else {
-            try {
-                const res = await signupPost(user)
-                console.log(res)
-                if (res.data.success === true) {
-                    alert('회원가입에 성공하였습니다')
-                    try {
-                        const res = await loginPost(user)
-                        if (res.data.success === true) {
-                            login();
-                    
-                            const response = await loginGet(res.data.response.accessToken)
-                            console.log(response.data.response)
-                            await setUserInformation(response.data.response);
-                            
-                            await router.push('/')
-                        } else if (res.data.success === false) {
-                            alert(res.data.apiError.message)
-                        }
+            if (isCert && isEmailCert) {
+                try {
+                    const res = await signupPost(user)
+                    console.log(res)
+                    if (res.data.success === true) {
+                        alert('회원가입에 성공하였습니다')
+                        try {
+                            const res = await loginPost(user)
+                            if (res.data.success === true) {
+                                login();
                         
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    router.push('/')
-                } else if (res.data.success === false) {
-                    alert(res.data.apiError.message)
+                                const response = await loginGet(res.data.response.accessToken)
+                                console.log(response.data.response)
+                                await setUserInformation(response.data.response);
+                                
+                                await router.push('/')
+                            } else if (res.data.success === false) {
+                                alert(res.data.apiError.message)
+                            }
+                            
+                          } catch (err) {
+                            console.log(err);
+                          }
+                        router.push('/')
+                    } else if (res.data.success === false) {
+                        alert(res.data.apiError.message)
+                    }
+                } catch (err) {
+                    console.log(err)
                 }
-            } catch (err) {
-                console.log(err)
-            }
-        return
+            return
+            } else if (!isEmailCert) {
+                alert('이메일 중복확인을 해주세요')
+            } else if (!isCert) {
+                alert('전화번호 인증을 해주세요')
+            } 
         }
     }
 
@@ -177,5 +191,86 @@ export const useSignupHook = ():SignupHookType => {
         
     }
 
-    return {user, inputState, handleChange, handleSubmit, handleClick}
+    const [certNumState, setCertNumState] = useState(false)
+    const [certNum, setCertNum] = useState("")
+    const phoneNumber = (user.phoneNumber.replace(/-/g, ''))
+    const handleCertNum = async () => {
+        setCertNumState(true)
+        try {
+            const res = await messageCertPost(phoneNumber)
+            if (res.data.success === true) {
+                console.log(res)
+            } else if (res.data.success === false) {
+                alert(res.data.apiError.message)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const ChangeCertNum = (e:any) => {
+        setCertNum(e.target.value)
+    }
+
+    const Certification = async () => {
+        const data = {
+            "phoneNumber" : phoneNumber,
+            "certAuthCode" : certNum
+        }
+        try {
+            const res = await messageCertPost2(data)
+            if (res.data.success === true) {
+                setIsCert(true)
+                alert(res.data.response)
+            } else if (res.data.success === false) {
+                alert(res.data.apiError.message)
+            }
+        } catch(err) {
+            console.log(err)
+        }
+        
+    }
+
+    const duplicationEmail = async () => {
+        console.log(user.email)
+        if (user.email) {
+            try {
+                const res = await duplicationEmailPost(user.email)
+                if (res.data.success === true) {
+                    setIsEmailCert(true)
+                    alert('이메일인증에 성공하였습니다.')
+                } else if (res.data.success === false) {
+                    alert(res.data.apiError.message)
+                }
+            } catch(err) {
+                console.log(err)
+            }
+        } else if (!user.email) {
+            setInputState({
+                ...inputState,
+                ["email"] : 0
+            })
+            alert('이메일을 입력해주세요.')
+            return
+        }
+    }
+
+    const duplicationPhoneNumber = async () => {
+        if (user.phoneNumber) {
+            try {
+                const res = await duplicationPhoneNumberPost(user.phoneNumber)
+                if (res.data.success === true) {
+                    console.log(res.data)
+                    alert('사용 가능한 휴대폰 번호입니다.')
+                    setIsPhoneNumberCert(true)
+                } else if (res.data.success ==- false) {
+                    alert(res.data.apiError.message)
+                }
+            } catch(err) {
+                console.log(err)
+            }
+            
+        } 
+    } 
+    return {user, inputState, certNumState, isEmailCert, isCert, isPhoneNumberCert, handleChange, handleSubmit, handleClick, handleCertNum, ChangeCertNum, Certification, duplicationEmail, duplicationPhoneNumber}
 }

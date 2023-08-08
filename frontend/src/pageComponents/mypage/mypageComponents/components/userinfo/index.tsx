@@ -2,143 +2,19 @@
 import Input from '@/components/input'
 import Button from '@/components/button'
 import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition } from "@/pageComponents/signup/Signup.styled";
-import useUserStore from '@/stores/useUserStore';
-import { useState, useEffect } from 'react';
-import userUpdatePost from '@/api/user/userUpdatePost';
+import { DeleteUser } from './UserInfoList.styled';
+import { useUserUpdateHook } from '@/Hooks/user/useUserUpdateHook';
+
 
 const UserInfoList = () => {
-  const setUserInformation = useUserStore((state:any) => state.setUserInformation)
-  const user = useUserStore((state:any) => state.userInformation)
-  const [password2, setPassword] = useState("")
-  const [inputState, setInputState] = useState({
-    email: 1,
-    password: 1,
-    password2: 1,
-    name: 1,
-    birthday: 1,
-    phoneNumber: 1,
-    age: 1,
-    
-})
-
-
-const [newUser, setNewUser] = useState({
-  email : user.email,
-  password : "",
-  name: user.name,
-  birthday: user.birthday,
-  phoneNumber: user.phoneNumber,
-  age: user.age,
-}) 
-
-
-const [postUser, setPostUser] = useState({})
-
-const hanleChange = (e:any) => {
-  const {name, value} = e.target
-  setNewUser({
-    ...newUser,
-    [name] : value
-  })
-
-  setPostUser({
-    ...postUser,
-    [name] : value
-  })
-
-  setInputState({
-    ...inputState,
-    [name] : 1
-  })
-}
-
-const handlePassword = (e:any) => {
-  setPassword(e.target.value)
-}
-
-const handleage = (e:any) => {
-  setNewUser({
-    ...newUser,
-    ["age"] : e.target.id
-  })
-  setPostUser({
-    ...postUser,
-    ["age"] : e.target.id
-  })
-}
-
-
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
-  useEffect(() => {
-    console.log(postUser)
-  },[postUser])
-
-
-  const handleSubmit = async (e:any) => {
-    e.preventDefault()
-
-    // 비밀번호 입력했을 때
-    if (newUser.password) {
-      if (!passwordRegex.test(newUser.password)) {
-        setInputState({
-            ...inputState,
-            ["password"] : 0
-        })
-        alert('비밀번호 형식을 맞춰주세요')
-        return
-    } 
-    
-    else if (password2 === "") {
-        setInputState({
-            ...inputState,
-            ["password2"] : 0
-        })
-        alert('비밀번호를 한번 더 입력해주세요')
-        return
-    } 
-    
-    else if (newUser.password !== password2) {
-        alert("비밀번호를 다시 확인해주세요")
-        return
-    } 
-    }
-    
-     if (user.name === "") {
-        setInputState({
-            ...inputState,
-            ["name"] : 0
-        })
-        alert("이름을 입력해주세요")
-        return
-    } 
-
-    else {
-      try {
-        const res = await userUpdatePost(postUser)
-        console.log("회원정보수정 완료")
-        if (res.data.success === true) {
-          setUserInformation(res.data.response)
-        } else {
-          alert(res.data.apiError.message)
-        }
-      } catch (err) {
-        console.log(err)
-      }
-        
-    }
-  }
-
-useEffect(() => {
-  console.log(user)
-},[user])
-
+  const { user, inputState, newUser, handleSubmit, hanleChange, handlePassword, handleage, handleDeleteUser } = useUserUpdateHook()
   return (
     <SignUpPage>
         <SignUpContainer onSubmit={handleSubmit}>
             <SignUpItem>
             <SignUpText>이메일</SignUpText>
             <InputBox>
-                <Input disabled="true" type="email" name="email" value={user.email} inputstate={inputState.email}/>
+                <Input disabled="true" type="email" name="email" value={user?.email} inputstate={inputState.email}/>
             </InputBox>
             </SignUpItem>
 
@@ -161,21 +37,21 @@ useEffect(() => {
             <SignUpItem>
             <SignUpText>이름</SignUpText>
             <InputBox>
-                <Input type="text" name="name" value={newUser.name} onChange={hanleChange} inputstate={inputState.name}/>
+                <Input type="text" name="name" value={newUser?.name} onChange={hanleChange} inputstate={inputState.name}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>생년월일</SignUpText>
             <InputBox>
-                <Input disabled="true" type="date" name="birthday" value={newUser.birthday} inputstate={inputState.birthday}/>
+                <Input disabled="true" type="date" name="birthday" value={newUser?.birthday} inputstate={inputState.birthday}/>
             </InputBox>
             </SignUpItem>
 
             <SignUpItem>
             <SignUpText>성별</SignUpText>
             <InputBox>
-                <Input disabled="true" type="text" value={user.gender === "MAN" ? "남성" : "여성"} name="gender" inputstate={inputState.email}/>
+                <Input disabled="true" type="text" value={user?.gender === "MAN" ? "남성" : "여성"} name="gender" inputstate={inputState.email}/>
             </InputBox>
             </SignUpItem>
 
@@ -195,7 +71,7 @@ useEffect(() => {
             <SignUpItem>
             <SignUpText>휴대폰 번호</SignUpText>
             <InputBox>
-                <Input type="tel" name="phoneNumber" value={user.phoneNumber} disabled="true" inputstate={inputState.phoneNumber}/>
+                <Input type="tel" name="phoneNumber" value={user?.phoneNumber} disabled="true" inputstate={inputState.phoneNumber}/>
             </InputBox>
             </SignUpItem>
         
@@ -203,6 +79,11 @@ useEffect(() => {
                     <Button use="SignUpLogin" label="회원정보 수정" type="submit"/>
             </div>
         </SignUpContainer>
+        <div style={{width:"100px", height:"30px", position:"absolute", bottom:"3px", right:"30px"}}>
+            <DeleteUser onClick={handleDeleteUser}>
+                회원탈퇴
+            </DeleteUser>
+        </div>
         </SignUpPage>
   )
 };
