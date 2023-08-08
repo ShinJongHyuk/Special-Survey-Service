@@ -12,7 +12,7 @@ const Time = ({ componentKey }: { componentKey: string }) => {
         ]);
         
         useEffect(() => {
-          const storedItems = loadTimeFromLocalStorage(`time_${componentKey}`);
+          const storedItems = loadTimeFromLocalStorage(`TIME_FORM_${componentKey}`);
           if (storedItems) {
             setItems(storedItems);
           }
@@ -20,15 +20,15 @@ const Time = ({ componentKey }: { componentKey: string }) => {
 
 
         useEffect(() => {
-          saveTimeToLocalStorage(`time_${componentKey}`, items);
+          saveTimeToLocalStorage(`TIME_FORM_${componentKey}`, items);
         }, [componentKey,items]);
 
         const saveTimeToLocalStorage = (componentKey: string, items: any[]) => {
-          localStorage.setItem(`time_${componentKey}`, JSON.stringify(items));
+          localStorage.setItem(`TIME_FORM_${componentKey}`, JSON.stringify(items));
         };
 
         const loadTimeFromLocalStorage = (componentKey: string) => {
-          const storedData = localStorage.getItem(`time_${componentKey}`);
+          const storedData = localStorage.getItem(`TIME_FORM_${componentKey}`);
 
           return storedData ? JSON.parse(storedData) : null;
         };

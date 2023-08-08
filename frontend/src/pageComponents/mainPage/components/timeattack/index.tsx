@@ -20,7 +20,7 @@ const Timeattack = () => {
   };
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "680px" }}>
+    <div style={{ position: "relative", width: "100%", height: "680px", minWidth: "1000px" }}>
       <img src="/mainpage/Content2.png" style={{ width: "100%", position: "absolute", height: "680px", zIndex: "-1" }}></img>
       <StyledContent>
         <div className="header">

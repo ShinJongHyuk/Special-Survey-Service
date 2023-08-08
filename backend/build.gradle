@@ -33,7 +33,7 @@ dependencies {
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-    
+
 	//iamport payment
 	implementation 'com.github.iamport:iamport-rest-client-java:0.2.23'
 
@@ -62,8 +62,15 @@ dependencies {
     // Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
-    // JACKSON
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
+	// JACKSON
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
+
+	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.1.2'
+
 }
 
 test {
@@ -86,17 +93,60 @@ jacocoTestReport {
         csv.required = false
     }
 
+    def Qdomains = []
+    for (qPattern in '*.QA'..'*.QZ') {
+        Qdomains.add(qPattern + '*')
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ["**/*Application*",
+                              "**/*Config*",
+                              "**/*Dto*",
+                              "**/*Request*",
+                              "**/*Response*",
+                              "**/*Interceptor*",
+                              "**/*Exception*",
+                              "com/logwiki/specialsurveyservice/jwt/*",
+                              "com/logwiki/specialsurveyservice/api/controller/message/*",
+                              "com/logwiki/specialsurveyservice/api/service/message/*",
+                              "com/logwiki/specialsurveyservice/api/controller/sse/*",
+                              "com/logwiki/specialsurveyservice/api/service/sse/*"] + Qdomains)
+        }))
+    }
     finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacocoTestCoverageVerification {
+    def Qdomains = []
+    for (qPattern in '*.QA'..'*.QZ') {
+        Qdomains.add(qPattern + '*')
+    }
+
     violationRules {
         rule {
+            element = 'CLASS'
+            enabled = true
+
             limit {
                 counter = 'BRANCH'
                 value = 'COVEREDRATIO'
                 minimum = 0.00
             }
+
+            excludes = ["**/*Application*",
+                        "**/*Config*",
+                        "**/*Dto*",
+                        "**/*Request*",
+                        "**/*Response*",
+                        "**/*Interceptor*",
+                        "**/*Exception*",
+                        "com/logwiki/specialsurveyservice/jwt/*",
+                        "com/logwiki/specialsurveyservice/api/controller/message/*",
+                        "com/logwiki/specialsurveyservice/api/service/message/*",
+                        "com/logwiki/specialsurveyservice/api/controller/sse/*",
+                        "com/logwiki/specialsurveyservice/api/service/sse/*"] + Qdomains
         }
     }
 }

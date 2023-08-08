@@ -7,5 +7,8 @@ export interface CardType {
   probability: string;
 
   remaintime: string;
+  id?: string;
+
+  onClick?: (e: any) => any;
 }
 

@@ -1,18 +1,15 @@
 'use client'
 import Input from '@/components/input'
 import Button from '@/components/button'
-import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition } from './Signup.styled'
-import Image from 'next/image'
+import { DuplicationBox, InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition, DuplicationButton } from './Signup.styled'
 import { useRouter } from 'next/navigation'
 import { useSignupHook } from '@/Hooks/user/useSignupHook'
+import duplicationEmailPost from '@/api/user/duplicationEmailPost'
+
 
 const Signup = () => {
-    const { user, inputState, handleChange, handleSubmit, handleClick } = useSignupHook()
+    const { user, inputState, certNumState, isEmailCert, isCert, isPhoneNumberCert, handleChange, handleSubmit, handleClick, handleCertNum, ChangeCertNum, Certification, duplicationEmail, duplicationPhoneNumber } = useSignupHook()
     const router = useRouter()
-
-    const ClickLogo = () => {
-        router.push('/')
-    }
 
 
     return (
@@ -22,9 +19,12 @@ const Signup = () => {
         <SignUpContainer onSubmit={handleSubmit}>
             <SignUpItem>
             <SignUpText>이메일</SignUpText>
+            <DuplicationBox>
             <InputBox>
                 <Input type="email" name="email" onChange={handleChange} inputstate={inputState.email}/>
             </InputBox>
+            <DuplicationButton type="button" iscert={isEmailCert} onClick={duplicationEmail}>{isEmailCert ? "이메일 인증완료" : "이메일 중복확인"}</DuplicationButton>
+            </DuplicationBox>
             </SignUpItem>
 
             <SignUpItem>
@@ -66,7 +66,7 @@ const Signup = () => {
             </SignUpItem>
 
             <SignUpItem>
-            <SignUpText>성별</SignUpText>
+            <SignUpText>나이</SignUpText>
             <InputRadioBox>
                 <Button use="age" label="~9" type="button" id="UNDER_TEENS" checkage={user.age} onClick={handleClick}></Button>
                 <Button use="age" label="10~19" type="button" id="TEENS " checkage={user.age} onClick={handleClick}></Button>
@@ -80,10 +80,28 @@ const Signup = () => {
 
             <SignUpItem>
             <SignUpText>휴대폰 번호</SignUpText>
+            <DuplicationBox>
             <InputBox>
                 <Input type="tel" name="phoneNumber" onChange={handleChange} inputstate={inputState.phoneNumber}/>
             </InputBox>
+            {isPhoneNumberCert ?
+            <DuplicationButton type="button" iscert={isCert} onClick={handleCertNum}>{certNumState ? "인증번호 재발송" :"인증번호 발송"}</DuplicationButton>
+            :<DuplicationButton type="button" onClick={duplicationPhoneNumber}>전화번호 중복확인</DuplicationButton>}
+            
+            </DuplicationBox>
             </SignUpItem>
+
+            {certNumState && 
+            <SignUpItem>
+            <SignUpText>인증번호</SignUpText>
+            <DuplicationBox>
+            <InputBox>
+                <Input type="text" name="certNum" onChange={ChangeCertNum} inputstate={inputState.certNum}/>
+            </InputBox>
+            <DuplicationButton type="button" iscert={isCert} onClick={Certification}>{isCert ? "인증완료" : "인증하기"}</DuplicationButton>
+            </DuplicationBox>
+            </SignUpItem>
+            }
         
             <div style={{height:"48px", width:"410px", marginTop:"10px", marginLeft:"10px"}}>
                     <Button use="SignUpLogin" label="회원가입" type="submit"/>

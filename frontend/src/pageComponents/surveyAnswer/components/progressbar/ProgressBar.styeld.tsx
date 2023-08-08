@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 const ProgressContainer = styled.div.attrs<any>((props) => ({}))`
     width: 100%;
-    height: 30px;
-    flex-shrink: 0;
+    height: 45px;
     background-color: #F0F1F8;
     display: flex;
     position: relative;
@@ -16,10 +15,9 @@ const ProgressBar = styled.div.attrs<any>((props) => ({}))`
     cursor: ${(props) => props.width === 100 ? "pointer" : null}
 `
 const ProgressBarPercentage = styled.div.attrs<any>((props) => ({}))`
-    z-index: 1;
     color: ${(props) => props.theme.colors.black};
     font-family: ${(props) => props.theme.fonts.EnglishFontLight};
-    font-size: ${(props) => props.theme.fontSizes.medium};
+    font-size: ${(props) => props.theme.fontSizes.small};
     position: absolute;
     right: 50%;
     margin-top: 6px;

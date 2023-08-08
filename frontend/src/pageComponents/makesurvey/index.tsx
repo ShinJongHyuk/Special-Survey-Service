@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Toggle_Component,Top_Option_Container } from './Makesurvey.styled';
-import MakeQuestion from './makequestion';
-import MakeSettings from './makesettings';
+import MakeQuestion from './components/makequestion';
+import MakeSettings from './components/makesettings';
 
 
 function MakeSurvey() {
-  const [selectedOption, setSelectedOption] = useState('question');
+  const [selectedOption, setSelectedOption] = useState('setting');
   const handleButtonClick = (option : any) => {
     setSelectedOption(option);
   };

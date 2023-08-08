@@ -10,14 +10,19 @@ const useTimeattackHook = () => {
     const fetchList = async () => {
       const accessToken = localStorage.getItem('accessToken');
 
-      if (accessToken === "") {
+      if (!accessToken) {
         const data = await normalListGet();
-        setCards([...data.slice(0, 5), ...data.slice(0, 5), ...data.slice(0, 5)]);
+        const sortData = data.map((prev: any) => {
+          return { ...prev, remainTime: useTimerHook(prev.endTime) };
+        })
+        setCards([...sortData.slice(0, 5), ...sortData.slice(0, 5), ...sortData.slice(0, 5)]);
       } else {
         const data = await userNormalListGet(accessToken);
-        setCards([...data.slice(0, 5), ...data.slice(0, 5), ...data.slice(0, 5)]);
+        const sortData = data.map((prev: any) => {
+          return { ...prev, remainTime: useTimerHook(prev.endTime) };
+        })
+        setCards([...sortData.slice(0, 5), ...sortData.slice(0, 5), ...sortData.slice(0, 5)]);
       }
-
     };
     fetchList();
 

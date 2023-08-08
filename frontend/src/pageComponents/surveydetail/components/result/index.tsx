@@ -1,35 +1,80 @@
-'use client'
-import {SurveyResultComent, HighLightFont, PercentageContainer, Percentage, PercentageCard, PercentageElement} from './Result.styled'
-import Image from 'next/image'
-const ResultComponent = (props:any) => {
-    return (
-        <>
-        <SurveyResultComent>
-                    평균 <HighLightFont>5</HighLightFont>분만에 설문을 완료하고 총 <HighLightFont>117</HighLightFont>명이 리워드에 당첨됐어요!
-                </SurveyResultComent>
-                {/* <SurveyProduct> */}
-                    <Image src="/surveyDetail/surveyProduct.png" alt="product" width={150} height={150}></Image>
-                {/* </SurveyProduct> */}
+"use client";
+import useSSEHook from "@/Hooks/sse/useSSEHook";
+import { ResultPropsType, convertToResultProps } from "../../SurveyDetailType.type";
+import { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard } from "./Result.styled";
+import Image from "next/image";
+import React, { useState, useEffect } from "react";
 
-                <PercentageContainer>
-                    <Percentage>
-                        <PercentageCard>
-                            <PercentageElement {...props}>0</PercentageElement>
-                        </PercentageCard>
-                        <PercentageCard>
-                            <PercentageElement {...props}>9</PercentageElement>
-                        </PercentageCard>
-                        <PercentageCard>
-                            <PercentageElement {...props}>8</PercentageElement>
-                        </PercentageCard>
-                        
-                            <PercentageElement {...props}>%</PercentageElement>
-                        
-                    </Percentage>
+const ResultComponent = (props: any) => {
+  const { surveyDetail } = props;
 
-                    <Image src="/surveyDetail/woman.png" alt="woman" width={350} height={307}></Image>
-                </PercentageContainer></>
-    )
-}
+  const images: { [key: string]: string } = {
+    CHICKEN: "/card/chicken.png",
+    COFFEE: "/card/coffee.png",
+  };
 
-export default ResultComponent
+  const resultProps = convertToResultProps(surveyDetail);
+
+  const imgsrc = images[resultProps.giveawaytype];
+
+  const percentSSE = useSSEHook(resultProps.id, "확률변동");
+
+  const transformToDesiredArray = (value: any) => {
+    let strValue = value.toString();
+    const dotIndex = strValue.indexOf(".");
+    if (dotIndex !== -1) {
+      strValue = strValue.slice(0, dotIndex + 2);
+    }
+    return strValue.split("");
+  };
+
+  const [percentArray, setPercentArray] = useState(transformToDesiredArray(resultProps.percent));
+
+  useEffect(() => {
+    if (percentSSE) {
+      setPercentArray(transformToDesiredArray(percentSSE));
+    }
+  }, [percentSSE]);
+
+  useEffect(() => {
+    setPercentArray(transformToDesiredArray(resultProps.percent));
+  }, [resultProps.percent]);
+
+  return (
+    <>
+      <SurveyResultComent>
+        {resultProps.type === "NORMAL" ? (
+          <div>
+            총 <span className="purple">{resultProps.headcount}</span>명이 응답했어요!
+          </div>
+        ) : (
+          <div>
+            총 <span className="orange">{resultProps.headcount}</span>명이 리워드에 당첨됐어요!
+          </div>
+        )}
+      </SurveyResultComent>
+
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}>
+        <StyledImg src={imgsrc} {...resultProps} />
+        {resultProps.type === "NORMAL" ? <StyledMsg src="/surveydetail/purple/message.svg" /> : <StyledMsg src="/surveydetail/yellow/message.svg" />}
+      </div>
+
+      <div style={{ display: "flex", alignItems: "flex-end", gap: "4px" }}>
+        {percentArray.map((num: any, index: any) => (
+          <PercentageCard key={index} {...resultProps}>
+            {num}
+          </PercentageCard>
+        ))}
+        <Percentage {...resultProps}>%</Percentage>
+      </div>
+
+      {resultProps.type === "NORMAL" ? (
+        <Image src="/surveyDetail/purple/woman.png" alt="woman" width={350} height={307}></Image>
+      ) : (
+        <Image src="/surveyDetail/yellow/woman.png" alt="woman" width={350} height={307}></Image>
+      )}
+    </>
+  );
+};
+
+export default ResultComponent;

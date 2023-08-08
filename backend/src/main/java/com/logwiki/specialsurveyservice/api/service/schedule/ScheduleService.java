@@ -51,7 +51,6 @@ public class ScheduleService {
         JobKey jobKey = jobDetail.getKey();
         String name = jobKey.getName();
         String group = jobKey.getGroup();
-
         Date date = Date.from(dto.getStartTime().atZone(ZoneId.systemDefault()).toInstant());
         LocalDateTime startDateTime = dto.getStartTime();
 

@@ -13,5 +13,8 @@ export interface CardType {
   typename?: string;
   responsedtime?: string;
   contentype?: string;
+  id?: string;
+  onClick?: (e: any) => any;
+
 }
 

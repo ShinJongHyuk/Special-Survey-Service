@@ -236,6 +236,8 @@ class SurveyResultServiceTest extends IntegrationTestSupport {
         SurveyCategory surveyCategory = SurveyCategory.builder()
                 .type(SurveyCategoryType.NORMAL)
                 .build();
+        //
+        Survey survey = getSurvey(50, 100, surveyCategory);
 
         Survey survey = getSurvey(50, 100, surveyCategory);
 

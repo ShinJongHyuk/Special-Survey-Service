@@ -9,7 +9,7 @@ const Speedyattack = () => {
 
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "750px" }}>
+    <div style={{ position: "relative", width: "100%", height: "750px", minWidth: "1000px" }}>
       <img src="/mainpage/Content1.png" style={{ width: "100%", position: "absolute", height: "750px", zIndex: "-1" }}></img>
       <StyledContent>
         <div className="title">
