@@ -28,7 +28,7 @@ const Wincard = (props: WincardType) => {
         {props.usercheck === "true" && (
           <div className="date">
             <div> 응답일 </div>
-            <div>{formatDate(props.answerdatetime) || "응답날짜"}</div>
+            <div>{formatDate(props.answerdatetime) || "응답 날짜"}</div>
           </div>
         )}
         {props.usercheck !== "true" && <div className="confirm">당첨 확인하기</div>}

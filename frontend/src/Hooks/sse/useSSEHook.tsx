@@ -8,8 +8,7 @@ const useSSEHook = (surveyId: any, want: string) => {
     const eventSource = new EventSource(api.defaults.baseURL + "/subscribe/" + surveyId);
 
     eventSource.addEventListener(want, (event) => {
-      console.log("Message from server :  ", event.data);
-      // const jsonData = JSON.parse(event.data);
+      console.log("SSE (Message from server) :  ", event.data);
       setData(event.data);
     });
 
