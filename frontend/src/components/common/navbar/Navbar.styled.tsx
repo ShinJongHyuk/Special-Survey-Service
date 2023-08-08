@@ -9,7 +9,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
     const surveylistcolor = props.selectBtn === "1" ? "#C6B6FF" : "#FFFAAE";
 
-    const height = props.pathname === ("/makesurvey" || "/surveyresult") ? "72px" : "56px";
+    const height = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "72px" : "56px";
 
     switch (props.pathname) {
       case "/surveylist":
@@ -18,11 +18,11 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       case "/instantWinConfirm":
       case "/surveydetail":
       case "/makesurvey":
-        bgColor = white;
-        break;
       case "/surveyresult" :
+      case "/payment" :
         bgColor = white;
         break;
+
       default:
         bgColor = yellow;
     }
@@ -48,7 +48,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
 const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === ("/makesurvey" || "/surveyresult") ? "15%" : "20%";
+    const size = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "15%" : "20%";
     return css`
       width: ${size};
     `;
@@ -57,9 +57,9 @@ const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
 
 const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === ("/makesurvey" || "/surveyresult") ? "85%" : "60%";
-    const jc = props.pathname === ("/makesurvey" || "/surveyresult") ? "space-between" : "center";
-    const ai = props.pathname === ("/makesurvey" || "/surveyresult") ? "center" : "";
+    const size = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "85%" : "60%";
+    const jc = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "space-between" : "center";
+    const ai = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "center" : "";
     return css`
       width: ${size};
       display: flex;
@@ -71,7 +71,7 @@ const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
 `;
 const StyledEndComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const size = props.pathname === ("/makesurvey" || "/surveyresult") ? "10%" : "20%";
+    const size = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "10%" : "20%";
     return css`
       width: ${size};
       display: flex;

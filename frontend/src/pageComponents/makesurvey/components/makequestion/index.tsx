@@ -9,8 +9,7 @@ import axios from 'axios'
 
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
-  const {title,setTitle,titleContent,setTitleContent} = useSettingSurveyApiStore();
-  const [imgUrl,setImgUrl] = useState('')
+  const {title,setTitle,titleContent,setTitleContent,img,setImg} = useSettingSurveyApiStore();
 
   const saveComponentDataToLocalStorage = (data: any) => {
       localStorage.setItem('entire', JSON.stringify(data));
@@ -20,20 +19,21 @@ function MakeQuestion() {
       const storedData = localStorage.getItem('entire');
       return storedData ? JSON.parse(storedData) : null;
     };
-  
+
   useEffect(() => {
       const storedData = loadComponentDataFromLocalStorage();
       if (storedData) {
-        setImgUrl(storedData.imgUrl);
+        setImg(storedData.img);
       }
     }, []);
 
   useEffect(() => {
       const componentData = {
-        imgUrl,
+        img,
       };
+
       saveComponentDataToLocalStorage(componentData);
-    }, [imgUrl]);
+    }, [img]);
 
 
     const handleTextareaInput = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -60,14 +60,14 @@ function MakeQuestion() {
 
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setImgUrl(imageUrl);
+      setImg(imageUrl);
       event.target.value = null;
     }
 
   };
 
   const handleImageDelete = () => {
-    setImgUrl('');
+    setImg('');
   };
   return (
     
@@ -86,9 +86,9 @@ function MakeQuestion() {
                 <Image_Text_Content>jpg 또는 png 이미지 (선택사항)</Image_Text_Content>    
               </Inner_Text_Container>
               <UploadImage id={`upload-button`} onChange={(e: any) => handleImageChange(e)} />
-              {imgUrl ?  (
+              {img ?  (
                 <ImagePreiew_Box>
-                  <ImagePreview src={imgUrl} alt='메인 이미지' />
+                  <ImagePreview src={img} alt='메인 이미지' />
                   <Image_Delete_Button onClick={() => handleImageDelete()}>X</Image_Delete_Button>
                 </ImagePreiew_Box>
               )  : <Inner_Icon_Container onClick={() => handleImageClick()}>

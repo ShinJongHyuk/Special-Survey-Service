@@ -14,7 +14,6 @@ import DragIcon from '/public/survey/DragIcon.png'
 import MultipleChoice from './multiplechoice';
 import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import CheckBox from './checkbox';
-import DropDown from './dropdown';
 import Dates from './dates';
 import Time from './time';
 import Short from './short';
@@ -71,6 +70,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
             essential : checked,
             title : headerText,
             content : headerDetailText,
+            img : imgurl
             };
         saveComponentDataToLocalStorage(componentKey, componentData);
         setSurveyList(componentKey,SendData); 
@@ -159,7 +159,6 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                                 <SelectBox_Option value="MULTIPLE_CHOICE">객관식 답변</SelectBox_Option>
                                 <SelectBox_Option value="SHORT_FORM">주관식 답변</SelectBox_Option>
                                 <SelectBox_Option value="CHECK_BOX">체크 박스</SelectBox_Option>
-                                <SelectBox_Option value="DROP_DOWN">드롭 다운</SelectBox_Option>
                                 <SelectBox_Option value="DATE_FORM">날짜 선택</SelectBox_Option>
                                 <SelectBox_Option value="TIME_FORM">시간 선택</SelectBox_Option>
                                
@@ -178,7 +177,6 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                 )}  
                 {surveyState === 'MULTIPLE_CHOICE' && <MultipleChoice componentKey={componentKey} isLink={listOption} />}
                 {surveyState === 'CHECK_BOX' && <CheckBox componentKey={componentKey} isLink={listOption} />}
-                {surveyState === 'DROP_DOWN' && <DropDown componentKey={componentKey} isLink={listOption} />}
                 {surveyState === 'DATE_FORM' && <Dates componentKey={componentKey}/>}
                 {surveyState === 'TIME_FORM' && <Time componentKey={componentKey} />}
                 {surveyState === 'SHORT_FORM' && <Short componentKey={componentKey} />}
