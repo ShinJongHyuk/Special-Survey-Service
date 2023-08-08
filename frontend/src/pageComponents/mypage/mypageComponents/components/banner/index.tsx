@@ -1,9 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { StyledBanner, StyledText } from "./Banner.styled";
-import Image from "next/image";
-import useUserStore from "@/stores/useUserStore";
-import userDetailGet from "@/api/user/userDetailGet";
+
 const Banner = (props: any) => {
   // const userInformation = useUserStore((state: any) => state.userInformation);
 

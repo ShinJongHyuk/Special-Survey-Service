@@ -5,10 +5,6 @@ import Banner from "./mypageComponents/components/banner";
 import userDetailGet from "@/api/user/userDetailGet";
 import { useState, useEffect } from "react";
 
-// import dynamic from "next/dynamic";
-// const Banner = dynamic(() => import('./mypageComponents/components/banner'), { ssr: false })
-// const MypageComponents = dynamic(() => import('./mypageComponents'), { ssr: false })
-
 const Mypage = () => {
   const selectBtn = useMypageStore((state) => state.selectBtn);
 
