@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components'
 
 const Survey_Container =  styled.div.attrs<any>((props) => ({}))`
     display: flex;
-    min-height: 300px;
+    margin: 40px;
     justify-content: center;
 `;
 
@@ -10,29 +10,34 @@ const Survey_Title_Container = styled.div.attrs<any>((props) => ({}))`
     display : flex;
     flex-direction : column;
     width : 600px;
-    margin : 30px;
     box-sizing : border-box;
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 16px;
     padding : 20px 30px 25px 55px;
     gap: 15px;
+    min-height: 200px;
 `;
 
 const SurveyQuestionContainer = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 5px;
 `
 
 
 const SurveyQuestion = styled.div.attrs<any>((props) => ({}))`
-    margin: 3px;
+    margin-top: 3px;
     color: ${(props) => props.theme.colors.black};
     font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
     font-size: ${(props) => props.theme.fontSizes.medium};
 `
+const Surveycontent = styled.div.attrs<any>((props) => ({}))`
+    color: #6D7075;
+    font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+    font-size: ${(props) => props.theme.fontSizes.xsmall};
+`
+
 const StyledTag = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     const type = props.type;
@@ -62,4 +67,4 @@ const StyledTag = styled.div.attrs<any>((props) => ({}))`
     `;
   }};
 `;
-export { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag }
+export { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag, Surveycontent }

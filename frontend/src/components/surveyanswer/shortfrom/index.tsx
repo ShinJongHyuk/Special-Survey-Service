@@ -9,6 +9,7 @@ interface resultType {
 }
 
 const ShortFormComponent = (props:any) => {
+    const questionId = props.id
     const questionNumber = props.questionNumber
     const [result, setResult] = useState<resultType>({
         questionId : "",
@@ -39,7 +40,7 @@ const ShortFormComponent = (props:any) => {
     const onChange = (e:any) => {
         const updateResult = {
             ...result,
-            ["questionId"] : String(questionNumber),
+            ["questionId"] : String(questionId),
             ["shortFormAnswer"] : e.target.value
         }
         setResult(updateResult)

@@ -1,6 +1,6 @@
 'use client'
 // import { StyledTag } from '@/components/card/Card.styled'
-import { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag } from './Question.styled'
+import { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag, Surveycontent } from './Question.styled'
 import MultipleChoice from "@/components/surveyanswer/multiplechoice"
 import CheckBox from "@/components/surveyanswer/checkbox"
 import ShortForm from "@/components/surveyanswer/shortfrom"
@@ -19,8 +19,11 @@ const QuestionComponent = (props:any) => {
                     <div className="type-text">Q{props.questionNumber}</div>
                 </StyledTag>
                 <SurveyQuestion>
-                    {props.content}
+                    {props.title}
                 </SurveyQuestion>
+                <Surveycontent>
+                    {props.content}
+                </Surveycontent>
                 </SurveyQuestionContainer>
                 {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props}></MultipleChoice>}
                 {props.type === "CHECK_BOX" && <CheckBox {...props}></CheckBox>}

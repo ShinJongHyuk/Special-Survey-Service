@@ -9,6 +9,7 @@ interface resultType {
 }
 
 const MultipleChoiceComponent = (props:any) => {
+    const questionId = props.id
     const questionNumber = props.questionNumber
     const multipleChoices = props.multipleChoices
     const [result, setResult] = useState<resultType>({
@@ -24,7 +25,6 @@ const MultipleChoiceComponent = (props:any) => {
     const removeLinkNumber = useSurveyAnswerStore((state:any) => state.removeLinkNumber)
     const [ disabled, setDisabled] = useState(true)
     useEffect(() => {
-        // console.log(props)
         multipleChoices.map((multipleChoice: any) => {
             if (multipleChoice.linkNumber) {
                 setLinkNumber(multipleChoice.linkNumber)
@@ -48,7 +48,7 @@ const MultipleChoiceComponent = (props:any) => {
         });
         const updateResult = {
             ...result,
-            ["questionId"] : String(questionNumber),
+            ["questionId"] : String(questionId),
             ["multipleChoiceAnswer"] : e.target.id
         }
         setResult(updateResult)
