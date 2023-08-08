@@ -17,6 +17,7 @@ export interface SettingSurveyApiState {
     headerText ?: string;
     headerDetailText ?: string;
     listOption ?: boolean;
+    img ?: string;
     
     setTitle: (value: string)=> void;
     setTitleContent: (value: string) => void;
@@ -27,6 +28,7 @@ export interface SettingSurveyApiState {
     setEndTime: (value: any) => void;
     setType: (value: string) => void;
     setSurveyTarget: (value: any) => void;
+    setImg: (value: any) => void;
   };
 
 const useSettingSurveyApiStore = create<SettingSurveyApiState>((set) => ({
@@ -38,6 +40,7 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>((set) => ({
   startTime: '',
   endTime: '',
   type: '',
+  img : '',
   surveyTarget: [],
   setTitle: (value) => set({ title: value }),
   setTitleContent: (value) => set({ titleContent: value }),
@@ -47,6 +50,7 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>((set) => ({
   setStartTime: (value) => set({ startTime: value }),
   setEndTime: (value) => set({ endTime: value }),
   setType: (value) => set({ type: value }),
+  setImg: (value) => set({ img : value }),
   setSurveyTarget: (value) => {
     set((state : any) => {
       const index = state.surveyTarget.indexOf(value);

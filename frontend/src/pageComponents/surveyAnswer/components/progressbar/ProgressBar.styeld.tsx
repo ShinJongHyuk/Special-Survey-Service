@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 const ProgressContainer = styled.div.attrs<any>((props) => ({}))`
     width: 100%;
-    height: 30px;
+    height: 45px;
     background-color: #F0F1F8;
     display: flex;
     position: relative;

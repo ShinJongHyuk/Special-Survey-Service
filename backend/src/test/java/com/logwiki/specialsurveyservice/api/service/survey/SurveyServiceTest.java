@@ -2,7 +2,6 @@ package com.logwiki.specialsurveyservice.api.service.survey;
 
 import com.logwiki.specialsurveyservice.IntegrationTestSupport;
 import com.logwiki.specialsurveyservice.api.controller.giveaway.request.GiveawayRequest;
-import com.logwiki.specialsurveyservice.api.controller.sse.response.SurveyAnswerResponse;
 import com.logwiki.specialsurveyservice.api.service.account.AccountService;
 import com.logwiki.specialsurveyservice.api.service.account.request.AccountCreateServiceRequest;
 import com.logwiki.specialsurveyservice.api.service.giveaway.GiveawayService;
