@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import { ModalType } from "./Modal.type";
 import { StyledBox, StyledModal, StyledTitleBox, StyledWinBox } from "./Modal.styled";
 import Button from "../button";
 import useScratchHook from "@/Hooks/wincheck/useScratchHook";
-import myGiveawayCheckPatch from "@/api/win/myGiveawayCheckPatch";
 
 const Modal = (props: ModalType) => {
   const images: { [key: string]: string } = {

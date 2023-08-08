@@ -13,9 +13,11 @@ const WinCardlist = (props: any) => {
   const [toModalData, setToModalData] = useState({ surveyid: "", giveawayType: "", win: "" });
   const router = useRouter();
 
-  const fetchList = async () => {
-    await myGiveawayCheckPatch(toModalData.surveyid);
+  const fetchList = async (surveyid: any) => {
+    console.log("async : ", surveyid);
+    await myGiveawayCheckPatch(surveyid);
   };
+
 
   console.log(lists);
   return (
@@ -34,7 +36,8 @@ const WinCardlist = (props: any) => {
               onClick={() => {
                 if (list.userCheck.toString() !== "true") {
                   setIsOpen(true);
-                  setToModalData({ surveyid: list.surveyid, giveawayType: list.giveawayType, win: list.win.toString() });
+                  setToModalData({ surveyid: list.surveyId, giveawayType: list.giveawayType, win: list.win.toString() });
+                  fetchList(list.surveyId);
                 }
               }}
             />
@@ -46,7 +49,6 @@ const WinCardlist = (props: any) => {
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false);
-          fetchList();
         }}
         giveawayType={toModalData.giveawayType}
         win={toModalData.win}
