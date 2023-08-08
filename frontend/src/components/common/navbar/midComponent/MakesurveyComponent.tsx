@@ -3,6 +3,7 @@ import React from "react";
 import { useState,useEffect } from "react";
 import { StyledText, StyledMidComp, StyledTitleInput } from "../Navbar.styled";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Button from "@/components/button";
 import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiStore";
 import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
@@ -12,6 +13,7 @@ import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
 
 const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
+    const router = useRouter();
     const [giveawaydata,setGiveaWayData] = useState([])
     const {surveyList} = useMakeSurveyApiStore();
     const {surveyComponents} = useSurveyStore();
@@ -20,7 +22,6 @@ const MakesruveyComponent = (props: any) => {
       const fetchList = async () => {
         const data = await giveawayListGet();
         setGiveaWayData(data);
-        console.log("givaway :", data);
       };
       fetchList();
       
@@ -109,6 +110,9 @@ const MakesruveyComponent = (props: any) => {
    
         .then((responseData) => {
         console.log("설문 제출에 성공하였습니다:", responseData);
+        if (responseData) {
+          router.push(`/payment`);
+        }
         })
         .catch((error) => {
         console.error("설문 제출에 실패하였습니다", error);

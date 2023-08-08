@@ -59,7 +59,7 @@ const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     const size = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "85%" : "60%";
     const jc = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "space-between" : 
-               props.pathname === "/payment/" ?  "space-between"  : "center";
+    props.pathname === "/payment" ?  "space-between"  : "center";
     const ai = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "center" : "";
     return css`
       width: ${size};
