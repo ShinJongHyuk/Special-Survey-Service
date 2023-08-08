@@ -23,6 +23,7 @@ const TimeAttackCardList = (props: any) => {
               giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
               probability={survey.winningPercent + "%"}
               remaintime={survey.remainTime || ""}
+              id={survey.id}
               onClick={() => router.push("/surveydetail/" + survey.id)}
             />
           </div>

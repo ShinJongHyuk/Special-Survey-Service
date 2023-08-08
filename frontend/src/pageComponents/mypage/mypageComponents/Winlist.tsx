@@ -3,11 +3,11 @@ import useWinListHook from "@/Hooks/mypage/useWinListHook";
 
 const Winlist = () => {
 
-  const { winConfirmList } = useWinListHook();
+  const { winConfirmList, refreshList } = useWinListHook();
 
   return (
     <div>
-      <WinCardlist winConfirmList={winConfirmList} />
+      <WinCardlist winConfirmList={winConfirmList} refreshList={refreshList} />
     </div>
   );
 };

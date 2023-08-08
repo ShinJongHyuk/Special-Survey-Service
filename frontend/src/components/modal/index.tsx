@@ -12,6 +12,7 @@ const Modal = (props: ModalType) => {
   const imgsrc = images[props.giveawayType];
   const { canvasRef, mouseDown, canvasOpacity, erase, setCanvasOpacity, isCanvasLoaded } = useScratchHook("/wincheck/board.png", props.isOpen);
 
+
   return props.isOpen ? (
     <StyledModal>
       <StyledTitleBox>
@@ -21,12 +22,12 @@ const Modal = (props: ModalType) => {
       </StyledTitleBox>
       <StyledWinBox>
         {isCanvasLoaded &&
-          (props.win ? (
+          (props.win === "true" ? (
             <div style={{ position: "absolute", width: "140px", height: "140px", zIndex: "0" }}>
               <img src={imgsrc} style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
             </div>
           ) : (
-            <div style={{ position: "absolute", width: "300px", height: "120px", zIndex: "0" }}>
+            <div style={{ position: "absolute", width: "140px", height: "120px", zIndex: "0" }}>
               <img src="/wincheck/onlybomb.png" style={{ borderRadius: "100px", width: "100%", height: "100%" }}></img>
             </div>
           ))}

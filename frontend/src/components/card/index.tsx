@@ -4,6 +4,7 @@ import Image from "next/image";
 import { CardType } from "./Card.type";
 import { StyledCard, StyledTag, StyledCardHeader, StyledRemainTime, StyledImg, StyledProbability } from "./Card.styled";
 import moment from "moment";
+import useSSEHook from "@/Hooks/sse/useSSEHook";
 
 const CardComponent = (props: CardType) => {
   const images: { [key: string]: string } = {
@@ -13,7 +14,6 @@ const CardComponent = (props: CardType) => {
   const imgsrc = images[props.giveaways];
 
   let typeName = "일반";
-
   if (props.type === "INSTANT_WIN") {
     typeName = "즉시당첨";
   } else if (props.type === "NORMAL") {
@@ -25,12 +25,16 @@ const CardComponent = (props: CardType) => {
       typeName = "타임어택";
     }
   }
-
   const [unit1, unit2] = props.remaintime ? props.remaintime.split(', ') : ["00분", "00초"];
   const [value1, label1] = unit1.split(':');
   const [value2, label2] = unit2.split(':');
 
-  const value = parseFloat(props.probability);
+
+  const percent = props.type === "NORMAL" ? useSSEHook(props.id, "확률변동") : null;
+  const value = percent
+    ? parseFloat(percent)
+    : parseFloat(props.probability);
+
   const formattedProbability = value % 1 === 0
     ? Math.round(value) + '%'
     : value.toFixed(1) + '%';
