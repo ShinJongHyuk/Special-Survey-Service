@@ -48,12 +48,21 @@ export const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
   };
 };
 
+export const convertToResultProps = (surveyDetail: any): ResultPropsType => {
+  return {
+    headcount: surveyDetail.headCount || "0",
+    type: surveyDetail.surveyCategoryType || "0",
+    giveawaytype: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.giveawayType || "0",
+    percent: surveyDetail.winningPercent || "0",
+    id: surveyDetail.id || "0",
+  };
+};
 export const convertToBoardProps = (surveyDetail: any): BoardPropsType => {
   return {
     answertime: surveyDetail.answerTime || "0",
     name: surveyDetail.name || "",
     giveawayname: surveyDetail.giveAwayName || "",
-    iswin: surveyDetail.isWin || "",
+    iswin: surveyDetail.isWin ? "true" : "false",
     submitorder: surveyDetail.submitOrder || "0",
     type: surveyDetail.surveyCategoryType || "",
     surveyid: surveyDetail.id || "",

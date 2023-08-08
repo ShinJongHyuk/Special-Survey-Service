@@ -1,6 +1,6 @@
 "use client";
 import useSSEHook from "@/Hooks/sse/useSSEHook";
-import { ResultPropsType } from "../../SurveyDetailType.type";
+import { ResultPropsType, convertToResultProps } from "../../SurveyDetailType.type";
 import { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard } from "./Result.styled";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
@@ -13,33 +13,21 @@ const ResultComponent = (props: any) => {
     COFFEE: "/card/coffee.png",
   };
 
-  const convertToDetailProps = (surveyDetail: any): ResultPropsType => {
-    return {
-      headcount: surveyDetail.headCount || "0",
-      type: surveyDetail.surveyCategoryType || "0",
-      giveawaytype: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.giveawayType || "0",
-      percent: surveyDetail.winningPercent || "0",
-      id: surveyDetail.id || "0",
-    };
-  };
-
-  const resultProps = convertToDetailProps(surveyDetail);
+  const resultProps = convertToResultProps(surveyDetail);
 
   const imgsrc = images[resultProps.giveawaytype];
 
-
-
   const percentSSE = useSSEHook(resultProps.id, "확률변동");
-  console.log("percentSSE : ", percentSSE);
+  // console.log("percentSSE : ", percentSSE);
 
   const transformToDesiredArray = (value: any) => {
     let strValue = value.toString();
-    const dotIndex = strValue.indexOf('.');
+    const dotIndex = strValue.indexOf(".");
     if (dotIndex !== -1) {
       strValue = strValue.slice(0, dotIndex + 2);
     }
     return strValue.split("");
-  }
+  };
 
   const [percentArray, setPercentArray] = useState(transformToDesiredArray(resultProps.percent));
 
@@ -52,7 +40,6 @@ const ResultComponent = (props: any) => {
   useEffect(() => {
     setPercentArray(transformToDesiredArray(resultProps.percent));
   }, [resultProps.percent]);
-
 
   return (
     <>
