@@ -18,7 +18,6 @@ spring:
       host: localhost
       port: 6379
 
-
 jwt:
   header: Authorization
   access-secret: bG9uZy10ZXJtLW1lbW9yeS1wcm9qZWN0LXdpdGgtand0LXNwcmluZy1zZWN1cml0eS11c2luZy1zZWNyZXQta2V5LW1hZGUtYnktYW1lbmFibGUtbGV0LXVzLWdldC1pdC1zdGFydGVkCg==

@@ -38,6 +38,8 @@ public class SurveyResultService {
     private final AccountService accountService;
     private final TargetNumberRepository targetNumberRepository;
     private final SseConnectService sseConnectService;
+
+    private static final String LOSEPRODUCT = "꽝";
     private final static boolean DEFAULT_WIN = false;
     private final static double DEFAULT_PROBABILITY = 0;
     private final static double PARSE_100 = 100;
@@ -60,13 +62,13 @@ public class SurveyResultService {
         SurveyResult surveyResult = SurveyResult.create(DEFAULT_WIN, answerDateTime, submitOrder, survey,
                 account);
 
-        if (survey.getSurveyCategory().getType().equals(SurveyCategoryType.INSTANT_WIN)) {
-            if (survey.getTargetNumbers().stream()
-                    .anyMatch(targetNumber -> targetNumber.getNumber() == submitOrder)) {
-                account.increaseWinningGiveawayCount();
-                surveyResult.winSurvey();
-            }
+//        if (survey.getSurveyCategory().getType().equals(SurveyCategoryType.INSTANT_WIN)) {
+        if (survey.getTargetNumbers().stream()
+                .anyMatch(targetNumber -> targetNumber.getNumber() == submitOrder)) {
+            account.increaseWinningGiveawayCount();
+            surveyResult.winSurvey();
         }
+//        }
 
         account.increaseResponseSurveyCount();
         log.info("당첨여부 [{}][{}][{}]", survey.getId(), account.getEmail(), surveyResult.isWin());
@@ -84,7 +86,7 @@ public class SurveyResultService {
         boolean resultSuccess = false;
 
 
-        String giveawayName = null;
+        String giveawayName = LOSEPRODUCT;
 
         Optional<TargetNumber> targetNumber = targetNumberRepository.findFirstBySurveyAndNumber(
                 targetSurvey,
@@ -96,11 +98,14 @@ public class SurveyResultService {
 
         if (targetSurvey.getSurveyCategory().getType().equals(SurveyCategoryType.NORMAL)) {
             sseConnectService.refreshSurveyProbability(surveyResponse.getId(), String.valueOf(surveyResponse.getWinningPercent()));
-            if(targetSurvey.isClosed() == false)
+            if (targetSurvey.isClosed() == false) {
                 resultSuccess = false;
+                giveawayName = LOSEPRODUCT;
+            }
+
         }
         sseConnectService.refreshSurveyFinisher(surveyResponse.getId(),
-                SurveyAnswerResponse.from(surveyResult,giveawayName, resultSuccess));
+                SurveyAnswerResponse.from(surveyResult, giveawayName, resultSuccess));
     }
 
     public int createSubmitOrderIn(Long surveyId) {
@@ -137,8 +142,8 @@ public class SurveyResultService {
                                                     surveyResult.getSurvey().getId())
                                             .getGiveaway(),
                                     accountService.getUserNameById(surveyResult.getSurvey().getWriter()),
-                                    (double) surveyResultRepository.findByGiveawaySurvey(surveyResult.getSurvey().getId(), surveyResult.getSubmitOrder())
-                                            .orElseGet(() -> 0) / surveyResult.getSurvey().getHeadCount() * PARSE_100
+                                    (double) Math.min(100.0, (double) surveyResultRepository.findByGiveawaySurvey(surveyResult.getSurvey().getId(), surveyResult.getSubmitOrder())
+                                            .orElseGet(() -> 0) / surveyResult.getSurvey().getHeadCount() * PARSE_100)
                             );
                         }
                 )
@@ -150,8 +155,7 @@ public class SurveyResultService {
 
         Survey survey = surveyRepository.findById(surveyId).orElseThrow(() ->
                 new BaseException("없는 설문입니다.", 3005));
-
-
+        
         if (survey.getSurveyCategory().getType().equals(SurveyCategoryType.NORMAL)) {
             throw new BaseException("즉시 당첨만 확인이 가능합니다.", 3015);
         }
@@ -183,8 +187,6 @@ public class SurveyResultService {
             }
         }
 
-        surveyResult.winSurvey();
-
         return ResultPageResponse.builder()
                 .isWin(surveyResult.isWin())
                 .giveawayType(giveaway.getGiveawayType())
@@ -197,6 +199,11 @@ public class SurveyResultService {
         Account account = accountService.getCurrentAccountBySecurity();
         Survey survey = surveyRepository.findById(surveyId).orElseThrow(() ->
                 new BaseException("없는 설문입니다.", 3005));
+
+        if (survey.getSurveyCategory().getType().equals(SurveyCategoryType.INSTANT_WIN)) {
+            throw new BaseException("마이페이지 당첨 결과는 노말 타입만 확인이 가능합니다.", 3019);
+        }
+
         if (survey.isClosed()) {
 
             SurveyResult surveyResult = surveyResultRepository.findSurveyResultBySurvey_IdAndAccount_Id(surveyId, account.getId());
