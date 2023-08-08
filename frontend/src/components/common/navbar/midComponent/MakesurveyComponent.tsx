@@ -34,6 +34,7 @@ const MakesruveyComponent = (props: any) => {
         endTime,
         type,
         surveyTarget,
+        img,
       } = useSettingSurveyApiStore();
 
 
@@ -50,6 +51,7 @@ const MakesruveyComponent = (props: any) => {
         endTime,
         type,
         surveyTarget,
+        img,
         questions: surveyComponents.map((component, index) => {
           const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
           return {

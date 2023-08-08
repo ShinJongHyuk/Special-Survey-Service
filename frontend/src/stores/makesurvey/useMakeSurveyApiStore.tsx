@@ -19,7 +19,6 @@ interface SurveyStore {
   removeSurveyItem: (componentKey: string) => void;
   setMultipleChoices: (componentKey: string, multipleChoices: any[]) => void;
   setCheckBox: (componentKey: string, checkBox: any[]) => void;
-  setDropDown: (componentKey: string, dropDown: any[]) => void;
 }
 
 const useMakeSurveyApiStore = create<SurveyStore>((set) => ({
@@ -54,16 +53,6 @@ const useMakeSurveyApiStore = create<SurveyStore>((set) => ({
         [componentKey]: {
           ...state.surveyList[componentKey],
           checkBox,
-        },
-      },
-    })),
-    setDropDown: (componentKey: string, dropDown: any[]) =>
-    set((state) => ({
-      surveyList: {
-        ...state.surveyList,
-        [componentKey]: {
-          ...state.surveyList[componentKey],
-          dropDown,
         },
       },
     })),
