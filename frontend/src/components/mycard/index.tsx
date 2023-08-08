@@ -58,7 +58,7 @@ const Mycard = (props: MycardType) => {
       </StyledCardHeader>
 
       <div style={{ width: "90px", height: "90px" }}>
-        <StyledImg src={imgsrc} />
+        <StyledImg src={imgsrc} {...newProps} />
       </div>
 
 
