@@ -30,6 +30,11 @@ const CardComponent = (props: CardType) => {
   const [value1, label1] = unit1.split(':');
   const [value2, label2] = unit2.split(':');
 
+  const value = parseFloat(props.probability);
+  const formattedProbability = value % 1 === 0
+    ? Math.round(value) + '%'
+    : value.toFixed(1) + '%';
+
   const newProps = { ...props, typename: typeName };
   return (
     <StyledCard {...newProps}>
@@ -56,7 +61,7 @@ const CardComponent = (props: CardType) => {
       {props.contentype === "speedy" ? (
         <StyledProbability {...newProps}>{props.responsedtime}</StyledProbability>
       ) : (
-        <StyledProbability {...newProps}>{props.probability}</StyledProbability>
+        <StyledProbability {...newProps}>{formattedProbability}</StyledProbability>
       )}
       <StyledRemainTime {...newProps}>
         <div className="time-text">

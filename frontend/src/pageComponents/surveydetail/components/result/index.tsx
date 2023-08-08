@@ -27,19 +27,32 @@ const ResultComponent = (props: any) => {
 
   const imgsrc = images[resultProps.giveawaytype];
 
+
+
   const percentSSE = useSSEHook(resultProps.id, "확률변동");
   console.log("percentSSE : ", percentSSE);
 
-  const [percentArray, setPercentArray] = useState(resultProps.percent.toString().split(""));
+  const transformToDesiredArray = (value: any) => {
+    let strValue = value.toString();
+    const dotIndex = strValue.indexOf('.');
+    if (dotIndex !== -1) {
+      strValue = strValue.slice(0, dotIndex + 2);
+    }
+    return strValue.split("");
+  }
+
+  const [percentArray, setPercentArray] = useState(transformToDesiredArray(resultProps.percent));
+
   useEffect(() => {
     if (percentSSE) {
-      setPercentArray(percentSSE.toString().split(""));
+      setPercentArray(transformToDesiredArray(percentSSE));
     }
   }, [percentSSE]);
 
   useEffect(() => {
-    setPercentArray(resultProps.percent.toString().split(""));
+    setPercentArray(transformToDesiredArray(resultProps.percent));
   }, [resultProps.percent]);
+
 
   return (
     <>

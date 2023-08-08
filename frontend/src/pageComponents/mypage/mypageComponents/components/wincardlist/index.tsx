@@ -1,21 +1,27 @@
 "use client";
 import { StyledList } from "@/pageComponents/mypage/Mypage.styled";
 import Wincard from "./wincard/Wincard";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Modal from "@/components/modal";
 import myGiveawayCheckPatch from "@/api/win/myGiveawayCheckPatch";
+import useWinListHook from "@/Hooks/mypage/useWinListHook";
+import { useRouter } from "next/navigation";
+
 
 const WinCardlist = (props: any) => {
   const lists = props.winConfirmList;
+  const { refreshList } = useWinListHook();
+  const router = useRouter()
 
   const [isOpen, setIsOpen] = useState(false);
   const [toModalData, setToModalData] = useState({ surveyid: "", giveawayType: "", win: "" });
-  const router = useRouter();
 
-  const fetchList = async () => {
-    await myGiveawayCheckPatch(toModalData.surveyid);
+  const patchList = async (surveyid: any) => {
+    await myGiveawayCheckPatch(surveyid);
+    refreshList();
   };
+
+
 
   console.log(lists);
   return (
@@ -31,10 +37,12 @@ const WinCardlist = (props: any) => {
               giveawaytype={list.giveawayType}
               answerdatetime={list.answerDateTime}
               // onClick={() => router.push("/mywincheck/" + list.giveawayId)} // 모바일에서 사용
+
               onClick={() => {
                 if (list.userCheck.toString() !== "true") {
+                  setToModalData({ surveyid: list.surveyId, giveawayType: list.giveawayType, win: list.win.toString() });
+                  patchList(list.surveyId);
                   setIsOpen(true);
-                  setToModalData({ surveyid: list.surveyid, giveawayType: list.giveawayType, win: list.win.toString() });
                 }
               }}
             />
@@ -46,7 +54,7 @@ const WinCardlist = (props: any) => {
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false);
-          fetchList();
+          router.push("/mypage");
         }}
         giveawayType={toModalData.giveawayType}
         win={toModalData.win}

@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import { ModalType } from "./Modal.type";
 import { StyledBox, StyledModal, StyledTitleBox, StyledWinBox } from "./Modal.styled";
 import Button from "../button";
 import useScratchHook from "@/Hooks/wincheck/useScratchHook";
-import myGiveawayCheckPatch from "@/api/win/myGiveawayCheckPatch";
 
 const Modal = (props: ModalType) => {
   const images: { [key: string]: string } = {
@@ -16,7 +14,6 @@ const Modal = (props: ModalType) => {
 
   return props.isOpen ? (
     <StyledModal>
-      {/* <StyledBox> */}
       <StyledTitleBox>
         <img src="/wincheck/money.png" style={{ width: "70px", height: "70px" }} alt="money" />
         <div className="title"> 당첨 확인하기 </div>
@@ -49,7 +46,6 @@ const Modal = (props: ModalType) => {
       <div style={{ width: "220px", height: "45px" }}>
         <Button label="목록으로 이동하기" use="longYellow" onClick={props.onClose}></Button>
       </div>
-      {/* </StyledBox> */}
     </StyledModal>
   ) : null;
 };

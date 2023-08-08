@@ -39,7 +39,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       align-items: center;
       justify-content: space-between;
       padding: 8px 30px;
-
+      min-width:550px;
       position: fixed;
       z-index: 1;
     `;
