@@ -19,6 +19,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       case "/surveydetail":
       case "/makesurvey":
       case "/surveyresult" :
+      case "/payment" :
         bgColor = white;
         break;
 
