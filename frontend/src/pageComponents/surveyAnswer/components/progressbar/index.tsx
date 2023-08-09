@@ -14,13 +14,25 @@ interface propsType {
 const ProgressBarComponent = (props: propsType) => {
     const router = useRouter()
     const answer = useSurveyAnswerStore((state:any) => state.answer)
+    const resetAnswer = useSurveyAnswerStore((state:any) => state.resetAnswer)
     const checkBoxAnswer = useSurveyAnswerStore((state:any) => state.checkBoxAnswer)
+    const resetCheckBox = useSurveyAnswerStore((state:any) => state.resetCheckBox)
     const dateAnswer = useSurveyAnswerStore((state:any) => state.dateAnswer)
+    const resetDateAnswer = useSurveyAnswerStore((state:any) => state.resetDateAnswer)
     const timeAnswer = useSurveyAnswerStore((state:any) => state.timeAnswer)
+    const resetTimeAnswer = useSurveyAnswerStore((state:any) => state.resetTimeAnswer)
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
     const [count, setCount] = useState<any>([]) 
     const percentage = answer && ((answer.length + count.length + dateAnswer.length + timeAnswer.length)/(props.questionsCount-linkNumber.length)) * 100
     const viewPercentage = Math.round(percentage)
+
+
+    useEffect(() => {
+        resetAnswer()
+        resetCheckBox()
+        resetDateAnswer()
+        resetTimeAnswer()
+    },[])
 
     useEffect(() => {
         console.log(answer.length)

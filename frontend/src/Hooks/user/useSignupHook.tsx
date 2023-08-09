@@ -46,7 +46,7 @@ export const useSignupHook = ():SignupHookType => {
 
     const handleChange = (e:any) => {
         const { name, value } = e.target;
-    
+        setIsPhoneNumberCert(true)
         if (name === 'phoneNumber') {
             const trimmedValue = value.replace(/-/g, '')
             const newPhoneNumber = trimmedValue.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3')
@@ -259,12 +259,10 @@ export const useSignupHook = ():SignupHookType => {
         if (user.phoneNumber) {
             try {
                 const res = await duplicationPhoneNumberPost(user.phoneNumber)
-                console.log(res)
-                if (res.data.success === false) {
-                    console.log(res.data)
+                if (res.data.response.duplicate === false) {
                     alert('사용 가능한 휴대폰 번호입니다.')
                     setIsPhoneNumberCert(false)
-                } else if (res.data.success === true) {
+                } else if (res.data.response.duplicate === true) {
                     alert('이미 사용중인 휴대폰 번호입니다.')
                 }
             } catch(err) {
