@@ -20,8 +20,8 @@ import ItemBox from '@/components/ItemBox';
 import usePriceStore from '@/stores/usePriceStore';
 import {v4 as uuidv4} from 'uuid';
 import useUserStore from '@/stores/useUserStore';
+import authenticationDataPost from '@/api/payment/authenticationdata/authenticationData';
 import payment from '@/app/payment/page';
-import Head from 'next/head';
 
 interface GiveawayData {
   id: string;
@@ -43,7 +43,7 @@ function Payment(props: any) {
     surveyTarget,
     img,
   } = useSettingSurveyApiStore();
-  const StoreId = process.env.STOREID
+  const StoreId = process.env.NEXT_PUBLIC_STOREID;
   const {price,increment,decrement} = usePriceStore();
   const {surveyList} = useMakeSurveyApiStore();
   const {surveyComponents} = useSurveyStore();
@@ -55,12 +55,10 @@ function Payment(props: any) {
     const fetchList = async () => {
       const data = await giveawayListGet();
       setGiveaWayData(data);
-      console.log(data)
     };
     fetchList();
     
     }, []);
-    console.log(userInformation)
     const handlePaymentButtonClick = () => { 
       const surveyData = {
         title,
@@ -85,11 +83,10 @@ function Payment(props: any) {
         })),
       };
     
-      console.log(surveyData);
       // API 로직
       makeSurveyPost(surveyData)
         .then((responseData) => {
-          console.log("설문 제출에 성공하였습니다:", responseData);
+  
           if (responseData) {
             const paymentdata = {
               giveaways: selectedOption.map(selected => ({
@@ -100,14 +97,10 @@ function Payment(props: any) {
 
             paymentDataPost(paymentdata)
             .then((responseData) => {
-              console.log("상품 정보 제출에 성공하였습니다:", responseData); 
               const {IMP} = window;
-              console.log(window.IMP)
-              console.log(IMP)
-              console.log("야안왔냐")
               if (!window.IMP) return;
-              console.log("야왔냐")
               IMP.init(StoreId)
+
               const orderInfo = {
                 pg : 'kakaopay',
                 pay_method : 'card',
@@ -120,33 +113,25 @@ function Payment(props: any) {
                 buyer_addr : '서울특별시 강남구 삼성동',
                 buyer_postcode : '123-456'
               };
-              function callback(response : any) {
-                const {
-                  amout : paid_amout,
-                  orderId : merchant_uid,
-                  status : status,
-                  impUid : imp_uid,
-                } = response;
 
-            
-                if (status === 'paid') {
-                  alert('결제 성공');
-                } else {
-                  alert('결제 실패했어용');
+              function callback(response : any) {
+                const authenticateData = {
+                  amount : response.paid_amount,
+                  orderId : response.merchant_uid,
+                  status : response.status,
+                  impUid : response.imp_uid
                 }
+                
+                console.log(authenticateData)
+                authenticationDataPost(authenticateData)
+                .then((response) => {
+                  console.log(response,"최종")
+                })
+                .catch((error => {
+                  console.log("검증에 실패하였습니다",error)
+                }))
               }
               IMP.request_pay(orderInfo,callback)
-              .then((response : any) => {
-                  if(response) {
-                    console.log("일단 돼따")
-
-                                                      }
-              }).catch((error : any) => {
-                console.error("상품 정보 제출에 실패하였습니다", error);
-              });
-  
-             
-
 
             }).catch((error) => {
               console.error("상품 정보 제출에 실패하였습니다", error);
@@ -163,7 +148,6 @@ function Payment(props: any) {
     const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const selectedIndex = event.target.selectedIndex;
       const selectedData = giveawaydata[selectedIndex - 1];
-      console.log(selectedData)
       const isOptionSelected = selectedOption.some(selected => selected.option.id === selectedData.id);
       if (!isOptionSelected) {
         const componentKey = uuidv4();
@@ -200,10 +184,6 @@ function Payment(props: any) {
 
   return (
     <>
-    <Head>
-      <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-    </Head>
-
     <Main_Container>
       <Main_Inner_Container>
         <Top_Container>

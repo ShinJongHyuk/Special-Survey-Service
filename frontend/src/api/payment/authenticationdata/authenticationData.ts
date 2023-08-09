@@ -1,14 +1,14 @@
 import api from "../../api";
 
-const paymentDataPost = async (paymentData : any) => {
+const authenticationDataPost = async (authenticationData : any) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const response = await api.post("/order/regist", paymentData,{
+      const response = await api.post("/payment/authentication", authenticationData,{
           headers: {
               Authorization: `Bearer ${accessToken}`
           }
       });
-      console.log("Post PaymentData: ", response.data.response)
+      console.log("Post AuthenticationData: ", response.data.response)
       return response.data.response;
     } catch (error) {
       console.error("Error: ", error);
@@ -17,4 +17,4 @@ const paymentDataPost = async (paymentData : any) => {
   };
   
 
-export default paymentDataPost;
+export default authenticationDataPost;

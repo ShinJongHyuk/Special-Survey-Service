@@ -1,5 +1,4 @@
 import create from 'zustand';
-import { persist } from 'zustand/middleware';
 
 interface PriceStore {
     price: number;
@@ -7,17 +6,10 @@ interface PriceStore {
     decrement: (value: number) => void;
 }
 
-const usePriceStore = create<PriceStore>()(
-    persist(
-        (set) => ({
-            price: 0,
-            increment: (value) => set((state) => ({ price: state.price + value })),
-            decrement: (value) => set((state) => ({ price: Math.max(0, state.price - value) })),
-        }),
-        {
-            name: 'price-store', 
-        }
-    )
-);
+const usePriceStore = create<PriceStore>((set) => ({
+    price: 0,
+    increment: (value) => set((state) => ({ price: state.price + value })),
+    decrement: (value) => set((state) => ({ price: Math.max(0, state.price - value) })),
+}));
 
 export default usePriceStore;
