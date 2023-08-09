@@ -19,6 +19,11 @@ import ItemBox from '@/components/ItemBox';
 import usePriceStore from '@/stores/usePriceStore';
 import {v4 as uuidv4} from 'uuid';
 
+
+interface GiveawayData {
+  id: string;
+}
+
 function Payment(props: any) {
   const {
     title,
@@ -34,69 +39,81 @@ function Payment(props: any) {
   const {price,increment,decrement} = usePriceStore();
   const {surveyList} = useMakeSurveyApiStore();
   const {surveyComponents} = useSurveyStore();
-  const [giveawaydata,setGiveaWayData] = useState([])
+  const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([])
   const [selectedOption,setSelectedOption] = useState<any[]>([])
 
   useEffect(() => {
     const fetchList = async () => {
       const data = await giveawayListGet();
       setGiveaWayData(data);
+      console.log(data)
     };
     fetchList();
     
     }, []);
 
-  const handlePaymentButtonClick = () => { 
-    const surveyData = {
-      title,
-      titleContent,
-      closedHeadCount,
-      startTime,
-      endTime,
-      type,
-      surveyTarget,
-      img,
-      questions: surveyComponents.map((component, index) => {
-        const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
-        return {
-          ...dataWithoutComponentKey,
-          questionNumber: index + 1 
+    const handlePaymentButtonClick = () => { 
+      const surveyData = {
+        title,
+        titleContent,
+        closedHeadCount,
+        startTime,
+        endTime,
+        type,
+        surveyTarget,
+        img,
+        questions: surveyComponents.map((component, index) => {
+          const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
+          return {
+            ...dataWithoutComponentKey,
+            questionNumber: index + 1 
           };
         })
         .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
-      giveaways : giveawaydata.map((item : any) => ({
-        id : item.id,
-        count : item.price
-      }))
+        giveaways: selectedOption.map(selected => ({
+          id: selected.option.id,
+          count: selected.option.count,
+        })),
       };
-      console.log(surveyData)
+    
+      console.log(surveyData);
+    
       makeSurveyPost(surveyData)
-      .then((responseData) => {
-        console.log("설문 제출에 성공하였습니다:", responseData);
-        if (responseData) {
-          console.log("데이터 이떠")
-        }
+        .then((responseData) => {
+          console.log("설문 제출에 성공하였습니다:", responseData);
+          if (responseData) {
+            console.log("데이터 이떠");
+          }
         })
         .catch((error) => {
-        console.error("설문 제출에 실패하였습니다", error);
+          console.error("설문 제출에 실패하였습니다", error);
         });
     }
+
+
 
     const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const selectedIndex = event.target.selectedIndex;
       const selectedData = giveawaydata[selectedIndex - 1];
-      const componentKey = uuidv4();
-      setSelectedOption((prevSelectedOption) => [
-        ...prevSelectedOption,
-        { option: selectedData, componentKey, countKey: componentKey },
-      ]);
+      console.log(selectedData)
+      const isOptionSelected = selectedOption.some(selected => selected.option.id === selectedData.id);
+      if (!isOptionSelected) {
+        const componentKey = uuidv4();
+        setSelectedOption(prevSelectedOption => [
+          ...prevSelectedOption,
+          { option: selectedData, componentKey, countKey: componentKey },
+        ]);
+      }
     };
-  
+
     const handleCountChange = (countKey: any, newCount: number) => {
       setSelectedOption((prevSelectedOption) =>
         prevSelectedOption.map((selected) =>
           selected.countKey === countKey
-            ? { ...selected, count: newCount }
+            ? {
+                ...selected,
+                option: { ...selected.option, count: newCount }, 
+              }
             : selected
         )
       );
@@ -108,7 +125,7 @@ function Payment(props: any) {
         setSelectedOption((prevSelectedOption) =>
           prevSelectedOption.filter((_, index) => index !== indexToRemove)
         );
-        decrement(removedOption.option.price * removedOption.count);
+        decrement(removedOption.option.price * removedOption.option.count);
       }
     };
     
@@ -179,7 +196,7 @@ function Payment(props: any) {
                 <div>
                   {selectedOption.map((selected, index: number) => (
                     <div key={selected.componentKey}>
-                      <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange}/>
+                      <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange} />
                       <Button onClick={() => handleOptionRemove(index)} use="blackwhite" label="삭제하기" style={{alignItems : "center", height : "6%", fontSize : "16px", marginTop : "2px",borderRadius : "4px",border : "3px solid yellow"}} />
                     
                 </div>
