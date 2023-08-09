@@ -6,7 +6,7 @@ const Main_Container = styled.div.attrs({})`
     position : absolute;
     top : 8%;
     width : 100%;
-    height : 92%;
+    height : 93%;
     background-color: white;
     padding : 20px 20px 20px 20px;
 
@@ -20,6 +20,7 @@ const Main_Inner_Container = styled.div.attrs({}) `
 
     justify-content : center;
     align-items : center;
+    margin-right : 5%;
 
 `
 
@@ -28,7 +29,7 @@ const Top_Container = styled.div.attrs({}) `
     width : 100%;
     height: 15%;
     align-items : center;
-    margin-left : 450px;
+    margin-left : 400px;
     padding : 0px 40px;
 `
 
@@ -38,16 +39,16 @@ const Bottom_Container = styled.div.attrs({}) `
     min-width : 100px;
     height: 85%;
     align-items : flex-start;
-    margin-left : 400px;
+    margin-left : 350px;
     padding : 0px 0px 0px 40px;
 `
 
 const Pay_Container = styled.div.attrs<any>({})`
     display: flex;
     flex-direction : column;
-    width: 18%;
-    min-width : 100px;
-    height: 90%;
+    width: 23%;
+    min-width : 220px;
+    height: 95%;
     align-items :center;
     flex-wrap: wrap;
     margin-left : 100px;
@@ -123,8 +124,8 @@ const Information_Container = styled.div.attrs({})`
     display: flex;
     flex-direction : column;
     width: 50%;
-    min-width : 100px;
-    height: 90%;
+    min-width : 420px;
+    height: 95%;
 
     flex-wrap: wrap;
 
@@ -141,8 +142,8 @@ const Information_Container = styled.div.attrs({})`
 const Title_Text = styled.label.attrs({})`
     display : flex;
     align-items : center;
-    width : 11%;
-    min-width : 100px;
+    width : 13%;
+    min-width : 150px;
     margin-top : 30px;
     height : 100%;
     font-size: ${props => props.theme.fontSizes.large};
@@ -154,7 +155,7 @@ const SelectBox = styled.div.attrs({})`
   display: flex;
   width: 90%;
   min-width : 100px;
-  height: 8%;
+  height: 9%;
   border-radius: 8px;
   border : 0px solid ${props => props.theme.colors.purple};
   padding : 10px, 10px;
@@ -190,11 +191,11 @@ const Selected_Box = styled.div.attrs({})`
     align-items : center;
     width : 90%;
     height : 60%;
-    border : 1px solid black;
+    border : 1px solid ${props => props.theme.colors.black};
+    box-shadow : 1px 1px 0px 0px ${props => props.theme.colors.lightgray} ;
     border-radius : 8px;
     padding : 10px;
     margin-top : 20px;
-    border : 1px solid black;
     overflow : auto;
 `
 

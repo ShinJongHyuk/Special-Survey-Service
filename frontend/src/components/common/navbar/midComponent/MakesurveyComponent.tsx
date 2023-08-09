@@ -8,35 +8,25 @@ import Button from "@/components/button";
 import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiStore";
 import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
-import giveawayListGet from "@/api/givawaylist/giveAwayListGet";
 import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
 
 const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
     const router = useRouter();
-    const [giveawaydata,setGiveaWayData] = useState([])
     const {surveyList} = useMakeSurveyApiStore();
     const {surveyComponents} = useSurveyStore();
-
-    useEffect(() => {
-      const fetchList = async () => {
-        const data = await giveawayListGet();
-        setGiveaWayData(data);
-      };
-      fetchList();
-      
-    }, []);
-      const {
-        title,
-        setTitle,
-        titleContent,
-        closedHeadCount,
-        startTime,
-        endTime,
-        type,
-        surveyTarget,
-        img,
-      } = useSettingSurveyApiStore();
+    
+    const {
+      title,
+      setTitle,
+      titleContent,
+      closedHeadCount,
+      startTime,
+      endTime,
+      type,
+      surveyTarget,
+      img,
+    } = useSettingSurveyApiStore();
 
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,11 +51,9 @@ const MakesruveyComponent = (props: any) => {
             };
           })
           .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
-        giveaways : giveawaydata.map((item : any) => ({
-          id : item.id,
-          count : item.price
-        }))
-        };
+        }
+
+
         const Inner_hasEmptyValue = surveyData.questions.some((questionData : any, questionIndex : number) => {
           if (questionData.title === "" || questionData.type === "") {
               alert(`질문 ${questionIndex + 1}의 모든 필드를 채워주시기 바랍니다.`);
@@ -101,22 +89,12 @@ const MakesruveyComponent = (props: any) => {
           false;
       
       if (Inner_hasEmptyValue || Outer_hasEmptyValue) {
-        //여기서 결제 페이지로 이동
-        //아니면 결제페이지 말고 return 
           return;
-      }
-        console.log(surveyData)
-        makeSurveyPost(surveyData)
-   
-        .then((responseData) => {
-        console.log("설문 제출에 성공하였습니다:", responseData);
-        if (responseData) {
-          router.push(`/payment`);
-        }
-        })
-        .catch((error) => {
-        console.error("설문 제출에 실패하였습니다", error);
-        });
+      } else {
+        router.push(`/payment`);
+      };
+
+
     };
     return (
         <StyledMidComp pathname={pathname}>
