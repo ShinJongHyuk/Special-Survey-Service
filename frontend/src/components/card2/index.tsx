@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { CardType } from "./Card2.type";
 import { StyledCard, StyledCardLeft, StyledCardHeader, StyledRemainTime, StyledImg, StyledProbability } from "./Card2.styled";
+import useSSEHook from "@/Hooks/sse/useSSEHook";
 
 const Card2Component = (props: CardType) => {
   const images: { [key: string]: string } = {
@@ -13,6 +14,16 @@ const Card2Component = (props: CardType) => {
   const [unit1, unit2] = props.remaintime ? props.remaintime.split(', ') : ["00분", "00초"];
   const [value1, label1] = unit1.split(':');
   const [value2, label2] = unit2.split(':');
+
+  const percent = useSSEHook(props.id, "확률변동");
+  const value = percent
+    ? parseFloat(percent)
+    : parseFloat(props.probability);
+
+  const formattedProbability = value % 1 === 0
+    ? Math.round(value) + '%'
+    : value.toFixed(1) + '%';
+
 
   return (
     <StyledCard {...props}>
@@ -38,7 +49,7 @@ const Card2Component = (props: CardType) => {
         <StyledProbability {...props}>
           <Image src="/card/percent.svg" priority={true} width={30} height={30} alt="remaintime" />
           <div className="text" {...props}>
-            {props.probability}
+            {formattedProbability}
           </div>
         </StyledProbability>
       </StyledCardLeft>

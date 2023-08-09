@@ -18,7 +18,7 @@ const Instantwin = () => {
   };
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "780px" }}>
+    <div style={{ position: "relative", width: "100%", height: "780px", minWidth: "1000px" }}>
       <img src="/mainpage/Content3.png" style={{ width: "100%", position: "absolute", height: "780px", zIndex: "-1" }}></img>
       <StyledContent>
         <div className="title">

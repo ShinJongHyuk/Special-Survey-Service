@@ -10,42 +10,31 @@ import {
   SurveyCardTitle,
   SurveyCardText,
   SurveyCardTime,
-  ModalWrapper,
-  ModalContainer,
-  ModalContent,
-  CloseButton,
-  AnswerButton,
-  ButtonContainer,
+  StyledShare,
 } from "./Detail.styled";
-
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
 import useTimerHook from "@/Hooks/card/useTimerHook";
 import { useEffect, useState } from "react";
-import { DetailPropsType } from "../../SurveyDetailType.type";
+import { convertToDetailProps } from "../../SurveyDetailType.type";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/modal";
 
 const DetailComponent = (props: any) => {
-  const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   const { surveyDetail } = props;
 
-  const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
-    return {
-      closedheadcount: surveyDetail.closedHeadCount || "0",
-      endtime: surveyDetail.endTime || "",
-      headcount: surveyDetail.headCount || "0",
-      questioncount: surveyDetail.questionCount || "0",
-      requiredtime: surveyDetail.requiredTimeInSeconds || "0",
-      starttime: surveyDetail.startTime || "",
-      type: surveyDetail.surveyCategoryType || "",
-      title: surveyDetail.title || "",
-      writername: surveyDetail.writerName || "",
-      giveawaynames: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.name || "",
-      content: surveyDetail.content || "",
-    };
-  }
+  const [isOpen, setIsOpen] = useState(false);
+  // const [toModalData, setToModalData] = useState({ surveyid: "" });
+  const [toModalData, setToModalData] = useState({
+    surveyid: "",
+    bigtext: "",
+    smalltext: "",
+    confirm: ""
+  });
 
   const detailProps = convertToDetailProps(surveyDetail);
 
@@ -85,11 +74,20 @@ const DetailComponent = (props: any) => {
   const [value1, label1] = unit1.split(":");
   const [value2, label2] = unit2.split(":");
 
-  const goSurvey = () => {
-    router.push(`/surveyAnswer/${surveyDetail.id}`)
-  }
 
-  
+  const [hasAccessToken, setHasAccessToken] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      setHasAccessToken(true);
+    }
+  }, []);
+
+
+  const currentUrl = window.location.href;
+  console.log(currentUrl)
+
   return (
     <StyledDetailContainer>
       <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600}></Image>
@@ -127,7 +125,7 @@ const DetailComponent = (props: any) => {
               <Image src="/surveyDetail/yellow/period.svg" alt="period" width={40} height={17.8}></Image>
             )}
             <div className="bold">설문 기간 </div>
-            <div>
+            <div style={{ minWidth: "275px" }}>
               {starttimestr}부터
               <span className="end"> {endtimestr}</span>까지
             </div>
@@ -189,38 +187,62 @@ const DetailComponent = (props: any) => {
         </div>
 
         <div style={{ display: "flex", gap: "12px" }}>
-          <Image src="/surveyDetail/shareIcon.png" alt="share" width={48} height={48}></Image>
+          <CopyToClipboard text={currentUrl} onCopy={() => alert("클립보드에 복사되었습니다.")} >
+            <StyledShare src="/surveyDetail/share.png" alt="share" ></StyledShare>
+          </CopyToClipboard>
+
           {!isExpired ? (
-            detailProps.type === "NORMAL" ? (
-              <Button use="purple" label="지금 응답하기" onClick={() => setIsOpen(true)}></Button>
-            ) : (
-              <Button use="longYellow" label="지금 응답하기" onClick={() => setIsOpen(true)}></Button>
-            )
+            <Button
+              use={detailProps.type === "NORMAL" ? "purple" : "longYellow"}
+              label="지금 응답하기"
+              onClick={() => {
+                if (hasAccessToken) {
+                  setToModalData({
+                    surveyid: detailProps.surveyid,
+                    bigtext: "설문을 시작하시겠습까?",
+                    smalltext: "",
+                    confirm: "응답하기"
+                  });
+
+                  setIsOpen(true);
+                } else {
+                  setToModalData({
+                    surveyid: detailProps.surveyid,
+                    bigtext: "로그인이 필요합니다.",
+                    smalltext: "",
+                    confirm: "로그인하기"
+                  });
+                  setIsOpen(true);
+                }
+              }}
+            />
+
           ) : (
-            <Button use="bgGray" label="마감된 설문입니다." onClick={() => setIsOpen(true)}></Button>
+            <Button use="bgGray" label="마감된 설문입니다."></Button>
           )}
         </div>
       </StyledSurveyContent>
 
-      {isOpen && 
-      <ModalWrapper>
-        <ModalContainer>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        bigtext={hasAccessToken ? "설문을 시작하시겠습까?" : toModalData.bigtext}
+        smalltext={toModalData.smalltext}
+        cancel="닫기"
+        confirm={hasAccessToken ? "응답하기" : toModalData.confirm}
+        contenttype={detailProps.type}
+        surveyid={toModalData.surveyid}
+        onConfirmClick={() => {
+          if (toModalData.confirm === "로그인하기") {
+            router.push("/login");
+          } else {
+            router.push(`/surveyAnswer/${toModalData.surveyid}`);
+          }
+        }}
+      />
 
-          <ModalContent>
-            설문을
-          </ModalContent>
-          <ModalContent>
-            시작하시겠습니까?
-          </ModalContent>
-
-          <ButtonContainer>
-          <CloseButton onClick={() => setIsOpen(false)}>닫기</CloseButton>
-          <AnswerButton onClick={goSurvey} type={detailProps.type}>응답하기</AnswerButton>
-          </ButtonContainer>
-          
-        </ModalContainer>
-      </ModalWrapper>
-      }
     </StyledDetailContainer>
   );
 };

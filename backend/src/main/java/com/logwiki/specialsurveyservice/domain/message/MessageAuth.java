@@ -6,7 +6,6 @@ import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
 @Getter
-@Setter
 @RedisHash(value = "messageAuth", timeToLive = 60 * 5)
 @NoArgsConstructor
 @AllArgsConstructor

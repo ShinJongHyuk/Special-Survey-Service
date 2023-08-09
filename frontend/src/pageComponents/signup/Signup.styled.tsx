@@ -25,7 +25,24 @@ const SignupText = styled.div.attrs<any>((props) => ({}))`
   margin: 30px;
   font-size: 60px;
   font-family: ${(props) => props.theme.fonts.EnglishFontBold};
-  color : ${(props) => props.theme.colors.purple}
+  color : ${(props) => props.theme.colors.purple};
+`
+
+const DuplicationBox = styled.div.attrs<any>((props) => ({}))`
+  display: flex;
+  width: 550px;
+  align-items: center;
+`
+
+const DuplicationButton = styled.button.attrs<any>((props) => ({}))`
+  width: 90px;
+  height: 40px;
+  background-color: ${(props) => props.iscert? props.theme.colors.yellow : props.theme.colors.lightgray};
+  color: ${(props) => props.theme.colors.black};
+  font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+  font-size: ${(props) => props.theme.fontSizes.xsmall};
+  border: none;
+  cursor: pointer;
 `
 
 const InputBox = styled.div.attrs<any>((props) => ({}))`
@@ -78,4 +95,4 @@ const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
 
 `
 
-export { SignUpPage, SignupText, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, InputBox, PasswordCondition }
+export { SignUpPage, SignupText, SignUpContainer, InputRadioBox, SignUpText, SignUpItem, DuplicationBox, InputBox, PasswordCondition, DuplicationButton }

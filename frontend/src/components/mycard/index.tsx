@@ -14,11 +14,17 @@ const Mycard = (props: MycardType) => {
 
   const typeName = props.type === "INSTANT_WIN" ? "즉시당첨" : "일  반";
   const selectBtn = useMypageStore((state) => state.selectBtn);
+
+  const tmp = parseFloat(props.probability || "");
+  const formattedProbability = tmp % 1 === 0
+    ? Math.round(tmp) + '%'
+    : tmp.toFixed(1) + '%';
+
   const settingByBtn: any = {
     2: {
       imagePath: "/card/percent.png",
       text: "확률",
-      value: props.probability
+      value: formattedProbability
     },
     3: {
       imagePath: "/card/smile.svg",
@@ -52,7 +58,7 @@ const Mycard = (props: MycardType) => {
       </StyledCardHeader>
 
       <div style={{ width: "90px", height: "90px" }}>
-        <StyledImg src={imgsrc} />
+        <StyledImg src={imgsrc} {...newProps} />
       </div>
 
 

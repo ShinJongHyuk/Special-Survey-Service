@@ -64,12 +64,14 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
             `,
 
       sortingYellow: `
+                justify-content: space-evenly;
                 border-radius: 10px;
                 border: 1.216px solid rgba(214, 214, 214, 0.20);
                 background: #FFFAAE;
                 font-size:${small};
             `,
       sortingPurple: `
+                justify-content: space-evenly;
                 border-radius: 10px;
                 border: 1.216px solid rgba(214, 214, 214, 0.20);
                 background: #D4C9FF;
@@ -105,6 +107,5 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
 
 const StyledImage = styled.img`
   width: 25px;
-  margin-right: 20px;
 `;
 export { StyledButton, StyledImage };
