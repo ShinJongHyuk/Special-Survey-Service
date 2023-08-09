@@ -12,6 +12,9 @@ const useSurveyAnswerStore = create(
             }
             
         }),
+        resetAnswer : () => set({
+            answer : []
+        }),
         linkNumber : [],
         setLinkNumber: (data:any) =>
         set((state:any) => {
@@ -71,6 +74,9 @@ const useSurveyAnswerStore = create(
                 }
             }
         }),
+        resetCheckBox : () => set({
+            checkBoxAnswer : []
+        }),
 
         removeCheckBoxLinkNumver : (data:any) => set((state:any) => {
             if (state.linkNumber.includes(data)) {
@@ -108,6 +114,9 @@ const useSurveyAnswerStore = create(
                 ]
             }
         }),
+        resetDateAnswer : () => set({
+            dateAnswer : []
+        }),
         removeLinkDateAnswer : (data:any) => set((state:any) => {
             const newAnswer = state.dateAnswer.filter((e:any) => {
                 return e.questionId != data
@@ -128,6 +137,9 @@ const useSurveyAnswerStore = create(
                     data
                 ]
             }
+        }),
+        resetTimeAnswer : () => set({
+            timeAnswer : []
         }),
         removeLinkTimeAnswer : (data:any) => set((state:any) => {
             const newAnswer = state.timeAnswer.filter((e:any) => {
