@@ -8,4 +8,6 @@ export interface ModalType {
 
   contenttype?: string;
   surveyid?: string;
+
+  onConfirmClick?: () => void;
 }

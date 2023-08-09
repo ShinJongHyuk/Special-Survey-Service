@@ -226,6 +226,13 @@ const DetailComponent = (props: any) => {
         confirm={hasAccessToken ? "응답하기" : toModalData.confirm}
         contenttype={detailProps.type}
         surveyid={toModalData.surveyid}
+        onConfirmClick={() => {
+          if (toModalData.confirm === "로그인하기") {
+            router.push("/login");
+          } else {
+            router.push(`/surveyAnswer/${toModalData.surveyid}`);
+          }
+        }}
       />
 
     </StyledDetailContainer>

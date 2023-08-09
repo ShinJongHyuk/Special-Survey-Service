@@ -5,7 +5,6 @@ import { ModalType } from "./Modal.type";
 
 const Modal = (props: ModalType) => {
   const router = useRouter();
-  //   console.log("survey id : ", props.surveyid);
   return props.isOpen ? (
     <StyledModalWrapper>
       <StyledModal style={{ backgroundColor: "white", width: "350px", height: "230px" }}>
@@ -25,10 +24,8 @@ const Modal = (props: ModalType) => {
               label={props.confirm}
               style={{ borderRadius: "5px" }}
               onClick={() => {
-                if (props.confirm === "로그인하기") {
-                  router.push("/login");
-                } else {
-                  router.push(`/surveyAnswer/${props.surveyid}`);
+                if (props.onConfirmClick) {
+                  props.onConfirmClick();
                 }
               }}
             />
