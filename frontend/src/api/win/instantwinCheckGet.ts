@@ -1,8 +1,8 @@
 import api from "../api";
 
-const instantwinCheckGet = async (surveyid: any) => {
+const instantwinCheckGet = async (id: any) => {
   try {
-    const response = await api.get("/user/survey/" + surveyid, {
+    const response = await api.get("/user/survey/" + id, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },

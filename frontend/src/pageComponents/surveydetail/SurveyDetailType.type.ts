@@ -19,6 +19,7 @@ export interface ResultPropsType {
   giveawaytype: string;
   percent: string;
   id: string;
+  winheadcount: string;
 }
 
 export interface BoardPropsType {
@@ -55,6 +56,7 @@ export const convertToResultProps = (surveyDetail: any): ResultPropsType => {
     giveawaytype: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.giveawayType || "0",
     percent: surveyDetail.winningPercent || "0",
     id: surveyDetail.id || "0",
+    winheadcount: surveyDetail.winHeadCount || "0",
   };
 };
 export const convertToBoardProps = (surveyDetail: any): BoardPropsType => {
