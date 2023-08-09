@@ -16,7 +16,7 @@ const ProgressBar = styled.div.attrs<any>((props) => ({}))`
 `
 const ProgressBarPercentage = styled.div.attrs<any>((props) => ({}))`
     color: ${(props) => props.theme.colors.black};
-    font-family: ${(props) => props.theme.fonts.EnglishFontLight};
+    font-family: ${(props) => props.width === 100 ? props.theme.fonts.HangeulFontRegular : props.theme.fonts.EnglishFontLight};
     font-size: ${(props) => props.theme.fontSizes.small};
     position: absolute;
     right: 50%;
