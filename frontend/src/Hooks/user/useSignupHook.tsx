@@ -40,6 +40,8 @@ export const useSignupHook = ():SignupHookType => {
         certNum: 1
         
     })
+    
+    const [isPasswordRegex,setIsPasswordRegex] = useState(false)
 
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/  //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
     const phoneNumberRegex = /^\d{3}-\d{3,4}-\d{4}$/
@@ -54,6 +56,14 @@ export const useSignupHook = ():SignupHookType => {
                 ...user,
                 [name]: newPhoneNumber
             });
+        } else if (name === "password") {
+            setUser({
+                ...user,
+                [name]: value
+            });
+            const isPasswordValid = passwordRegex.test(value);
+            setIsPasswordRegex(isPasswordValid)
+            
         } else if (name === 'password2') {
             setPassword(value)
         } else {
@@ -271,5 +281,5 @@ export const useSignupHook = ():SignupHookType => {
             
         } 
     } 
-    return {user, inputState, certNumState, isEmailCert, isCert, isPhoneNumberCert, handleChange, handleSubmit, handleClick, handleCertNum, ChangeCertNum, Certification, duplicationEmail, duplicationPhoneNumber}
+    return {user, inputState, certNumState, isEmailCert, isCert, isPhoneNumberCert, isPasswordRegex, handleChange, handleSubmit, handleClick, handleCertNum, ChangeCertNum, Certification, duplicationEmail, duplicationPhoneNumber}
 }
