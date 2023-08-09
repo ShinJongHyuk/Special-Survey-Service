@@ -82,7 +82,7 @@ const PasswordCondition = styled.div.attrs<any>((props) => ({}))`
   margin-left: 10px;  
   margin-bottom: 10px;
   font-size: ${(props) => props.theme.fontSizes.xsmall};
-  color: red
+  color: ${(props) => props.isPasswordRegex ? "green" : "red"};
 `
 
 const InputRadioBox = styled.div.attrs<any>((props) => ({}))`

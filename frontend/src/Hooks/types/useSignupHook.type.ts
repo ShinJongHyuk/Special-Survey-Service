@@ -24,6 +24,7 @@ certNumState : boolean
 isEmailCert: boolean
 isCert: boolean
 isPhoneNumberCert: boolean
+isPasswordRegex: boolean
 handleChange: (e: any) => void;
 handleSubmit: (e: any) => void;
 handleClick: (e: any) => void;

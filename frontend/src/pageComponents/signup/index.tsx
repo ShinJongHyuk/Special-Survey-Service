@@ -5,12 +5,15 @@ import { DuplicationBox, InputBox, SignupText, SignUpPage, InputRadioBox, SignUp
 import { useRouter } from 'next/navigation'
 import { useSignupHook } from '@/Hooks/user/useSignupHook'
 import duplicationEmailPost from '@/api/user/duplicationEmailPost'
+import { useEffect } from 'react'
 
 
 const Signup = () => {
-    const { user, inputState, certNumState, isEmailCert, isCert, isPhoneNumberCert, handleChange, handleSubmit, handleClick, handleCertNum, ChangeCertNum, Certification, duplicationEmail, duplicationPhoneNumber } = useSignupHook()
+    const { user, inputState, certNumState, isEmailCert, isCert, isPhoneNumberCert, isPasswordRegex, handleChange, handleSubmit, handleClick, handleCertNum, ChangeCertNum, Certification, duplicationEmail, duplicationPhoneNumber } = useSignupHook()
     const router = useRouter()
-
+    useEffect(() => {
+        console.log(isPasswordRegex)
+    },[isPasswordRegex])
 
     return (
         <SignUpPage>
@@ -23,7 +26,7 @@ const Signup = () => {
             <InputBox>
                 <Input type="email" name="email" onChange={handleChange} inputstate={inputState.email}/>
             </InputBox>
-            <DuplicationButton type="button" iscert={isEmailCert} onClick={duplicationEmail}>{isEmailCert ? "이메일 인증완료" : "이메일 중복확인"}</DuplicationButton>
+            <DuplicationButton type="button" iscert={isEmailCert} onClick={duplicationEmail}>{isEmailCert ? "인증완료" : "중복확인"}</DuplicationButton>
             </DuplicationBox>
             </SignUpItem>
 
@@ -32,7 +35,7 @@ const Signup = () => {
             <InputBox>
                 <Input type="password" name="password" onChange={handleChange} inputstate={inputState.password}/>
             </InputBox>
-            <PasswordCondition>8~16자 영문, 숫자, 특수문자를 사용하세요.</PasswordCondition>
+            <PasswordCondition isPasswordRegex={isPasswordRegex}> 8~16자 영문, 숫자, 특수문자를 사용하세요.</PasswordCondition>
                 
             </SignUpItem>
 
@@ -86,7 +89,7 @@ const Signup = () => {
             </InputBox>
             {!isPhoneNumberCert ?
             <DuplicationButton type="button" iscert={isCert} onClick={handleCertNum}>{certNumState ? "인증번호 재발송" :"인증번호 발송"}</DuplicationButton>
-            :<DuplicationButton type="button" onClick={duplicationPhoneNumber}>전화번호 중복확인</DuplicationButton>}
+            :<DuplicationButton type="button" onClick={duplicationPhoneNumber}>중복확인</DuplicationButton>}
             
             </DuplicationBox>
             </SignUpItem>
