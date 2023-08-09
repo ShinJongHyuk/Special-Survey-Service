@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { CheckBoxContainer, CheckBoxFlex, CheckBoxInput, CheckBoxLabel } from './CheckBox.styled'
 import useSurveyAnswerStore from '@/stores/useSurveyAnswer'
+import { LinkSign } from '../multiplechoice/MultipleChoice.styled'
 const CheckBoxComponent = (props:any) => {
     const multipleChoices = props.multipleChoices
     const questionNumber = props.questionNumber
@@ -54,6 +55,7 @@ const CheckBoxComponent = (props:any) => {
                     <CheckBoxFlex key={multipleChoice.id}>
                         <CheckBoxInput type="checkbox" disabled={disabled} name={questionNumber} id={multipleChoice.id} onClick={onClick(multipleChoice)}/>
                         <CheckBoxLabel htmlFor={multipleChoice.id} >{multipleChoice.content}</CheckBoxLabel>
+                        <LinkSign>{multipleChoice.linkNumber ? `(${multipleChoice.linkNumber}번 문항으로 이동)` : null}</LinkSign>
                     </CheckBoxFlex>
                 )
             })}

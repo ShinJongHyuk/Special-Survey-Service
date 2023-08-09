@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { RadioContainer, RadioInput, RadioLabel, RadioFlex} from './MultipleChoice.styled'
+import { RadioContainer, RadioInput, RadioLabel, RadioFlex, LinkSign} from './MultipleChoice.styled'
 import useSurveyAnswerStore from '@/stores/useSurveyAnswer'
 
 interface resultType {
@@ -70,9 +70,9 @@ const MultipleChoiceComponent = (props:any) => {
                 // console.log(multipleChoice)
                 return (
                     <RadioFlex key={multipleChoice.id}>
-
                         <RadioInput id={multipleChoice.id} name={questionNumber} onClick={onClick(multipleChoice)} goQuestion={multipleChoice.linkNumber}/>
                         <RadioLabel htmlFor={multipleChoice.id}>{multipleChoice.content}</RadioLabel>
+                        <LinkSign>{multipleChoice.linkNumber ? `(${multipleChoice.linkNumber}번 문항으로 이동)` : null}</LinkSign>
                     </RadioFlex>
                 )
             })}
