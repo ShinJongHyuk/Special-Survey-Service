@@ -115,6 +115,27 @@ const useSurveyAnswerStore = create(
             return {
                 dateAnswer : [...newAnswer]
             }
+        }),
+
+        timeAnswer : [],
+        setTimeAnswer : (data:any) => set((state:any) => {
+            const newTimeAnswer = state.timeAnswer.filter((e:any) => {
+                return e.questionId != data.questionId
+            })
+            return {
+                timeAnswer : [
+                    ...newTimeAnswer,
+                    data
+                ]
+            }
+        }),
+        removeLinkTimeAnswer : (data:any) => set((state:any) => {
+            const newAnswer = state.timeAnswer.filter((e:any) => {
+                return e.questionId != data
+            })
+            return {
+                timeAnswer : [...newAnswer]
+            }
         })
 
     }))
