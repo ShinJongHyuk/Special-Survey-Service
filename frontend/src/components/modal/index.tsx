@@ -12,32 +12,28 @@ const Modal = (props: ModalType) => {
         <img src="/modal/screamer.png" style={{ width: "25%" }}></img>
         <StyledBigText>
           <div className="title">{props.bigtext}</div>
-          <div className="subtitle"> {props.smalltext} </div>
+          {props.smalltext !== "" ? <div className="subtitle"> {props.smalltext} </div> : null}
         </StyledBigText>
 
         <div style={{ display: "flex", justifyContent: "space-evenly", width: "100%" }}>
           <div style={{ width: "43%", height: "38px" }}>
             <Button use="bgGray" label={props.cancel} style={{ borderRadius: "5px" }} onClick={props.onClose} />
           </div>
-          {props.contenttype === "NORMAL" ? (
-            <div style={{ width: "43%", height: "38px" }}>
-              <Button
-                use="purple"
-                label={props.confirm}
-                style={{ borderRadius: "5px" }}
-                onClick={() => router.push(`/surveyAnswer/${props.surveyid}`)}
-              />
-            </div>
-          ) : (
-            <div style={{ width: "43%", height: "38px" }}>
-              <Button
-                use="longYellow"
-                label={props.confirm}
-                style={{ borderRadius: "5px" }}
-                onClick={() => router.push(`/surveyAnswer/${props.surveyid}`)}
-              />
-            </div>
-          )}
+          <div style={{ width: "43%", height: "38px" }}>
+            <Button
+              use={props.contenttype === "NORMAL" ? "purple" : "longYellow"}
+              label={props.confirm}
+              style={{ borderRadius: "5px" }}
+              onClick={() => {
+                if (props.confirm === "로그인하기") {
+                  router.push("/login");
+                } else {
+                  router.push(`/surveyAnswer/${props.surveyid}`);
+                }
+              }}
+            />
+          </div>
+
         </div>
       </StyledModal>
     </StyledModalWrapper>

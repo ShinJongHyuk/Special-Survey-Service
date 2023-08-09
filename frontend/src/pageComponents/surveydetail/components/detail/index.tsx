@@ -27,7 +27,13 @@ const DetailComponent = (props: any) => {
   const { surveyDetail } = props;
 
   const [isOpen, setIsOpen] = useState(false);
-  const [toModalData, setToModalData] = useState({ surveyid: "" });
+  // const [toModalData, setToModalData] = useState({ surveyid: "" });
+  const [toModalData, setToModalData] = useState({
+    surveyid: "",
+    bigtext: "",
+    smalltext: "",
+    confirm: ""
+  });
 
   const detailProps = convertToDetailProps(surveyDetail);
 
@@ -66,6 +72,16 @@ const DetailComponent = (props: any) => {
   const [unit1, unit2] = remaintime ? remaintime.split(", ") : ["00분", "00초"];
   const [value1, label1] = unit1.split(":");
   const [value2, label2] = unit2.split(":");
+
+
+  const [hasAccessToken, setHasAccessToken] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      setHasAccessToken(true);
+    }
+  }, []);
 
   return (
     <StyledDetailContainer>
@@ -168,25 +184,31 @@ const DetailComponent = (props: any) => {
         <div style={{ display: "flex", gap: "12px" }}>
           <Image src="/surveyDetail/shareIcon.png" alt="share" width={48} height={48}></Image>
           {!isExpired ? (
-            detailProps.type === "NORMAL" ? (
-              <Button
-                use="purple"
-                label="지금 응답하기"
-                onClick={() => {
-                  setToModalData({ surveyid: detailProps.surveyid });
+            <Button
+              use={detailProps.type === "NORMAL" ? "purple" : "longYellow"}
+              label="지금 응답하기"
+              onClick={() => {
+                if (hasAccessToken) {
+                  setToModalData({
+                    surveyid: detailProps.surveyid,
+                    bigtext: "설문을 시작하시겠습까?",
+                    smalltext: "",
+                    confirm: "응답하기"
+                  });
+
                   setIsOpen(true);
-                }}
-              ></Button>
-            ) : (
-              <Button
-                use="longYellow"
-                label="지금 응답하기"
-                onClick={() => {
-                  setToModalData({ surveyid: detailProps.surveyid });
+                } else {
+                  setToModalData({
+                    surveyid: detailProps.surveyid,
+                    bigtext: "로그인이 필요합니다.",
+                    smalltext: "",
+                    confirm: "로그인하기"
+                  });
                   setIsOpen(true);
-                }}
-              ></Button>
-            )
+                }
+              }}
+            />
+
           ) : (
             <Button use="bgGray" label="마감된 설문입니다."></Button>
           )}
@@ -198,12 +220,14 @@ const DetailComponent = (props: any) => {
         onClose={() => {
           setIsOpen(false);
         }}
-        bigtext="설문을 시작하시겠습까?"
+        bigtext={hasAccessToken ? "설문을 시작하시겠습까?" : toModalData.bigtext}
+        smalltext={toModalData.smalltext}
         cancel="닫기"
-        confirm="응답하기"
+        confirm={hasAccessToken ? "응답하기" : toModalData.confirm}
         contenttype={detailProps.type}
         surveyid={toModalData.surveyid}
       />
+
     </StyledDetailContainer>
   );
 };
