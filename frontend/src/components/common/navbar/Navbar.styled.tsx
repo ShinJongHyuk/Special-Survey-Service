@@ -11,6 +11,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
     const height = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "72px" : "56px";
 
+    const minwidth = props.pathname === "/" ? "1000px" : "550px";
     switch (props.pathname) {
       case "/surveylist":
         bgColor = surveylistcolor;
@@ -18,8 +19,8 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       case "/instantWinConfirm":
       case "/surveydetail":
       case "/makesurvey":
-      case "/surveyresult" :
-      case "/payment" :
+      case "/surveyresult":
+      case "/payment":
         bgColor = white;
         break;
 
@@ -39,7 +40,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       align-items: center;
       justify-content: space-between;
       padding: 8px 30px;
-      min-width:550px;
+      min-width: ${minwidth};
       position: fixed;
       z-index: 1;
     `;
