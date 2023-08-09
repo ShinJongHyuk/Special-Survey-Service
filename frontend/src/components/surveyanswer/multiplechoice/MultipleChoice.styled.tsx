@@ -37,4 +37,11 @@ const RadioLabel = styled.label`
   
 `;
 
-export { RadioContainer, RadioInput, RadioLabel, RadioFlex}
+const LinkSign = styled.div`
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.xsmall};
+  color: #6D7075;
+  margin-left: 20px;
+`
+
+export { RadioContainer, RadioInput, RadioLabel, RadioFlex, LinkSign}
