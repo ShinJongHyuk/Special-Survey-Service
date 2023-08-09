@@ -1,21 +1,13 @@
 import create from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export interface SurveyStore {
   surveyComponents: any[];
   setSurveyComponents: (components: any) => void;
 }
 
-const useSurveyStore = create<SurveyStore>()(
-  persist(
-    (set) => ({
-      surveyComponents: [], 
-      setSurveyComponents: (components) => set({ surveyComponents: components }),
-    }),
-    {
-      name: 'survey-store',
-    }
-  )
-);
+const useSurveyStore = create<SurveyStore>((set) => ({
+  surveyComponents: [], 
+  setSurveyComponents: (components) => set({ surveyComponents: components }),
+}));
 
 export default useSurveyStore;

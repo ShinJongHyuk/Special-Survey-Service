@@ -1,13 +1,18 @@
 "use client";
 import React, {useState,useEffect} from 'react'
+import {v4 as uuidv4} from 'uuid';
 import {Selected_Box,SelectBox,SelectBox_List,SelectBox_Option,Info_LR_Box,Image_Wrapper,Info_Top_Box,Info_Bottom_Box,Info_Inner_Box,Bottom_Container,Top_Container,Main_Inner_Container, Title_Text,Information_Container, Main_Container, Pay_Container } from './Payment.Styled';
 import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiStore";
 import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
-import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
+import usePriceStore from '@/stores/usePriceStore';
+import useUserStore from '@/stores/useUserStore';
 import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
-import Image from 'next/image'
+import authenticationDataPost from '@/api/payment/authenticationdata/authenticationData';
+import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import giveawayListGet from '@/api/payment/givawaylist/giveawayListGet';
 import paymentDataPost from '@/api/payment/paymentdata/paymentDataPost';
+import { useRouter} from 'next/navigation'
+import Image from 'next/image'
 import Woman_Img from '/public/payment/Woman_Img.svg'
 import Target from '/public/survey/Target.png'
 import Calendar from '/public/survey/Calendar.png'
@@ -17,15 +22,11 @@ import Present from '/public/payment/present.svg'
 import Kite from '/public/payment/kite.svg'
 import Button from '@/components/button';
 import ItemBox from '@/components/ItemBox';
-import usePriceStore from '@/stores/usePriceStore';
-import {v4 as uuidv4} from 'uuid';
-import useUserStore from '@/stores/useUserStore';
-import authenticationDataPost from '@/api/payment/authenticationdata/authenticationData';
-import payment from '@/app/payment/page';
+
 
 interface GiveawayData {
   id: string;
-}
+} 
 
 declare const window: typeof globalThis & {
   IMP: any;
@@ -50,7 +51,23 @@ function Payment(props: any) {
   const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([])
   const [selectedOption,setSelectedOption] = useState<any[]>([])
   const userInformation = useUserStore((state:any) => state.userInformation)
+  const router = useRouter();
+  const surveyTargetDict : any = {
+    "MAN": "남성",
+    "WOMAN": "여성",
+    "UNDER_TEENS": "10대 미만",
+    "TEENS": "10대",
+    "TWENTIES": "20대",
+    "THIRTIES": "30대",
+    "FORTIES": "40대",
+    "FIFTIES": "50대",
+    "SIXTIES": "60대 이상"
+  };
 
+  const surveyTypeDict : any = {
+    "INSTANT_WIN" : "즉시 당첨",
+    "NORMAL" : "일반 설문"
+  }
   useEffect(() => {
     const fetchList = async () => {
       const data = await giveawayListGet();
@@ -59,6 +76,9 @@ function Payment(props: any) {
     fetchList();
     
     }, []);
+
+
+
     const handlePaymentButtonClick = () => { 
       const surveyData = {
         title,
@@ -110,7 +130,7 @@ function Payment(props: any) {
                 buyer_email : userInformation.email,
                 buyer_name : userInformation.name,
                 buyer_tel : userInformation.phoneNumber,
-                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_addr : '부산광역시 강서구 명지동',
                 buyer_postcode : '123-456'
               };
 
@@ -125,10 +145,20 @@ function Payment(props: any) {
                 console.log(authenticateData)
                 authenticationDataPost(authenticateData)
                 .then((response) => {
-                  console.log(response,"최종")
+                  if (response.isSucess === "paid") {
+                  console.log(response,"결제 완료")
+                  alert("결제가 정상적으로 완료되었습니다")
+                  router.push("/")
+                  } else {
+                    console.log("결제 실패")
+                    alert("결제에 실패하였습니다")
+                    return
+                  }
                 })
                 .catch((error => {
                   console.log("검증에 실패하였습니다",error)
+                  alert("결제에 실패하였습니다")
+                  return
                 }))
               }
               IMP.request_pay(orderInfo,callback)
@@ -177,7 +207,8 @@ function Payment(props: any) {
         setSelectedOption((prevSelectedOption) =>
           prevSelectedOption.filter((_, index) => index !== indexToRemove)
         );
-        decrement(removedOption.option.price * removedOption.option.count);
+       
+        decrement(parseInt(removedOption.option.price) * removedOption.option.count);
       }
     };
     
@@ -206,16 +237,18 @@ function Payment(props: any) {
                     <Image src={Target} alt="타겟" style={{marginRight : "12px"}} />
                     설문 대상
                   </Info_Top_Box>
-                  {surveyTarget && surveyTarget.map((item, index) => (
-                     <Info_Bottom_Box key={index}>{item}</Info_Bottom_Box>
-                  ))}
+                  <Info_Bottom_Box style={{gap : '4%'}}>
+                    {surveyTarget && surveyTarget.map((item: any, index: number) => (
+                        <span key={index}>{surveyTargetDict[item]}</span>
+                    ))}
+                  </Info_Bottom_Box>
                 </Info_Inner_Box>
                 <Info_Inner_Box>
                   <Info_Top_Box>
                     <Image src={Category} alt="유형" style={{marginRight : "12px"}} />
                     설문 유형
                   </Info_Top_Box>
-                  <Info_Bottom_Box>{type}</Info_Bottom_Box>
+                  <Info_Bottom_Box>{surveyTypeDict[type]}</Info_Bottom_Box>
                 </Info_Inner_Box>
                 <Info_Inner_Box>
                   <Info_Top_Box>

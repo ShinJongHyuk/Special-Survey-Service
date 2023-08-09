@@ -1,5 +1,5 @@
 import create from 'zustand';
-import {persist} from 'zustand/middleware'
+
 interface UseMakeSurveyApiState {
   surveyState?: string;
   selectedOption?: string;
@@ -21,9 +21,7 @@ interface SurveyStore {
   setCheckBox: (componentKey: string, checkBox: any[]) => void;
 }
 
-const useMakeSurveyApiStore = create<SurveyStore>()(
-  persist( 
-    (set) => ({
+const useMakeSurveyApiStore = create<SurveyStore>((set) => ({
   surveyList: {},
   setSurveyList: (componentKey: string , data: UseMakeSurveyApiState) =>
     set((state) => ({
@@ -58,11 +56,6 @@ const useMakeSurveyApiStore = create<SurveyStore>()(
         },
       },
     })),
-}),
-{
-  name : 'make-survey-api-store',
-}
-));
-
+}));
 
 export default useMakeSurveyApiStore;
