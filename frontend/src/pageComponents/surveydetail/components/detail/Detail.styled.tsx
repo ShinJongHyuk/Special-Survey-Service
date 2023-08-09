@@ -1,5 +1,16 @@
 import styled, { css } from "styled-components";
 
+const StyledShare = styled.img`
+  width:48px;
+  height:48px;
+  cursor: pointer;
+
+  border-radius: 48px;
+  &:hover {
+    background-color:${(props) => props.theme.colors.lightgray};
+  }
+
+`
 const StyledDetailContainer = styled.div.attrs<any>((props) => ({}))`
   display: flex;
   width: 100%;
@@ -162,5 +173,5 @@ export {
   SurveyCard,
   SurveyCardTitle,
   SurveyCardText,
-  SurveyCardTime,
+  SurveyCardTime, StyledShare
 };

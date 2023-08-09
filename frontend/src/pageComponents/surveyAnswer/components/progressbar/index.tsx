@@ -6,12 +6,12 @@ import surveyPost from '@/api/surveyAnswer/surveyPost'
 import { useRouter } from 'next/navigation'
 
 interface propsType {
-    id : any
-    questionsCount : any
-    type : any
+    id: any
+    questionsCount: any
+    type: any
 }
 
-const ProgressBarComponent = (props:propsType) => {
+const ProgressBarComponent = (props: propsType) => {
     const router = useRouter()
     const answer = useSurveyAnswerStore((state:any) => state.answer)
     const checkBoxAnswer = useSurveyAnswerStore((state:any) => state.checkBoxAnswer)
@@ -27,7 +27,7 @@ const ProgressBarComponent = (props:propsType) => {
         if (checkBoxAnswer.length === 0) {
             setCount([])
         } else {
-            checkBoxAnswer.map((e:any) => {
+            checkBoxAnswer.map((e: any) => {
                 if (!count.includes(e.questionId)) {
                     setCount([
                         ...count,
@@ -36,8 +36,8 @@ const ProgressBarComponent = (props:propsType) => {
                 }
             })
         }
-        
-    },[checkBoxAnswer])
+
+    }, [checkBoxAnswer])
 
     const onClick = async () => {
         if (percentage === 100) {
@@ -55,7 +55,7 @@ const ProgressBarComponent = (props:propsType) => {
                     router.push("/")
                 } else {
                     alert('설문응답을 완료하였습니다')
-                    router.push(`/instantwincheck/${props.id}`)
+                    router.push("/instantwincheck/" + props.id)
                 }
             } else if (res?.data.success === false) {
                 alert(res.data.apiError.message)
@@ -64,8 +64,8 @@ const ProgressBarComponent = (props:propsType) => {
     }
     return (
         <ProgressContainer>
-                <ProgressBar type={props.type} width={percentage} onClick={onClick}></ProgressBar>
-                <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
+            <ProgressBar type={props.type} width={percentage} onClick={onClick}></ProgressBar>
+            <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
         </ProgressContainer>
     )
 }

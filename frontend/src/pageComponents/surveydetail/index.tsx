@@ -12,6 +12,8 @@ const SurveyDetail = (props: any) => {
   const { surveyDetail } = useSurveyDetailHook(props.id);
   const { answerlog } = useAnswerLogHoook(props.id);
 
+  console.log("sd", surveyDetail);
+  console.log("al", answerlog);
   const router = useRouter();
 
   return (

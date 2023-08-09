@@ -17,8 +17,8 @@ const ResultComponent = (props: any) => {
 
   const imgsrc = images[resultProps.giveawaytype];
 
+  // const percentSSE = (resultProps.type === "NORMAL") ? useSSEHook(resultProps.id, "확률변동") : null;
   const percentSSE = useSSEHook(resultProps.id, "확률변동");
-
   const transformToDesiredArray = (value: any) => {
     let strValue = value.toString();
     const dotIndex = strValue.indexOf(".");
@@ -28,7 +28,10 @@ const ResultComponent = (props: any) => {
     return strValue.split("");
   };
 
-  const [percentArray, setPercentArray] = useState(transformToDesiredArray(resultProps.percent));
+  const [percentArray, setPercentArray] = useState(["0"]);
+  useEffect(() => {
+    setPercentArray(transformToDesiredArray(resultProps.percent));
+  }, [resultProps.percent]);
 
   useEffect(() => {
     if (percentSSE) {
@@ -36,9 +39,6 @@ const ResultComponent = (props: any) => {
     }
   }, [percentSSE]);
 
-  useEffect(() => {
-    setPercentArray(transformToDesiredArray(resultProps.percent));
-  }, [resultProps.percent]);
 
   return (
     <>
@@ -49,7 +49,7 @@ const ResultComponent = (props: any) => {
           </div>
         ) : (
           <div>
-            총 <span className="orange">{resultProps.headcount}</span>명이 리워드에 당첨됐어요!
+            총 <span className="orange">{resultProps.winheadcount}</span>명이 리워드에 당첨됐어요!
           </div>
         )}
       </SurveyResultComent>

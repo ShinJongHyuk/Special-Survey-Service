@@ -13,7 +13,7 @@ import {
 } from "./Board.styled";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
-import { BoardPropsType, convertToBoardProps } from "../../SurveyDetailType.type";
+import { BoardPropsType, SSEToBoardProps, convertToBoardProps } from "../../SurveyDetailType.type";
 import moment from "moment";
 import useSSEHook from "@/Hooks/sse/useSSEHook";
 
@@ -55,9 +55,12 @@ const BoardComponent = (props: any) => {
 
   useEffect(() => {
     if (SSEdata) {
-      const newEntry = convertToBoardProps(SSEdata);
+      console.log("data: ", SSEdata);
+      const jsonData = JSON.parse(SSEdata);
+      const newEntry = SSEToBoardProps(jsonData);
+      // const newEntry = SSEToBoardProps(SSEdata);
       setAnswerPropsArray((prevArray) => [...prevArray, newEntry]);
-      scrollToBottom();
+      console.log("new Entry : ", newEntry)
     }
   }, [SSEdata]);
 
