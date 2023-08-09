@@ -19,6 +19,7 @@ export interface ResultPropsType {
   giveawaytype: string;
   percent: string;
   id: string;
+  winheadcount: string;
 }
 
 export interface BoardPropsType {
@@ -28,7 +29,7 @@ export interface BoardPropsType {
   iswin: string;
   submitorder: string;
   type: string;
-  surveyid: string;
+  surveyid?: string;
 }
 
 export const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
@@ -55,6 +56,7 @@ export const convertToResultProps = (surveyDetail: any): ResultPropsType => {
     giveawaytype: surveyDetail.surveyGiveaways?.[0]?.giveawayResponse?.giveawayType || "0",
     percent: surveyDetail.winningPercent || "0",
     id: surveyDetail.id || "0",
+    winheadcount: surveyDetail.winHeadCount || "0",
   };
 };
 export const convertToBoardProps = (surveyDetail: any): BoardPropsType => {
@@ -66,5 +68,16 @@ export const convertToBoardProps = (surveyDetail: any): BoardPropsType => {
     submitorder: surveyDetail.submitOrder || "0",
     type: surveyDetail.surveyCategoryType || "",
     surveyid: surveyDetail.id || "",
+  };
+};
+export const SSEToBoardProps = (sseDetail: any): BoardPropsType => {
+  return {
+    answertime: sseDetail.answerTime || "0",
+    name: sseDetail.name || "",
+    giveawayname: sseDetail.giveAwayName || "",
+    iswin: sseDetail.isWin ? "true" : "false",
+    submitorder: sseDetail.submitOrder || "0",
+    type: sseDetail.surveyCategoryType || "",
+    surveyid: sseDetail.id || "",
   };
 };
