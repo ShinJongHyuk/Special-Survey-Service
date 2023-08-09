@@ -6,7 +6,8 @@ import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
 import Image from 'next/image'
-import giveawayListGet from "@/api/givawaylist/giveAwayListGet";
+import giveawayListGet from '@/api/payment/givawaylist/giveawayListGet';
+import paymentDataPost from '@/api/payment/paymentdata/paymentDataPost';
 import Woman_Img from '/public/payment/Woman_Img.svg'
 import Target from '/public/survey/Target.png'
 import Calendar from '/public/survey/Calendar.png'
@@ -18,11 +19,17 @@ import Button from '@/components/button';
 import ItemBox from '@/components/ItemBox';
 import usePriceStore from '@/stores/usePriceStore';
 import {v4 as uuidv4} from 'uuid';
-
+import useUserStore from '@/stores/useUserStore';
+import payment from '@/app/payment/page';
+import Head from 'next/head';
 
 interface GiveawayData {
   id: string;
 }
+
+declare const window: typeof globalThis & {
+  IMP: any;
+};
 
 function Payment(props: any) {
   const {
@@ -36,11 +43,13 @@ function Payment(props: any) {
     surveyTarget,
     img,
   } = useSettingSurveyApiStore();
+  const StoreId = process.env.STOREID
   const {price,increment,decrement} = usePriceStore();
   const {surveyList} = useMakeSurveyApiStore();
   const {surveyComponents} = useSurveyStore();
   const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([])
   const [selectedOption,setSelectedOption] = useState<any[]>([])
+  const userInformation = useUserStore((state:any) => state.userInformation)
 
   useEffect(() => {
     const fetchList = async () => {
@@ -51,7 +60,7 @@ function Payment(props: any) {
     fetchList();
     
     }, []);
-
+    console.log(userInformation)
     const handlePaymentButtonClick = () => { 
       const surveyData = {
         title,
@@ -77,12 +86,71 @@ function Payment(props: any) {
       };
     
       console.log(surveyData);
-    
+      // API 로직
       makeSurveyPost(surveyData)
         .then((responseData) => {
           console.log("설문 제출에 성공하였습니다:", responseData);
           if (responseData) {
-            console.log("데이터 이떠");
+            const paymentdata = {
+              giveaways: selectedOption.map(selected => ({
+              giveawayName : selected.option.name,
+              giveawayNumber: selected.option.id,
+            })),
+            }
+
+            paymentDataPost(paymentdata)
+            .then((responseData) => {
+              console.log("상품 정보 제출에 성공하였습니다:", responseData); 
+              const {IMP} = window;
+              console.log(window.IMP)
+              console.log(IMP)
+              console.log("야안왔냐")
+              if (!window.IMP) return;
+              console.log("야왔냐")
+              IMP.init(StoreId)
+              const orderInfo = {
+                pg : 'kakaopay',
+                pay_method : 'card',
+                merchant_uid: responseData.orderId, 
+                name : '주문명:결제테스트',
+                amount : responseData.orderAmount,
+                buyer_email : userInformation.email,
+                buyer_name : userInformation.name,
+                buyer_tel : userInformation.phoneNumber,
+                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_postcode : '123-456'
+              };
+              function callback(response : any) {
+                const {
+                  amout : paid_amout,
+                  orderId : merchant_uid,
+                  status : status,
+                  impUid : imp_uid,
+                } = response;
+
+            
+                if (status === 'paid') {
+                  alert('결제 성공');
+                } else {
+                  alert('결제 실패했어용');
+                }
+              }
+              IMP.request_pay(orderInfo,callback)
+              .then((response : any) => {
+                  if(response) {
+                    console.log("일단 돼따")
+
+                                                      }
+              }).catch((error : any) => {
+                console.error("상품 정보 제출에 실패하였습니다", error);
+              });
+  
+             
+
+
+            }).catch((error) => {
+              console.error("상품 정보 제출에 실패하였습니다", error);
+            });
           }
         })
         .catch((error) => {
@@ -131,6 +199,11 @@ function Payment(props: any) {
     
 
   return (
+    <>
+    <Head>
+      <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    </Head>
+
     <Main_Container>
       <Main_Inner_Container>
         <Top_Container>
@@ -212,7 +285,9 @@ function Payment(props: any) {
         </Bottom_Container>
       </Main_Inner_Container>
     </Main_Container>
+  </>
   );
+  
 };
 
 export default Payment;
