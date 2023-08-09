@@ -152,31 +152,31 @@ const Title_Text = styled.label.attrs({})`
 `
 
 const SelectBox = styled.div.attrs({})`
-  display: flex;
-  width: 90%;
-  min-width : 100px;
-  height: 9%;
-  border-radius: 8px;
-  border : 0px solid ${props => props.theme.colors.purple};
-  padding : 10px, 10px;
-  cursor: pointer;
-`
+    display: flex;
+    width: 90%;
+    min-width : 100px;
+    height: 9%;
+    border-radius: 8px;
+    border : 0px solid ${props => props.theme.colors.purple};
+    padding : 10px, 10px;
+    cursor: pointer;
+    `
 const SelectBox_List = styled.select.attrs({})`
-  display : flex;
+    display : flex;
 
-  width: 100%;
-  height: 100%;
-  text-align : center;
+    width: 100%;
+    height: 100%;
+    text-align : center;
 
-  border: 1px solid ${props => props.theme.colors.black};
-  border-radius: 5px;
-  background-color: white;
-  padding: 10px;
-  font-size: ${props => props.theme.fontSizes.small};
-  color: ${props => props.theme.colors.black};
-  font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-  cursor: pointer;
-`
+    border: 1px solid ${props => props.theme.colors.black};
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    font-size: ${props => props.theme.fontSizes.small};
+    color: ${props => props.theme.colors.black};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+    cursor: pointer;
+    `
 
 const SelectBox_Option = styled.option.attrs({})`
     color: ${props => props.theme.colors.black};
