@@ -3,12 +3,12 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import useSSEHook from "@/Hooks/sse/useSSEHook";
 
-const NormalCard = ({ survey }: any) => {
+const NormalCard = ({ index, survey }: any) => {
   const router = useRouter();
   const percent = useSSEHook(survey.id, "확률변동");
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div key={index} style={{ display: "flex", justifyContent: "center" }}>
       <div style={{ width: "220px" }}>
         <Card
           title={survey.title}
