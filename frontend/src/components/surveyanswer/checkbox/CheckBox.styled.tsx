@@ -12,7 +12,10 @@ const CheckBoxFlex = styled.div`
     margin: 5px;
 `
 
-const CheckBoxInput = styled.input.attrs({ type: 'checkbox' })`
+const CheckBoxInput = styled.input.attrs<any>((props) =>({
+  type: props.type,
+  disabled : props.disabled
+}))`
   margin-right: 8px;
   width: 16px;
   height: 16px;

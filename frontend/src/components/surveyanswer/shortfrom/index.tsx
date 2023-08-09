@@ -19,6 +19,7 @@ const ShortFormComponent = (props:any) => {
     const setAnswer = useSurveyAnswerStore((state:any) => state.setAnswer)
     const removeAnswer = useSurveyAnswerStore((state:any) => state.removeAnswer)
     const answer = useSurveyAnswerStore((state:any) => state.answer)
+    const removeLinkAnswer = useSurveyAnswerStore((state:any) => state.removeLinkAnswer)
 
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
     const [ disabled, setDisabled] = useState(true)
@@ -32,6 +33,7 @@ const ShortFormComponent = (props:any) => {
     useEffect(() => {
         if (linkNumber.includes(questionNumber)) {
             setDisabled(true)
+            removeLinkAnswer(questionId)
         } else {
             setDisabled(false)
         }

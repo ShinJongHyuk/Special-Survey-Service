@@ -41,6 +41,15 @@ const useSurveyAnswerStore = create(
             }
         }),
 
+        removeLinkAnswer : (data:any) => set((state:any) => {
+            const newAnswer = state.answer.filter((e:any) => {
+                return e.questionId != data
+            })
+            return {
+                answer : [...newAnswer]
+            }
+        }),
+
         checkBoxAnswer : [],
         setCheckBoxAnswer : (data:any) => set((state:any) => {
             const checkBox = [...state.checkBoxAnswer]
@@ -61,7 +70,52 @@ const useSurveyAnswerStore = create(
                     ]
                 }
             }
-        }) 
+        }),
+
+        removeCheckBoxLinkNumver : (data:any) => set((state:any) => {
+            if (state.linkNumber.includes(data)) {
+                const newLinkNumber = state.linkNumber.filter((e:any) => {
+                    return e !== data
+                })
+                return {
+                    linkNumber : [...newLinkNumber]
+                }
+            } else {
+                return {
+                    linkNumber : [...state.linkNumber, data]
+                }
+            }
+        }),
+
+        removeCheckBoxAnswer : (data:any) => set((state:any) => {
+            const newAnswer = state.checkBoxAnswer.filter((e:any) => {
+                return e.questionId != data
+            })
+            return {
+                checkBoxAnswer : [...newAnswer]
+            }
+        }),
+
+        dateAnswer : [],
+        setDateAnswer : (data:any) => set((state:any) => {
+            const newDateAnswer = state.dateAnswer.filter((e:any) => {
+                return e.questionId != data.questionId
+            })
+            return {
+                dateAnswer : [
+                    ...newDateAnswer,
+                    data
+                ]
+            }
+        }),
+        removeLinkDateAnswer : (data:any) => set((state:any) => {
+            const newAnswer = state.dateAnswer.filter((e:any) => {
+                return e.questionId != data
+            })
+            return {
+                dateAnswer : [...newAnswer]
+            }
+        })
 
     }))
 )

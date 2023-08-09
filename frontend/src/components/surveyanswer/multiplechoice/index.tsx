@@ -23,6 +23,7 @@ const MultipleChoiceComponent = (props:any) => {
     const setLinkNumber = useSurveyAnswerStore((state:any) => state.setLinkNumber)
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
     const removeLinkNumber = useSurveyAnswerStore((state:any) => state.removeLinkNumber)
+    const removeLinkAnswer = useSurveyAnswerStore((state:any) => state.removeLinkAnswer)
     const [ disabled, setDisabled] = useState(true)
     useEffect(() => {
         multipleChoices.map((multipleChoice: any) => {
@@ -35,6 +36,7 @@ const MultipleChoiceComponent = (props:any) => {
     useEffect(() => {
         if (linkNumber.includes(questionNumber)) {
             setDisabled(true)
+            removeLinkAnswer(questionId)
         } else {
             setDisabled(false)
         }

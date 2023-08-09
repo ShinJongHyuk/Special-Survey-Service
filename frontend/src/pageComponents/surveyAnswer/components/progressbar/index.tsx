@@ -15,9 +15,10 @@ const ProgressBarComponent = (props:propsType) => {
     const router = useRouter()
     const answer = useSurveyAnswerStore((state:any) => state.answer)
     const checkBoxAnswer = useSurveyAnswerStore((state:any) => state.checkBoxAnswer)
+    const dateAnswer = useSurveyAnswerStore((state:any) => state.dateAnswer)
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
     const [count, setCount] = useState<any>([]) 
-    const percentage = answer && ((answer.length + count.length)/(props.questionsCount-linkNumber.length)) * 100
+    const percentage = answer && ((answer.length + count.length + dateAnswer.length)/(props.questionsCount-linkNumber.length)) * 100
     const viewPercentage = Math.round(percentage)
 
     useEffect(() => {
@@ -41,7 +42,8 @@ const ProgressBarComponent = (props:propsType) => {
         if (percentage === 100) {
             const answers = [
                 ...answer,
-                ...checkBoxAnswer
+                ...checkBoxAnswer,
+                ...dateAnswer
             ]
 
             const res = await surveyPost(answers, props.id)

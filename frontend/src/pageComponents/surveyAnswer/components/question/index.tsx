@@ -4,7 +4,7 @@ import { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title
 import MultipleChoice from "@/components/surveyanswer/multiplechoice"
 import CheckBox from "@/components/surveyanswer/checkbox"
 import ShortForm from "@/components/surveyanswer/shortfrom"
-import LongForm from "@/components/surveyanswer/longform"
+import DateForm from "@/components/surveyanswer/dateform"
 import { useEffect } from 'react'
 const QuestionComponent = (props:any) => {
     useEffect(() => {
@@ -28,8 +28,9 @@ const QuestionComponent = (props:any) => {
                 {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props}></MultipleChoice>}
                 {props.type === "CHECK_BOX" && <CheckBox {...props}></CheckBox>}
                 {props.type === "SHORT_FORM" && <ShortForm {...props}></ShortForm>}
-                {/* {props.type === "longform" && <LongForm></LongForm>} */}
-                
+                {props.type === "DATE_FORM" && <DateForm {...props}></DateForm>}
+        
+
             </Survey_Title_Container>
         </Survey_Container>
     )
