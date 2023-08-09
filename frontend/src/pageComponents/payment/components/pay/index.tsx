@@ -1,10 +1,15 @@
 'use client'
+
+import React from "react";
+import { Pay_Container } from "./Pay.Styled";
+
 const Pay = () => {
 
     return (
-    <>
-        <div>굿</div>
-    </>
+        <Pay_Container>
+
+
+        </Pay_Container>
     )
 };
 

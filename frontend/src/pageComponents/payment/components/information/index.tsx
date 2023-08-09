@@ -1,10 +1,16 @@
 'use client'
+
+import React from "react";
+import {Information_Container } from "./Information.Styled";
 const Information = () => {
 
     return (
-    <>
-        <div>굿</div>
-    </>
+
+            <Information_Container>
+
+
+            </Information_Container>
+
     )
 };
 
