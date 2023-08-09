@@ -10,4 +10,5 @@ export interface ModalType {
   surveyid?: string;
 
   onConfirmClick?: () => void;
+  onDelete?: () => void;
 }

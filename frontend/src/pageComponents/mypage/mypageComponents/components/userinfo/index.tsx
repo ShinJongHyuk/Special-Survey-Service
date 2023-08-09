@@ -4,10 +4,12 @@ import Button from '@/components/button'
 import { InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition } from "@/pageComponents/signup/Signup.styled";
 import { DeleteUser } from './UserInfoList.styled';
 import { useUserUpdateHook } from '@/Hooks/user/useUserUpdateHook';
-
+import Modal from '@/components/modal'
+import { useState } from 'react';
 
 const UserInfoList = () => {
   const { user, inputState, newUser, handleSubmit, hanleChange, handlePassword, handleage, handleDeleteUser } = useUserUpdateHook()
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <SignUpPage>
         <SignUpContainer onSubmit={handleSubmit}>
@@ -80,11 +82,22 @@ const UserInfoList = () => {
             </div>
         </SignUpContainer>
         <div style={{width:"100px", height:"30px", position:"absolute", bottom:"3px", right:"30px"}}>
-            <DeleteUser onClick={handleDeleteUser}>
+            <DeleteUser onClick={() => {setIsOpen(true)}}>
                 회원탈퇴
             </DeleteUser>
         </div>
+        <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        bigtext="회월탈퇴를 하시겠습니까?"
+        cancel="최소"
+        confirm="회원탈퇴"
+        onDelete={handleDeleteUser}
+        ></Modal>
         </SignUpPage>
+
   )
 };
 

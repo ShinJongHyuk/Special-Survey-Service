@@ -26,6 +26,8 @@ const Modal = (props: ModalType) => {
               onClick={() => {
                 if (props.onConfirmClick) {
                   props.onConfirmClick();
+                } else if (props.onDelete) {
+                  props.onDelete()
                 }
               }}
             />
