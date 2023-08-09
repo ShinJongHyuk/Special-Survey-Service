@@ -5,6 +5,7 @@ const useSSEHook = (surveyId: any, want: string) => {
   const [data, setData] = useState("");
 
   useEffect(() => {
+    if (!surveyId) return;
     const eventSource = new EventSource(api.defaults.baseURL + "/subscribe/" + surveyId);
 
     eventSource.addEventListener(want, (event) => {
