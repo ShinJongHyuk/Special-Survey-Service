@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { Toggle_Component,Top_Option_Container } from './Makesurvey.styled';
 import MakeQuestion from './components/makequestion';
