@@ -52,7 +52,7 @@ const CardComponent = (props: CardType) => {
       </StyledTag>
 
       <StyledCardHeader {...newProps}>
-        <div className="title">{props.title}</div>
+        <div className="titletext">{props.title}</div>
         <div className="writer" style={{ margin: "0px 10px" }} {...props}>
           {props.nickname}
         </div>

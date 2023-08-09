@@ -91,7 +91,7 @@ const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
       text-align: center;
 
       
-      .title {
+      .titletext {
         font-size: ${small};
         //
         width:150px;
