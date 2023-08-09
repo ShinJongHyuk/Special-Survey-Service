@@ -16,7 +16,7 @@ export const useSignupHook = ():SignupHookType => {
     const setUserInformation = useUserStore((state:any) => state.setUserInformation)
     const [isCert, setIsCert] = useState(false)
     const [isEmailCert, setIsEmailCert] = useState(false)
-    const [isPhoneNumberCert, setIsPhoneNumberCert] = useState(false)
+    const [isPhoneNumberCert, setIsPhoneNumberCert] = useState(true)
     const router = useRouter()
     const [user, setUser] = useState({
         email: "",
@@ -259,12 +259,13 @@ export const useSignupHook = ():SignupHookType => {
         if (user.phoneNumber) {
             try {
                 const res = await duplicationPhoneNumberPost(user.phoneNumber)
-                if (res.data.success === true) {
+                console.log(res)
+                if (res.data.success === false) {
                     console.log(res.data)
                     alert('사용 가능한 휴대폰 번호입니다.')
-                    setIsPhoneNumberCert(true)
-                } else if (res.data.success ==- false) {
-                    alert(res.data.apiError.message)
+                    setIsPhoneNumberCert(false)
+                } else if (res.data.success === true) {
+                    alert('이미 사용중인 휴대폰 번호입니다.')
                 }
             } catch(err) {
                 console.log(err)

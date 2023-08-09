@@ -84,7 +84,7 @@ const Signup = () => {
             <InputBox>
                 <Input type="tel" name="phoneNumber" onChange={handleChange} inputstate={inputState.phoneNumber}/>
             </InputBox>
-            {isPhoneNumberCert ?
+            {!isPhoneNumberCert ?
             <DuplicationButton type="button" iscert={isCert} onClick={handleCertNum}>{certNumState ? "인증번호 재발송" :"인증번호 발송"}</DuplicationButton>
             :<DuplicationButton type="button" onClick={duplicationPhoneNumber}>전화번호 중복확인</DuplicationButton>}
             
