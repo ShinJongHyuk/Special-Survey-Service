@@ -29,7 +29,7 @@ export interface BoardPropsType {
   iswin: string;
   submitorder: string;
   type: string;
-  surveyid: string;
+  surveyid?: string;
 }
 
 export const convertToDetailProps = (surveyDetail: any): DetailPropsType => {
@@ -68,5 +68,16 @@ export const convertToBoardProps = (surveyDetail: any): BoardPropsType => {
     submitorder: surveyDetail.submitOrder || "0",
     type: surveyDetail.surveyCategoryType || "",
     surveyid: surveyDetail.id || "",
+  };
+};
+export const SSEToBoardProps = (sseDetail: any): BoardPropsType => {
+  return {
+    answertime: sseDetail.answerTime || "0",
+    name: sseDetail.name || "",
+    giveawayname: sseDetail.giveAwayName || "",
+    iswin: sseDetail.isWin ? "true" : "false",
+    submitorder: sseDetail.submitOrder || "0",
+    type: sseDetail.surveyCategoryType || "",
+    surveyid: sseDetail.id || "",
   };
 };

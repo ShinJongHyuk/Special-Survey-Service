@@ -11,6 +11,7 @@ const Instantwincheck = (props: any) => {
   useEffect(() => {
     const fetchList = async () => {
       const data = await instantwinCheckGet(props.id);
+      console.log("instant win check data: ", data)
       setWinConfirm(data);
       console.log("data : ", data);
     };
@@ -21,7 +22,7 @@ const Instantwincheck = (props: any) => {
     CHICKEN: "/card/chicken.png",
     COFFEE: "/card/coffee.png",
   };
-  const imgsrc = images[props.giveaways];
+  const imgsrc = images[winConfirm.giveawayType];
 
   const router = useRouter();
   const goList = () => {
