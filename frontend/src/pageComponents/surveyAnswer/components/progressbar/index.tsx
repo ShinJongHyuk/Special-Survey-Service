@@ -55,7 +55,7 @@ const ProgressBarComponent = (props:propsType) => {
                     router.push("/")
                 } else {
                     alert('설문응답을 완료하였습니다')
-                    router.push("/instantwincheck")
+                    router.push(`/instantwincheck/${props.id}`)
                 }
             } else if (res?.data.success === false) {
                 alert(res.data.apiError.message)
