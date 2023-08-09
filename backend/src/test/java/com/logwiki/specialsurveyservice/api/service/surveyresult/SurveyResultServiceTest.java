@@ -24,7 +24,6 @@ import com.logwiki.specialsurveyservice.domain.surveyresult.SurveyResultReposito
 import com.logwiki.specialsurveyservice.domain.targetnumber.TargetNumber;
 import com.logwiki.specialsurveyservice.domain.targetnumber.TargetNumberRepository;
 import com.logwiki.specialsurveyservice.exception.BaseException;
-import java.util.Optional;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -34,6 +33,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -239,9 +239,6 @@ class SurveyResultServiceTest extends IntegrationTestSupport {
         //
         Survey survey = getSurvey(50, 100, surveyCategory);
 
-        Survey survey = getSurvey(50, 100, surveyCategory);
-
-
         TargetNumber targetNumber = TargetNumber.builder()
                 .number(3)
                 .survey(survey)
@@ -363,6 +360,55 @@ class SurveyResultServiceTest extends IntegrationTestSupport {
         double PROBABILITY_100 = 100;
 
         assertThat(myGiveawayResponses.get(0).getProbabilty()).isEqualTo(PROBABILITY_100);
+    }
+
+    private Survey getSurvey(int headCount, int closedHeadCount, SurveyCategory surveyCategory) {
+        Survey survey = Survey.builder()
+                .title("당신은 어떤 과일을 좋아하십니까?")
+                .startTime(LocalDateTime.now().minusDays(1))
+                .endTime(LocalDateTime.now().plusDays(3))
+                .headCount(headCount)
+                .closedHeadCount(closedHeadCount)
+                .writer(accountService.getCurrentAccountBySecurity().getId())
+                .type(surveyCategory)
+                .build();
+        survey.toOpen();
+        return survey;
+    }
+
+    private void saveAccountYJ() {
+        String email = "duswo0624@naver.com";
+        AccountCreateServiceRequest accountCreateServiceRequest = AccountCreateServiceRequest.builder()
+                .email(email)
+                .password("1234")
+                .gender(AccountCodeType.MAN)
+                .age(AccountCodeType.TWENTIES)
+                .name("최연재")
+                .phoneNumber("010-1234-5678")
+                .birthday(LocalDate.of(1997, 6, 24))
+                .build();
+        accountService.signup(accountCreateServiceRequest);
+    }
+
+    private SurveyResult getSurveyResult(Survey survey, int submitOrder, boolean isWin) {
+        SurveyResult surveyResult = SurveyResult.builder()
+                .win(isWin)
+                .answerDateTime(LocalDateTime.now())
+                .survey(survey)
+                .userCheck(false)
+                .account(accountService.getCurrentAccountBySecurity())
+                .submitOrder(submitOrder)
+                .build();
+        surveyResultRepository.save(surveyResult);
+        return surveyResult;
+    }
+
+    private void setAuthority() {
+        Authority userAuthority = Authority.builder()
+                .type(AuthorityType.ROLE_USER)
+                .build();
+
+        authorityRepository.save(userAuthority);
     }
 
     @Nested
@@ -654,54 +700,5 @@ class SurveyResultServiceTest extends IntegrationTestSupport {
                 assertThat(surveyResultService.patchSurveyResult(survey.getId()).isWin()).isEqualTo(true);
             }
         }
-    }
-
-    private Survey getSurvey(int headCount, int closedHeadCount, SurveyCategory surveyCategory) {
-        Survey survey = Survey.builder()
-                .title("당신은 어떤 과일을 좋아하십니까?")
-                .startTime(LocalDateTime.now().minusDays(1))
-                .endTime(LocalDateTime.now().plusDays(3))
-                .headCount(headCount)
-                .closedHeadCount(closedHeadCount)
-                .writer(accountService.getCurrentAccountBySecurity().getId())
-                .type(surveyCategory)
-                .build();
-        survey.toOpen();
-        return survey;
-    }
-
-    private void saveAccountYJ() {
-        String email = "duswo0624@naver.com";
-        AccountCreateServiceRequest accountCreateServiceRequest = AccountCreateServiceRequest.builder()
-                .email(email)
-                .password("1234")
-                .gender(AccountCodeType.MAN)
-                .age(AccountCodeType.TWENTIES)
-                .name("최연재")
-                .phoneNumber("010-1234-5678")
-                .birthday(LocalDate.of(1997, 6, 24))
-                .build();
-        accountService.signup(accountCreateServiceRequest);
-    }
-
-    private SurveyResult getSurveyResult(Survey survey, int submitOrder, boolean isWin) {
-        SurveyResult surveyResult = SurveyResult.builder()
-                .win(isWin)
-                .answerDateTime(LocalDateTime.now())
-                .survey(survey)
-                .userCheck(false)
-                .account(accountService.getCurrentAccountBySecurity())
-                .submitOrder(submitOrder)
-                .build();
-        surveyResultRepository.save(surveyResult);
-        return surveyResult;
-    }
-
-    private void setAuthority() {
-        Authority userAuthority = Authority.builder()
-                .type(AuthorityType.ROLE_USER)
-                .build();
-
-        authorityRepository.save(userAuthority);
     }
 }
