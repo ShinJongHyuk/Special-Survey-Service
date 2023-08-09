@@ -10,8 +10,9 @@ import {
   SurveyCardTitle,
   SurveyCardText,
   SurveyCardTime,
+  StyledShare,
 } from "./Detail.styled";
-
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
@@ -82,6 +83,10 @@ const DetailComponent = (props: any) => {
       setHasAccessToken(true);
     }
   }, []);
+
+
+  const currentUrl = window.location.href;
+  console.log(currentUrl)
 
   return (
     <StyledDetailContainer>
@@ -182,7 +187,10 @@ const DetailComponent = (props: any) => {
         </div>
 
         <div style={{ display: "flex", gap: "12px" }}>
-          <Image src="/surveyDetail/shareIcon.png" alt="share" width={48} height={48}></Image>
+          <CopyToClipboard text={currentUrl} onCopy={() => alert("클립보드에 복사되었습니다.")} >
+            <StyledShare src="/surveyDetail/share.png" alt="share" ></StyledShare>
+          </CopyToClipboard>
+
           {!isExpired ? (
             <Button
               use={detailProps.type === "NORMAL" ? "purple" : "longYellow"}
