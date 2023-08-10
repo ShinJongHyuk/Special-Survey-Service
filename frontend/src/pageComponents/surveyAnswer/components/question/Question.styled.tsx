@@ -14,7 +14,7 @@ const Survey_Title_Container = styled.div.attrs<any>((props) => ({}))`
     box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 16px;
-    padding : 20px 30px 25px 55px;
+    padding : 15px 10px 10px 40px;
     gap: 15px;
     min-height: 200px;
 `;
@@ -23,19 +23,20 @@ const SurveyQuestionContainer = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 5px;
 `
 
 
 const SurveyQuestion = styled.div.attrs<any>((props) => ({}))`
     margin-top: 3px;
-    color: ${(props) => props.theme.colors.black};
+    color: ${(props) => props.disabled? props.theme.colors.lightgray : props.theme.colors.black};
     font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
     font-size: ${(props) => props.theme.fontSizes.medium};
 `
 const Surveycontent = styled.div.attrs<any>((props) => ({}))`
-    color: #6D7075;
+    color: ${(props) => props.disabled? props.theme.colors.lightgray : "#6D7075"};
     font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
-    font-size: ${(props) => props.theme.fontSizes.xsmall};
+    font-size: ${(props) => props.theme.fontSizes.small};
 `
 
 const StyledTag = styled.div.attrs<any>((props) => ({}))`
@@ -50,6 +51,8 @@ const StyledTag = styled.div.attrs<any>((props) => ({}))`
     const color = type === "NORMAL" ? props.theme.colors.blue : props.theme.colors.orange;
     const font = props.theme.fonts.HangeulFontSemiBold;
     const xsmall = props.theme.fontSizes.xsmall;
+    const disabledColor = props.theme.colors.lightgray;
+    const disabled = props.disabled;
     return css`
       display: flex;
       padding: 4px 6px 4px 4px;
@@ -62,7 +65,7 @@ const StyledTag = styled.div.attrs<any>((props) => ({}))`
       .type-text {
         font-family: ${font};
         font-size: ${xsmall};
-        color: ${color};
+        color: ${() => disabled ? disabledColor : color}
       }
     `;
   }};

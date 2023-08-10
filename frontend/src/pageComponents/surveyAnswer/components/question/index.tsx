@@ -6,33 +6,53 @@ import CheckBox from "@/components/surveyanswer/checkbox"
 import ShortForm from "@/components/surveyanswer/shortfrom"
 import DateForm from "@/components/surveyanswer/dateform"
 import TimeForm from "@/components/surveyanswer/timeform"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import useSurveyAnswerStore from '@/stores/useSurveyAnswer'
 const QuestionComponent = (props:any) => {
+    const questionNumber = props.questionNumber
+    const [ disabled, setDisabled] = useState(true)
+    const questionId = props.id
+    const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
+    const removeLinkTimeAnswer = useSurveyAnswerStore((state:any) => state.removeLinkTimeAnswer)
+    const multipleChoices = props.multipleChoices
+    const setLinkNumber = useSurveyAnswerStore((state:any) => state.setLinkNumber)
     useEffect(() => {
-        // console.log(props)
+        if (linkNumber.includes(questionNumber)) {
+            setDisabled(true)
+            removeLinkTimeAnswer(questionId)
+        } else {
+            setDisabled(false)
+        }
+    },[linkNumber])
+    useEffect(() => {
+        multipleChoices.map((multipleChoice: any) => {
+            if (multipleChoice.linkNumber) {
+                setLinkNumber(multipleChoice.linkNumber)
+            }
+        });
+    }, [multipleChoices]);
+    useEffect(() => {
         // console.log(typeof props.questionNumber)
     })
     return (
         <Survey_Container>
             <Survey_Title_Container>
                 <SurveyQuestionContainer>
-                <StyledTag type={props.surveyCategoryType}>
+                <StyledTag type={props.surveyCategoryType} disabled={disabled}>
                     <div className="type-text">Q{props.questionNumber}</div>
                 </StyledTag>
-                <SurveyQuestion>
+                <SurveyQuestion disabled={disabled}>
                     {props.title}
                 </SurveyQuestion>
-                <Surveycontent>
+                <Surveycontent disabled={disabled}>
                     {props.content}
                 </Surveycontent>
                 </SurveyQuestionContainer>
-                {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props}></MultipleChoice>}
-                {props.type === "CHECK_BOX" && <CheckBox {...props}></CheckBox>}
-                {props.type === "SHORT_FORM" && <ShortForm {...props}></ShortForm>}
-                {props.type === "DATE_FORM" && <DateForm {...props}></DateForm>}
-                {props.type === "TIME_FORM" && <TimeForm {...props}></TimeForm>}
-
-
+                {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props} disabled={disabled}></MultipleChoice>}
+                {props.type === "CHECK_BOX" && <CheckBox {...props} disabled={disabled}></CheckBox>}
+                {props.type === "SHORT_FORM" && <ShortForm {...props} disabled={disabled}></ShortForm>}
+                {props.type === "DATE_FORM" && <DateForm {...props} disabled={disabled}></DateForm>}
+                {props.type === "TIME_FORM" && <TimeForm {...props} disabled={disabled}></TimeForm>}
             </Survey_Title_Container>
         </Survey_Container>
     )
