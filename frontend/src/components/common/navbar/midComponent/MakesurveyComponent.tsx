@@ -9,12 +9,15 @@ import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiSto
 import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
+import usePriceStore from "@/stores/usePriceStore";
+
 
 const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
     const router = useRouter();
     const {surveyList} = useMakeSurveyApiStore();
     const {surveyComponents} = useSurveyStore();
+    const {price,decrement} = usePriceStore();
     
     const {
       title,
@@ -34,6 +37,9 @@ const MakesruveyComponent = (props: any) => {
       };
 
     const handleCreateButtonClick = () => { 
+
+      decrement(price);
+
       const surveyData = {
         title,
         titleContent,
