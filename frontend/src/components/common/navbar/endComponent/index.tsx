@@ -3,20 +3,25 @@ import useUserStore from "@/stores/useUserStore";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { StyledEndComp, StyleLogout, StyledNavLink, StyledPropfileLink, StyledProfileName } from "../Navbar.styled";
+import { useLoginHook } from "@/Hooks/user/useUserInformationHook";
 
 const EndComponent = () => {
   const [isLogin, userInformation] = useUserStore((state: any) => [state.isLogin, state.userInformation]);
   const { hanedleLogout } = useLogoutHook();
+  const { refreshUserInformation } = useLoginHook();
   const [mounted, setMounted] = useState<boolean>(false);
   const [profileImg, setProfileImg] = useState<string>("");
 
   useEffect(() => {
     setMounted(true);
-
     if (isLogin && userInformation) {
       setProfileImg(userInformation.gender === "MAN" ? "/manIcon.png" : "/womanIcon.png");
     }
-  }, [isLogin, userInformation]);
+  }, [isLogin]);
+
+  useEffect(() => {
+    refreshUserInformation();
+  }, []);
 
   return (
     <StyledEndComp>

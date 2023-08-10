@@ -1,29 +1,44 @@
-import {create} from 'zustand'
-import { persist } from 'zustand/middleware'
+import { create } from "zustand";
 
-const useUserStore = create(
-  persist((set) => ({
-    isLogin: false,
-    userInformation : {},
-    login: () => set(() => ({ isLogin: true })),
-    logout: () => set(() => ({ isLogin: false })),
-    setUserInformation : (data:any) => set((state:any) => ({
-      userInformation : data
+const useUserStore = create((set) => ({
+  isLogin: false,
+  userInformation: {
+    id: 0,
+    email: "",
+    gender: "",
+    age: "",
+    name: "",
+    phoneNumber: "",
+    responseSurveyCount: 0,
+    createSurveyCount: 0,
+    winningGiveawayCount: 0,
+    point: 0,
+    birthday: "",
+    refreshToken: "",
+  },
+  login: () =>
+    set(() => ({
+      isLogin: true,
+      userInformation: {
+        id: 0,
+        email: "",
+        gender: "",
+        age: "",
+        name: "",
+        phoneNumber: "",
+        responseSurveyCount: 0,
+        createSurveyCount: 0,
+        winningGiveawayCount: 0,
+        point: 0,
+        birthday: "",
+        refreshToken: "",
+      },
     })),
-    setUserAge : (data:any) => set((state:any) => ({
-      userInformation : {
-        ...state.userInformation,
-        ["age"] : data
-      }
+  logout: () => set(() => ({ isLogin: false })),
+  setUserInformation: (data: any) =>
+    set((state: any) => ({
+      userInformation: data,
     })),
-    setUserName : (data:any) => set((state:any) => ({
-      userInformation : {
-        ...state.userInformation,
-        ["name"] : data
-      }
-    })),
-  }),{
-    name: "userStore"
-  })
-)
-export default useUserStore
+}));
+
+export default useUserStore;

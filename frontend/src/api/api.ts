@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
@@ -18,19 +18,21 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   async (response: any) => {
     if (!response.data.success) {
-      const refreshToken = localStorage.getItem("refreshToken");
-      if (!refreshToken) {
-        localStorage.removeItem("userStore");
-
-
-        return response;
-      }
       if (response.data.apiError.status === 1005) {
+        if (response.config.url === "/refresh") {
+          localStorage.removeItem("userStore");
+          localStorage.removeItem("refreshToken");
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("email");
+          localStorage.removeItem("password");
+          console.log("로그아웃처리");
+          return response;
+        }
         const email = localStorage.getItem("email");
         const password = localStorage.getItem("password");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("accessToken");
-        const newResponse = await api
+        const refreshToken = localStorage.getItem("refreshToken");
+
+        const newResponse: AxiosResponse = await api
           .post("/refresh", {
             email,
             refreshToken,
@@ -40,13 +42,16 @@ api.interceptors.response.use(
             if (res.data.success) {
               response.config.headers["Authorization"] = `Bearer ${res.data.response.accessToken}`;
               localStorage.setItem("accessToken", res.data.response.accessToken);
-              localStorage.setItem("refreshToken", refreshToken);
+              localStorage.setItem("refreshToken", refreshToken != null ? refreshToken : "");
               const newResponse = await api.request(response.config);
               return newResponse;
             }
+            return res;
           });
 
-        return newResponse;
+        if (newResponse.data.success) {
+          return newResponse;
+        }
       }
     }
     return response;
