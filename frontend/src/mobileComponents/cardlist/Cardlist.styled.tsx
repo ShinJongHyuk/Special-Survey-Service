@@ -9,6 +9,7 @@ const StyledCardList = styled.div.attrs<any>((props) => ({}))`
       cursor: pointer;
       flex-direction: column;
       gap: 20px;
+      margin-bottom: 40px;
     `;
   }};
 `;

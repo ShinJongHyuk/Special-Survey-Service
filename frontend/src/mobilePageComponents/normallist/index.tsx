@@ -7,7 +7,7 @@ const Normallist = () => {
   const { cards } = useNormalHook();
   return (
     <>
-      <Mobiletitle text="Normal List" />
+      <Mobiletitle text="Time Attack" />
       <Cardlist cards={cards} contentType="normallist"></Cardlist>
     </>
   );

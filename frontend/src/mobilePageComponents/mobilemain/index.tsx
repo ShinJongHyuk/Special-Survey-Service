@@ -10,12 +10,16 @@ const Mobilemain = () => {
     <>
       <Mobiletitle text="Let's Survey!" />
       <StyledContainer>
-        <StyledBox>
+        <StyledBox
+          onClick={() => {
+            router.push("/speedyattacklist");
+          }}
+        >
           <StyledLeft>
             <img src="/mainpage/time.png" style={{ width: "35px", height: "35px" }} />
             <StyledName>Speedy Attack</StyledName>
           </StyledLeft>
-          <StyledText> 응답시간이 짧은 설문이에요! </StyledText>
+          <StyledText> 응답시간이 짧은 설문 순이에요! </StyledText>
         </StyledBox>
         <StyledBox
           onClick={() => {
@@ -37,7 +41,7 @@ const Mobilemain = () => {
             <img src="/mainpage/good.svg" style={{ width: "35px", height: "35px" }} />
             <StyledName>Normal List</StyledName>
           </StyledLeft>
-          <StyledText>설문에 참여하고 상품을 받아가세요! </StyledText>
+          <StyledText> 마감시간이 얼마 남지 않은 설문 순이에요! </StyledText>
         </StyledBox>
         {/* <StyledBox
           onClick={() => {

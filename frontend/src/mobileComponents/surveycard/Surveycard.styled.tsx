@@ -86,7 +86,7 @@ const StyledProbability = styled.div.attrs<SurveycardType>((props) => ({}))`
       align-items: center;
       gap: 6px;
 
-      .percent {
+      .color {
         font-family: ${font};
         font-size: ${medium};
         color: ${color};

@@ -75,13 +75,13 @@ const Surveycard = (props: SurveycardType) => {
           )}
           {props.contentype === "speedy" ? (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <div className="text" {...newProps}>
+              <div className="color" {...newProps}>
                 {props.responsedtime}
               </div>
               <div className="speedy"> 소요 </div>
             </div>
           ) : (
-            <div className="percent" {...newProps}>
+            <div className="color" {...newProps}>
               {formattedProbability}
             </div>
           )}
