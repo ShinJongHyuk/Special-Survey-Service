@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 const Mobilemain = () => {
   const router = useRouter();
+
   return (
     <>
       <Mobiletitle text="Let's Survey!" />
@@ -27,7 +28,11 @@ const Mobilemain = () => {
           </StyledLeft>
           <StyledText> 응답시간이 짧은 설문이에요! </StyledText>
         </StyledBox>
-        <StyledBox>
+        <StyledBox
+          onClick={() => {
+            router.push("/instantwinlist");
+          }}
+        >
           <StyledLeft>
             <img src="/mainpage/casino.svg" style={{ width: "35px", height: "35px" }} />
             <StyledName>Instant Win</StyledName>
