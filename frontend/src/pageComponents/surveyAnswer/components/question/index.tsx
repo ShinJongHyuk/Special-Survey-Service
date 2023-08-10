@@ -35,7 +35,8 @@ const QuestionComponent = (props:any) => {
         // console.log(typeof props.questionNumber)
     })
     return (
-        <Survey_Container>
+        <>
+        {!disabled &&  <Survey_Container>
             <Survey_Title_Container>
                 <SurveyQuestionContainer>
                 <StyledTag type={props.surveyCategoryType} disabled={disabled}>
@@ -54,7 +55,8 @@ const QuestionComponent = (props:any) => {
                 {props.type === "DATE_FORM" && <DateForm {...props} disabled={disabled}></DateForm>}
                 {props.type === "TIME_FORM" && <TimeForm {...props} disabled={disabled}></TimeForm>}
             </Survey_Title_Container>
-        </Survey_Container>
+        </Survey_Container>}
+       </>
     )
 }
 

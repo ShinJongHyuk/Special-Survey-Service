@@ -16,6 +16,11 @@ const useSurveyAnswerStore = create(
             answer : []
         }),
         linkNumber : [],
+        resetLinkNumber : () => set({
+            linkNumber : []
+        }),
+
+
         setLinkNumber: (data:any) =>
         set((state:any) => {
             if (!state.linkNumber.includes(data)) {
