@@ -10,17 +10,6 @@ const Mobilemain = () => {
     <>
       <Mobiletitle text="Let's Survey!" />
       <StyledContainer>
-        <StyledBox
-          onClick={() => {
-            router.push("/timeattacklist");
-          }}
-        >
-          <StyledLeft>
-            <img src="/mainpage/good.svg" style={{ width: "35px", height: "35px" }} />
-            <StyledName>Time Attack</StyledName>
-          </StyledLeft>
-          <StyledText> 종료 임박 타임어택 설문이에요! </StyledText>
-        </StyledBox>
         <StyledBox>
           <StyledLeft>
             <img src="/mainpage/time.png" style={{ width: "35px", height: "35px" }} />
@@ -34,20 +23,35 @@ const Mobilemain = () => {
           }}
         >
           <StyledLeft>
-            <img src="/mainpage/casino.svg" style={{ width: "35px", height: "35px" }} />
+            <img src="/mainpage/bulb.svg" style={{ width: "35px", height: "35px" }} />
             <StyledName>Instant Win</StyledName>
           </StyledLeft>
           <StyledText>설문하고 바로 당첨자가 되어보세요!</StyledText>
         </StyledBox>
-        <StyledBox>
+        <StyledBox
+          onClick={() => {
+            router.push("/normallist");
+          }}
+        >
           <StyledLeft>
-            <img src="/mainpage/bulb.svg" style={{ width: "35px", height: "35px" }} />
+            <img src="/mainpage/good.svg" style={{ width: "35px", height: "35px" }} />
             <StyledName>Normal List</StyledName>
           </StyledLeft>
           <StyledText>설문에 참여하고 상품을 받아가세요! </StyledText>
         </StyledBox>
+        {/* <StyledBox
+          onClick={() => {
+            router.push("/timeattacklist");
+          }}
+        >
+          <StyledLeft>
+            <img src="/mainpage/good.svg" style={{ width: "35px", height: "35px" }} />
+            <StyledName>Time Attack</StyledName>
+          </StyledLeft>
+          <StyledText> 종료 임박 타임어택 설문이에요! </StyledText>
+        </StyledBox> */}
       </StyledContainer>
-      {/* <img src="/mobile/mainwoman.png" style={{ width: "170px", height: "170px" }} /> */}
+      <img src="/mobile/mainwoman.png" style={{ width: "170px", height: "170px" }} />
     </>
   );
 };
