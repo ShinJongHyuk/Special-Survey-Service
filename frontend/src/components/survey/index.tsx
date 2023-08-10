@@ -182,7 +182,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                 {surveyState === 'TIME_FORM' && <Time componentKey={componentKey} />}
                 {surveyState === 'SHORT_FORM' && <Short componentKey={componentKey} />}
                         
-                <hr/>
+                <hr style={{width : "100%"}}/>
                 <Bottom_Box>
                     <Link_Question_Box>
                         <Link_Question_Title>연계 질문 여부</Link_Question_Title>

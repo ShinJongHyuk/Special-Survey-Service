@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Payment from "@/pageComponents/payment";
+import { SessionProvider } from "next-auth/react";
 
 export default function PaymentPage() {
   const [scriptLoaded, setScriptLoaded] = useState(false);

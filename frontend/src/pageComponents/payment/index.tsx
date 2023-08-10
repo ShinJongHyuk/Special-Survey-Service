@@ -11,7 +11,8 @@ import authenticationDataPost from '@/api/payment/authenticationdata/authenticat
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import giveawayListGet from '@/api/payment/givawaylist/giveawayListGet';
 import paymentDataPost from '@/api/payment/paymentdata/paymentDataPost';
-import { useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react';
 import Image from 'next/image'
 import Woman_Img from '/public/payment/Woman_Img.svg'
 import Target from '/public/survey/Target.png'
@@ -33,6 +34,8 @@ declare const window: typeof globalThis & {
 };
 
 function Payment(props: any) {
+  
+
   const {
     title,
     setTitle,
@@ -52,6 +55,7 @@ function Payment(props: any) {
   const [selectedOption,setSelectedOption] = useState<any[]>([])
   const userInformation = useUserStore((state:any) => state.userInformation)
   const router = useRouter();
+
   const surveyTargetDict : any = {
     "MAN": "남성",
     "WOMAN": "여성",
@@ -75,143 +79,152 @@ function Payment(props: any) {
     };
     fetchList();
     
-    }, []);
+  }, []);
 
-
-
-    const handlePaymentButtonClick = () => { 
-      const surveyData = {
-        title,
-        titleContent,
-        closedHeadCount,
-        startTime,
-        endTime,
-        type,
-        surveyTarget,
-        img,
-        questions: surveyComponents.map((component, index) => {
-          const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
-          return {
-            ...dataWithoutComponentKey,
-            questionNumber: index + 1 
-          };
-        })
-        .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
-        giveaways: selectedOption.map(selected => ({
-          id: selected.option.id,
-          count: selected.option.count,
-        })),
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        router.push('/login');
       };
-    
-      // API 로직
-      makeSurveyPost(surveyData)
-        .then((responseData) => {
+    };
+    checkLoginStatus();
+  }, []);
+
+
+  const handlePaymentButtonClick = () => { 
+    const surveyData = {
+      title,
+      titleContent,
+      closedHeadCount,
+      startTime,
+      endTime,
+      type,
+      surveyTarget,
+      img,
+      questions: surveyComponents.map((component, index) => {
+        const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
+        return {
+          ...dataWithoutComponentKey,
+          questionNumber: index + 1 
+        };
+      })
+      .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
+      giveaways: selectedOption.map(selected => ({
+        id: selected.option.id,
+        count: selected.option.count,
+      })),
+    };
   
-          if (responseData) {
-            const paymentdata = {
-              giveaways: selectedOption.map(selected => ({
-              giveawayName : selected.option.name,
-              giveawayNumber: selected.option.id,
-            })),
-            }
+    // API 로직
+    makeSurveyPost(surveyData)
+      .then((responseData) => {
 
-            paymentDataPost(paymentdata)
-            .then((responseData) => {
-              const {IMP} = window;
-              if (!window.IMP) return;
-              IMP.init(StoreId)
+        if (responseData) {
+          const paymentdata = {
+            giveaways: selectedOption.map(selected => ({
+            giveawayName : selected.option.name,
+            giveawayNumber: selected.option.id,
+          })),
+          }
 
-              const orderInfo = {
-                pg : 'kakaopay',
-                pay_method : 'card',
-                merchant_uid: responseData.orderId, 
-                name : '주문명:결제테스트',
-                amount : responseData.orderAmount,
-                buyer_email : userInformation.email,
-                buyer_name : userInformation.name,
-                buyer_tel : userInformation.phoneNumber,
-                buyer_addr : '부산광역시 강서구 명지동',
-                buyer_postcode : '123-456'
-              };
+          paymentDataPost(paymentdata)
+          .then((responseData) => {
+            const {IMP} = window;
+            if (!window.IMP) return;
+            IMP.init(StoreId)
 
-              function callback(response : any) {
-                const authenticateData = {
-                  amount : response.paid_amount,
-                  orderId : response.merchant_uid,
-                  status : response.status,
-                  impUid : response.imp_uid
-                }
-                
-                console.log(authenticateData)
-                authenticationDataPost(authenticateData)
-                .then((response) => {
-                  if (response.isSucess === "paid") {
-                  console.log(response,"결제 완료")
-                  alert("결제가 정상적으로 완료되었습니다")
-                  router.push("/")
-                  } else {
-                    console.log("결제 실패")
-                    alert("결제에 실패하였습니다")
-                    return
-                  }
-                })
-                .catch((error => {
-                  console.log("검증에 실패하였습니다",error)
+            const orderInfo = {
+              pg : 'kakaopay',
+              pay_method : 'card',
+              merchant_uid: responseData.orderId, 
+              name : '주문명:결제테스트',
+              amount : responseData.orderAmount,
+              buyer_email : userInformation.email,
+              buyer_name : userInformation.name,
+              buyer_tel : userInformation.phoneNumber,
+              buyer_addr : '부산광역시 강서구 명지동',
+              buyer_postcode : '123-456'
+            };
+
+            function callback(response : any) {
+              const authenticateData = {
+                amount : response.paid_amount,
+                orderId : response.merchant_uid,
+                status : response.status,
+                impUid : response.imp_uid
+              }
+              
+              console.log(authenticateData)
+              authenticationDataPost(authenticateData)
+              .then((response) => {
+                if (response.isSucess === "paid") {
+                console.log(response,"결제 완료")
+                alert("결제가 정상적으로 완료되었습니다")
+                router.push("/")
+                } else {
+                  console.log("결제 실패")
                   alert("결제에 실패하였습니다")
                   return
-                }))
-              }
-              IMP.request_pay(orderInfo,callback)
+                }
+              })
+              .catch((error => {
+                console.log("검증에 실패하였습니다",error)
+                alert("결제에 실패하였습니다")
+                return
+              }))
+            }
+            IMP.request_pay(orderInfo,callback)
 
-            }).catch((error) => {
-              console.error("상품 정보 제출에 실패하였습니다", error);
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("설문 제출에 실패하였습니다", error);
-        });
+          }).catch((error) => {
+            console.error("상품 정보 제출에 실패하였습니다", error);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("설문 제출에 실패하였습니다", error);
+      });
+  }
+
+
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = event.target.selectedIndex;
+    const selectedData = giveawaydata[selectedIndex - 1];
+    const isOptionSelected = selectedOption.some(selected => selected.option.id === selectedData.id);
+    if (!isOptionSelected) {
+      const componentKey = uuidv4();
+      setSelectedOption(prevSelectedOption => [
+        ...prevSelectedOption,
+        { option: selectedData, componentKey, countKey: componentKey },
+      ]);
     }
+  };
 
+  const handleCountChange = (countKey: any, newCount: number) => {
+    setSelectedOption((prevSelectedOption) =>
+      prevSelectedOption.map((selected) =>
+        selected.countKey === countKey
+          ? {
+              ...selected,
+              option: { ...selected.option, count: newCount }, 
+            }
+          : selected
+      )
+    );
+  };
 
-
-    const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedIndex = event.target.selectedIndex;
-      const selectedData = giveawaydata[selectedIndex - 1];
-      const isOptionSelected = selectedOption.some(selected => selected.option.id === selectedData.id);
-      if (!isOptionSelected) {
-        const componentKey = uuidv4();
-        setSelectedOption(prevSelectedOption => [
-          ...prevSelectedOption,
-          { option: selectedData, componentKey, countKey: componentKey },
-        ]);
-      }
-    };
-
-    const handleCountChange = (countKey: any, newCount: number) => {
+  const handleOptionRemove = (indexToRemove: number) => {
+    const removedOption = selectedOption[indexToRemove];
+    if (removedOption) {
       setSelectedOption((prevSelectedOption) =>
-        prevSelectedOption.map((selected) =>
-          selected.countKey === countKey
-            ? {
-                ...selected,
-                option: { ...selected.option, count: newCount }, 
-              }
-            : selected
-        )
+        prevSelectedOption.filter((_, index) => index !== indexToRemove)
       );
-    };
+      
+      decrement(parseInt(removedOption.option.price) * removedOption.option.count);
+    }
+  };
   
-    const handleOptionRemove = (indexToRemove: number) => {
-      const removedOption = selectedOption[indexToRemove];
-      if (removedOption) {
-        setSelectedOption((prevSelectedOption) =>
-          prevSelectedOption.filter((_, index) => index !== indexToRemove)
-        );
-       
-        decrement(parseInt(removedOption.option.price) * removedOption.option.count);
-      }
-    };
-    
 
   return (
     <>
