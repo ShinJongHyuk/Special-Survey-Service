@@ -77,7 +77,7 @@ const ProgressBarComponent = (props: propsType) => {
     return (
         <ProgressContainer>
             <ProgressBar type={props.type} width={percentage} onClick={onClick}></ProgressBar>
-            <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
+            <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제 출" : `${viewPercentage}%`}</ProgressBarPercentage>
         </ProgressContainer>
     )
 }

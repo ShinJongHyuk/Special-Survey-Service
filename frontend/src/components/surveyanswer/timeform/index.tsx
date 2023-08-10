@@ -5,20 +5,14 @@ import useSurveyAnswerStore from "@/stores/useSurveyAnswer"
 
 const TimeForm = (props:any) => {
     const questionNumber = props.questionNumber
-    const [ disabled, setDisabled] = useState(true)
     const questionId = props.id
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
     const setTimeAnswer = useSurveyAnswerStore((state:any) => state.setTimeAnswer)
     const removeLinkTimeAnswer = useSurveyAnswerStore((state:any) => state.removeLinkTimeAnswer)
-    console.log(props, "타임")
-
     useEffect(() => {
         if (linkNumber.includes(questionNumber)) {
-            setDisabled(true)
             removeLinkTimeAnswer(questionId)
-        } else {
-            setDisabled(false)
-        }
+        } 
     },[linkNumber])
 
     const onChange = (e:any) => {
@@ -30,7 +24,7 @@ const TimeForm = (props:any) => {
     }
 
     return (
-        <TimeInput type="time" disabled={disabled} onChange={onChange}></TimeInput>
+        <TimeInput type="time" surveyCategoryType={props.surveyCategoryType} disabled={props.disabled} onChange={onChange}></TimeInput>
     )
 }
 export default TimeForm

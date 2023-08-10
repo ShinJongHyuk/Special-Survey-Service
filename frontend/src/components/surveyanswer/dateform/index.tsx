@@ -10,16 +10,12 @@ const DateForm = (props:any) => {
     const questionNumber = props.questionNumber
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
     const removeLinkDateAnswer = useSurveyAnswerStore((state:any) => state.removeLinkDateAnswer)
-    const [ disabled, setDisabled] = useState(true)
     const questionId = props.id
 
 
     useEffect(() => {
         if (linkNumber.includes(questionNumber)) {
-            setDisabled(true)
             removeLinkDateAnswer(questionId)
-        } else {
-            setDisabled(false)
         }
     },[linkNumber])
 
@@ -35,7 +31,7 @@ const DateForm = (props:any) => {
         setDateAnswer(date)
     }
     return (
-        <Dateinput type="date" disabled={disabled} onChange={onChange}></Dateinput>
+        <Dateinput type="date" surveyCategoryType={props.surveyCategoryType} disabled={props.disabled} onChange={onChange}></Dateinput>
     )
 }
 

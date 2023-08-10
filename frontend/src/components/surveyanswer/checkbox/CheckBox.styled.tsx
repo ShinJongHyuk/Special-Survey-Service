@@ -6,14 +6,14 @@ const CheckBoxContainer = styled.div`
 `;
 
 
-const CheckBoxFlex = styled.div`
+const CheckBoxFlex = styled.div.attrs<any>((props) => ({}))`
     display: flex;
     align-items: center;
     margin: 5px;
 `
 
 const CheckBoxInput = styled.input.attrs<any>((props) =>({
-  type: props.type,
+  type: "checkbox",
   disabled : props.disabled
 }))`
   margin-right: 8px;

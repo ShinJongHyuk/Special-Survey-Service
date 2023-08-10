@@ -16,30 +16,16 @@ const MultipleChoiceComponent = (props:any) => {
         questionId : "",
         multipleChoiceAnswer : ""
     })
-
     const setAnswer = useSurveyAnswerStore((state:any) => state.setAnswer)
-    const answer = useSurveyAnswerStore((state:any) => state.answer)
-
     const setLinkNumber = useSurveyAnswerStore((state:any) => state.setLinkNumber)
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
     const removeLinkNumber = useSurveyAnswerStore((state:any) => state.removeLinkNumber)
     const removeLinkAnswer = useSurveyAnswerStore((state:any) => state.removeLinkAnswer)
-    const [ disabled, setDisabled] = useState(true)
-    useEffect(() => {
-        multipleChoices.map((multipleChoice: any) => {
-            if (multipleChoice.linkNumber) {
-                setLinkNumber(multipleChoice.linkNumber)
-            }
-        });
-    }, [multipleChoices]);
 
     useEffect(() => {
         if (linkNumber.includes(questionNumber)) {
-            setDisabled(true)
             removeLinkAnswer(questionId)
-        } else {
-            setDisabled(false)
-        }
+        } 
     },[linkNumber])
 
     const onClick = (multipleChoice:any) => async (e:any) =>{
@@ -57,17 +43,10 @@ const MultipleChoiceComponent = (props:any) => {
         setAnswer(updateResult)
         removeLinkNumber(multipleChoice.linkNumber)
     }
-    useEffect(() => {
-        // console.log("프롭", props)
-        // console.log("스토어로 넘어갈 데이트", result);
-        // console.log(typeof result.questionId)
-        // console.log("스토어에 저장된 상태",answer)
-        // console.log("스토어에 저장된 linkNumber",linkNumber)
-    }, [result, answer]);
+
     return (
-        <RadioContainer disabled={disabled}>
+        <RadioContainer disabled={props.disabled}>
             {multipleChoices && multipleChoices.map((multipleChoice:any) => {
-                // console.log(multipleChoice)
                 return (
                     <RadioFlex key={multipleChoice.id}>
                         <RadioInput id={multipleChoice.id} name={questionNumber} onClick={onClick(multipleChoice)} goQuestion={multipleChoice.linkNumber}/>

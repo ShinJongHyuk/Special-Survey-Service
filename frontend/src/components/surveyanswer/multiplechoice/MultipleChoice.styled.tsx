@@ -19,11 +19,16 @@ const RadioFlex = styled.div.attrs<any>((props) => ({}))`
   margin: 3px;
 `
 
-const RadioInput = styled.input.attrs<any>({ type: 'radio' })`
+const RadioInput = styled.input.attrs<any>((props) => ({
+  type:"radio"
+}))`
   margin-right: 8px;
   width: 16px;
   height: 16px;
   cursor: pointer;
+  &:checked {
+    background-color: black;
+  }
   &:checked + label{
     color : black;
   }

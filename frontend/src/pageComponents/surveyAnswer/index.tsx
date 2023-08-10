@@ -57,7 +57,7 @@ const SurveyAnswer = (props:any) => {
             type={surveyInformation?.surveyCategoryType}
             ></ProgressBar>
             </div>
-            <div style={{paddingTop:"160px", paddingBottom: "10px"}}>
+            <div style={{paddingTop:"190px", paddingBottom: "10px"}}>
             {questions && questions.map((question:questionType) => {
                 return (
                 <Question
