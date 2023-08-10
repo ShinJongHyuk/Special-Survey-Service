@@ -21,7 +21,6 @@ const MultipleChoiceComponent = (props:any) => {
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
     const removeLinkNumber = useSurveyAnswerStore((state:any) => state.removeLinkNumber)
     const removeLinkAnswer = useSurveyAnswerStore((state:any) => state.removeLinkAnswer)
-
     useEffect(() => {
         if (linkNumber.includes(questionNumber)) {
             removeLinkAnswer(questionId)
@@ -49,7 +48,7 @@ const MultipleChoiceComponent = (props:any) => {
             {multipleChoices && multipleChoices.map((multipleChoice:any) => {
                 return (
                     <RadioFlex key={multipleChoice.id}>
-                        <RadioInput id={multipleChoice.id} name={questionNumber} onClick={onClick(multipleChoice)} goQuestion={multipleChoice.linkNumber}/>
+                        <RadioInput id={multipleChoice.id} surveyCategoryType={props.surveyCategoryType} name={questionNumber} onClick={onClick(multipleChoice)} goQuestion={multipleChoice.linkNumber}/>
                         <RadioLabel htmlFor={multipleChoice.id}>{multipleChoice.content}</RadioLabel>
                         {/* <LinkSign>{multipleChoice.linkNumber ? `(${multipleChoice.linkNumber}번 문항으로 이동)` : null}</LinkSign> */}
                     </RadioFlex>

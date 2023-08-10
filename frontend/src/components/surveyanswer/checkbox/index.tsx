@@ -32,7 +32,7 @@ const CheckBoxComponent = (props:any) => {
             {multipleChoices && multipleChoices.map((multipleChoice:any) => {
                 return (
                     <CheckBoxFlex key={multipleChoice.id}>
-                        <CheckBoxInput type="checkbox" disabled={props.disabled} name={questionNumber} id={multipleChoice.id} onClick={onClick(multipleChoice)}/>
+                        <CheckBoxInput type="checkbox" disabled={props.disabled} surveyCategoryType={props.surveyCategoryType} name={questionNumber} id={multipleChoice.id} onClick={onClick(multipleChoice)}/>
                         <CheckBoxLabel htmlFor={multipleChoice.id} >{multipleChoice.content}</CheckBoxLabel>
                         {/* <LinkSign>{multipleChoice.linkNumber ? `(${multipleChoice.linkNumber}번 문항으로 이동)` : null}</LinkSign> */}
                     </CheckBoxFlex>
