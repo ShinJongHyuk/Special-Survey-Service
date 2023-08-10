@@ -29,8 +29,18 @@ const Signup = () => {
     { label: "50~59", id: "FIFTIES" },
     { label: "60~", id: "SIXTIES" },
   ];
-  const { user, isCert, handleSubmit, handleClick, SendCertNum, changeUserValue, Certification, duplicationEmail, duplicationPhoneNumber } =
-    useSignupHook();
+  const {
+    user,
+    isCert,
+    changePassWordCert,
+    handleSubmit,
+    handleClick,
+    SendCertNum,
+    changeUserValue,
+    Certification,
+    duplicationEmail,
+    duplicationPhoneNumber,
+  } = useSignupHook();
 
   return (
     <SignUpPage>
@@ -79,7 +89,7 @@ const Signup = () => {
 
         <InputBoxItem title="비밀번호">
           <InputBox>
-            <Input inputState="true" type="password" name="password" />
+            <Input onBlur={changePassWordCert} onChange={changeUserValue} inputState="true" type="password" name="password" />
           </InputBox>
           <PasswordCondition isPasswordRegex={isCert.password}> 8~16자 영문, 숫자, 특수문자를 사용하세요.</PasswordCondition>
         </InputBoxItem>

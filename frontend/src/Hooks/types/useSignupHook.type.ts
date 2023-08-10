@@ -4,6 +4,7 @@ interface User {
   tel: string;
   age: string;
   certNum: string;
+  password: string;
 }
 
 export interface SignupHookType {
@@ -21,4 +22,5 @@ export interface SignupHookType {
   duplicationPhoneNumber: (e: any) => void;
   changeUserValue: (e: any) => void;
   SendCertNum: (e: any) => void;
+  changePassWordCert: (e: any) => void;
 }

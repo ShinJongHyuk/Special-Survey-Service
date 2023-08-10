@@ -24,12 +24,13 @@ export const useSignupHook = (): SignupHookType => {
     tel: "",
     age: "",
     certNum: "",
+    password: "",
   });
   const [isCert, setIsCert] = useState({
     email: "false",
     tel: "false",
     certNum: "false",
-    password: true,
+    password: false,
   });
   const router = useRouter();
 
@@ -50,6 +51,11 @@ export const useSignupHook = (): SignupHookType => {
         return { ...prev, certNum: e.target.value };
       });
     }
+    if (e.target.name == "password") {
+      setUser((prev) => {
+        return { ...prev, password: e.target.value };
+      });
+    }
   };
 
   // 성별 , 나이 버튼 클릭
@@ -65,6 +71,15 @@ export const useSignupHook = (): SignupHookType => {
         age: e.target.id,
       });
     }
+  };
+
+  const changePassWordCert = () => {
+    setIsCert((prev) => {
+      return {
+        ...prev,
+        password: passwordRegex.test(user.password),
+      };
+    });
   };
 
   const changeEmailCert = (status: string) => {
@@ -247,5 +262,6 @@ export const useSignupHook = (): SignupHookType => {
     Certification,
     duplicationEmail,
     duplicationPhoneNumber,
+    changePassWordCert,
   };
 };
