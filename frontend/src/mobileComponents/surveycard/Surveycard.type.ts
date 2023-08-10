@@ -2,17 +2,16 @@ export interface SurveycardType {
   title: string;
   nickname: string;
 
+  type: string;
   giveaways: string;
 
-  probability?: string;
-  remaintime?: string;
+  probability: string;
+
+  remaintime: string;
   endtime: string;
-
-  responsedtime?: string;
-
-  id?: string;
-
   typename?: string;
-
+  responsedtime?: string;
+  contentype?: string;
+  id?: string;
   onClick?: (e: any) => any;
 }

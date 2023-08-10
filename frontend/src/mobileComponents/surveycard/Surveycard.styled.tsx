@@ -5,7 +5,10 @@ import { SurveycardType } from "./Surveycard.type";
 const StyledCard = styled.div.attrs<SurveycardType>((props) => ({}))`
   ${(props) => {
     const bgcolor = props.theme.colors.white;
+    const purple = props.theme.colors.purple;
     const lightgray = props.theme.colors.lightgray;
+    const bcolor = props.typename === "NORMAL" ? purple : lightgray;
+
     return css`
       width: 100%;
       height: 100%;
@@ -15,7 +18,7 @@ const StyledCard = styled.div.attrs<SurveycardType>((props) => ({}))`
       justify-content: space-evenly;
 
       border-radius: 13px;
-      border: 1px solid ${lightgray};
+      border: 1px solid ${bcolor};
       background-color: ${bgcolor};
 
       cursor: pointer;
@@ -63,8 +66,13 @@ const StyledCardHeader = styled.div.attrs<SurveycardType>((props) => ({}))`
 const StyledProbability = styled.div.attrs<SurveycardType>((props) => ({}))`
   ${(props) => {
     const font = props.theme.fonts.EnglishFontBold;
-    const size = props.theme.fontSizes.medium;
+    const medium = props.theme.fontSizes.medium;
     const purple = props.theme.colors.purple;
+    const orange = props.theme.colors.orange;
+    const black = props.theme.colors.black;
+    const color = props.typename === "NORMAL" ? purple : orange;
+    const font2 = props.theme.fonts.HangeulFontSemiBold;
+    const xsmall = props.theme.fontSizes.xsmall;
 
     return css`
       display: flex;
@@ -73,8 +81,15 @@ const StyledProbability = styled.div.attrs<SurveycardType>((props) => ({}))`
 
       .text {
         font-family: ${font};
-        font-size: ${size};
-        color: ${purple};
+        font-size: ${medium};
+        color: ${color};
+      }
+
+      .speedy {
+        padding-left: 4px;
+        font-family: ${font2};
+        font-size: ${xsmall};
+        color: ${black};
       }
     `;
   }};
@@ -114,9 +129,10 @@ const StyledRemainTime = styled.div.attrs<SurveycardType>((props) => ({}))`
 const StyledImg = styled.img.attrs<any>((props) => ({}))`
   ${(props) => {
     const purple = props.theme.colors.purple;
-
+    const yellow = props.theme.colors.yellow;
+    const color = props.typename === "NORMAL" ? purple : yellow;
     return css`
-      border: 2.5px dashed ${purple};
+      border: 2.5px dashed ${color};
       border-radius: 58px;
       width: 92px;
     `;
