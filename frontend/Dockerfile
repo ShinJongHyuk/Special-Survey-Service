@@ -9,7 +9,7 @@ ARG ENV
 ARG STOREID
 
 RUN echo "MY_ENV_VAR = $ENV" && \
-    echo "NEXT_PUBLIC_API_URL=${ENV} \n STOREID=${STOREID}" > .env
+    echo -e "NEXT_PUBLIC_API_URL=${ENV}\nSTOREID=${STOREID}" > .env
 RUN npm run build
 
 # Remove development dependencies
