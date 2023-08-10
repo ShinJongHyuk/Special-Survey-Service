@@ -139,7 +139,8 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
 
     
     return (
-             <Main_Container onFocus={handleFocus} onBlur={handleBlur} tabIndex={0}>
+        <div onClick={() => handleFocus()} onBlur={() => handleBlur()} tabIndex={0}>
+             <Main_Container >
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>
@@ -181,7 +182,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                 {surveyState === 'TIME_FORM' && <Time componentKey={componentKey} />}
                 {surveyState === 'SHORT_FORM' && <Short componentKey={componentKey} />}
                         
-                <hr/>
+                <hr style={{width : "100%"}}/>
                 <Bottom_Box>
                     <Link_Question_Box>
                         <Link_Question_Title>연계 질문 여부</Link_Question_Title>
@@ -204,6 +205,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                     </Essential_Question_Box>
                 </Bottom_Box>
             </Main_Container>
+        </div>
     )
 }
 

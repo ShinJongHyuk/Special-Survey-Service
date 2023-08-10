@@ -1,12 +1,19 @@
 "use client";
 import React, {useState,useEffect} from 'react'
+import {v4 as uuidv4} from 'uuid';
 import {Selected_Box,SelectBox,SelectBox_List,SelectBox_Option,Info_LR_Box,Image_Wrapper,Info_Top_Box,Info_Bottom_Box,Info_Inner_Box,Bottom_Container,Top_Container,Main_Inner_Container, Title_Text,Information_Container, Main_Container, Pay_Container } from './Payment.Styled';
 import useSettingSurveyApiStore from "@/stores/makesurvey/useSettingSurveyApiStore";
 import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
-import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
+import usePriceStore from '@/stores/usePriceStore';
+import useUserStore from '@/stores/useUserStore';
 import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
+import authenticationDataPost from '@/api/payment/authenticationdata/authenticationData';
+import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
+import giveawayListGet from '@/api/payment/givawaylist/giveawayListGet';
+import paymentDataPost from '@/api/payment/paymentdata/paymentDataPost';
+import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react';
 import Image from 'next/image'
-import giveawayListGet from "@/api/givawaylist/giveAwayListGet";
 import Woman_Img from '/public/payment/Woman_Img.svg'
 import Target from '/public/survey/Target.png'
 import Calendar from '/public/survey/Calendar.png'
@@ -16,10 +23,19 @@ import Present from '/public/payment/present.svg'
 import Kite from '/public/payment/kite.svg'
 import Button from '@/components/button';
 import ItemBox from '@/components/ItemBox';
-import usePriceStore from '@/stores/usePriceStore';
-import {v4 as uuidv4} from 'uuid';
+
+
+interface GiveawayData {
+  id: string;
+} 
+
+declare const window: typeof globalThis & {
+  IMP: any;
+};
 
 function Payment(props: any) {
+  
+
   const {
     title,
     setTitle,
@@ -31,12 +47,31 @@ function Payment(props: any) {
     surveyTarget,
     img,
   } = useSettingSurveyApiStore();
+  const StoreId = process.env.NEXT_PUBLIC_STOREID;
   const {price,increment,decrement} = usePriceStore();
   const {surveyList} = useMakeSurveyApiStore();
   const {surveyComponents} = useSurveyStore();
-  const [giveawaydata,setGiveaWayData] = useState([])
+  const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([])
   const [selectedOption,setSelectedOption] = useState<any[]>([])
+  const userInformation = useUserStore((state:any) => state.userInformation)
+  const router = useRouter();
 
+  const surveyTargetDict : any = {
+    "MAN": "남성",
+    "WOMAN": "여성",
+    "UNDER_TEENS": "10대 미만",
+    "TEENS": "10대",
+    "TWENTIES": "20대",
+    "THIRTIES": "30대",
+    "FORTIES": "40대",
+    "FIFTIES": "50대",
+    "SIXTIES": "60대 이상"
+  };
+
+  const surveyTypeDict : any = {
+    "INSTANT_WIN" : "즉시 당첨",
+    "NORMAL" : "일반 설문"
+  }
   useEffect(() => {
     const fetchList = async () => {
       const data = await giveawayListGet();
@@ -44,7 +79,18 @@ function Payment(props: any) {
     };
     fetchList();
     
-    }, []);
+  }, []);
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        router.push('/login');
+      };
+    };
+    checkLoginStatus();
+  }, []);
+
 
   const handlePaymentButtonClick = () => { 
     const surveyData = {
@@ -61,59 +107,127 @@ function Payment(props: any) {
         return {
           ...dataWithoutComponentKey,
           questionNumber: index + 1 
-          };
-        })
-        .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
-      giveaways : giveawaydata.map((item : any) => ({
-        id : item.id,
-        count : item.price
-      }))
-      };
-      console.log(surveyData)
-      makeSurveyPost(surveyData)
+        };
+      })
+      .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
+      giveaways: selectedOption.map(selected => ({
+        id: selected.option.id,
+        count: selected.option.count,
+      })),
+    };
+  
+    // API 로직
+    makeSurveyPost(surveyData)
       .then((responseData) => {
-        console.log("설문 제출에 성공하였습니다:", responseData);
-        if (responseData) {
-          console.log("데이터 이떠")
-        }
-        })
-        .catch((error) => {
-        console.error("설문 제출에 실패하였습니다", error);
-        });
-    }
 
-    const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedIndex = event.target.selectedIndex;
-      const selectedData = giveawaydata[selectedIndex - 1];
+        if (responseData) {
+          const paymentdata = {
+            giveaways: selectedOption.map(selected => ({
+            giveawayName : selected.option.name,
+            giveawayNumber: selected.option.id,
+          })),
+          }
+
+          paymentDataPost(paymentdata)
+          .then((responseData) => {
+            const {IMP} = window;
+            if (!window.IMP) return;
+            IMP.init(StoreId)
+
+            const orderInfo = {
+              pg : 'kakaopay',
+              pay_method : 'card',
+              merchant_uid: responseData.orderId, 
+              name : '주문명:결제테스트',
+              amount : responseData.orderAmount,
+              buyer_email : userInformation.email,
+              buyer_name : userInformation.name,
+              buyer_tel : userInformation.phoneNumber,
+              buyer_addr : '부산광역시 강서구 명지동',
+              buyer_postcode : '123-456'
+            };
+
+            function callback(response : any) {
+              const authenticateData = {
+                amount : response.paid_amount,
+                orderId : response.merchant_uid,
+                status : response.status,
+                impUid : response.imp_uid
+              }
+              
+              console.log(authenticateData)
+              authenticationDataPost(authenticateData)
+              .then((response) => {
+                if (response.isSucess === "paid") {
+                console.log(response,"결제 완료")
+                alert("결제가 정상적으로 완료되었습니다")
+                router.push("/")
+                } else {
+                  console.log("결제 실패")
+                  alert("결제에 실패하였습니다")
+                  return
+                }
+              })
+              .catch((error => {
+                console.log("검증에 실패하였습니다",error)
+                alert("결제에 실패하였습니다")
+                return
+              }))
+            }
+            IMP.request_pay(orderInfo,callback)
+
+          }).catch((error) => {
+            console.error("상품 정보 제출에 실패하였습니다", error);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("설문 제출에 실패하였습니다", error);
+      });
+  }
+
+
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = event.target.selectedIndex;
+    const selectedData = giveawaydata[selectedIndex - 1];
+    const isOptionSelected = selectedOption.some(selected => selected.option.id === selectedData.id);
+    if (!isOptionSelected) {
       const componentKey = uuidv4();
-      setSelectedOption((prevSelectedOption) => [
+      setSelectedOption(prevSelectedOption => [
         ...prevSelectedOption,
         { option: selectedData, componentKey, countKey: componentKey },
       ]);
-    };
-  
-    const handleCountChange = (countKey: any, newCount: number) => {
+    }
+  };
+
+  const handleCountChange = (countKey: any, newCount: number) => {
+    setSelectedOption((prevSelectedOption) =>
+      prevSelectedOption.map((selected) =>
+        selected.countKey === countKey
+          ? {
+              ...selected,
+              option: { ...selected.option, count: newCount }, 
+            }
+          : selected
+      )
+    );
+  };
+
+  const handleOptionRemove = (indexToRemove: number) => {
+    const removedOption = selectedOption[indexToRemove];
+    if (removedOption) {
       setSelectedOption((prevSelectedOption) =>
-        prevSelectedOption.map((selected) =>
-          selected.countKey === countKey
-            ? { ...selected, count: newCount }
-            : selected
-        )
+        prevSelectedOption.filter((_, index) => index !== indexToRemove)
       );
-    };
+      
+      decrement(parseInt(removedOption.option.price) * removedOption.option.count);
+    }
+  };
   
-    const handleOptionRemove = (indexToRemove: number) => {
-      const removedOption = selectedOption[indexToRemove];
-      if (removedOption) {
-        setSelectedOption((prevSelectedOption) =>
-          prevSelectedOption.filter((_, index) => index !== indexToRemove)
-        );
-        decrement(removedOption.option.price * removedOption.count);
-      }
-    };
-    
 
   return (
+    <>
     <Main_Container>
       <Main_Inner_Container>
         <Top_Container>
@@ -136,16 +250,18 @@ function Payment(props: any) {
                     <Image src={Target} alt="타겟" style={{marginRight : "12px"}} />
                     설문 대상
                   </Info_Top_Box>
-                  {surveyTarget && surveyTarget.map((item, index) => (
-                     <Info_Bottom_Box key={index}>{item}</Info_Bottom_Box>
-                  ))}
+                  <Info_Bottom_Box style={{gap : '4%'}}>
+                    {surveyTarget && surveyTarget.map((item: any, index: number) => (
+                        <span key={index}>{surveyTargetDict[item]}</span>
+                    ))}
+                  </Info_Bottom_Box>
                 </Info_Inner_Box>
                 <Info_Inner_Box>
                   <Info_Top_Box>
                     <Image src={Category} alt="유형" style={{marginRight : "12px"}} />
                     설문 유형
                   </Info_Top_Box>
-                  <Info_Bottom_Box>{type}</Info_Bottom_Box>
+                  <Info_Bottom_Box>{surveyTypeDict[type]}</Info_Bottom_Box>
                 </Info_Inner_Box>
                 <Info_Inner_Box>
                   <Info_Top_Box>
@@ -179,7 +295,7 @@ function Payment(props: any) {
                 <div>
                   {selectedOption.map((selected, index: number) => (
                     <div key={selected.componentKey}>
-                      <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange}/>
+                      <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange} />
                       <Button onClick={() => handleOptionRemove(index)} use="blackwhite" label="삭제하기" style={{alignItems : "center", height : "6%", fontSize : "16px", marginTop : "2px",borderRadius : "4px",border : "3px solid yellow"}} />
                     
                 </div>
@@ -195,7 +311,9 @@ function Payment(props: any) {
         </Bottom_Container>
       </Main_Inner_Container>
     </Main_Container>
+  </>
   );
+  
 };
 
 export default Payment;

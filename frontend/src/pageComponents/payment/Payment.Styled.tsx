@@ -2,13 +2,15 @@ import styled from 'styled-components'
 
 const Main_Container = styled.div.attrs({})`
     display : flex;
-
     position : absolute;
     top : 8%;
     width : 100%;
     height : 93%;
+    background-image: url("/survey/background_survey7.svg");
+    background-repeat: repeat;
     background-color: white;
     padding : 20px 20px 20px 20px;
+
 
 `
 
@@ -54,7 +56,7 @@ const Pay_Container = styled.div.attrs<any>({})`
     margin-left : 100px;
     /* background-image: url("/survey/background_survey5.png");
     background-repeat: repeat; */
-    background-color : ${props => props.theme.colors.lightgray};
+    background-color : ${props => props.theme.colors.white};
     box-shadow : 2px 2px 0px 0px ${props => props.theme.colors.gray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
@@ -112,9 +114,12 @@ const Info_Bottom_Box = styled.div.attrs({})`
     width : 100%;
     height : 40%;
     align-items : center;
-    margin-left : 75px;
+    margin-left : 23%;
+    background-color: white;
+    border : 3.5px solid yellow;
+    border-radius : 16px;
     font-size: ${props => props.theme.fontSizes.small};
-    font-family: ${props => props.theme.fonts.HangeulFontRegular};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     color : ${props => props.theme.colors.black};
     padding : 0px 20px 0px 20px;
 `
@@ -131,7 +136,7 @@ const Information_Container = styled.div.attrs({})`
 
     /* background-image: url("/survey/background_survey5.png");
     background-repeat: repeat; */
-    background-color : ${props => props.theme.colors.lightgray};
+    background-color : ${props => props.theme.colors.white};
     box-shadow : 2px 2px 0px 0px ${props => props.theme.colors.gray} ;
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
@@ -152,31 +157,31 @@ const Title_Text = styled.label.attrs({})`
 `
 
 const SelectBox = styled.div.attrs({})`
-  display: flex;
-  width: 90%;
-  min-width : 100px;
-  height: 9%;
-  border-radius: 8px;
-  border : 0px solid ${props => props.theme.colors.purple};
-  padding : 10px, 10px;
-  cursor: pointer;
-`
+    display: flex;
+    width: 90%;
+    min-width : 100px;
+    height: 9%;
+    border-radius: 8px;
+    border : 0px solid ${props => props.theme.colors.purple};
+    padding : 10px, 10px;
+    cursor: pointer;
+    `
 const SelectBox_List = styled.select.attrs({})`
-  display : flex;
+    display : flex;
 
-  width: 100%;
-  height: 100%;
-  text-align : center;
+    width: 100%;
+    height: 100%;
+    text-align : center;
 
-  border: 1px solid ${props => props.theme.colors.black};
-  border-radius: 5px;
-  background-color: white;
-  padding: 10px;
-  font-size: ${props => props.theme.fontSizes.small};
-  color: ${props => props.theme.colors.black};
-  font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
-  cursor: pointer;
-`
+    border: 1px solid ${props => props.theme.colors.black};
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    font-size: ${props => props.theme.fontSizes.small};
+    color: ${props => props.theme.colors.black};
+    font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
+    cursor: pointer;
+    `
 
 const SelectBox_Option = styled.option.attrs({})`
     color: ${props => props.theme.colors.black};
