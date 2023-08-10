@@ -35,7 +35,10 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
               linkNumber: item.linkNumber
             }));
         
-            setSurveyList(componentKey,{...surveyList[componentKey], multipleChoices : checkBoxData });
+            useMakeSurveyApiStore.getState().setSurveyList(componentKey, {
+              ...useMakeSurveyApiStore.getState().surveyList[componentKey],
+              multipleChoices: checkBoxData,
+            });
           }, [componentKey, items]);
 
   

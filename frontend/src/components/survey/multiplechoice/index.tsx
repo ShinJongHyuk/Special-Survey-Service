@@ -38,17 +38,19 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
 
 
     useEffect(() => {
-  
+      
       const multipleChoicesData = items.map((item) => ({
         content: item.text,
         linkNumber: item.linkNumber,
         
       }));
-  
-      setSurveyList(componentKey,{...surveyList[componentKey], multipleChoices : multipleChoicesData });
+      useMakeSurveyApiStore.getState().setSurveyList(componentKey, {
+        ...useMakeSurveyApiStore.getState().surveyList[componentKey],
+        multipleChoices: multipleChoicesData,
+      });
+     
     }, [componentKey, items]);
   
-
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
       if (items) {

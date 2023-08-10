@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 import React, {useState,useEffect} from 'react'
 import {v4 as uuidv4} from 'uuid';
 import {Selected_Box,SelectBox,SelectBox_List,SelectBox_Option,Info_LR_Box,Image_Wrapper,Info_Top_Box,Info_Bottom_Box,Info_Inner_Box,Bottom_Container,Top_Container,Main_Inner_Container, Title_Text,Information_Container, Main_Container, Pay_Container } from './Payment.Styled';
@@ -25,6 +25,7 @@ import BackButton from '/public/payment/Back_Button.png'
 import Kite from '/public/payment/kite.svg'
 import Button from '@/components/button';
 import ItemBox from '@/components/ItemBox';
+import Modal from '@/components/modal';
 
 
 interface GiveawayData {
@@ -53,10 +54,20 @@ function Payment(props: any) {
   const {price,increment,decrement} = usePriceStore();
   const {surveyList} = useMakeSurveyApiStore();
   const {surveyComponents} = useSurveyStore();
-  const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([])
-  const [selectedOption,setSelectedOption] = useState<any[]>([])
+  const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([]);
+  const [selectedOption,setSelectedOption] = useState<any[]>([]);
   const userInformation = useUserStore((state:any) => state.userInformation)
+  const [isSuccessed, setIsSuccessed] = useState(false);
   const router = useRouter();
+
+  const questions = surveyComponents.map((component, index) => {
+    const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
+    return {
+      ...dataWithoutComponentKey,
+      questionNumber: index + 1 
+    };
+  })
+  .filter(data => data !== undefined);
 
   const surveyTargetDict : any = {
     "MAN": "남성",
@@ -95,14 +106,6 @@ function Payment(props: any) {
 
 
   const handlePaymentButtonClick = () => { 
-    const questions = surveyComponents.map((component, index) => {
-      const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
-      return {
-        ...dataWithoutComponentKey,
-        questionNumber: index + 1 
-      };
-    })
-    .filter(data => data !== undefined);
     const surveyData = {
       title,
       titleContent,
@@ -163,8 +166,8 @@ function Payment(props: any) {
               .then((response) => {
                 if (response.isSucess === "paid") {
                 console.log(response,"결제 완료")
-                alert("결제가 정상적으로 완료되었습니다")
-                router.push("/")
+                setIsSuccessed(true);
+
                 } else {
                   console.log("결제 실패")
                   alert("결제에 실패하였습니다")
@@ -303,8 +306,7 @@ function Payment(props: any) {
                   {selectedOption.map((selected, index: number) => (
                     <div key={selected.componentKey}>
                       <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange} />
-                      <Button onClick={() => handleOptionRemove(index)} use="blackwhite" label="삭제하기" style={{alignItems : "center", height : "6%", fontSize : "16px", marginTop : "2px",borderRadius : "4px",border : "3px solid yellow"}} />
-                    
+                      <Button onClick={() => handleOptionRemove(index)} use="blackwhite" label="삭제하기" style={{alignItems : "center", height : "6%", fontSize : "16px", marginTop : "2px",borderRadius : "4px",border : "3px solid yellow"}} />       
                 </div>
                   ))}
                 </div>
@@ -314,6 +316,22 @@ function Payment(props: any) {
             <div style={{ width: "90%", height: "8%" }}>
                  <Button onClick={handlePaymentButtonClick} use="longYellow" label="결제하기" />
             </div>
+              {isSuccessed && (
+              <Modal
+                isOpen={isSuccessed}
+                onClose={() => {
+                  setIsSuccessed(false);
+                  router.push("/");
+                }}
+                bigtext="결제가 완료되었습니다!"
+                confirm="주문 정보 확인"
+                cancel="확인"
+                onConfirmClick={() => {
+                  setIsSuccessed(false);
+                  router.push("/mypage")
+                }}
+              />
+              )}
           </Pay_Container>
         </Bottom_Container>
       </Main_Inner_Container>
