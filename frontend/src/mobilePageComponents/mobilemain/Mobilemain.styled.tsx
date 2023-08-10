@@ -7,7 +7,7 @@ const StyledBox = styled.div.attrs<any>((props) => ({}))`
 
     return css`
       width: 80%;
-      height: 92px;
+      height: 140px;
       padding-right: 8px;
       border: 1px solid ${lightgray};
       border-radius: 10px;
@@ -16,6 +16,7 @@ const StyledBox = styled.div.attrs<any>((props) => ({}))`
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     `;
   }};
 `;
@@ -41,7 +42,7 @@ const StyledText = styled.div.attrs<any>((props) => ({}))`
     const size = props.theme.fontSizes.small;
 
     return css`
-      width: 50%;
+      width: 120px;
       color: ${color};
       font-family: ${font};
       font-size: ${size};
