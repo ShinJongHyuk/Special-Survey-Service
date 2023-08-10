@@ -30,6 +30,7 @@ export interface SettingSurveyApiState {
   setType: (value: string) => void;
   setSurveyTarget: (value: any) => void;
   setImg: (value: any) => void;
+  resetSettingSurveyData: () => void;
 }
 
 const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
@@ -66,6 +67,20 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
             const updatedsurveyTarget = [...state.surveyTarget, value];
             return { surveyTarget: updatedsurveyTarget };
           }
+        });
+      },
+      resetSettingSurveyData: () => {
+        set({
+          title: '',
+          titleContent: '',
+          conditionText: '',
+          conditionContent: '',
+          closedHeadCount: 0,
+          startTime: '',
+          endTime: '',
+          type: '',
+          img: '',
+          surveyTarget: [],
         });
       },
     }),

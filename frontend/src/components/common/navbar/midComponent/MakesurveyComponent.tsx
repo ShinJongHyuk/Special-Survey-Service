@@ -12,11 +12,13 @@ import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
 import usePriceStore from "@/stores/usePriceStore";
 
 
+
 const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
     const router = useRouter();
+    const {resetSettingSurveyData} = useSettingSurveyApiStore();
     const {surveyList} = useMakeSurveyApiStore();
-    const {surveyComponents} = useSurveyStore();
+    const {surveyComponents,resetSurveyComponents} = useSurveyStore();
     const {price,decrement} = usePriceStore();
     
     const {
@@ -77,7 +79,8 @@ const MakesruveyComponent = (props: any) => {
               }
           }
           return false;
-      });
+          });
+
         const Outer_hasEmptyValue =
             surveyData.title === "" ?
             (alert("설문 제목을 입력해주세요."), true) :
@@ -106,6 +109,11 @@ const MakesruveyComponent = (props: any) => {
 
 
     };
+    const handleResetButtonClick = () => {
+      resetSettingSurveyData(); 
+      resetSurveyComponents();
+    };
+
     return (
         <StyledMidComp pathname={pathname}>
 
@@ -118,7 +126,7 @@ const MakesruveyComponent = (props: any) => {
             </div>
             <div style={{ display: "flex", gap: "10px" }}>
                 <div style={{ width: "93px", height: "35px" }}>
-                    <Button use="gray" label="임시저장" />
+                    <Button use="gray" label="초기화" onClick={handleResetButtonClick} />
                 </div>
                 <div style={{ width: "93px", height: "35px" }}>
                     <Button use="longYellow" label="생성하기" onClick={handleCreateButtonClick} />

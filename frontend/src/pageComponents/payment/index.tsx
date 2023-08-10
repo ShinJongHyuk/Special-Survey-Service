@@ -95,6 +95,14 @@ function Payment(props: any) {
 
 
   const handlePaymentButtonClick = () => { 
+    const questions = surveyComponents.map((component, index) => {
+      const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
+      return {
+        ...dataWithoutComponentKey,
+        questionNumber: index + 1 
+      };
+    })
+    .filter(data => data !== undefined);
     const surveyData = {
       title,
       titleContent,
@@ -104,14 +112,7 @@ function Payment(props: any) {
       type,
       surveyTarget,
       img,
-      questions: surveyComponents.map((component, index) => {
-        const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
-        return {
-          ...dataWithoutComponentKey,
-          questionNumber: index + 1 
-        };
-      })
-      .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
+      questions,
       giveaways: selectedOption.map(selected => ({
         id: selected.option.id,
         count: selected.option.count,
