@@ -6,29 +6,34 @@ import MidComponent from "./midComponent";
 import { useSurveylistStore } from "@/stores/surveylist/useSurveylistStore";
 import EndComponent from "./endComponent";
 import Link from "next/link";
+import useIsMobileHook from "@/Hooks/useIsMobileHook";
+import Mobilenavbar from "./mobilenavbar";
 
 const NavbarComponent = () => {
   const pathname = usePathname();
   const selectBtn = useSurveylistStore((state) => state.selectBtn);
 
+  const isMobile = useIsMobileHook();
 
   return (
     <header>
-      <StyledNavbar pathname={pathname} selectBtn={selectBtn}>
-        <StyledStartComp pathname={pathname}>
-          <Link href="/" >
+      {isMobile ? (
+        <Mobilenavbar />
+      ) : (
+        <StyledNavbar pathname={pathname} selectBtn={selectBtn}>
+          <StyledStartComp pathname={pathname}>
+            <Link href="/">
+              <Image src="/Logo.svg" priority={true} width={21} height={21} alt="Logo"></Image>
+              <Image src="/SSS.svg" priority={true} width={47} height={16} alt="SSS"></Image>
+            </Link>
+          </StyledStartComp>
 
-            <Image src="/Logo.svg" priority={true} width={21} height={21} alt="Logo"></Image>
-            <Image src="/SSS.svg" priority={true} width={47} height={16} alt="SSS"></Image>
-          </Link>
-        </StyledStartComp>
+          <MidComponent pathname={pathname} />
 
-        <MidComponent pathname={pathname} />
-
-        <EndComponent />
-
-      </StyledNavbar>
-    </header >
+          <EndComponent />
+        </StyledNavbar>
+      )}
+    </header>
   );
 };
 

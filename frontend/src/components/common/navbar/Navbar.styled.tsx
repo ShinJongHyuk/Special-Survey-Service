@@ -29,7 +29,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
     }
 
     if (props.pathname.includes("surveyAnswer")) {
-      bgColor = "#white"
+      bgColor = "#white";
     }
 
     return css`
@@ -59,8 +59,12 @@ const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
 const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     const size = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "85%" : "60%";
-    const jc = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "space-between" : 
-    props.pathname === "/payment" ?  "space-between"  : "center";
+    const jc =
+      props.pathname === "/makesurvey" || props.pathname === "/surveyresult"
+        ? "space-between"
+        : props.pathname === "/payment"
+        ? "space-between"
+        : "center";
     const ai = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "center" : "";
     return css`
       width: ${size};
@@ -150,7 +154,7 @@ const StyledProfileName = styled.div`
 const StyledTitleInput = styled.input.attrs({ placeholder: "설문지 제목" })`
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-weight: 800;
-  height : 30px;
+  height: 30px;
   font-size: ${(props) => props.theme.fontSizes.medium};
   color: ${(props) => props.theme.colors.black};
   background-color: ${(props) => props.theme.colors.white};
