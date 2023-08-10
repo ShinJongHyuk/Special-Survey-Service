@@ -7,7 +7,8 @@ const StyledCard = styled.div.attrs<SurveycardType>((props) => ({}))`
     const bgcolor = props.theme.colors.white;
     const purple = props.theme.colors.purple;
     const lightgray = props.theme.colors.lightgray;
-    const bcolor = props.typename === "NORMAL" ? purple : lightgray;
+    const bcolor = props.typename === "타임어택" ? "#c6b6ff" : lightgray;
+    const bsize = props.typename === "타임어택" ? "3px" : "1px";
 
     return css`
       width: 100%;
@@ -18,7 +19,7 @@ const StyledCard = styled.div.attrs<SurveycardType>((props) => ({}))`
       justify-content: space-evenly;
 
       border-radius: 13px;
-      border: 1px solid ${bcolor};
+      border: ${bsize} solid ${bcolor};
       background-color: ${bgcolor};
 
       cursor: pointer;
@@ -50,8 +51,14 @@ const StyledCardHeader = styled.div.attrs<SurveycardType>((props) => ({}))`
       width: 100%;
       align-items: flex-start;
 
-      .title {
+      .titletext {
         font-size: ${small};
+        //
+        width: 160px;
+        height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         color: ${black};
       }
 
@@ -70,7 +77,7 @@ const StyledProbability = styled.div.attrs<SurveycardType>((props) => ({}))`
     const purple = props.theme.colors.purple;
     const orange = props.theme.colors.orange;
     const black = props.theme.colors.black;
-    const color = props.typename === "NORMAL" ? purple : orange;
+    const color = props.type === "NORMAL" ? purple : orange;
     const font2 = props.theme.fonts.HangeulFontSemiBold;
     const xsmall = props.theme.fontSizes.xsmall;
 
@@ -79,7 +86,7 @@ const StyledProbability = styled.div.attrs<SurveycardType>((props) => ({}))`
       align-items: center;
       gap: 6px;
 
-      .text {
+      .percent {
         font-family: ${font};
         font-size: ${medium};
         color: ${color};

@@ -44,7 +44,7 @@ const Surveycard = (props: SurveycardType) => {
       <StyledImg src={imgsrc} {...newProps} />
       <StyledCardRight>
         <StyledCardHeader {...newProps}>
-          <div className="title">{props.title}</div>
+          <div className="titletext">{props.title}</div>
           <div className="writer" {...props}>
             {props.nickname}
           </div>
@@ -68,7 +68,7 @@ const Surveycard = (props: SurveycardType) => {
         </StyledRemainTime>
 
         <StyledProbability {...newProps}>
-          {props.typename === "NORMAL" ? (
+          {props.type === "NORMAL" ? (
             <Image src="/card/percent.svg" priority={true} width={22} height={22} alt="remaintime" />
           ) : (
             <Image src="/card/orangepercent.svg" priority={true} width={22} height={22} alt="remaintime" />
@@ -81,7 +81,7 @@ const Surveycard = (props: SurveycardType) => {
               <div className="speedy"> 소요 </div>
             </div>
           ) : (
-            <div className="text" {...newProps}>
+            <div className="percent" {...newProps}>
               {formattedProbability}
             </div>
           )}

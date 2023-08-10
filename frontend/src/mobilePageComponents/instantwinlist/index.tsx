@@ -1,7 +1,7 @@
 "use client";
 import Mobiletitle from "@/mobileComponents/mobiletitle";
 import Cardlist from "@/mobileComponents/cardlist";
-import useInstantHook from "@/Hooks/mainpage/useInstantHook";
+import useInstantHook from "@/Hooks/mobilelistpage/useInstantHook";
 
 const Instantwinlist = () => {
   const { cards } = useInstantHook();
