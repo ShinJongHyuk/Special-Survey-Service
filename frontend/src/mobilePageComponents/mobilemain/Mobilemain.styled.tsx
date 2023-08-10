@@ -42,7 +42,7 @@ const StyledText = styled.div.attrs<any>((props) => ({}))`
     const size = props.theme.fontSizes.small;
 
     return css`
-      width: 120px;
+      width: 137px;
       color: ${color};
       font-family: ${font};
       font-size: ${size};
