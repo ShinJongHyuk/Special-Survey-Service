@@ -1,12 +1,13 @@
 import useUserStore from "@/stores/useUserStore";
-import { useState, useEffect } from "react";
 import userDetailGet from "@/api/user/userDetailGet";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+
 export const useLoginHook = () => {
   const setUserInformation = useUserStore((state: any) => state.setUserInformation);
   const login = useUserStore((state: any) => state.login);
   const router = useRouter();
-
+  const pathname: string = usePathname();
+  const ignorePathName = ["/", "/surveylist", "/login", "/signup"];
   const refreshUserInformation = async () => {
     const userInfo = await userDetailGet();
     if (userInfo) {
@@ -14,6 +15,10 @@ export const useLoginHook = () => {
       setUserInformation(userInfo);
       return;
     }
+    if (ignorePathName.includes(pathname) || pathname.startsWith("/surveydetail")) {
+      return;
+    }
+
     router.push("/");
   };
 
