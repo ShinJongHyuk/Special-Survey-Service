@@ -20,6 +20,8 @@ import Calendar from '/public/survey/Calendar.png'
 import People from '/public/survey/People.png'
 import Category from '/public/survey/Category.png'
 import Present from '/public/payment/present.svg'
+import BackButton from '/public/payment/Back_Button.png'
+
 import Kite from '/public/payment/kite.svg'
 import Button from '@/components/button';
 import ItemBox from '@/components/ItemBox';
@@ -225,11 +227,15 @@ function Payment(props: any) {
     }
   };
   
+  const handleGoBack = () => {
+    router.push('/makesurvey');
+  };
 
   return (
     <>
     <Main_Container>
       <Main_Inner_Container>
+        <Image src={BackButton} alt="뒤로가기" style={{marginRight : "90%"}} onClick={handleGoBack} />
         <Top_Container>
           <Title_Text>결제 Page</Title_Text> 
           <Image src={Woman_Img} width={170} height={150} alt="컴퓨터 하는 여자" style={{display : 'flex', alignItems : 'flex-end' , marginTop : "32px"}} />
