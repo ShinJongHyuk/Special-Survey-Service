@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const StyledTitle = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
-    const font = props.theme.fonts.HangeulFontRegular;
+    const font = props.theme.fonts.EnglishFontLight;
     const color = props.theme.colors.black;
     const size = props.theme.fontSizes.mediumlarge;
 
@@ -14,6 +14,7 @@ const StyledTitle = styled.div.attrs<any>((props) => ({}))`
       font-size: ${size};
       text-align: center;
       padding-top: 97px;
+      padding-bottom: 30px;
     `;
   }};
 `;
