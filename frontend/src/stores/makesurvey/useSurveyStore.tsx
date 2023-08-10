@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware';
 export interface SurveyStore {
   surveyComponents: any[];
   setSurveyComponents: (components: any) => void;
+  resetSurveyComponents: () => void;
 }
 
 const useSurveyStore = create<SurveyStore>()(
@@ -11,6 +12,7 @@ const useSurveyStore = create<SurveyStore>()(
     (set) => ({
       surveyComponents: [], 
       setSurveyComponents: (components) => set({ surveyComponents: components }),
+      resetSurveyComponents: () => set({ surveyComponents: [] }),
     }),
     {
       name: 'surveyStore',
