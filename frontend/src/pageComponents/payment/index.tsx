@@ -30,7 +30,7 @@ import giveawayListGet from "@/api/payment/givawaylist/giveawayListGet";
 import paymentDataPost from "@/api/payment/paymentdata/paymentDataPost";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Woman_Img from "/public~/payment/Woman_Img.svg";
+import Woman_Img from "/public/payment/Woman_Img.svg";
 import Target from "/public/survey/Target.png";
 import Calendar from "/public/survey/Calendar.png";
 import People from "/public/survey/People.png";
