@@ -15,8 +15,8 @@ const Cardlist = (props: any) => {
               title={survey.title}
               nickname={survey.writerName}
               type={survey.surveyCategoryType}
-              //   giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
-              giveaways={survey.surveyGiveaways}
+              giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
+              // giveaways={survey.surveyGiveaways}
               probability={survey.winningPercent + "%"}
               remaintime={survey.remainTime || ""}
               endtime={survey.endTime}

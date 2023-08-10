@@ -7,6 +7,8 @@ const StyledCardList = styled.div.attrs<any>((props) => ({}))`
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      flex-direction: column;
+      gap: 20px;
     `;
   }};
 `;
