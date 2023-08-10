@@ -51,7 +51,7 @@ const MultipleChoiceComponent = (props:any) => {
                     <RadioFlex key={multipleChoice.id}>
                         <RadioInput id={multipleChoice.id} name={questionNumber} onClick={onClick(multipleChoice)} goQuestion={multipleChoice.linkNumber}/>
                         <RadioLabel htmlFor={multipleChoice.id}>{multipleChoice.content}</RadioLabel>
-                        <LinkSign>{multipleChoice.linkNumber ? `(${multipleChoice.linkNumber}번 문항으로 이동)` : null}</LinkSign>
+                        {/* <LinkSign>{multipleChoice.linkNumber ? `(${multipleChoice.linkNumber}번 문항으로 이동)` : null}</LinkSign> */}
                     </RadioFlex>
                 )
             })}

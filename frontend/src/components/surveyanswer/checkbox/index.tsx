@@ -34,7 +34,7 @@ const CheckBoxComponent = (props:any) => {
                     <CheckBoxFlex key={multipleChoice.id}>
                         <CheckBoxInput type="checkbox" disabled={props.disabled} name={questionNumber} id={multipleChoice.id} onClick={onClick(multipleChoice)}/>
                         <CheckBoxLabel htmlFor={multipleChoice.id} >{multipleChoice.content}</CheckBoxLabel>
-                        <LinkSign>{multipleChoice.linkNumber ? `(${multipleChoice.linkNumber}번 문항으로 이동)` : null}</LinkSign>
+                        {/* <LinkSign>{multipleChoice.linkNumber ? `(${multipleChoice.linkNumber}번 문항으로 이동)` : null}</LinkSign> */}
                     </CheckBoxFlex>
                 )
             })}

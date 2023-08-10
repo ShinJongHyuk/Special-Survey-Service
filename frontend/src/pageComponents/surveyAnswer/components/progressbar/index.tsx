@@ -36,15 +36,6 @@ const ProgressBarComponent = (props: propsType) => {
     },[])
 
     useEffect(() => {
-        console.log(answer.length,"1")
-        console.log(count.length,"2")
-        console.log(dateAnswer.length,"3")
-        console.log(timeAnswer.length,"4")
-        console.log(props.questionsCount,"5")
-        console.log(linkNumber.length,"6")
-    },[props.questionsCount, linkNumber])
-
-    useEffect(() => {
         console.log(answer.length)
         if (checkBoxAnswer.length === 0) {
             setCount([])
