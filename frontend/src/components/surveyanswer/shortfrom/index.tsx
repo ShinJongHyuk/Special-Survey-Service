@@ -22,7 +22,6 @@ const ShortFormComponent = (props:any) => {
     const removeLinkAnswer = useSurveyAnswerStore((state:any) => state.removeLinkAnswer)
 
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
-    const [ disabled, setDisabled] = useState(true)
 
     useEffect(() => {
         if (result.shortFormAnswer.length === 0) {
@@ -32,10 +31,7 @@ const ShortFormComponent = (props:any) => {
 
     useEffect(() => {
         if (linkNumber.includes(questionNumber)) {
-            setDisabled(true)
             removeLinkAnswer(questionId)
-        } else {
-            setDisabled(false)
         }
     },[linkNumber])
 
@@ -52,7 +48,7 @@ const ShortFormComponent = (props:any) => {
     
     
     return (
-        <ShortInput disabled={disabled} placeholder="단답형 텍스트" onChange={onChange}/>
+        <ShortInput disabled={props.disabled} placeholder="단답형 텍스트" onChange={onChange}/>
     )
 }
 
