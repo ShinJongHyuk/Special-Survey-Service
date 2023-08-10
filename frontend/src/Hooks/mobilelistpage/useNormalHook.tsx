@@ -1,26 +1,34 @@
 import { useState, useEffect } from "react";
 import useTimerHook from "@/Hooks/card/useTimerHook";
-import timeListGet from "@/api/surveylist/timeListGet";
-import userTimeListGet from "@/api/surveylist/userTimeListGet";
+import normalListGet from "@/api/surveylist/normalListGet";
+import userNormalListGet from "@/api/surveylist/userNormalListGet";
 
-const useSpeedyHook = () => {
+const useNormalHook = () => {
   const [cards, setCards] = useState<any>([]);
 
   useEffect(() => {
     const fetchList = async () => {
       const accessToken = localStorage.getItem("accessToken");
+
       if (!accessToken) {
-        const data = await timeListGet();
+        const data = await normalListGet();
+
+        if (!data) {
+          return <div> loading... </div>;
+        }
         const sortData = data.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
         });
-        setCards(sortData.slice(0, 5));
+        setCards(sortData);
       } else {
-        const data = await userTimeListGet(accessToken);
+        const data = await userNormalListGet(accessToken);
+        if (!data) {
+          return <div> loading... </div>;
+        }
         const sortData = data.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
         });
-        setCards(sortData.slice(0, 5));
+        setCards(sortData);
       }
     };
     fetchList();
@@ -39,4 +47,4 @@ const useSpeedyHook = () => {
 
   return { cards };
 };
-export default useSpeedyHook;
+export default useNormalHook;

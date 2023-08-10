@@ -1,15 +1,14 @@
+"use client";
 import MainPage from "@/pageComponents/mainPage";
-import { Metadata } from 'next'
+import { Metadata } from "next";
+import useIsMobileHook from "@/Hooks/useIsMobileHook";
+import Mobilemain from "@/mobilePageComponents/mobilemain";
 
 export const metadata: Metadata = {
-  title: 'SSS',
-}
-
+  title: "SSS",
+};
 
 export default function Home() {
-  return (
-    <>
-      <MainPage></MainPage>
-    </>
-  );
+  const isMobile = useIsMobileHook();
+  return <>{isMobile ? <Mobilemain /> : <MainPage></MainPage>}</>;
 }

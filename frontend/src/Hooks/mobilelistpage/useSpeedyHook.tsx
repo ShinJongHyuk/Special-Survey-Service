@@ -9,18 +9,26 @@ const useSpeedyHook = () => {
   useEffect(() => {
     const fetchList = async () => {
       const accessToken = localStorage.getItem("accessToken");
+
       if (!accessToken) {
         const data = await timeListGet();
+
+        if (!data) {
+          return <div> loading... </div>;
+        }
         const sortData = data.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
         });
-        setCards(sortData.slice(0, 5));
+        setCards(sortData);
       } else {
         const data = await userTimeListGet(accessToken);
+        if (!data) {
+          return <div> loading... </div>;
+        }
         const sortData = data.map((prev: any) => {
           return { ...prev, remainTime: useTimerHook(prev.endTime) };
         });
-        setCards(sortData.slice(0, 5));
+        setCards(sortData);
       }
     };
     fetchList();
