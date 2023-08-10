@@ -16,19 +16,27 @@ const CheckBoxInput = styled.input.attrs<any>((props) =>({
   type: "checkbox",
   disabled : props.disabled
 }))`
+  position: relative;
   margin-right: 8px;
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #ccc;
   cursor: pointer;
 
   &:checked {
-    background-color: black;
+    background-color: ${(props) => props.surveyCategoryType === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange};;
   }
 
-  &:checked + label {
-    color : black
+  &:checked::before {
+    content: "\\2714"; 
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    font-size: 14px;
+    color: white;
   }
 `;
 

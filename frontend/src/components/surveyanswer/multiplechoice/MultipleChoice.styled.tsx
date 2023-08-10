@@ -20,17 +20,37 @@ const RadioFlex = styled.div.attrs<any>((props) => ({}))`
 `
 
 const RadioInput = styled.input.attrs<any>((props) => ({
-  type:"radio"
+  type: "radio"
 }))`
+  position: relative; /* Add this */
   margin-right: 8px;
   width: 16px;
   height: 16px;
-  cursor: pointer;
-  &:checked {
-    background-color: black;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  outline: none;
+  transition: border-color 0.3s;
+
+  &:hover {
+    border-color: ${(props) => props.surveyCategoryType === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange};
   }
-  &:checked + label{
-    color : black;
+
+  &:checked {
+    border-color: ${(props) => props.surveyCategoryType === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange};
+    background-color: white;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%);
+      width: 8px; 
+      height: 8px;
+      border-radius: 50%;
+      background-color: ${(props) => props.surveyCategoryType === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange};
+    }
   }
 `;
 
