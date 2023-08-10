@@ -22,16 +22,17 @@ const ProgressBarComponent = (props: propsType) => {
     const timeAnswer = useSurveyAnswerStore((state:any) => state.timeAnswer)
     const resetTimeAnswer = useSurveyAnswerStore((state:any) => state.resetTimeAnswer)
     const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
+    const resetLinkNumber = useSurveyAnswerStore((state:any) => state.resetLinkNumber)
     const [count, setCount] = useState<any>([]) 
     const percentage = answer && ((answer.length + count.length + dateAnswer.length + timeAnswer.length)/(props.questionsCount-linkNumber.length)) * 100
     const viewPercentage = Math.round(percentage)
-
 
     useEffect(() => {
         resetAnswer()
         resetCheckBox()
         resetDateAnswer()
         resetTimeAnswer()
+        resetLinkNumber()
     },[])
 
     useEffect(() => {
@@ -77,7 +78,7 @@ const ProgressBarComponent = (props: propsType) => {
     return (
         <ProgressContainer>
             <ProgressBar type={props.type} width={percentage} onClick={onClick}></ProgressBar>
-            <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제 출" : `${viewPercentage}%`}</ProgressBarPercentage>
+            <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
         </ProgressContainer>
     )
 }
