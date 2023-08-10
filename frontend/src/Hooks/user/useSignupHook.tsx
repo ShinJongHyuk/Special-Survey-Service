@@ -242,14 +242,20 @@ export const useSignupHook = ():SignupHookType => {
     }
 
     const duplicationEmail = async () => {
-        console.log(user.email)
+        // console.log(user.email)
         if (user.email) {
             try {
                 const res = await duplicationEmailPost(user.email)
                 if (res.data.success === true) {
-                    setIsEmailCert(true)
-                    alert('이메일인증에 성공하였습니다.')
-                } else if (res.data.success === false) {
+                    if (res.data.response.duplicate === true) {
+                        setIsEmailCert(false)
+                        alert('이미 사용중인 이메일입니다.')
+                    } else if (res.data.response.duplicate === false) {
+                        setIsEmailCert(true)
+                        alert('이메일인증에 성공하였습니다.')
+                    }
+                }
+                 else if (res.data.success === false) {
                     alert(res.data.apiError.message)
                 }
             } catch(err) {
@@ -269,12 +275,17 @@ export const useSignupHook = ():SignupHookType => {
         if (user.phoneNumber) {
             try {
                 const res = await duplicationPhoneNumberPost(user.phoneNumber)
-                if (res.data.response.duplicate === false) {
-                    alert('사용 가능한 휴대폰 번호입니다.')
-                    setIsPhoneNumberCert(false)
-                } else if (res.data.response.duplicate === true) {
-                    alert('이미 사용중인 휴대폰 번호입니다.')
+                if (res.data.success === true) {
+                    if (res.data.response.duplicate === false) {
+                        alert('사용 가능한 휴대폰 번호입니다.')
+                        setIsPhoneNumberCert(false)
+                    } else if (res.data.response.duplicate === true) {
+                        alert('이미 사용중인 휴대폰 번호입니다.')
+                    }
+                } else if (res.data.success === false) {
+                    alert(res.data.apiError.message)
                 }
+                
             } catch(err) {
                 console.log(err)
             }
