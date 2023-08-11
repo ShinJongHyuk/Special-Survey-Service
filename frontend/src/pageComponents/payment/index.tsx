@@ -12,7 +12,6 @@ import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import giveawayListGet from '@/api/payment/givawaylist/giveawayListGet';
 import paymentDataPost from '@/api/payment/paymentdata/paymentDataPost';
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react';
 import Image from 'next/image'
 import Woman_Img from '/public/payment/Woman_Img.svg'
 import Target from '/public/survey/Target.png'
@@ -59,7 +58,7 @@ function Payment(props: any) {
   const userInformation = useUserStore((state:any) => state.userInformation)
   const [isSuccessed, setIsSuccessed] = useState(false);
   const router = useRouter();
-
+  console.log(surveyList)
   const questions = surveyComponents.map((component, index) => {
     const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
     return {
@@ -121,7 +120,7 @@ function Payment(props: any) {
         count: selected.option.count,
       })),
     };
-  
+
     // API 로직
     makeSurveyPost(surveyData)
       .then((responseData) => {
@@ -139,7 +138,6 @@ function Payment(props: any) {
             const {IMP} = window;
             if (!window.IMP) return;
             IMP.init(StoreId)
-
             const orderInfo = {
               pg : 'kakaopay',
               pay_method : 'card',
@@ -150,18 +148,18 @@ function Payment(props: any) {
               buyer_name : userInformation.name,
               buyer_tel : userInformation.phoneNumber,
               buyer_addr : '부산광역시 강서구 명지동',
-              buyer_postcode : '123-456'
+              buyer_postcode : '123-456',
             };
 
             function callback(response : any) {
+            
               const authenticateData = {
                 amount : response.paid_amount,
                 orderId : response.merchant_uid,
                 status : response.status,
                 impUid : response.imp_uid
               }
-              
-              console.log(authenticateData)
+             
               authenticationDataPost(authenticateData)
               .then((response) => {
                 if (response.isSucess === "paid") {

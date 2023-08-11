@@ -38,7 +38,7 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
 
 
     useEffect(() => {
-      
+      console.log(items)
       const multipleChoicesData = items.map((item) => ({
         content: item.text,
         linkNumber: item.linkNumber,

@@ -34,10 +34,6 @@ function MakeSettings() {
       return number.toString().padStart(2, '0');
     }
 
-    const toggleCondition = () => {
-      setConditionVisible(!conditionVisible);
-    };
-
     const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTitle(event.target.value)
     };
