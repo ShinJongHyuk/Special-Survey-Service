@@ -14,7 +14,6 @@ const Mypage = () => {
     const fetchList = async () => {
       const data = await userDetailGet();
       setUserInformation(data);
-      console.log("mypage :", data);
     };
     fetchList();
   }, []);
