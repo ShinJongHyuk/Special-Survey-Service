@@ -3,7 +3,7 @@ export interface ModalType {
   onClose: () => void;
   bigtext: string;
   smalltext?: string;
-  cancel: string;
+  cancel?: string;
   confirm: string;
 
   contenttype?: string;

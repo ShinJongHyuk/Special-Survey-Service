@@ -37,10 +37,12 @@ import People from "/public/survey/People.png";
 import Category from "/public/survey/Category.png";
 import Present from "/public/payment/present.svg";
 import BackButton from "/public/payment/Back_Button.png";
+import Modal from "@/components/modal";
+import Kite from '/public/payment/kite.svg'
+import Button from '@/components/button';
+import ItemBox from '@/components/ItemBox';
 
-import Kite from "/public/payment/kite.svg";
-import Button from "@/components/button";
-import ItemBox from "@/components/ItemBox";
+
 
 interface GiveawayData {
   id: string;
@@ -53,13 +55,23 @@ declare const window: typeof globalThis & {
 function Payment(props: any) {
   const { title, setTitle, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img } = useSettingSurveyApiStore();
   const StoreId = process.env.NEXT_PUBLIC_STOREID;
-  const { price, increment, decrement } = usePriceStore();
-  const { surveyList } = useMakeSurveyApiStore();
-  const { surveyComponents } = useSurveyStore();
-  const [giveawaydata, setGiveaWayData] = useState<GiveawayData[]>([]);
-  const [selectedOption, setSelectedOption] = useState<any[]>([]);
-  const userInformation = useUserStore((state: any) => state.userInformation);
+  const {price,increment,decrement} = usePriceStore();
+  const {surveyList} = useMakeSurveyApiStore();
+  const {surveyComponents} = useSurveyStore();
+  const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([]);
+  const [selectedOption,setSelectedOption] = useState<any[]>([]);
+  const userInformation = useUserStore((state:any) => state.userInformation)
+  const [isSuccessed, setIsSuccessed] = useState(false);
   const router = useRouter();
+  console.log(surveyList)
+  const questions = surveyComponents.map((component, index) => {
+    const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
+    return {
+      ...dataWithoutComponentKey,
+      questionNumber: index + 1 
+    };
+  })
+  .filter(data => data !== undefined);
 
   const surveyTargetDict: any = {
     MAN: "남성",
@@ -95,16 +107,7 @@ function Payment(props: any) {
     checkLoginStatus();
   }, []);
 
-  const handlePaymentButtonClick = () => {
-    const questions = surveyComponents
-      .map((component, index) => {
-        const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
-        return {
-          ...dataWithoutComponentKey,
-          questionNumber: index + 1,
-        };
-      })
-      .filter((data) => data !== undefined);
+  const handlePaymentButtonClick = () => { 
     const surveyData = {
       title,
       titleContent,
@@ -151,38 +154,38 @@ function Payment(props: any) {
                 buyer_postcode: "123-456",
               };
 
-              function callback(response: any) {
-                const authenticateData = {
-                  amount: response.paid_amount,
-                  orderId: response.merchant_uid,
-                  status: response.status,
-                  impUid: response.imp_uid,
-                };
-
-                console.log(authenticateData);
-                authenticationDataPost(authenticateData)
-                  .then((response) => {
-                    if (response.isSucess === "paid") {
-                      console.log(response, "결제 완료");
-                      alert("결제가 정상적으로 완료되었습니다");
-                      router.push("/");
-                    } else {
-                      console.log("결제 실패");
-                      alert("결제에 실패하였습니다");
-                      return;
-                    }
-                  })
-                  .catch((error) => {
-                    console.log("검증에 실패하였습니다", error);
-                    alert("결제에 실패하였습니다");
-                    return;
-                  });
+            function callback(response : any) {
+            
+              const authenticateData = {
+                amount : response.paid_amount,
+                orderId : response.merchant_uid,
+                status : response.status,
+                impUid : response.imp_uid
               }
-              IMP.request_pay(orderInfo, callback);
-            })
-            .catch((error) => {
-              console.error("상품 정보 제출에 실패하였습니다", error);
-            });
+             
+              authenticationDataPost(authenticateData)
+              .then((response) => {
+                if (response.isSucess === "paid") {
+                console.log(response,"결제 완료")
+                setIsSuccessed(true);
+
+                } else {
+                  console.log("결제 실패")
+                  alert("결제에 실패하였습니다")
+                  return
+                }
+              })
+              .catch((error => {
+                console.log("검증에 실패하였습니다",error)
+                alert("결제에 실패하였습니다")
+                return
+              }))
+            }
+            IMP.request_pay(orderInfo,callback)
+
+          }).catch((error) => {
+            console.error("상품 정보 제출에 실패하였습니다", error);
+          });
         }
       })
       .catch((error) => {
@@ -282,55 +285,58 @@ function Payment(props: any) {
                 <Image src={Kite} alt="연" style={{ transform: "rotate(30deg)", width: "150px", marginLeft: "300px", marginBottom: "20%" }} />
                 <Image src={Present} alt="선물상자 " />
               </Image_Wrapper>
-            </Information_Container>
-            <Pay_Container>
-              <Info_Inner_Box style={{ alignItems: "flex-start", height: "9%", padding: "0px 12px" }}>상품리스트</Info_Inner_Box>
-              <SelectBox>
-                <SelectBox_List onChange={handleOptionChange}>
-                  <option key="0" value="">
-                    상품을 선택하세요
-                  </option>
-                  {giveawaydata &&
-                    giveawaydata.map((item: any) => (
-                      <SelectBox_Option key={item.id} value={item}>
-                        {item.name}
-                      </SelectBox_Option>
-                    ))}
-                </SelectBox_List>
-              </SelectBox>
-              <Selected_Box>
-                {selectedOption.length > 0 && (
-                  <div>
-                    {selectedOption.map((selected, index: number) => (
-                      <div key={selected.componentKey}>
-                        <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange} />
-                        <Button
-                          onClick={() => handleOptionRemove(index)}
-                          use="blackwhite"
-                          label="삭제하기"
-                          style={{
-                            alignItems: "center",
-                            height: "6%",
-                            fontSize: "16px",
-                            marginTop: "2px",
-                            borderRadius: "4px",
-                            border: "3px solid yellow",
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
+          </Information_Container>
+          <Pay_Container>
+            <Info_Inner_Box style={{ alignItems: "flex-start", height: "9%", padding: "0px 12px" }}>
+              상품리스트
+            </Info_Inner_Box>
+            <SelectBox>
+              <SelectBox_List onChange={handleOptionChange}>
+                <option key="0" value="">상품을 선택하세요</option>
+                {giveawaydata && giveawaydata.map((item: any) => (
+                  <SelectBox_Option key={item.id} value={item}>
+                    {item.name}
+                  </SelectBox_Option>
+                ))}
+              </SelectBox_List>
+            </SelectBox>
+            <Selected_Box>
+              {selectedOption.length > 0 && (
+                <div>
+                  {selectedOption.map((selected, index: number) => (
+                    <div key={selected.componentKey}>
+                      <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange} />
+                      <Button onClick={() => handleOptionRemove(index)} use="blackwhite" label="삭제하기" style={{alignItems : "center", height : "6%", fontSize : "16px", marginTop : "2px",borderRadius : "4px",border : "3px solid yellow"}} />       
+                </div>
+                  ))}
+                </div>
                 )}
-              </Selected_Box>
-              <Info_Inner_Box style={{ alignItems: "center", height: "6%", fontSize: "18px", marginTop: "10px" }}>총 금액 : {price}원</Info_Inner_Box>
-              <div style={{ width: "90%", height: "8%" }}>
-                <Button onClick={handlePaymentButtonClick} use="longYellow" label="결제하기" />
-              </div>
-            </Pay_Container>
-          </Bottom_Container>
-        </Main_Inner_Container>
-      </Main_Container>
-    </>
+            </Selected_Box>
+            <Info_Inner_Box style={{alignItems : "center", height : "6%", fontSize : "18px", marginTop : "10px"}}>총 금액 : {price}원</Info_Inner_Box>
+            <div style={{ width: "90%", height: "8%" }}>
+                 <Button onClick={handlePaymentButtonClick} use="longYellow" label="결제하기" />
+            </div>
+              {isSuccessed && (
+              <Modal
+                isOpen={isSuccessed}
+                onClose={() => {
+                  setIsSuccessed(false);
+                  router.push("/");
+                }}
+                bigtext="결제가 완료되었습니다!"
+                confirm="주문 정보 확인"
+                cancel="확인"
+                onConfirmClick={() => {
+                  setIsSuccessed(false);
+                  router.push("/mypage")
+                }}
+              />
+              )}
+          </Pay_Container>
+        </Bottom_Container>
+      </Main_Inner_Container>
+    </Main_Container>
+  </>
   );
 }
 

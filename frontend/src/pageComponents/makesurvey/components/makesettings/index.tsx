@@ -13,7 +13,6 @@ import useSettingSurveyApiStore from '../../../../stores/makesurvey/useSettingSu
 
 
 function MakeSettings() {
-    const [conditionVisible, setConditionVisible] = useState(false); 
     const {
       title,
       setTitle,
@@ -34,10 +33,6 @@ function MakeSettings() {
     function formatNumber(number : number) {
       return number.toString().padStart(2, '0');
     }
-
-    const toggleCondition = () => {
-      setConditionVisible(!conditionVisible);
-    };
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTitle(event.target.value)
@@ -191,10 +186,9 @@ function MakeSettings() {
               
               <Condition_Title>
                 설문 조건
-                <Image src={conditionVisible ? List_Up : List_Down} style={{cursor : 'pointer'}} alt="리스트 열림 닫힘" onClick={toggleCondition} />
+                {/* <Image src={conditionVisible ? List_Up : List_Down} style={{cursor : 'pointer'}} alt="리스트 열림 닫힘" onClick={toggleCondition} /> */}
               </Condition_Title>
             </Condition_Inner_Container>
-            {conditionVisible && (
             <>
              <Condition_Detail_Content>
                 <Condition_Detail_Title>
@@ -318,7 +312,7 @@ function MakeSettings() {
                   </Element_Detail_Inner_Container>
              </Element_Detail_Container>
              </>
-            )}
+
          
           </Survey_Detail_Container>
         </Survey_Inner_Container>

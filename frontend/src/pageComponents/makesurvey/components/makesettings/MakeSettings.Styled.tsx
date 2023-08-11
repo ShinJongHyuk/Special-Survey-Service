@@ -4,7 +4,7 @@ import TextAreaAutoSize from 'react-textarea-autosize'
 const Survey_Container = styled.div.attrs({})`
     display: flex;
     width: 100%;
-    min-height: 210%;
+    min-height: 260%;
     justify-content: center;
 
     background-image: url("/survey/background_survey5.png");
