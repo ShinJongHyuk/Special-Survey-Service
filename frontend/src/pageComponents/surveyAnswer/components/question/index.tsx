@@ -1,6 +1,6 @@
 'use client'
 // import { StyledTag } from '@/components/card/Card.styled'
-import { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag, Surveycontent } from './Question.styled'
+import { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag, Surveycontent, SurveyImage } from './Question.styled'
 import MultipleChoice from "@/components/surveyanswer/multiplechoice"
 import CheckBox from "@/components/surveyanswer/checkbox"
 import ShortForm from "@/components/surveyanswer/shortfrom"
@@ -8,6 +8,7 @@ import DateForm from "@/components/surveyanswer/dateform"
 import TimeForm from "@/components/surveyanswer/timeform"
 import { useEffect, useState } from 'react'
 import useSurveyAnswerStore from '@/stores/useSurveyAnswer'
+import Image from 'next/image'
 const QuestionComponent = (props:any) => {
     const questionNumber = props.questionNumber
     const [ disabled, setDisabled] = useState(true)
@@ -31,8 +32,9 @@ const QuestionComponent = (props:any) => {
             }
         });
     }, [multipleChoices]);
+
     useEffect(() => {
-        // console.log(typeof props.questionNumber)
+        console.log(props,"123")
     })
     return (
         <>
@@ -48,6 +50,11 @@ const QuestionComponent = (props:any) => {
                 <Surveycontent disabled={disabled}>
                     {props.content}
                 </Surveycontent>
+                {props.imgAddress &&
+                <SurveyImage>
+                {<Image src="/" alt={props.id} width={100} height={100}></Image>}
+                </SurveyImage>
+                }
                 </SurveyQuestionContainer>
                 {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props} disabled={disabled}></MultipleChoice>}
                 {props.type === "CHECK_BOX" && <CheckBox {...props} disabled={disabled}></CheckBox>}
