@@ -9,6 +9,7 @@ const makeSurveyPost = async (surveyDatas : any) => {
         }
     });
     console.log("Post SurveyInformation: ", response.data.response)
+
     return response.data.response;
   } catch (error) {
     console.error("Error: ", error);

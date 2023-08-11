@@ -116,7 +116,7 @@ const Info_Bottom_Box = styled.div.attrs({})`
     align-items : center;
     margin-left : 23%;
     background-color: white;
-    border : 3.5px solid yellow;
+    border : 3.5px solid ${props => props.theme.colors.purple};
     border-radius : 16px;
     font-size: ${props => props.theme.fontSizes.small};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
@@ -161,7 +161,7 @@ const SelectBox = styled.div.attrs({})`
     width: 90%;
     min-width : 100px;
     height: 9%;
-    border-radius: 8px;
+    border-radius: 30px;
     border : 0px solid ${props => props.theme.colors.purple};
     padding : 10px, 10px;
     cursor: pointer;
@@ -174,7 +174,7 @@ const SelectBox_List = styled.select.attrs({})`
     text-align : center;
 
     border: 1px solid ${props => props.theme.colors.black};
-    border-radius: 5px;
+    border-radius: 30px;
     background-color: white;
     padding: 10px;
     font-size: ${props => props.theme.fontSizes.small};
@@ -198,7 +198,7 @@ const Selected_Box = styled.div.attrs({})`
     height : 60%;
     border : 1px solid ${props => props.theme.colors.black};
     box-shadow : 1px 1px 0px 0px ${props => props.theme.colors.lightgray} ;
-    border-radius : 8px;
+    border-radius : 30px;
     padding : 10px;
     margin-top : 20px;
     overflow : auto;
