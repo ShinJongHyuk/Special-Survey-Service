@@ -74,13 +74,6 @@ const SurveyPurpose = styled.div.attrs<any>((props) => ({}))`
   font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
 `;
 
-const SurveyInformation = styled.div.attrs<any>((props) => ({}))`
-  /* height: 46px; */
-  padding: 10px 0px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
 
 const StyledText = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
@@ -108,11 +101,6 @@ const StyledText = styled.div.attrs<any>((props) => ({}))`
   }};
 `;
 
-const SurveyInformationContent = styled.div.attrs<any>((props) => ({}))`
-  color: ${(props) => props.theme.colors.gray};
-  font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
-  font-size: ${(props) => props.theme.fontSizes.small};
-`;
 
 const SurveyCard = styled.div.attrs<any>((props) => ({}))`
   display: flex;
@@ -167,11 +155,10 @@ export {
   StyledTag,
   SurveyTitle,
   SurveyPurpose,
-  SurveyInformation,
   StyledText,
-  SurveyInformationContent,
   SurveyCard,
   SurveyCardTitle,
   SurveyCardText,
-  SurveyCardTime, StyledShare
+  SurveyCardTime,
+  StyledShare,
 };

@@ -7,10 +7,7 @@ const StyledCard = styled.div.attrs<MycardType>((props) => ({}))`
   ${(props) => {
     const white = props.theme.colors.white;
     const gray = props.theme.colors.lightgray;
-    const now = moment();
-    const deadLineTime = moment(props.endtime, "YYYY-MM-DDTHH:mm:ss");
-    let diffTime = deadLineTime.diff(now);
-    const bgcolor = diffTime <= 0 ? gray : white;
+    const bgcolor = props.closed ? gray : white;
 
     return css`
       width: 100%;

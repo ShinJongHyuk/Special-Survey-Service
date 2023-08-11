@@ -7,6 +7,7 @@ const useSurveyDetailHook = (id: any) => {
 
     useEffect(() => {
         const fetchList = async () => {
+
             const data = await surveyDetailGet(id);
             if (data.success) {
                 setSurveyDetail(data.response);

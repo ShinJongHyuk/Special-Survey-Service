@@ -1,6 +1,6 @@
 "use client";
 import useSSEHook from "@/Hooks/sse/useSSEHook";
-import { ResultPropsType, convertToResultProps } from "../../SurveyDetailType.type";
+import { convertToResultProps } from "../../SurveyDetailType.type";
 import { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard } from "./Result.styled";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";

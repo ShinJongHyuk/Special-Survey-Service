@@ -4,17 +4,14 @@ import {
   BoardTop,
   BoardCount,
   BoardTopLiveFont,
-  BoardTopLivetime,
   TableContainer,
   TableHead,
   TableRow,
   TableHeaderCell,
   TableDataCell,
 } from "./Board.styled";
-import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
-import { BoardPropsType, SSEToBoardProps, convertToBoardProps } from "../../SurveyDetailType.type";
-import moment from "moment";
+import { SSEToBoardProps, convertToBoardProps } from "../../SurveyDetailType.type";
 import useSSEHook from "@/Hooks/sse/useSSEHook";
 
 function formatAnswerTime(answerTime: string): string {
@@ -32,12 +29,6 @@ const BoardComponent = (props: any) => {
   const tableContainerRef = useRef(null);
   const answerlog = props.answerlog;
   const surveyDetail = props.surveyDetail;
-  const cananswer = props.cananswer;
-
-  // console.log("board sd : ", surveyDetail)
-  // const { answerlog, surveyDetail, cananswer } = props;
-
-  // const boardProps = convertToBoardProps(surveyDetail);
 
   useEffect(() => {
     scrollToBottom();
@@ -59,12 +50,9 @@ const BoardComponent = (props: any) => {
 
   useEffect(() => {
     if (SSEdata) {
-      // console.log("data: ", SSEdata);
       const jsonData = JSON.parse(SSEdata);
       const newEntry = SSEToBoardProps(jsonData);
-      // const newEntry = SSEToBoardProps(SSEdata);
       setAnswerPropsArray((prevArray) => [...prevArray, newEntry]);
-      // console.log("new Entry : ", newEntry)
     }
   }, [SSEdata]);
 
@@ -72,7 +60,13 @@ const BoardComponent = (props: any) => {
     <Board>
       <BoardTop>
         <div style={{ display: "flex", marginLeft: "40px", gap: "10px" }}>
-          <BoardTopLiveFont>{surveyDetail.surveyCategoryType === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}</BoardTopLiveFont>
+          <BoardTopLiveFont>
+            {surveyDetail.closed
+              ? "전체 당첨 결과"
+              : (surveyDetail.surveyCategoryType === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황")
+            }
+          </BoardTopLiveFont>
+
           <BoardCount>{answerPropsArray.length}</BoardCount>
         </div>
 
@@ -99,20 +93,21 @@ const BoardComponent = (props: any) => {
               <TableHeaderCell style={{ width: "30%" }}>
                 <div className="text">리워드</div>
               </TableHeaderCell>
-              {surveyDetail.surveyCategoryType === "NORMAL" ? (
-                <TableHeaderCell style={{ width: "25%" }}>
-                  <div className="text">추첨 번호 </div>
-                </TableHeaderCell>
-              ) : (
-                <TableHeaderCell style={{ width: "25%" }}>
-                  <div className="text">당첨여부</div>
-                </TableHeaderCell>
-              )}
+              <TableHeaderCell style={{ width: "25%" }}>
+                <div className="text">
+                  {
+                    surveyDetail.closed || surveyDetail.surveyCategoryType !== "NORMAL"
+                      ? "당첨 여부"
+                      : "추첨 번호"
+                  }
+
+                </div>
+              </TableHeaderCell>
             </TableRow>
           </TableHead>
 
 
-          {[answerPropsArray].length > 0 && (
+          {[...answerPropsArray].length > 0 && (
             <tbody>
               {answerPropsArray.reverse().map((answerProp, index) => (
                 <TableRow key={index} {...answerProp}>
@@ -122,15 +117,18 @@ const BoardComponent = (props: any) => {
                   <TableDataCell style={{ width: "20%" }}>
                     <div className="korean">{answerProp.name}</div>
                   </TableDataCell>
-                  {answerProp.type === "NORMAL" ? (
-                    <TableDataCell style={{ width: "30%" }}>
-                      <div className="korean">이후 당첨 상품 확인</div>
-                    </TableDataCell>
-                  ) : (
-                    <TableDataCell style={{ width: "30%" }}>
-                      <div className="korean">{answerProp.giveawayname}</div>
-                    </TableDataCell>
-                  )}
+
+                  {
+                    surveyDetail.closed || answerProp.type !== "NORMAL"
+                      ? (
+                        <TableDataCell style={{ width: "30%" }}>
+                          <div className="korean">{answerProp.giveawayname}</div>
+                        </TableDataCell>
+                      )
+                      : (<TableDataCell style={{ width: "30%" }}>
+                        <div className="korean">이후 당첨 상품 확인</div>
+                      </TableDataCell>)
+                  }
                   {answerProp.type === "NORMAL" ? (
                     <TableDataCell style={{ width: "25%" }}>
                       <div className="korean">{answerProp.submitorder}</div>
