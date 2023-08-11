@@ -2,6 +2,7 @@ package com.logwiki.specialsurveyservice.api.service.survey;
 
 
 import com.logwiki.specialsurveyservice.api.service.account.AccountService;
+import com.logwiki.specialsurveyservice.api.service.question.QuestionAnswerService;
 import com.logwiki.specialsurveyservice.api.service.sse.response.SurveyAnswerResponse;
 import com.logwiki.specialsurveyservice.api.service.survey.request.GiveawayAssignServiceRequest;
 import com.logwiki.specialsurveyservice.api.service.survey.request.SurveyCreateServiceRequest;
@@ -14,7 +15,11 @@ import com.logwiki.specialsurveyservice.domain.account.AccountRepository;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCode;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCodeRepository;
 import com.logwiki.specialsurveyservice.domain.accountcode.AccountCodeType;
+import com.logwiki.specialsurveyservice.domain.accountsurvey.AccountSurvey;
+import com.logwiki.specialsurveyservice.domain.accountsurvey.AccountSurveyRepository;
 import com.logwiki.specialsurveyservice.domain.giveaway.GiveawayRepository;
+import com.logwiki.specialsurveyservice.domain.question.Question;
+import com.logwiki.specialsurveyservice.domain.survey.AnswerPossibleType;
 import com.logwiki.specialsurveyservice.domain.survey.Survey;
 import com.logwiki.specialsurveyservice.domain.survey.SurveyRepository;
 import com.logwiki.specialsurveyservice.domain.surveycategory.SurveyCategory;
@@ -34,6 +39,7 @@ import java.util.Optional;
 import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,8 +60,12 @@ public class SurveyService {
     private final SurveyResultRepository surveyResultRepository;
     private final TargetNumberRepository targetNumberRepository;
     private final AccountRepository accountRepository;
+    private final AccountSurveyRepository accountSurveyRepository;
+    private final QuestionAnswerService questionAnswerService;
 
     private static final String LOSEPRODUCT = "꽝";
+    private static final boolean HIDDEN_BOOLEAN_RESULT = false;
+    private static final String HIDDEN_GIVEAWAY_NAME_RESULT = LOSEPRODUCT;
 
     public SurveyResponse addSurvey(SurveyCreateServiceRequest dto) {
         Account account = accountService.getCurrentAccountBySecurity();
@@ -159,9 +169,10 @@ public class SurveyService {
     public List<AbstractSurveyResponse> getRecommendNormalSurveyForUser() {
         List<Survey> surveys = getRecommendSurveysBySurveyCategoryType(SurveyCategoryType.NORMAL);
 
-        sortByEndTime(surveys);
+        List<Survey> surveysWithoutAlreadyAnswered = deleteAlreadyAnsweredSurvey(surveys);
+        sortByEndTime(surveysWithoutAlreadyAnswered);
 
-        return surveys.stream()
+        return surveysWithoutAlreadyAnswered.stream()
                 .map(survey
                         -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
                 .collect(Collectors.toList());
@@ -170,9 +181,10 @@ public class SurveyService {
     public List<AbstractSurveyResponse> getRecommendInstantSurveyForUser() {
         List<Survey> surveys = getRecommendSurveysBySurveyCategoryType(SurveyCategoryType.INSTANT_WIN);
 
-        sortByWinningPercent(surveys);
+        List<Survey> surveysWithoutAlreadyAnswered = deleteAlreadyAnsweredSurvey(surveys);
+        sortByWinningPercent(surveysWithoutAlreadyAnswered);
 
-        return surveys.stream()
+        return surveysWithoutAlreadyAnswered.stream()
                 .map(survey
                         -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
                 .collect(Collectors.toList());
@@ -181,11 +193,25 @@ public class SurveyService {
     public List<AbstractSurveyResponse> getRecommendShortTimeSurveyForUser() {
         List<Survey> surveys = getAllRecommendSurveys();
 
-        sortByRequiredTimeForSurvey(surveys);
+        List<Survey> surveysWithoutAlreadyAnswered = deleteAlreadyAnsweredSurvey(surveys);
+        sortByRequiredTimeForSurvey(surveysWithoutAlreadyAnswered);
 
-        return surveys.stream()
+        return surveysWithoutAlreadyAnswered.stream()
                 .map(survey
                         -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
+                .collect(Collectors.toList());
+    }
+
+    private List<Survey> deleteAlreadyAnsweredSurvey(List<Survey> surveys) {
+        Account account = accountService.getCurrentAccountBySecurity();
+
+        List<AccountSurvey> accountSurveys = accountSurveyRepository.findAllByAccountId(account.getId());
+        List<Long> answeredSurveyIds = accountSurveys.stream()
+                .map(accountSurvey -> accountSurvey.getSurvey().getId())
+                .collect(Collectors.toList());
+
+        return surveys.stream()
+                .filter(survey -> !answeredSurveyIds.contains(survey.getId()))
                 .collect(Collectors.toList());
     }
 
@@ -239,35 +265,32 @@ public class SurveyService {
     }
 
     public List<SurveyAnswerResponse> getSurveyAnswers(Long surveyId) {
-        Optional<Survey> targetSurveyOptional = surveyRepository.findById(surveyId);
-        if(targetSurveyOptional.isEmpty()) {
-            throw new BaseException("없는 설문입니다.",3005);
-        }
-        Survey targetSurvey = targetSurveyOptional.get();
+        Survey survey = surveyRepository.findById(surveyId).orElseThrow(() -> new BaseException("없는 설문입니다.",3005));
 
         List<SurveyAnswerResponse> surveyResponseResults = new ArrayList<>();
-        if(targetSurvey.getSurveyResults() != null) {
-            for (SurveyResult surveyResult : targetSurvey.getSurveyResults()) {
-                String giveawayName = LOSEPRODUCT;
-                boolean isWin = false;
+        for(SurveyResult surveyResult : survey.getSurveyResults()) {
 
-                Optional<TargetNumber> tn = targetNumberRepository.findFirstBySurveyAndNumber(
-                        targetSurvey, surveyResult.getSubmitOrder());
-                if (tn.isPresent()) {
-                    isWin = true;
-                    giveawayName = tn.get().getGiveaway().getName();
-                }
+            String giveawayName = LOSEPRODUCT;
+            boolean isWin = false;
 
-                if (targetSurvey.getSurveyCategory().getType().equals(SurveyCategoryType.NORMAL)) {
-                    if(targetSurvey.isClosed() == false) {
-                        isWin = false;
-                        giveawayName = LOSEPRODUCT;
-                    }
-
-                }
-                surveyResponseResults.add(SurveyAnswerResponse.from(surveyResult,giveawayName,isWin));
+            TargetNumber targetNumber = targetNumberRepository.findTargetNumberByNumberAndSurvey_Id(
+                    surveyResult.getSubmitOrder(),
+                    surveyResult.getSurvey().getId());
+            if (targetNumber != null) {
+                isWin = true;
+                giveawayName = targetNumber.getGiveaway().getName();
             }
+
+            if (survey.getSurveyCategory().getType().equals(SurveyCategoryType.NORMAL)) {
+                if(!survey.isClosed()) {
+                    isWin = HIDDEN_BOOLEAN_RESULT;
+                    giveawayName = HIDDEN_GIVEAWAY_NAME_RESULT;
+                }
+            }
+
+            surveyResponseResults.add(SurveyAnswerResponse.from(surveyResult,giveawayName,isWin));
         }
+
         return surveyResponseResults;
     }
     public AbstractSurveyResponse getSurveyDetail(Long surveyId) {
@@ -318,5 +341,65 @@ public class SurveyService {
                 .map(survey
                         -> AbstractSurveyResponse.from(survey, accountService.getUserNameById(survey.getWriter())))
                 .collect(Collectors.toList());
+    }
+
+    public boolean checkPastHistory(Account account, Long surveyId) {
+        SurveyResult checkSurveyResult = surveyResultRepository.findSurveyResultBySurvey_IdAndAccount_Id(surveyId, account.getId());
+        if(checkSurveyResult != null) {
+            return false;
+        }
+        return true;
+    }
+    public boolean checkType(Account account , Long surveyId) {
+
+        Long genderId = accountCodeRepository.findAccountCodeByType(account.getGender())
+                .orElseThrow(() -> new BaseException("성별 코드가 올바르지 않습니다.", 2004))
+                .getId();
+        Long ageId = accountCodeRepository.findAccountCodeByType(account.getAge())
+                .orElseThrow(() -> new BaseException("나이 코드가 올바르지 않습니다.", 2005))
+                .getId();
+        int checks = surveyRepository.checkSurveyPossible(surveyId,genderId,ageId);
+        if(checks == 0) {
+            return false;
+        }
+        return true;
+    }
+    public boolean checkTimeBefore(SurveyResponse surveyResponse, LocalDateTime currentTime) {
+        if(surveyResponse.getStartTime().isAfter(currentTime)) {
+            return false;
+        }
+        return true;
+    }
+    public boolean checkTimeOver(SurveyResponse surveyResponse, LocalDateTime currentTime) {
+        if(surveyResponse.getEndTime().isBefore(currentTime)) {
+            return false;
+        }
+        return true;
+    }
+    public AnswerPossibleType getAnswerPossible(Long surveyId) {
+        Account account = accountService.getCurrentAccountBySecurity();
+
+        SurveyResponse surveyResponse = this.getSurvey(surveyId);
+        Survey survey = surveyRepository.findById(surveyId).get();
+
+        LocalDateTime currentTIme = LocalDateTime.now();
+
+        if(checkType(account , surveyId) == false) {
+            return AnswerPossibleType.TYPENOTMATCH;
+        }
+        if(checkPastHistory(account,surveyId) == false) {
+            return AnswerPossibleType.DIDANSWER;
+        }
+        if(checkTimeBefore(surveyResponse,currentTIme) == false){
+            return AnswerPossibleType.TIMEBEFORE;
+        }
+        if(checkTimeOver(surveyResponse,currentTIme) == false) {
+            return AnswerPossibleType.TIMEOVER;
+        }
+        if(survey.getHeadCount() >= survey.getClosedHeadCount()) {
+            return AnswerPossibleType.HEADFULL;
+        }
+
+        return AnswerPossibleType.CANANSWER;
     }
 }

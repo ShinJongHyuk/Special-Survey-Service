@@ -2,10 +2,10 @@ package com.logwiki.specialsurveyservice.api.controller.order;
 
 import com.logwiki.specialsurveyservice.ControllerTestSupport;
 import com.logwiki.specialsurveyservice.api.controller.orders.request.OrderCreateRequest;
+import com.logwiki.specialsurveyservice.api.service.order.request.OrderCreateServiceRequest;
 import com.logwiki.specialsurveyservice.api.service.order.response.OrderResponse;
 import com.logwiki.specialsurveyservice.domain.orders.OrderProductElement;
 import com.logwiki.specialsurveyservice.domain.orders.Orders;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -26,17 +26,25 @@ class OrderControllerTest extends ControllerTestSupport {
     @DisplayName("주문 등록 테스트")
     @WithMockUser
     @Test
-    @Disabled
     void createOrder() throws Exception {
         // given
+        OrderProductElement orderProductElement = OrderProductElement
+                .builder()
+                .giveawayName("컴포즈커피")
+                .giveawayNumber(3)
+                .build();
         List<OrderProductElement> orderProductElements = new ArrayList<>();
-        orderProductElements.add(new OrderProductElement("컴포즈커피", 3));
+        orderProductElements.add(orderProductElement);
         String id = "testid";
         int orderAmount = 5000;
         boolean isVerificated = false;
         Orders Orders = new Orders(id, orderAmount, isVerificated);
         OrderResponse orderResponse = OrderResponse.from(Orders);
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(orderProductElements);
+        OrderCreateRequest orderCreateRequest = OrderCreateRequest
+                .builder()
+                .giveaways(orderProductElements)
+                .build();
+        OrderCreateServiceRequest request = orderCreateRequest.toServiceRequest(System.currentTimeMillis());
         when(registOrderService.createOrder(any())).thenReturn(orderResponse);
         mockMvc.perform(
                         //when
