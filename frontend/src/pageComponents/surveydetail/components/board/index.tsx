@@ -1,15 +1,5 @@
 "use client";
-import {
-  Board,
-  BoardTop,
-  BoardCount,
-  BoardTopLiveFont,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableHeaderCell,
-  TableDataCell,
-} from "./Board.styled";
+import { Board, BoardTop, BoardCount, BoardTopLiveFont, TableContainer, TableHead, TableRow, TableHeaderCell, TableDataCell } from "./Board.styled";
 import { useRef, useEffect, useState } from "react";
 import { SSEToBoardProps, convertToBoardProps } from "../../SurveyDetailType.type";
 import useSSEHook from "@/Hooks/sse/useSSEHook";
@@ -61,10 +51,7 @@ const BoardComponent = (props: any) => {
       <BoardTop>
         <div style={{ display: "flex", marginLeft: "40px", gap: "10px" }}>
           <BoardTopLiveFont>
-            {surveyDetail.closed
-              ? "전체 당첨 결과"
-              : (surveyDetail.surveyCategoryType === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황")
-            }
+            {surveyDetail.closed ? "전체 당첨 결과" : surveyDetail.surveyCategoryType === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}
           </BoardTopLiveFont>
 
           <BoardCount>{answerPropsArray.length}</BoardCount>
@@ -94,18 +81,10 @@ const BoardComponent = (props: any) => {
                 <div className="text">리워드</div>
               </TableHeaderCell>
               <TableHeaderCell style={{ width: "25%" }}>
-                <div className="text">
-                  {
-                    surveyDetail.closed || surveyDetail.surveyCategoryType !== "NORMAL"
-                      ? "당첨 여부"
-                      : "추첨 번호"
-                  }
-
-                </div>
+                <div className="text">{surveyDetail.closed || surveyDetail.surveyCategoryType !== "NORMAL" ? "당첨 여부" : "추첨 번호"}</div>
               </TableHeaderCell>
             </TableRow>
           </TableHead>
-
 
           {[...answerPropsArray].length > 0 && (
             <tbody>
@@ -118,17 +97,15 @@ const BoardComponent = (props: any) => {
                     <div className="korean">{answerProp.name}</div>
                   </TableDataCell>
 
-                  {
-                    surveyDetail.closed || answerProp.type !== "NORMAL"
-                      ? (
-                        <TableDataCell style={{ width: "30%" }}>
-                          <div className="korean">{answerProp.giveawayname}</div>
-                        </TableDataCell>
-                      )
-                      : (<TableDataCell style={{ width: "30%" }}>
-                        <div className="korean">이후 당첨 상품 확인</div>
-                      </TableDataCell>)
-                  }
+                  {surveyDetail.closed || answerProp.type !== "NORMAL" ? (
+                    <TableDataCell style={{ width: "30%" }}>
+                      <div className="korean">{answerProp.giveawayname}</div>
+                    </TableDataCell>
+                  ) : (
+                    <TableDataCell style={{ width: "30%" }}>
+                      <div className="korean">이후 당첨 상품 확인</div>
+                    </TableDataCell>
+                  )}
                   {answerProp.type === "NORMAL" ? (
                     <TableDataCell style={{ width: "25%" }}>
                       <div className="korean">{answerProp.submitorder}</div>
