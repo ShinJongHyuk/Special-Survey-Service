@@ -17,8 +17,8 @@ const SurveyDetail = (props: any) => {
   const accessToken = localStorage.getItem("accessToken");
 
   const defaultAnswer = "CANANSWER";
-  const closedAnswer = surveyDetail.closed ? "TIMEOVER" : defaultAnswer;
-  const cananswer = accessToken ? useAnswerPossibleHook(props.id).cananswer : closedAnswer;
+  const cananswerhook = accessToken ? useAnswerPossibleHook(props.id).cananswer : defaultAnswer;
+  const cananswer = surveyDetail.closed ? "TIMEOVER" : cananswerhook;
 
 
   console.log("sd", surveyDetail);
@@ -35,7 +35,7 @@ const SurveyDetail = (props: any) => {
       <Detail surveyDetail={surveyDetail} cananswer={cananswer}></Detail>
       <StyledSurveyResultContainer>
         <Result surveyDetail={surveyDetail}></Result>
-        <Board answerlog={answerlog} surveyDetail={surveyDetail} cananswer={cananswer} ></Board>
+        <Board answerlog={answerlog} surveyDetail={surveyDetail} ></Board>
         {/* {answerlog.length !== 0 ? <Board answerlog={answerlog}></Board> : <></>} */}
       </StyledSurveyResultContainer>
     </div>
