@@ -1,7 +1,6 @@
 import axios, { Axios, AxiosResponse } from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
 });
 
 
@@ -17,6 +16,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   async (response: any) => {
+    console.log(response)
     if (!response.data.success) {
       if (response.data.apiError.status === 1005) {
         if (response.config.url === "/refresh") {

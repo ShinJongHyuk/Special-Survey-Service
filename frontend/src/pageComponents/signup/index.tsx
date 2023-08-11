@@ -1,117 +1,130 @@
-'use client'
-import Input from '@/components/input'
-import Button from '@/components/button'
-import { DuplicationBox, InputBox, SignupText, SignUpPage, InputRadioBox, SignUpContainer, SignUpText, SignUpItem, PasswordCondition, DuplicationButton } from './Signup.styled'
-import { useRouter } from 'next/navigation'
-import { useSignupHook } from '@/Hooks/user/useSignupHook'
-import duplicationEmailPost from '@/api/user/duplicationEmailPost'
-import { useEffect } from 'react'
-
+"use client";
+import Input from "@/components/input";
+import Button from "@/components/button";
+import {
+  DuplicationBox,
+  InputBox,
+  SignupText,
+  SignUpPage,
+  InputRadioBox,
+  SignUpContainer,
+  PasswordCondition,
+  DuplicationButton,
+} from "./Signup.styled";
+import { useSignupHook } from "@/Hooks/user/useSignupHook";
+import InputBoxItem from "./components/InputBox";
 
 const Signup = () => {
-    const { user, inputState, certNumState, isEmailCert, isCert, isPhoneNumberCert, isPasswordRegex, handleChange, handleSubmit, handleClick, handleCertNum, ChangeCertNum, Certification, duplicationEmail, duplicationPhoneNumber } = useSignupHook()
-    const router = useRouter()
-    useEffect(() => {
-        console.log(isPasswordRegex)
-    },[isPasswordRegex])
+  const inputArr = [
+    { title: "비밀번호 확인", type: "password", name: "password2" },
+    { title: "이름", type: "text", name: "name" },
+    { title: "생년월일", type: "date", name: "birthday" },
+  ];
+  const AgeButtons = [
+    { label: "~9", id: "UNDER_TEENS" },
+    { label: "10~19", id: "TEENS" },
+    { label: "20~29", id: "TWENTIES" },
+    { label: "30~39", id: "THIRTIES" },
+    { label: "40~49", id: "FORTIES" },
+    { label: "50~59", id: "FIFTIES" },
+    { label: "60~", id: "SIXTIES" },
+  ];
+  const {
+    user,
+    isCert,
+    changePassWordCert,
+    handleSubmit,
+    handleClick,
+    SendCertNum,
+    changeUserValue,
+    Certification,
+    duplicationEmail,
+    duplicationPhoneNumber,
+  } = useSignupHook();
 
-    return (
-        <SignUpPage>
-            <SignupText>Sign up</SignupText>
-            {/* <Image src="SSSLogo.svg" alt="logo" width={180} height={64} style={{margin:"20px", cursor:'pointer'}} onClick={ClickLogo}></Image> */}
-        <SignUpContainer onSubmit={handleSubmit}>
-            <SignUpItem>
-            <SignUpText>이메일</SignUpText>
+  return (
+    <SignUpPage>
+      <SignupText>Sign up</SignupText>
+      <SignUpContainer onSubmit={handleSubmit}>
+        <InputBoxItem title="이메일">
+          <DuplicationBox>
+            <InputBox>
+              <Input type="email" name="email" inputState={isCert.email} onChange={changeUserValue} />
+            </InputBox>
+            <DuplicationButton type="button" iscert={isCert.email} onClick={duplicationEmail}>
+              {isCert.email == "true" ? "인증완료" : "중복확인"}
+            </DuplicationButton>
+          </DuplicationBox>
+        </InputBoxItem>
+
+        <InputBoxItem title="휴대폰 번호">
+          <DuplicationBox>
+            <InputBox>
+              <Input type="tel" name="phoneNumber" disabled={isCert.tel === "true"} inputState={isCert.tel} onChange={changeUserValue} />
+            </InputBox>
+            {isCert.tel === "true" ? (
+              <DuplicationButton type="button" iscert={isCert.tel} onClick={SendCertNum}>
+                인증번호 발송
+              </DuplicationButton>
+            ) : (
+              <DuplicationButton type="button" onClick={duplicationPhoneNumber}>
+                중복확인
+              </DuplicationButton>
+            )}
+          </DuplicationBox>
+        </InputBoxItem>
+
+        {isCert.tel == "true" && (
+          <InputBoxItem title="인증번호">
             <DuplicationBox>
-            <InputBox>
-                <Input type="email" name="email" onChange={handleChange} inputstate={inputState.email}/>
-            </InputBox>
-            <DuplicationButton type="button" iscert={isEmailCert} onClick={duplicationEmail}>{isEmailCert ? "인증완료" : "중복확인"}</DuplicationButton>
+              <InputBox>
+                <Input type="text" name="certNum" onChange={changeUserValue} />
+              </InputBox>
+              <DuplicationButton type="button" iscert={isCert.certNum} onClick={Certification}>
+                {isCert.certNum === "true" ? "인증완료" : "인증하기"}
+              </DuplicationButton>
             </DuplicationBox>
-            </SignUpItem>
+          </InputBoxItem>
+        )}
 
-            <SignUpItem>
-            <SignUpText>비밀번호</SignUpText>
-            <InputBox>
-                <Input type="password" name="password" onChange={handleChange} inputstate={inputState.password}/>
-            </InputBox>
-            <PasswordCondition isPasswordRegex={isPasswordRegex}> 8~16자 영문, 숫자, 특수문자를 사용하세요.</PasswordCondition>
-                
-            </SignUpItem>
+        <InputBoxItem title="비밀번호">
+          <InputBox>
+            <Input onBlur={changePassWordCert} onChange={changeUserValue} inputState="true" type="password" name="password" />
+          </InputBox>
+          <PasswordCondition isPasswordRegex={isCert.password}> 8~16자 영문, 숫자, 특수문자를 사용하세요.</PasswordCondition>
+        </InputBoxItem>
 
-            <SignUpItem>
-            <SignUpText>비밀번호 확인</SignUpText>
-            <InputBox>
-                <Input type="password" name="password2" onChange={handleChange} inputstate={inputState.password2}/>
-            </InputBox>
-            </SignUpItem>
+        {inputArr.map(({ title, type, name }) => {
+          return (
+            <InputBoxItem title={title}>
+              <InputBox>
+                <Input inputState="true" type={type} name={name} />
+              </InputBox>
+            </InputBoxItem>
+          );
+        })}
 
-            <SignUpItem>
-            <SignUpText>이름</SignUpText>
-            <InputBox>
-                <Input type="text" name="name" onChange={handleChange} inputstate={inputState.name}/>
-            </InputBox>
-            </SignUpItem>
+        <InputBoxItem title="성별">
+          <InputRadioBox>
+            <Button use="gender" label="남성" type="button" name="MAN" checkgender={user.gender} onClick={handleClick}></Button>
+            <Button use="gender" label="여성" type="button" name="WOMAN" checkgender={user.gender} onClick={handleClick}></Button>
+          </InputRadioBox>
+        </InputBoxItem>
 
-            <SignUpItem>
-            <SignUpText>생년월일</SignUpText>
-            <InputBox>
-                <Input type="date" name="birthday" onChange={handleChange} inputstate={inputState.birthday}/>
-            </InputBox>
-            </SignUpItem>
+        <InputBoxItem title="나이">
+          <InputRadioBox>
+            {AgeButtons.map(({ label, id }) => {
+              return <Button use="age" label={label} type="button" id={id} checkage={user.age} onClick={handleClick}></Button>;
+            })}
+          </InputRadioBox>
+        </InputBoxItem>
 
-            <SignUpItem>
-            <SignUpText>성별</SignUpText>
-            <InputRadioBox>
-                <Button use="gender" label="남성" type="button" name="MAN" checkgender={user.gender} onClick={handleClick}></Button>
-                <Button use="gender" label="여성" type="button" name="WOMAN" checkgender={user.gender} onClick={handleClick}></Button>
-            </InputRadioBox>
-            </SignUpItem>
+        <div style={{ height: "48px", width: "410px", marginTop: "10px", marginLeft: "10px" }}>
+          <Button use="SignUpLogin" label="회원가입" type="submit" />
+        </div>
+      </SignUpContainer>
+    </SignUpPage>
+  );
+};
 
-            <SignUpItem>
-            <SignUpText>나이</SignUpText>
-            <InputRadioBox>
-                <Button use="age" label="~9" type="button" id="UNDER_TEENS" checkage={user.age} onClick={handleClick}></Button>
-                <Button use="age" label="10~19" type="button" id="TEENS " checkage={user.age} onClick={handleClick}></Button>
-                <Button use="age" label="20~29" type="button" id="TWENTIES " checkage={user.age} onClick={handleClick}></Button>
-                <Button use="age" label="30~39" type="button" id="THIRTIES " checkage={user.age} onClick={handleClick}></Button>
-                <Button use="age" label="40~49" type="button" id="FORTIES " checkage={user.age} onClick={handleClick}></Button>
-                <Button use="age" label="50~59" type="button" id="FIFTIES " checkage={user.age} onClick={handleClick}></Button>
-                <Button use="age" label="60~" type="button" id="SIXTIES " checkage={user.age} onClick={handleClick}></Button>
-            </InputRadioBox>
-            </SignUpItem>
-
-            <SignUpItem>
-            <SignUpText>휴대폰 번호</SignUpText>
-            <DuplicationBox>
-            <InputBox>
-                <Input type="tel" name="phoneNumber" onChange={handleChange} inputstate={inputState.phoneNumber}/>
-            </InputBox>
-            {!isPhoneNumberCert ?
-            <DuplicationButton type="button" iscert={isCert} onClick={handleCertNum}>{certNumState ? "인증번호 재발송" :"인증번호 발송"}</DuplicationButton>
-            :<DuplicationButton type="button" onClick={duplicationPhoneNumber}>중복확인</DuplicationButton>}
-            
-            </DuplicationBox>
-            </SignUpItem>
-
-            {certNumState && 
-            <SignUpItem>
-            <SignUpText>인증번호</SignUpText>
-            <DuplicationBox>
-            <InputBox>
-                <Input type="text" name="certNum" onChange={ChangeCertNum} inputstate={inputState.certNum}/>
-            </InputBox>
-            <DuplicationButton type="button" iscert={isCert} onClick={Certification}>{isCert ? "인증완료" : "인증하기"}</DuplicationButton>
-            </DuplicationBox>
-            </SignUpItem>
-            }
-        
-            <div style={{height:"48px", width:"410px", marginTop:"10px", marginLeft:"10px"}}>
-                    <Button use="SignUpLogin" label="회원가입" type="submit"/>
-            </div>
-        </SignUpContainer>
-        </SignUpPage>
-    )
-}
-
-export default Signup
+export default Signup;
