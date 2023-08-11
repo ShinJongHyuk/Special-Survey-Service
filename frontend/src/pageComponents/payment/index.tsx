@@ -41,7 +41,7 @@ import Modal from "@/components/modal";
 import Kite from '/public/payment/kite.svg'
 import Button from '@/components/button';
 import ItemBox from '@/components/ItemBox';
-import Modal from '@/components/modal';
+
 
 
 interface GiveawayData {
