@@ -12,6 +12,7 @@ import moment from "moment";
 
 const SurveyDetail = (props: any) => {
   const { surveyDetail } = useSurveyDetailHook(props.id);
+
   const { answerlog } = useAnswerLogHook(props.id);
   const accessToken = localStorage.getItem("accessToken");
 
@@ -34,7 +35,7 @@ const SurveyDetail = (props: any) => {
       <Detail surveyDetail={surveyDetail} cananswer={cananswer}></Detail>
       <StyledSurveyResultContainer>
         <Result surveyDetail={surveyDetail}></Result>
-        <Board answerlog={answerlog} surveyDetail={surveyDetail}></Board>
+        <Board answerlog={answerlog} surveyDetail={surveyDetail} cananswer={cananswer} ></Board>
         {/* {answerlog.length !== 0 ? <Board answerlog={answerlog}></Board> : <></>} */}
       </StyledSurveyResultContainer>
     </div>
