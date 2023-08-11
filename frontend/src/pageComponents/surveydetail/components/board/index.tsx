@@ -107,7 +107,7 @@ const BoardComponent = (props: any) => {
           </TableHead>
 
 
-          {[answerPropsArray].length > 0 && (
+          {[...answerPropsArray].length > 0 && (
             <tbody>
               {answerPropsArray.reverse().map((answerProp, index) => (
                 <TableRow key={index} {...answerProp}>

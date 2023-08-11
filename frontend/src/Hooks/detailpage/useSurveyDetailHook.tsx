@@ -7,16 +7,13 @@ const useSurveyDetailHook = (id: any) => {
 
     useEffect(() => {
         const fetchList = async () => {
-            const accessToken = localStorage.getItem("accessToken");
-            if (accessToken) {
 
-                const data = await surveyDetailGet(id);
-                if (data.success) {
-                    setSurveyDetail(data.response);
+            const data = await surveyDetailGet(id);
+            if (data.success) {
+                setSurveyDetail(data.response);
 
-                } else {
-                    console.log(data.apiError)
-                }
+            } else {
+                console.log(data.apiError)
             }
         };
         fetchList();

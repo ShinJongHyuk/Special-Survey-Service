@@ -6,12 +6,17 @@ const useAnswerPossibleHook = (id: any) => {
     const [cananswer, setCananswer] = useState("");
 
     useEffect(() => {
+        const accessToken = localStorage.getItem("accessToken");
         const fetchList = async () => {
-            const data = await AnswerPossibleGet(id);
-            if (data.success) {
-                setCananswer(data.response);
-            } else {
-                console.log(data.apiError);
+
+            if (accessToken) {
+
+                const data = await AnswerPossibleGet(id);
+                if (data.success) {
+                    setCananswer(data.response);
+                } else {
+                    console.log(data.apiError);
+                }
             }
         };
         fetchList();
