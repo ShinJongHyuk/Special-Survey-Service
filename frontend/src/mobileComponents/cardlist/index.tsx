@@ -24,6 +24,7 @@ const Cardlist = (props: any) => {
               responsedtime={survey.requiredTimeInSeconds + "분"}
               id={survey.id}
               contentype={props.contentType}
+              onClick={() => router.push("/mobilesurveydetail/" + survey.id)}
             />
           </div>
         </div>
