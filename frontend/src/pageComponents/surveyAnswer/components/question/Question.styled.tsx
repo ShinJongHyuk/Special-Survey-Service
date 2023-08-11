@@ -17,6 +17,7 @@ const Survey_Title_Container = styled.div.attrs<any>((props) => ({}))`
     padding : 15px 10px 10px 40px;
     gap: 15px;
     min-height: 200px;
+    background-color: white;
 `;
 
 const SurveyQuestionContainer = styled.div.attrs<any>((props) => ({}))`
@@ -70,4 +71,10 @@ const StyledTag = styled.div.attrs<any>((props) => ({}))`
     `;
   }};
 `;
-export { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag, Surveycontent }
+
+const SurveyImage = styled.div.attrs<any>((props) => ({}))`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+export { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag, Surveycontent, SurveyImage }

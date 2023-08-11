@@ -22,6 +22,13 @@ const BackButton = styled.div.attrs<any>((props) => ({}))`
     cursor: pointer;
 `
 
+const QuestionLocation = styled.div`
+    padding-top: 190px;
+    padding-bottom: 10px;
+    background-image: url("/survey/background_survey5.png");
+    background-repeat: repeat;
+`
 
-export { SurveyAnswerPage, BackButtonContainer, BackButton }
+
+export { SurveyAnswerPage, BackButtonContainer, BackButton, QuestionLocation }
 

@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image"
-import { SurveyAnswerPage, BackButton, BackButtonContainer } from "./SurveyAnswer.styled"
+import { SurveyAnswerPage, BackButton, BackButtonContainer, QuestionLocation } from "./SurveyAnswer.styled"
 import Title from './components/title'
 import ProgressBar from './components/progressbar'
 import Question from './components/question'
@@ -18,6 +18,7 @@ interface questionType {
     questionNumber : string
     type : string
     essential : boolean
+    imgAddress : any
 }
 
 const SurveyAnswer = (props:any) => {
@@ -37,7 +38,7 @@ const SurveyAnswer = (props:any) => {
     return (
         <SurveyAnswerPage>
 
-            <div style={{position:"fixed", height:"250px", width:"100%"}}>
+            <div style={{position:"fixed", height:"250px", width:"100%",zIndex:"1"}}>
             <div style={{display:"flex", backgroundColor:"white"}}>
             <BackButtonContainer bgcolor="white">
                 <BackButton>
@@ -57,7 +58,7 @@ const SurveyAnswer = (props:any) => {
             type={surveyInformation?.surveyCategoryType}
             ></ProgressBar>
             </div>
-            <div style={{paddingTop:"190px", paddingBottom: "10px"}}>
+            <QuestionLocation>
             {questions && questions.map((question:questionType) => {
                 return (
                 <Question
@@ -69,11 +70,12 @@ const SurveyAnswer = (props:any) => {
                     multipleChoices={question.multipleChoices}
                     questionNumber={question.questionNumber}
                     surveyCategoryType={surveyInformation?.surveyCategoryType}
+                    imgAddress={question.imgAddress}
                 />
                    
                 )
             })}
-            </div>
+            </QuestionLocation>
         </SurveyAnswerPage>
     )
 }

@@ -31,7 +31,7 @@ const RadioInput = styled.input.attrs<any>((props) => ({
   border-radius: 50%;
   outline: none;
   transition: border-color 0.3s;
-
+  z-index: 0;
   &:hover {
     border-color: ${(props) => props.surveyCategoryType === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange};
   }
