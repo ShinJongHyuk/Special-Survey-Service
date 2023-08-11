@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { SurveycardType } from "./Surveycard.type";
 import { StyledCard, StyledCardRight, StyledCardHeader, StyledRemainTime, StyledImg, StyledProbability } from "./Surveycard.styled";
-import useSSEHook from "@/Hooks/sse/useSSEHook";
 import moment from "moment";
 
 const Surveycard = (props: SurveycardType) => {
@@ -31,9 +30,7 @@ const Surveycard = (props: SurveycardType) => {
   const [value1, label1] = unit1.split(":");
   const [value2, label2] = unit2.split(":");
 
-  // SSE : 일반 타입인 경우만
-  const percent = props.type === "NORMAL" ? useSSEHook(props.id, "확률변동") : null;
-  const value = percent ? parseFloat(percent) : parseFloat(props.probability);
+  const value = parseFloat(props.probability);
   const formattedProbability = value % 1 === 0 ? Math.round(value) + "%" : value.toFixed(1) + "%";
 
   const newProps = { ...props, typename: typeName };

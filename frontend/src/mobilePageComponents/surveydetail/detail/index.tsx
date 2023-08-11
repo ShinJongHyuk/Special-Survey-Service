@@ -1,6 +1,5 @@
 "use client";
 import {
-  StyledDetailContainer,
   StyledSurveyContent,
   StyledTag,
   SurveyTitle,
@@ -10,10 +9,9 @@ import {
   SurveyCardTitle,
   SurveyCardText,
   SurveyCardTime,
-  StyledShare,
   StyledButton,
 } from "./Detail.styled";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+// import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
@@ -34,7 +32,6 @@ const DetailComponent = (props: any) => {
   const router = useRouter();
 
   const { surveyDetail, cananswer } = props;
-  // console.log("DetailComponent- can answer : ", cananswer);
 
   const [isOpen, setIsOpen] = useState(false);
   const [toModalData, setToModalData] = useState({

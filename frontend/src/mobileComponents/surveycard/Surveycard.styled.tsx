@@ -137,7 +137,7 @@ const StyledImg = styled.img.attrs<any>((props) => ({}))`
   ${(props) => {
     const purple = props.theme.colors.purple;
     const yellow = props.theme.colors.yellow;
-    const color = props.typename === "NORMAL" ? purple : yellow;
+    const color = props.type === "NORMAL" ? purple : yellow;
     return css`
       border: 2.5px dashed ${color};
       border-radius: 58px;
