@@ -2,7 +2,7 @@
 import surveyAnswerLogGet from "@/api/surveydetail/surveyAnswerLogGet";
 import { useEffect, useState } from "react";
 
-const useAnswerLogHoook = (id: any) => {
+const useAnswerLogHook = (id: any) => {
   const [answerlog, setAnswerlog] = useState<any>({});
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const useAnswerLogHoook = (id: any) => {
   return { answerlog };
 };
 
-export default useAnswerLogHoook;
+export default useAnswerLogHook;
