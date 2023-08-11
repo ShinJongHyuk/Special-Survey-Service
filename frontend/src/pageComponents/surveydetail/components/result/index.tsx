@@ -39,7 +39,6 @@ const ResultComponent = (props: any) => {
     }
   }, [percentSSE]);
 
-
   return (
     <>
       <SurveyResultComent>
@@ -56,7 +55,7 @@ const ResultComponent = (props: any) => {
 
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}>
         <StyledImg src={imgsrc} {...resultProps} />
-        {resultProps.type === "NORMAL" ? <StyledMsg src="/surveydetail/purple/message.svg" /> : <StyledMsg src="/surveydetail/yellow/message.svg" />}
+        {resultProps.type === "NORMAL" ? <StyledMsg src="/surveyDetail/purple/message.svg" /> : <StyledMsg src="/surveyDetail/yellow/message.svg" />}
       </div>
 
       <div style={{ display: "flex", alignItems: "flex-end", gap: "4px" }}>
