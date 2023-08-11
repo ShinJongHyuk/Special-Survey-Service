@@ -21,7 +21,9 @@ import { useEffect, useState } from "react";
 import { convertToDetailProps } from "../../SurveyDetailType.type";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
-
+import imgStorage from "../../../../../firebase/firebaseStorage";
+import {ref, getDownloadURL} from "firebase/storage"
+ 
 
 const DetailComponent = (props: any) => {
 
@@ -32,12 +34,20 @@ const DetailComponent = (props: any) => {
     setHasAccessToken(!!token);
   }, []);
 
-
   const router = useRouter();
 
   const { surveyDetail, cananswer } = props;
   // console.log("DetailComponent- can answer : ", cananswer);
-
+  useEffect(() => {
+    const uploadTitleImage = async () => {
+      if (surveyDetail.img) {
+        const reference = ref(imgStorage, `images/${surveyDetail.img}`);
+        const imgUrl = await getDownloadURL(reference);
+        setSurveyImage(imgUrl)
+      }
+    }
+    uploadTitleImage();
+  },[surveyDetail])
   const [isOpen, setIsOpen] = useState(false);
   const [toModalData, setToModalData] = useState({
     surveyid: "",
@@ -45,6 +55,9 @@ const DetailComponent = (props: any) => {
     smalltext: "",
     confirm: ""
   });
+  const [surveyImage,setSurveyImage] = useState("")
+
+
 
   const detailProps = convertToDetailProps(surveyDetail);
 
@@ -89,11 +102,13 @@ const DetailComponent = (props: any) => {
   if (typeof window !== "undefined") {
     currentUrl = window.location.href;
   }
-
   return (
     <StyledDetailContainer>
-      <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600}></Image>
-
+      {surveyImage ? (
+        <Image src={surveyImage} alt="surveyTitleImage" width={450} height={600} />
+      ) : (
+        <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600} />
+      )}
       <StyledSurveyContent>
         <div style={{ display: "flex", gap: "10px", flexDirection: "column" }}>
           <StyledTag {...detailProps}>
