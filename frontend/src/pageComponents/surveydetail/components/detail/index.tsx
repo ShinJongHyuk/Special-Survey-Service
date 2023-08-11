@@ -50,7 +50,7 @@ const DetailComponent = (props: any) => {
 
   const now = moment();
   const endTime = moment(detailProps.endtime, "YYYY-MM-DD-HH-mm");
-  const isExpired = now.isAfter(endTime);
+  // const isExpired = now.isAfter(endTime);
   let typeName = "일 반";
   if (detailProps.type === "INSTANT_WIN") {
     typeName = "즉시당첨";
@@ -74,16 +74,6 @@ const DetailComponent = (props: any) => {
   const [unit1, unit2] = remaintime ? remaintime.split(", ") : ["00분", "00초"];
   const [value1, label1] = unit1.split(":");
   const [value2, label2] = unit2.split(":");
-
-
-  const [hasAccessToken, setHasAccessToken] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      setHasAccessToken(true);
-    }
-  }, []);
 
 
   let currentUrl = "/";
@@ -194,35 +184,46 @@ const DetailComponent = (props: any) => {
             <StyledShare src="/surveyDetail/share.png" alt="share" ></StyledShare>
           </CopyToClipboard>
 
-          {!isExpired ? (
-            <Button
-              use={detailProps.type === "NORMAL" ? "purple" : "longYellow"}
-              label="지금 응답하기"
-              onClick={() => {
-                if (hasAccessToken) {
-                  setToModalData({
-                    surveyid: detailProps.surveyid,
-                    bigtext: "설문을 시작하시겠습까?",
-                    smalltext: "",
-                    confirm: "응답하기"
-                  });
+          {(() => {
+            switch (cananswer) {
+              case "TIMEOVER":
+                return <Button use="bgGray" label="마감된 설문입니다."></Button>;
+              case "TIMEBEFORE":
+                return <Button use="bgGray" label="설문 시작 전입니다."></Button>;
+              case "DIDANSWER":
+                return <Button use="bgGray" label="이미 응답한 설문입니다."></Button>;
+              case "HEADFULL":
+                return <Button use="bgGray" label="인원 마감입니다."></Button>;
+              case "TYPENOTMATCH":
+                return <Button use="bgGray" label="설문 대상자가 아닙니다."></Button>;
+              default: // case "CANANSWER":
+                return (
+                  <Button
+                    use={detailProps.type === "NORMAL" ? "purple" : "longYellow"}
+                    label="지금 응답하기"
+                    onClick={() => {
+                      if (localStorage.getItem('accessToken')) {
+                        setToModalData({
+                          surveyid: detailProps.surveyid,
+                          bigtext: "설문을 시작하시겠습까?",
+                          smalltext: "",
+                          confirm: "응답하기"
+                        });
+                      } else {
+                        setToModalData({
+                          surveyid: detailProps.surveyid,
+                          bigtext: "로그인이 필요합니다.",
+                          smalltext: "",
+                          confirm: "로그인하기"
+                        });
+                      }
+                      setIsOpen(true);
+                    }}
+                  />
+                );
+            }
+          })()}
 
-                  setIsOpen(true);
-                } else {
-                  setToModalData({
-                    surveyid: detailProps.surveyid,
-                    bigtext: "로그인이 필요합니다.",
-                    smalltext: "",
-                    confirm: "로그인하기"
-                  });
-                  setIsOpen(true);
-                }
-              }}
-            />
-
-          ) : (
-            <Button use="bgGray" label="마감된 설문입니다."></Button>
-          )}
         </div>
       </StyledSurveyContent>
 
@@ -231,10 +232,10 @@ const DetailComponent = (props: any) => {
         onClose={() => {
           setIsOpen(false);
         }}
-        bigtext={hasAccessToken ? "설문을 시작하시겠습까?" : toModalData.bigtext}
+        bigtext={localStorage.getItem('accessToken') ? "설문을 시작하시겠습까?" : toModalData.bigtext}
         smalltext={toModalData.smalltext}
         cancel="닫기"
-        confirm={hasAccessToken ? "응답하기" : toModalData.confirm}
+        confirm={localStorage.getItem('accessToken') ? "응답하기" : toModalData.confirm}
         contenttype={detailProps.type}
         surveyid={toModalData.surveyid}
         onConfirmClick={() => {

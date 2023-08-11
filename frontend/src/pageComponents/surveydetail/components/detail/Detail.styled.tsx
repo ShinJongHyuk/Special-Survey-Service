@@ -26,7 +26,7 @@ const StyledSurveyContent = styled.div.attrs<any>((props) => ({}))`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 const StyledTag = styled.div.attrs<any>((props) => ({}))`
