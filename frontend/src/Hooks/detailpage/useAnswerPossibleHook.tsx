@@ -10,6 +10,7 @@ const useAnswerPossibleHook = (id: any) => {
             const data = await AnswerPossibleGet(id);
             if (data.success) {
                 setCananswer(data.response);
+                // console.log(data.response);
             } else {
                 console.log(data);
             }
