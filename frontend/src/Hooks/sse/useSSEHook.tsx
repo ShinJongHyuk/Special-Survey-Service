@@ -5,17 +5,15 @@ const useSSEHook = (surveyId: any, want: string) => {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    if (!surveyId) return;
-    const eventSource = new EventSource(api.defaults.baseURL + "/subscribe/" + surveyId);
-
-    eventSource.addEventListener(want, (event) => {
-      console.log("SSE (Message from server) :  ", event.data);
-      setData(event.data);
-    });
-
-    return () => {
-      eventSource.close();
-    };
+    // if (!surveyId) return;
+    // const eventSource = new EventSource(api.defaults.baseURL + "/subscribe/" + surveyId);
+    // eventSource.addEventListener(want, (event) => {
+    //   console.log("SSE (Message from server) :  ", event.data);
+    //   setData(event.data);
+    // });
+    // return () => {
+    //   eventSource.close();
+    // };
   }, [surveyId, want]);
 
   return data;
