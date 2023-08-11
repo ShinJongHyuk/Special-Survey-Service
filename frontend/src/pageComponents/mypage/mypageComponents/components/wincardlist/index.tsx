@@ -18,7 +18,6 @@ const WinCardlist = (props: any) => {
     // await props.refreshList();
   };
 
-  console.log(lists);
   return (
     <StyledList>
       {lists.map((list: any, index: any) => (

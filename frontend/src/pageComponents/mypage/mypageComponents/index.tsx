@@ -7,7 +7,6 @@ import Winlist from "./Winlist";
 
 const MypageComponents = (props: any) => {
   const path = props.selectBtn;
-  console.log(path);
 
   if (path === "2") {
     return <AnsweredSurveyList selectBtn={path} />;

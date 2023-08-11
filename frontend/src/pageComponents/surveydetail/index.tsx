@@ -21,8 +21,8 @@ const SurveyDetail = (props: any) => {
   const cananswer = accessToken ? useAnswerPossibleHook(props.id).cananswer : closedAnswer;
 
 
-  console.log("sd", surveyDetail);
-  console.log("al", answerlog);
+  // console.log("sd", surveyDetail);
+  // console.log("al", answerlog);
   // console.log("ca", cananswer);
   const router = useRouter();
 

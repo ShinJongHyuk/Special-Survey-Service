@@ -34,7 +34,7 @@ const BoardComponent = (props: any) => {
   const surveyDetail = props.surveyDetail;
   const cananswer = props.cananswer;
 
-  console.log("board sd : ", surveyDetail)
+  // console.log("board sd : ", surveyDetail)
   // const { answerlog, surveyDetail, cananswer } = props;
 
   // const boardProps = convertToBoardProps(surveyDetail);
@@ -59,12 +59,12 @@ const BoardComponent = (props: any) => {
 
   useEffect(() => {
     if (SSEdata) {
-      console.log("data: ", SSEdata);
+      // console.log("data: ", SSEdata);
       const jsonData = JSON.parse(SSEdata);
       const newEntry = SSEToBoardProps(jsonData);
       // const newEntry = SSEToBoardProps(SSEdata);
       setAnswerPropsArray((prevArray) => [...prevArray, newEntry]);
-      console.log("new Entry : ", newEntry)
+      // console.log("new Entry : ", newEntry)
     }
   }, [SSEdata]);
 

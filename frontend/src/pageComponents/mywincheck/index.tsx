@@ -8,7 +8,6 @@ import { useMypageStore } from "@/stores/mypage/useMypageStore";
 import myGiveawayCheckPatch from "@/api/win/myGiveawayCheckPatch";
 
 const Mywincheck = (props: any) => {
-  console.log("giveawayId: ", props.id);
 
   const [winConfirm, setWinConfirm] = useState<any>([]);
   const setSelectBtn = useMypageStore((state) => state.setSelectBtn);
@@ -17,7 +16,6 @@ const Mywincheck = (props: any) => {
     const fetchList = async () => {
       const data = await myGiveawayCheckPatch(props.id);
       setWinConfirm(data);
-      console.log("data : ", data);
     };
     fetchList();
   }, []);

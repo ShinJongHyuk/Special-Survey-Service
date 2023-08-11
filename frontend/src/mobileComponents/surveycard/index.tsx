@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Image from "next/image";
 import { SurveycardType } from "./Surveycard.type";
 import { StyledCard, StyledCardRight, StyledCardHeader, StyledRemainTime, StyledImg, StyledProbability } from "./Surveycard.styled";

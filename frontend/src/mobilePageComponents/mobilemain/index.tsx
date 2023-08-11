@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import Mobiletitle from "../../mobileComponents/mobiletitle";
 import { StyledContainer, StyledBox, StyledName, StyledText, StyledLeft } from "./Mobilemain.styled";
 import { useRouter } from "next/navigation";

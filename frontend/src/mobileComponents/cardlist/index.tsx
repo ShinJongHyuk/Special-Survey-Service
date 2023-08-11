@@ -1,3 +1,4 @@
+"use client";
 import Surveycard from "../surveycard";
 import { StyledCardList } from "./Cardlist.styled";
 import { useRouter } from "next/navigation";
