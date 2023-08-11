@@ -20,6 +20,7 @@ const AnsweredSurveyList = (props: any) => {
                 remaintime={survey.remainTime || ""}
                 endtime={survey.endTime}
                 probability={survey.winningPercent + "%"}
+                closed={survey.closed}
                 onClick={() => router.push("/surveydetail/" + survey.id)} />
             </div>
           </div>

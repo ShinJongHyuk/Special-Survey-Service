@@ -15,5 +15,7 @@ export interface MycardType {
   closedheadcount?: string;
   onClick?: (e: any) => any;
 
+  closed?: string;
+
 }
 
