@@ -22,13 +22,14 @@ import { convertToDetailProps } from "../../SurveyDetailType.type";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
 
+
 const DetailComponent = (props: any) => {
   const router = useRouter();
 
-  const { surveyDetail } = props;
+  const { surveyDetail, cananswer } = props;
+  // console.log("DetailComponent- can answer : ", cananswer);
 
   const [isOpen, setIsOpen] = useState(false);
-  // const [toModalData, setToModalData] = useState({ surveyid: "" });
   const [toModalData, setToModalData] = useState({
     surveyid: "",
     bigtext: "",
@@ -85,8 +86,10 @@ const DetailComponent = (props: any) => {
   }, []);
 
 
-  const currentUrl = window.location.href;
-  console.log(currentUrl)
+  let currentUrl = "/";
+  if (typeof window !== "undefined") {
+    currentUrl = window.location.href;
+  }
 
   return (
     <StyledDetailContainer>
