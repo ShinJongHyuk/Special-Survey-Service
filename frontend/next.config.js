@@ -9,13 +9,6 @@ const nextConfig = {
       config.plugins.push(new (require("webpack").NoEmitOnErrorsPlugin)());
     }
     return config;
-  },async rewrites() {
-		return [
-			{
-				source: "/:path*",
-				destination:  process.env.NEXT_PUBLIC_API_URL,
-			},
-		];
-	},
+  }
 };
 module.exports = nextConfig;
