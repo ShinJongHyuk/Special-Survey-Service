@@ -1,26 +1,37 @@
 interface User {
-  email: string;
-  gender: string;
-  tel: string;
-  age: string;
-  certNum: string;
-  password: string;
-}
-
-export interface SignupHookType {
-  user: User;
-  isCert: {
     email: string;
-    tel: string;
-    certNum: string;
-    password: boolean;
-  };
-  handleSubmit: (e: any) => void;
-  handleClick: (e: any) => void;
-  Certification: (e: any) => void;
-  duplicationEmail: (e: any) => void;
-  duplicationPhoneNumber: (e: any) => void;
-  changeUserValue: (e: any) => void;
-  SendCertNum: (e: any) => void;
-  changePassWordCert: (e: any) => void;
+    password: string;
+    name: string;
+    birthday: string;
+    phoneNumber: string;
+    gender: string;
+    age: string;
+  }
+  
+export interface SignupHookType {
+user: User;
+inputState: {
+    email: number;
+    password: number;
+    password2: number;
+    name: number;
+    birthday: number;
+    phoneNumber: number;
+    age: number,
+    certNum : number
+};
+certNumState : boolean
+isEmailCert: boolean
+isCert: boolean
+isPhoneNumberCert: boolean
+isPasswordRegex: boolean
+handleChange: (e: any) => void;
+handleSubmit: (e: any) => void;
+handleClick: (e: any) => void;
+handleCertNum : (e: any) => void;
+ChangeCertNum : (e: any) => void;
+Certification : (e: any) => void;
+duplicationEmail : (e: any) => void;
+duplicationPhoneNumber : (e: any) => void;
+
 }
