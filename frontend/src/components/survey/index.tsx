@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useRef} from 'react';
 import styled, {ThemeProvider} from 'styled-components'
 import theme from '@/styles/DefaultTheme'
 import {ImagePreiew_Box,ImagePreview,UploadImage,Image_Delete_Button,Image_Container,Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box, Question_Inner_Container,SelectBox_Option,SelectBox_List,SelectBox,Main_Container,Question_Container
@@ -19,6 +19,7 @@ import Time from './time';
 import Short from './short';
 
 const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
+    
     const {surveyComponents} = useSurveyStore();
     const { surveyList, setSurveyList } = useMakeSurveyApiStore();
     const [surveyState,setSurveyState] = useState('MULTIPLE_CHOICE')
@@ -29,7 +30,14 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     const [headerText, setHeaderText] = useState('');
     const [headerDetailText, setHeaderDetailText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
 
+
+    const handleAllFocus = () => {
+        if (containerRef.current) {
+          containerRef.current.focus();
+        }
+      };
 
     const saveComponentDataToLocalStorage = (componentKey: string, data: any) => {
         localStorage.setItem(componentKey, JSON.stringify(data));
@@ -139,8 +147,8 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
 
     
     return (
-        <div onClick={() => handleFocus()} onBlur={() => handleBlur()} tabIndex={0}>
-             <Main_Container >
+        <div onClick={() => handleFocus()} onBlur={() => handleBlur()} tabIndex={0} ref={containerRef}>
+             <Main_Container>
                 <Question_Inner_Container>
                     <Question_Container>
                         <Question_Header_Container>
@@ -176,12 +184,13 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
                 </ImagePreiew_Box>
                 </Image_Container>
                 )}  
+            
                 {surveyState === 'MULTIPLE_CHOICE' && <MultipleChoice componentKey={componentKey} isLink={listOption} />}
                 {surveyState === 'CHECK_BOX' && <CheckBox componentKey={componentKey} isLink={listOption} />}
                 {surveyState === 'DATE_FORM' && <Dates componentKey={componentKey}/>}
                 {surveyState === 'TIME_FORM' && <Time componentKey={componentKey} />}
                 {surveyState === 'SHORT_FORM' && <Short componentKey={componentKey} />}
-                        
+    
                 <hr style={{width : "100%"}}/>
                 <Bottom_Box>
                     <Link_Question_Box>
