@@ -1,6 +1,6 @@
 "use client";
 import Mobiletitle from "../../mobileComponents/mobiletitle";
-import { StyledContainer, StyledBox, StyledName, StyledText, StyledLeft } from "./Mobilemain.styled";
+import { StyledContainer, StyledBox, StyledName, StyledText, StyledLeft, StyledWoman } from "./Mobilemain.styled";
 import { useRouter } from "next/navigation";
 
 const Mobilemain = () => {
@@ -55,7 +55,7 @@ const Mobilemain = () => {
           <StyledText> 종료 임박 타임어택 설문이에요! </StyledText>
         </StyledBox> */}
       </StyledContainer>
-      <img src="/mobile/mainwoman.png" style={{ width: "170px", height: "170px" }} />
+      <StyledWoman src="/mobile/mainwoman.png" />
     </>
   );
 };
