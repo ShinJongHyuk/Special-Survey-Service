@@ -30,8 +30,12 @@ function formatAnswerTime(answerTime: string): string {
 
 const BoardComponent = (props: any) => {
   const tableContainerRef = useRef(null);
+  const answerlog = props.answerlog;
+  const surveyDetail = props.surveyDetail;
+  const cananswer = props.cananswer;
 
-  const { answerlog, surveyDetail } = props;
+  console.log("board sd : ", surveyDetail)
+  // const { answerlog, surveyDetail, cananswer } = props;
 
   // const boardProps = convertToBoardProps(surveyDetail);
 
@@ -68,7 +72,7 @@ const BoardComponent = (props: any) => {
     <Board>
       <BoardTop>
         <div style={{ display: "flex", marginLeft: "40px", gap: "10px" }}>
-          <BoardTopLiveFont>{surveyDetail.type === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}</BoardTopLiveFont>
+          <BoardTopLiveFont>{surveyDetail.surveyCategoryType === "NORMAL" ? "실시간 응답 현황" : "실시간 당첨 현황"}</BoardTopLiveFont>
           <BoardCount>{answerPropsArray.length}</BoardCount>
         </div>
 
@@ -106,7 +110,9 @@ const BoardComponent = (props: any) => {
               )}
             </TableRow>
           </TableHead>
-          {[...answerPropsArray].length > 0 && (
+
+
+          {[answerPropsArray].length > 0 && (
             <tbody>
               {answerPropsArray.reverse().map((answerProp, index) => (
                 <TableRow key={index} {...answerProp}>

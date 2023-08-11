@@ -1,7 +1,6 @@
 import { StyledMobileNavbar, StyledStartComp, StyledEndComp, StyledProfileName, StyledNavLink } from "./Mobilenavbar.styled";
 import Link from "next/link";
-import Image from "next/Image";
-import EndComponent from "../endComponent";
+import Image from "next/image";
 import { useLoginHook } from "@/Hooks/user/useUserInformationHook";
 import { useLogoutHook } from "@/Hooks/user/useLogoutHook";
 import useUserStore from "@/stores/useUserStore";
@@ -9,10 +8,8 @@ import { useState, useEffect } from "react";
 
 const Mobilenavbar = () => {
   const [isLogin, userInformation] = useUserStore((state: any) => [state.isLogin, state.userInformation]);
-  const { hanedleLogout } = useLogoutHook();
   const { refreshUserInformation } = useLoginHook();
   const [mounted, setMounted] = useState<boolean>(false);
-  const [profileImg, setProfileImg] = useState<string>("");
 
   useEffect(() => {
     setMounted(true);
