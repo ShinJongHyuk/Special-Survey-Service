@@ -62,7 +62,7 @@ function Payment(props: any) {
   const userInformation = useUserStore((state:any) => state.userInformation)
   const [isSuccessed, setIsSuccessed] = useState(false);
   const router = useRouter();
-
+  console.log(surveyList)
   const questions = surveyComponents.map((component, index) => {
     const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
     return {
@@ -154,14 +154,14 @@ function Payment(props: any) {
               };
 
             function callback(response : any) {
+            
               const authenticateData = {
                 amount : response.paid_amount,
                 orderId : response.merchant_uid,
                 status : response.status,
                 impUid : response.imp_uid
               }
-              
-              console.log(authenticateData)
+             
               authenticationDataPost(authenticateData)
               .then((response) => {
                 if (response.isSucess === "paid") {
