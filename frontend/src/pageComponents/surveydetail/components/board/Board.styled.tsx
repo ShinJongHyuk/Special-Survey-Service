@@ -30,11 +30,7 @@ const BoardCount = styled.div`
   font-size: ${(props) => props.theme.fontSizes.medium};
   color: ${(props) => props.theme.colors.yellow};
 `;
-const BoardTopLivetime = styled.div`
-  color: #9ea4a3;
-  font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
-  font-size: ${(props) => props.theme.fontSizes.small};
-`;
+
 
 const TableContainer = styled.div`
   max-height: 400px;
@@ -99,4 +95,14 @@ const TableDataCell = styled.td`
   }
 `;
 
-export { Board, BoardTop, BoardTopLiveFont, BoardTopLivetime, TableContainer, TableHead, TableRow, TableHeaderCell, TableDataCell, BoardCount };
+export {
+  Board,
+  BoardTop,
+  BoardCount,
+  BoardTopLiveFont,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableHeaderCell,
+  TableDataCell,
+};

@@ -24,6 +24,15 @@ import Modal from "@/components/modal";
 
 
 const DetailComponent = (props: any) => {
+
+  const [hasAccessToken, setHasAccessToken] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    setHasAccessToken(!!token);
+  }, []);
+
+
   const router = useRouter();
 
   const { surveyDetail, cananswer } = props;
@@ -202,7 +211,7 @@ const DetailComponent = (props: any) => {
                     use={detailProps.type === "NORMAL" ? "purple" : "longYellow"}
                     label="지금 응답하기"
                     onClick={() => {
-                      if (localStorage.getItem('accessToken')) {
+                      if (hasAccessToken) {
                         setToModalData({
                           surveyid: detailProps.surveyid,
                           bigtext: "설문을 시작하시겠습까?",
@@ -232,10 +241,10 @@ const DetailComponent = (props: any) => {
         onClose={() => {
           setIsOpen(false);
         }}
-        bigtext={localStorage.getItem('accessToken') ? "설문을 시작하시겠습까?" : toModalData.bigtext}
+        bigtext={hasAccessToken ? "설문을 시작하시겠습까?" : toModalData.bigtext}
         smalltext={toModalData.smalltext}
         cancel="닫기"
-        confirm={localStorage.getItem('accessToken') ? "응답하기" : toModalData.confirm}
+        confirm={hasAccessToken ? "응답하기" : toModalData.confirm}
         contenttype={detailProps.type}
         surveyid={toModalData.surveyid}
         onConfirmClick={() => {
