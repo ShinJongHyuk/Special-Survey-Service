@@ -53,11 +53,11 @@ declare const window: typeof globalThis & {
 };
 
 function Payment(props: any) {
-  const { title, setTitle, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img } = useSettingSurveyApiStore();
+  const { title, setTitle, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img,resetSettingSurveyData} = useSettingSurveyApiStore();
   const StoreId = process.env.NEXT_PUBLIC_STOREID;
   const {price,increment,decrement} = usePriceStore();
   const {surveyList} = useMakeSurveyApiStore();
-  const {surveyComponents} = useSurveyStore();
+  const {surveyComponents,resetSurveyComponents} = useSurveyStore();
   const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([]);
   const [selectedOption,setSelectedOption] = useState<any[]>([]);
   const userInformation = useUserStore((state:any) => state.userInformation)
@@ -167,6 +167,8 @@ function Payment(props: any) {
               .then((response) => {
                 if (response.isSucess === "paid") {
                 console.log(response,"결제 완료")
+                resetSettingSurveyData(); 
+                resetSurveyComponents();
                 setIsSuccessed(true);
 
                 } else {

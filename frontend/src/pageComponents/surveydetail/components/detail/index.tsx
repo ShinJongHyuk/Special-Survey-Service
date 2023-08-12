@@ -22,22 +22,18 @@ import { convertToDetailProps } from "../../SurveyDetailType.type";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
 
-
 const DetailComponent = (props: any) => {
 
   const [hasAccessToken, setHasAccessToken] = useState(false);
-
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     setHasAccessToken(!!token);
   }, []);
 
-
   const router = useRouter();
 
   const { surveyDetail, cananswer } = props;
-  // console.log("DetailComponent- can answer : ", cananswer);
-
+  // console.log("DetailComponent- can answer : ", cananswer); 
   const [isOpen, setIsOpen] = useState(false);
   const [toModalData, setToModalData] = useState({
     surveyid: "",
@@ -45,6 +41,7 @@ const DetailComponent = (props: any) => {
     smalltext: "",
     confirm: ""
   });
+  
 
   const detailProps = convertToDetailProps(surveyDetail);
 
@@ -57,6 +54,7 @@ const DetailComponent = (props: any) => {
   const endtimestr = formatDate(detailProps.endtime || "");
   const starttimestr = formatDate(detailProps.starttime || "");
 
+  
   const now = moment();
   const endTime = moment(detailProps.endtime, "YYYY-MM-DD-HH-mm");
   // const isExpired = now.isAfter(endTime);
@@ -69,7 +67,6 @@ const DetailComponent = (props: any) => {
       typeName = "타임어택";
     }
   }
-
   const [remaintime, setRemainTime] = useState("00분, 00초");
 
   useEffect(() => {
@@ -85,15 +82,18 @@ const DetailComponent = (props: any) => {
   const [value2, label2] = unit2.split(":");
 
 
+
   let currentUrl = "/";
   if (typeof window !== "undefined") {
     currentUrl = window.location.href;
   }
-
   return (
     <StyledDetailContainer>
-      <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600}></Image>
-
+      {surveyDetail.img ? (
+        <Image src={surveyDetail.img} alt="surveyTitleImage" width={450} height={600} unoptimized={true} />
+      ) : (
+        <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600} />
+      )}
       <StyledSurveyContent>
         <div style={{ display: "flex", gap: "10px", flexDirection: "column" }}>
           <StyledTag {...detailProps}>
