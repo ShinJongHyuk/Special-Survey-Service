@@ -5,7 +5,7 @@ import Image from "next/image";
 import { LoginPage, LoginText, LoginFont2, LoginContainer, Uptext } from "./Mobilelogin.styled";
 import { useRouter } from "next/navigation";
 import { useLoginHook } from "@/Hooks/user/useLoginHook";
-const Login = () => {
+const Mobilelogin = () => {
   const { handleChange, handleSubmit, user } = useLoginHook();
 
   const router = useRouter();
@@ -29,13 +29,12 @@ const Login = () => {
         </div>
 
         <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
-          <div style={{ height: "48px", width: "80vw", margin: "20px 20px 20px 5px" }}>
+          <div style={{ height: "48px", width: "80vw", margin: "20px" }}>
             <Button use="SignUpLogin" label="로그인" type="submit"></Button>
           </div>
 
           <LoginFont2
             onClick={() => {
-              console.log("click");
               router.push("/signup");
             }}
           >
@@ -47,4 +46,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Mobilelogin;

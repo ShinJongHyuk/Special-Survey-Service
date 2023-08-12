@@ -27,6 +27,7 @@ const LoginContainer = styled.form.attrs<any>((props) => ({}))`
 `;
 const LoginFont2 = styled.div.attrs<any>((props) => ({}))`
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
+  cursor: pointer;
 `;
 
 export { LoginPage, LoginText, LoginFont2, LoginContainer, Uptext };
