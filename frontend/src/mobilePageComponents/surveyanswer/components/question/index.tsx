@@ -9,15 +9,14 @@ import {
   Surveycontent,
   SurveyImage,
 } from "./Question.styled";
-import MultipleChoice from "@/components/surveyanswer/multiplechoice";
 import CheckBox from "@/components/surveyanswer/checkbox";
 import ShortForm from "@/components/surveyanswer/shortfrom";
-import DateForm from "@/components/surveyanswer/dateform";
 import TimeForm from "@/components/surveyanswer/timeform";
 import { useEffect, useState } from "react";
 import useSurveyAnswerStore from "@/stores/useSurveyAnswer";
 import Image from "next/image";
 import Radiobutton from "../forms/radiobutton";
+import Date from "../forms/date";
 
 const QuestionComponent = (props: any) => {
   const questionNumber = props.questionNumber;
@@ -58,17 +57,13 @@ const QuestionComponent = (props: any) => {
               <SurveyQuestion disabled={disabled}>{props.title}</SurveyQuestion>
               <Surveycontent disabled={disabled}>{props.content}</Surveycontent>
               <SurveyImage>
-                {props.imgAddress ? (
-                  <Image src={props.imgAddress} alt={props.id} width={100} height={100} unoptimized={true}></Image>
-                ) : (
-                  <Image src="/" alt={props.id} width={100} height={100}></Image>
-                )}
+                {props.imgAddress && <Image src={props.imgAddress} alt={props.id} width={100} height={100} unoptimized={true}></Image>}
               </SurveyImage>
             </SurveyQuestionContainer>
             {props.type === "MULTIPLE_CHOICE" && <Radiobutton {...props} disabled={disabled}></Radiobutton>}
             {props.type === "CHECK_BOX" && <CheckBox {...props} disabled={disabled}></CheckBox>}
             {props.type === "SHORT_FORM" && <ShortForm {...props} disabled={disabled}></ShortForm>}
-            {props.type === "DATE_FORM" && <DateForm {...props} disabled={disabled}></DateForm>}
+            {props.type === "DATE_FORM" && <Date {...props} disabled={disabled}></Date>}
             {props.type === "TIME_FORM" && <TimeForm {...props} disabled={disabled}></TimeForm>}
           </Survey_Title_Container>
         </Survey_Container>

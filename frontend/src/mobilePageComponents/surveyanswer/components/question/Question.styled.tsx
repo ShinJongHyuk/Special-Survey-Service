@@ -1,44 +1,39 @@
-import styled, {css} from 'styled-components'
+import styled, { css } from "styled-components";
 
-const Survey_Container =  styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    margin: 40px;
-    justify-content: center;
+const Survey_Container = styled.div.attrs<any>((props) => ({}))`
+  display: flex;
+  /* margin: 20px; */
+  justify-content: center;
 `;
 
 const Survey_Title_Container = styled.div.attrs<any>((props) => ({}))`
-    display : flex;
-    flex-direction : column;
-    width : 600px;
-    box-sizing : border-box;
-    box-shadow : 1px 1px 1px 1px ${props => props.theme.colors.lightgray} ;
-    border : 1px solid ${props => props.theme.colors.lightgray};
-    border-radius : 16px;
-    padding : 15px 10px 10px 40px;
-    gap: 15px;
-    min-height: 200px;
-    background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: 1px solid ${(props) => props.theme.colors.lightgray};
+  border-radius: 16px;
+  padding: 30px 20px;
+  gap: 25px;
+  background-color: ${(props) => props.theme.colors.white};
+`;
+const SurveyQuestionContainer = styled.div.attrs<any>((props) => ({}))`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
 `;
 
-const SurveyQuestionContainer = styled.div.attrs<any>((props) => ({}))`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-`
-
-
 const SurveyQuestion = styled.div.attrs<any>((props) => ({}))`
-    margin-top: 3px;
-    color: ${(props) => props.disabled? props.theme.colors.lightgray : props.theme.colors.black};
-    font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
-    font-size: ${(props) => props.theme.fontSizes.medium};
-`
+  margin-top: 3px;
+  color: ${(props) => (props.disabled ? props.theme.colors.lightgray : props.theme.colors.black)};
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.medium};
+`;
 const Surveycontent = styled.div.attrs<any>((props) => ({}))`
-    color: ${(props) => props.disabled? props.theme.colors.lightgray : "#6D7075"};
-    font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
-    font-size: ${(props) => props.theme.fontSizes.small};
-`
+  color: ${(props) => (props.disabled ? props.theme.colors.lightgray : "#6D7075")};
+  font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+  font-size: ${(props) => props.theme.fontSizes.small};
+`;
 
 const StyledTag = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
@@ -66,7 +61,7 @@ const StyledTag = styled.div.attrs<any>((props) => ({}))`
       .type-text {
         font-family: ${font};
         font-size: ${xsmall};
-        color: ${() => disabled ? disabledColor : color}
+        color: ${() => (disabled ? disabledColor : color)};
       }
     `;
   }};
@@ -76,5 +71,5 @@ const SurveyImage = styled.div.attrs<any>((props) => ({}))`
   width: 100%;
   display: flex;
   justify-content: center;
-`
-export { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag, Surveycontent, SurveyImage }
+`;
+export { Survey_Container, SurveyQuestionContainer, SurveyQuestion, Survey_Title_Container, StyledTag, Surveycontent, SurveyImage };
