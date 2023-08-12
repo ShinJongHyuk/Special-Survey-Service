@@ -10,6 +10,8 @@ import Mobilelogin from "@/mobilePageComponents/login";
 import Login from "../login";
 import Signup from "../signup";
 import MobileSignup from "@/mobilePageComponents/signup";
+import SurveyAnswer from "../surveyAnswer";
+import MobileSurveyanswer from "@/mobilePageComponents/surveyanswer";
 
 const Viewcheck = ({ page, id }: { page: string; id?: string }) => {
   const isMobile = useIsMobileHook();
@@ -22,6 +24,7 @@ const Viewcheck = ({ page, id }: { page: string; id?: string }) => {
       {page === "signup" && (currentView === "desktop" ? <Signup /> : <MobileSignup />)}
       {page === "surveylist" && (currentView === "desktop" ? <Surveylist /> : <Speedyattacklist from="main" />)}
       {page === "surveydetail" && (currentView === "desktop" ? <SurveyDetail id={id} /> : <MobileSurveyDetail id={id} />)}
+      {page === "surveyanswer" && (currentView === "desktop" ? <SurveyAnswer id={id} /> : <MobileSurveyanswer id={id} />)}
     </>
   );
 };

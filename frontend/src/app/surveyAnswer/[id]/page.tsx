@@ -1,7 +1,5 @@
-import SurveyAnswer from "@/pageComponents/surveyAnswer";
+import Viewcheck from "@/pageComponents/viewcheck";
 
 export default function Page({ params }: { params: { id: string } }) {
-    return (
-        <SurveyAnswer id={params.id}/>
-    )
+  return <Viewcheck page="surveyanswer" id={params.id} />;
 }
