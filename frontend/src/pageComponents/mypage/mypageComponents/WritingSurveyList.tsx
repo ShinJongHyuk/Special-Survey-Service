@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import useWritingListHook from "@/Hooks/mypage/useWritingListHook";
 import { StyledList } from "../Mypage.styled";
 import Mycard from "@/components/mycard";
@@ -13,7 +13,7 @@ const WritingSurveyList = (props: any) => {
       <StyledList>
         {surveys.map((survey: any, index: any) => (
           <div key={index} style={{ display: "flex", justifyContent: "center" }}>
-            <div style={{ width: "220px" }}>
+            <div style={{ width: "220px", height: "323px" }}>
               <Mycard
                 type={survey.surveyCategoryType}
                 title={survey.title}
@@ -30,7 +30,7 @@ const WritingSurveyList = (props: any) => {
         ))}
       </StyledList>
     </div>
-  )
+  );
 };
 
 export default WritingSurveyList;
