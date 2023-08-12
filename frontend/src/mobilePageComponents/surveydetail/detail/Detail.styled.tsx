@@ -102,7 +102,7 @@ const StyledText = styled.div.attrs<any>((props) => ({}))`
 
 const SurveyCard = styled.div.attrs<any>((props) => ({}))`
   display: flex;
-  padding: 8px 11px;
+  padding: 8px 15px;
   flex-direction: column;
 
   border: 1px solid ${(props) => props.theme.colors.black};

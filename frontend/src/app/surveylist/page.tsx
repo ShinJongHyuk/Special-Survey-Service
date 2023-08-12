@@ -1,5 +1,5 @@
-import Surveylist from "@/pageComponents/surveylist";
+import Viewcheck from "@/pageComponents/viewcheck";
 
 export default function () {
-    return <Surveylist />;
+  return <Viewcheck page="surveylist" />;
 }
