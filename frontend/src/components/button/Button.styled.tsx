@@ -70,11 +70,25 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 background: #FFFAAE;
                 font-size:${small};
             `,
+      sortingYellowClick: `
+                justify-content: space-evenly;
+                border-radius: 10px;
+                border: 1.216px solid rgba(214, 214, 214, 0.20);
+                background: #FFF129;
+                font-size:${small};
+            `,
       sortingPurple: `
                 justify-content: space-evenly;
                 border-radius: 10px;
                 border: 1.216px solid rgba(214, 214, 214, 0.20);
                 background: #D4C9FF;
+                font-size:${small};
+            `,
+      sortingPurpleClick: `
+                justify-content: space-evenly;
+                border-radius: 10px;
+                border: 1.216px solid rgba(214, 214, 214, 0.20);
+                background: #8E69FF;
                 font-size:${small};
             `,
       purple: `
