@@ -1,26 +1,10 @@
 "use client";
 import Input from "@/components/input";
 import Button from "@/components/button";
-import {
-  DuplicationBox,
-  InputBox,
-  SignupText,
-  SignUpPage,
-  InputRadioBox,
-  SignUpContainer,
-  PasswordCondition,
-  DuplicationButton,
-  SignUpText,
-} from "./Signup.styled";
+import { SignupText, SignUpPage, SignUpContainer, PasswordCondition, DuplicationButton, SignUpText } from "./Signup.styled";
 import { useSignupHook } from "@/Hooks/user/useSignupHook";
-import InputBoxItem from "./components/InputBox";
 
 const MobileSignup = () => {
-  const inputArr = [
-    { title: "비밀번호 확인", type: "password", name: "password2" },
-    { title: "이름", type: "text", name: "name" },
-    { title: "생년월일", type: "date", name: "birthday" },
-  ];
   const AgeButtons = [
     { label: "~9", id: "UNDER_TEENS" },
     { label: "10~19", id: "TEENS" },

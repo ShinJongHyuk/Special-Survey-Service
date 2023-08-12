@@ -6,10 +6,10 @@ import MobileSurveyDetail from "@/mobilePageComponents/surveydetail";
 import useIsMobileHook from "@/Hooks/useIsMobileHook";
 import Surveylist from "../surveylist";
 import Speedyattacklist from "@/mobilePageComponents/speedyattacklist";
-import Mobilelogin from "@/mobilePageComponents/mobilelogin";
+import Mobilelogin from "@/mobilePageComponents/login";
 import Login from "../login";
 import Signup from "../signup";
-import MobileSignup from "@/mobilePageComponents/mobilesignup";
+import MobileSignup from "@/mobilePageComponents/signup";
 
 const Viewcheck = ({ page, id }: { page: string; id?: string }) => {
   const isMobile = useIsMobileHook();

@@ -14,11 +14,6 @@ const SignupText = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => props.theme.colors.purple};
 `;
 
-const DuplicationBox = styled.div.attrs<any>((props) => ({}))`
-  display: flex;
-  align-items: center;
-`;
-
 const DuplicationButton = styled.button.attrs<any>((props) => ({}))`
   height: 40px;
   width: 60px;
@@ -28,16 +23,6 @@ const DuplicationButton = styled.button.attrs<any>((props) => ({}))`
   font-size: ${(props) => props.theme.fontSizes.xsmall};
   border: none;
   cursor: pointer;
-`;
-
-const InputBox = styled.div.attrs<any>((props) => ({}))`
-  ${(props) => {
-    return css`
-      width: 80vw;
-      height: 40px;
-      margin: 10px;
-    `;
-  }}
 `;
 
 const SignUpContainer = styled.form.attrs<any>((props) => ({}))`
@@ -54,12 +39,6 @@ const SignUpText = styled.div.attrs<any>((props) => ({}))`
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `;
 
-const SignUpItem = styled.div.attrs<any>((props) => ({}))`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`;
-
 const PasswordCondition = styled.div.attrs<any>((props) => ({}))`
   margin-left: 10px;
   margin-bottom: 10px;
@@ -67,24 +46,4 @@ const PasswordCondition = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => (props.isPasswordRegex ? "green" : "red")};
 `;
 
-const InputRadioBox = styled.div.attrs<any>((props) => ({}))`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 210px;
-  height: 40px;
-  margin: 10px;
-`;
-
-export {
-  SignUpPage,
-  SignupText,
-  SignUpContainer,
-  InputRadioBox,
-  SignUpText,
-  SignUpItem,
-  DuplicationBox,
-  InputBox,
-  PasswordCondition,
-  DuplicationButton,
-};
+export { SignupText, SignUpPage, SignUpContainer, PasswordCondition, DuplicationButton, SignUpText };
