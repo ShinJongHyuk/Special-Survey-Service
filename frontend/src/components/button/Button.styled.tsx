@@ -101,6 +101,10 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
       cursor: pointer;
       font-family: ${font};
       ${useStyle[use]};
+      &:active {
+        margin-left: 3px;
+        margin-top: 3px;
+      }
     `;
   }}
 `;
