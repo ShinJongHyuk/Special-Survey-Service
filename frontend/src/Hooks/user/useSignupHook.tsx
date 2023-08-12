@@ -233,7 +233,6 @@ export const useSignupHook = (): SignupHookType => {
           alert(res.data.apiError.message);
           return;
         }
-        console.log(isCert);
         alert("회원가입에 성공하였습니다");
         const loginData = {
           email: data.email,
@@ -249,7 +248,7 @@ export const useSignupHook = (): SignupHookType => {
         await setUserInformation(response.data.response);
         router.push("/");
       } else {
-        alert("모든인증을 마쳐야합니다.");
+        alert("이메일 , 휴대폰 , 문자 인증을 모두 마쳐야합니다.");
       }
     }
   };
