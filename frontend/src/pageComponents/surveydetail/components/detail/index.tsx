@@ -40,7 +40,7 @@ const DetailComponent = (props: any) => {
   // console.log("DetailComponent- can answer : ", cananswer);
   useEffect(() => {
     const uploadTitleImage = async () => {
-      if (surveyDetail.img) {
+      if (surveyDetail.img !== undefined && surveyDetail.img !== "이미지") {
         const reference = ref(imgStorage, `images/${surveyDetail.img}`);
         const imgUrl = await getDownloadURL(reference);
         setSurveyImage(imgUrl)
