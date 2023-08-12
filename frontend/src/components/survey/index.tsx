@@ -1,6 +1,8 @@
 import React, {useState,useEffect,useRef} from 'react';
 import styled, {ThemeProvider} from 'styled-components'
 import theme from '@/styles/DefaultTheme'
+import imgStorage from '../../../firebase/firebaseStorage'
+import { ref,uploadBytes,getDownloadURL, deleteObject } from "firebase/storage"
 import {ImagePreiew_Box,ImagePreview,UploadImage,Image_Delete_Button,Image_Container,Move_Container,ImageWrapper,Essential_Question_Title,LinkSelectBox,LinkSelect_List,LinkSelect_Option,Link_Question_Title,Essential_Question_Box,Elements_Box,Link_Question_Box,Bottom_Box, Question_Inner_Container,SelectBox_Option,SelectBox_List,SelectBox,Main_Container,Question_Container
     ,Question_Header,Question_Header_Container,
     Question_Content,Question_Content_Container,
@@ -9,14 +11,13 @@ import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import ImageIcon from '/public/survey/ImageIcon.png'
 import SurveyType from './Survey.type';
 import Image from 'next/image'
-import etc from '/public/survey/etc.png'
-import DragIcon from '/public/survey/DragIcon.png'
 import MultipleChoice from './multiplechoice';
 import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import CheckBox from './checkbox';
 import Dates from './dates';
 import Time from './time';
 import Short from './short';
+import { v4 as uuid } from 'uuid';
 
 const SurveyComponent = ({ componentKey, index }: { componentKey: string, index: number }) => {
     
@@ -30,6 +31,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
     const [headerText, setHeaderText] = useState('');
     const [headerDetailText, setHeaderDetailText] = useState('');
     const [isFocused, setIsFocused] = useState(false);
+    const [uploadFileName,setUploadFileName] = useState('')
     const containerRef = useRef<HTMLDivElement>(null);
 
 
@@ -78,7 +80,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
             essential : checked,
             title : headerText,
             content : headerDetailText,
-            img : imgurl
+            imgAddress : imgurl
             };
         saveComponentDataToLocalStorage(componentKey, componentData);
         setSurveyList(componentKey,SendData); 
@@ -122,14 +124,32 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
       const file = event.target.files[0];
 
       if (file) {
-        const imageUrl = URL.createObjectURL(file);
-        setImgUrl(imageUrl);
-        event.target.value = null;
+        const fileName = uuid();
+        setUploadFileName(fileName)
+        const reference = ref(imgStorage, fileName);
+        const uploadTask = uploadBytes(reference, file);
+
+        uploadTask.then(async () => {
+          const imgUrl = await getDownloadURL(reference);
+          setImgUrl(imgUrl);
+          event.target.value = null;
+  
+        })
       }
 
     };
-    const handleImageDelete = (index: number) => {
-      setImgUrl('')
+    const handleImageDelete = async (index : number) => {
+      if (imgurl) {
+        const imageRef = ref(imgStorage, uploadFileName);
+  
+        try {
+          await deleteObject(imageRef);
+          setImgUrl('');
+        } catch(error) {
+          console.error("이미지 삭제 실패",error)
+        }
+      }
+  
     };
 
     const positionImage = surveyState === 'DATE_FORM' || surveyState === 'TIME_FORM' || surveyState === 'SHORT_FORM'

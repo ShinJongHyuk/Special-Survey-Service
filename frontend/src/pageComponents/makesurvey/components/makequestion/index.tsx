@@ -1,6 +1,5 @@
 "use client";
 import React,{useState,useEffect} from 'react';
-import fireStore from '../../../../../firebase/firestore';
 import imgStorage from '../../../../../firebase/firebaseStorage'
 import { ref,uploadBytes,getDownloadURL, deleteObject } from "firebase/storage"
 import Toolbar from '@/components/survey/toolbar';
@@ -16,6 +15,7 @@ function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
   const {title,setTitle,titleContent,setTitleContent,img,setImg} = useSettingSurveyApiStore();
   const [previewImg, setPreviewImg] = useState('');
+  const [uploadFileName,setUploadFileName] = useState('')
   const saveComponentDataToLocalStorage = (data: any) => {
       localStorage.setItem('entire', JSON.stringify(data));
     };
@@ -27,8 +27,8 @@ function MakeQuestion() {
 
   useEffect(() => {
       const storedData = loadComponentDataFromLocalStorage();
-      if (storedData) {
-        setImg('')
+      if (storedData.img) {
+        setImg(storedData.img)
       }
     }, []);
 
@@ -64,8 +64,9 @@ function MakeQuestion() {
 
 
     if (file) {
-      const uploadFileName = uuid();
-      const reference = ref(imgStorage, uploadFileName);
+      const fileName = uuid();
+      setUploadFileName(fileName);
+      const reference = ref(imgStorage, fileName);
       const uploadTask = uploadBytes(reference, file);
 
 
@@ -87,7 +88,7 @@ function MakeQuestion() {
 
   const handleImageDelete = async () => {
     if (img) {
-      const imageRef = ref(imgStorage, `images/${img}`);
+      const imageRef = ref(imgStorage, uploadFileName);
 
       try {
         await deleteObject(imageRef);
