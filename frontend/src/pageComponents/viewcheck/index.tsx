@@ -1,38 +1,23 @@
 "use client";
-import { useState, useEffect } from "react";
-// import useIsMobileHook from "@/Hooks/useIsMobileHook";
 import Mobilemain from "@/mobilePageComponents/mobilemain";
-import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 import MainPage from "../mainPage";
+import SurveyDetail from "../surveydetail";
+import MobileSurveyDetail from "@/mobilePageComponents/surveydetail";
+import useIsMobileHook from "@/Hooks/useIsMobileHook";
+import Surveylist from "../surveylist";
+import Speedyattacklist from "@/mobilePageComponents/speedyattacklist";
 
-// const Viewcheck = () => {
-//   // const isMobile = useIsMobileHook();
-//   return (
-//     <>
-//       <BrowserView>
-//         <MainPage />
-//       </BrowserView>
-//       <MobileView>
-//         <Mobilemain />
-//       </MobileView>
-//     </>
-//   );
-// };
+const Viewcheck = ({ page, id }: { page: string; id?: string }) => {
+  const isMobile = useIsMobileHook();
+  const currentView = isMobile ? "mobile" : "desktop";
 
-const Viewcheck = () => {
-  const [currentView, setCurrentView] = useState<"desktop" | "mobile" | null>(null);
-
-  useEffect(() => {
-    if (isBrowser) {
-      setCurrentView("desktop");
-    } else if (isMobile) {
-      setCurrentView("mobile");
-    }
-  }, []);
-
-  if (!currentView) return null;
-
-  return currentView === "desktop" ? <MainPage /> : <Mobilemain />;
+  return (
+    <>
+      {page === "main" && (currentView === "desktop" ? <MainPage /> : <Mobilemain />)}
+      {page === "surveylist" && (currentView === "desktop" ? <Surveylist /> : <Speedyattacklist from="main" />)}
+      {page === "surveydetail" && (currentView === "desktop" ? <SurveyDetail id={id} /> : <MobileSurveyDetail id={id} />)}
+    </>
+  );
 };
 
 export default Viewcheck;

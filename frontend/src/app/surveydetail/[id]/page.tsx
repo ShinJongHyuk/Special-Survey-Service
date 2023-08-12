@@ -1,5 +1,5 @@
-import SurveyDetail from "@/pageComponents/surveydetail";
+import Viewcheck from "@/pageComponents/viewcheck";
 
 export default function Page({ params }: { params: { id: string } }) {
-    return <SurveyDetail id={params.id}></SurveyDetail>
+  return <Viewcheck id={params.id} page="surveydetail"></Viewcheck>;
 }
