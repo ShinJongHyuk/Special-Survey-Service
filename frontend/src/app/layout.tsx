@@ -4,11 +4,8 @@ import StyledComponentsRegistry from "./lib/registry";
 import "../styles/globals.css";
 import { ThemeProvider } from "styled-components";
 import theme from "../styles/DefaultTheme";
-import { usePathname } from "next/navigation";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  console.log(pathname);
   return (
     <html>
       <ThemeProvider theme={theme}>
