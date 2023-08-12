@@ -5,7 +5,7 @@ import SurveyResult from '@/pageComponents/surveyresult';
 
 export default function surveyresult({params} : { params : {id : string} }) {
     return (
-          <SurveyResult /> 
+          <SurveyResult id={params.id}/> 
     );
   }
   
