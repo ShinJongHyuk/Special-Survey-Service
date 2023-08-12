@@ -1,7 +1,7 @@
 import axios, { Axios, AxiosResponse } from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL+"/api"
+  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
 });
 
 api.interceptors.request.use(
@@ -23,7 +23,6 @@ api.interceptors.response.use(
           localStorage.removeItem("accessToken");
           localStorage.removeItem("email");
           localStorage.removeItem("password");
-          console.log("로그아웃처리");
           return response;
         }
         const email = localStorage.getItem("email");

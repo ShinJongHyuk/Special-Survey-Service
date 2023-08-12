@@ -12,7 +12,6 @@ const userNormalListGet = async (accessToken: any) => {
       return response.data.response;
     } else {
       const data = await normalListGet();
-      console.log("error: ", response.data.apiError.message);
       return data;
     }
   } catch (error) {
