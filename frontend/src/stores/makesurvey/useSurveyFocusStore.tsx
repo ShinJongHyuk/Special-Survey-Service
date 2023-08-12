@@ -4,6 +4,7 @@ interface SurveyFocusStore {
   selectedSurvey: any;
   prevSelectedSurvey: any;
   setSelectedSurvey: (survey: any) => void;
+  resetSelectedSurvey: () => void;
 }
 
 const useSurveyFocus = create<SurveyFocusStore>((set) => ({
@@ -14,7 +15,7 @@ const useSurveyFocus = create<SurveyFocusStore>((set) => ({
       selectedSurvey: survey,
       prevSelectedSurvey: state.selectedSurvey,
     })),
-  
+  resetSelectedSurvey: () => set({ selectedSurvey: 1, prevSelectedSurvey: 0 }),
 
 }));
 

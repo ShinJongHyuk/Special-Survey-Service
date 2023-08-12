@@ -31,26 +31,30 @@ const MultipleChoice = ({ componentKey,isLink }: { componentKey: string, isLink 
     }, [componentKey]);
 
     useEffect(() => {
-        saveMultipleChoiceToLocalStorage(`MULTIPLE_CHOICE_${componentKey}`, items);
-      
-     
-    }, [componentKey,items]);
-
-
+      const saveData = async () => {
+        await saveMultipleChoiceToLocalStorage(`MULTIPLE_CHOICE_${componentKey}`, items);
+      };
+    
+      saveData();
+    }, [componentKey, items]);
+  
+    
     useEffect(() => {
-      console.log(items)
       const multipleChoicesData = items.map((item) => ({
         content: item.text,
         linkNumber: item.linkNumber,
-        
       }));
-      useMakeSurveyApiStore.getState().setSurveyList(componentKey, {
-        ...useMakeSurveyApiStore.getState().surveyList[componentKey],
+   
+      const surveyState = useMakeSurveyApiStore.getState();
+      const surveyList = surveyState.surveyList;
+      
+      surveyState.setSurveyList(componentKey, {
+        ...surveyList[componentKey],
         multipleChoices: multipleChoicesData,
       });
-     
+
+    
     }, [componentKey, items]);
-  
 
     const saveMultipleChoiceToLocalStorage = (componentKey: string, items: any[]) => {
       if (items) {
