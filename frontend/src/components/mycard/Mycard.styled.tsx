@@ -24,6 +24,10 @@ const StyledCard = styled.div.attrs<MycardType>((props) => ({}))`
       background-color: ${bgcolor};
 
       padding: 30px;
+      &:active {
+        margin-top: 3px;
+        margin-left: 3px;
+      }
       cursor: pointer;
     `;
   }};
@@ -74,17 +78,16 @@ const StyledCardHeader = styled.div.attrs<MycardType>((props) => ({}))`
       align-items: center;
       gap: 6px;
       font-family: ${font};
-      
+
       //
       width: 100%;
       text-align: center;
-      
-      
+
       .title {
         font-size: ${small};
         color: ${black};
       }
-      
+
       .writer {
         font-size: ${xsmall};
         color: ${gray};
@@ -121,7 +124,6 @@ const StyledBottomText = styled.div.attrs<MycardType>((props) => ({}))`
   }};
 `;
 
-
 const StyledImg = styled.img.attrs<any>((props) => ({}))`
   ${(props) => {
     const yellow = props.theme.colors.yellow;
@@ -140,6 +142,5 @@ const StyledImg = styled.img.attrs<any>((props) => ({}))`
     `;
   }};
 `;
-
 
 export { StyledCard, StyledTag, StyledCardHeader, StyledBottomText, StyledImg };

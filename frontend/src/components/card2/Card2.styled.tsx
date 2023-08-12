@@ -19,6 +19,10 @@ const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
       background-color: ${bgcolor};
 
       padding: 30px;
+      &:active {
+        margin-top: 3px;
+        margin-left: 3px;
+      }
       cursor: pointer;
     `;
   }};
@@ -29,7 +33,7 @@ const StyledCardLeft = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 13px;
-`
+`;
 const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
   ${(props) => {
     const font = props.theme.fonts.HangeulFontSemiBold;
@@ -38,7 +42,6 @@ const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
 
     const small = props.theme.fontSizes.small;
     const xsmall = props.theme.fontSizes.xsmall;
-
 
     return css`
       display: flex;
@@ -72,8 +75,8 @@ const StyledProbability = styled.div.attrs<CardType>((props) => ({}))`
       display: flex;
       align-items: center;
       gap: 13px;
-      
-      .text{
+
+      .text {
         font-family: ${font};
         font-size: ${size};
         color: ${purple};
@@ -97,7 +100,7 @@ const StyledRemainTime = styled.div.attrs<CardType>((props) => ({}))`
       /* width: 100%; */
 
       color: ${black};
-      
+
       .time-text {
         display: flex;
         align-items: center;

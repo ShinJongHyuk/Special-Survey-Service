@@ -9,7 +9,7 @@ const CardList = (props: any) => {
     <StyledCardList>
       {cards.map((survey: any, index: any) => (
         <div key={index}>
-          <div style={{ width: "220px" }}>
+          <div style={{ width: "220px", height: "323px" }}>
             <Card
               title={survey.title}
               nickname={survey.writerName}
