@@ -17,35 +17,50 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         const [count, setCount] = useState(3);
 
         useEffect(() => {
-          const storedItems = loadCheckBoxFromLocalStorage(`CHECK_BOX_${componentKey}`);
-          if (storedItems) {
-            setItems(storedItems);
-          }
+    
+          const loadDataFromLocalStorage = async () => {
+            const storedItems = await loadCheckBoxFromLocalStorage(`CHECK_BOX_${componentKey}`);
+            
+            if (storedItems) {
+              setItems(storedItems);
+            }
+          };
+          loadDataFromLocalStorage();
+         
         }, [componentKey]);
 
 
         useEffect(() => {
-          saveCheckBoxToLocalStorage(`CHECK_BOX_${componentKey}`, items);
-        }, [componentKey,items]);
-      
-        useEffect(() => {
-  
-          const checkBoxData = items.map((item) => ({
-              content: item.text,
-              linkNumber: item.linkNumber
-            }));
+          const saveData = async () => {
+            await saveCheckBoxToLocalStorage(`CHECK_BOX_${componentKey}`, items);
+          };
         
-            useMakeSurveyApiStore.getState().setSurveyList(componentKey, {
-              ...useMakeSurveyApiStore.getState().surveyList[componentKey],
-              multipleChoices: checkBoxData,
-            });
-          }, [componentKey, items]);
+          saveData();
+        }, [componentKey, items]);
+
+        useEffect(() => {
+          const CheckBoxData = items.map((item) => ({
+            content: item.text,
+            linkNumber: item.linkNumber,
+          }));
+       
+          const surveyState = useMakeSurveyApiStore.getState();
+          const surveyList = surveyState.surveyList;
+          
+          surveyState.setSurveyList(componentKey, {
+            ...surveyList[componentKey],
+            multipleChoices: CheckBoxData,
+          });
+    
+        
+        }, [componentKey, items]);
 
   
 
         const saveCheckBoxToLocalStorage = (componentKey: string, items: any[]) => {
+          if (items) {
           localStorage.setItem(`CHECK_BOX_${componentKey}`, JSON.stringify(items));
-
+          }
         };
       
         const loadCheckBoxFromLocalStorage = (componentKey: string) => {
@@ -61,9 +76,9 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
         };
 
         const handleAddItem = () => {
-          setItems((prevItems) => [
+          setItems((prevItems : any) => [
             ...prevItems,
-            { id: `${componentKey}_${count}`, text: '', linknumber :0 },
+            { id: `${componentKey}_${count}`, text: '', linkNumber :0 },
           ]);
           setCount((prevCount) => prevCount + 1);
         };
@@ -87,12 +102,13 @@ const CheckBox =  ({ componentKey,isLink }: { componentKey: string, isLink : boo
           const value = parseInt(event.target.value);
           const updatedItems = [...items];
           updatedItems[index].linkNumber = value;
+  
           setItems(updatedItems);
         };
       
         return (
           <CheckBox_Box>
-            {items.map((item, index) => (
+            {items && items.map((item : any, index : number) => (
               <CheckBox_content_Box key={item.id}>
                 <MultipleCheck name="radioGroup1" />
                 <MultipleCheckText

@@ -51,8 +51,9 @@ const QuestionComponent = (props:any) => {
                     {props.content}
                 </Surveycontent>
                 <SurveyImage>
-                {props.imgAddress ? <Image src={props.imgAddress} alt={props.id} width={100} height={100} unoptimized={true}></Image> :
-                                    <Image src="/" alt={props.id} width={100} height={100}></Image>}
+                {props.imgAddress && (
+                    <Image src={props.imgAddress} alt={props.id} width={100} height={100} unoptimized={true}></Image>)}
+                                
                 </SurveyImage>
                 
                 </SurveyQuestionContainer>

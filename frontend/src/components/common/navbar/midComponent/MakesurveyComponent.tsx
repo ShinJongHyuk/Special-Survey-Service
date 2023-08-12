@@ -10,6 +10,7 @@ import useMakeSurveyApiStore from "@/stores/makesurvey/useMakeSurveyApiStore";
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
 import usePriceStore from "@/stores/usePriceStore";
+import useSurveyFocus from "@/stores/makesurvey/useSurveyFocusStore";
 
 
 
@@ -17,9 +18,10 @@ const MakesruveyComponent = (props: any) => {
     const pathname = props.pathname;
     const router = useRouter();
     const {resetSettingSurveyData} = useSettingSurveyApiStore();
-    const {surveyList} = useMakeSurveyApiStore();
+    const {surveyList,setSurveyList,reset} = useMakeSurveyApiStore();
     const {surveyComponents,resetSurveyComponents} = useSurveyStore();
     const {price,decrement} = usePriceStore();
+    const {resetSelectedSurvey} = useSurveyFocus();
     
     const {
       title,
@@ -58,10 +60,9 @@ const MakesruveyComponent = (props: any) => {
             questionNumber: index + 1 
             };
           })
-          .filter(dataWithoutComponentKey => dataWithoutComponentKey !== undefined),
         }
 
-
+      console.log(surveyData)
         const Inner_hasEmptyValue = surveyData.questions.some((questionData: any, questionIndex: number) => {
           if (questionData.title === "" || questionData.type === "") {
               alert(`질문 ${questionIndex + 1}의 모든 필드를 채워주시기 바랍니다.`);
@@ -112,6 +113,8 @@ const MakesruveyComponent = (props: any) => {
     const handleResetButtonClick = () => {
       resetSettingSurveyData(); 
       resetSurveyComponents();
+      reset();
+      resetSelectedSurvey();
     };
 
     return (
