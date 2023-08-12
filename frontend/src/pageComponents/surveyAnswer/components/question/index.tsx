@@ -32,7 +32,7 @@ const QuestionComponent = (props:any) => {
             }
         });
     }, [multipleChoices]);
-
+    console.log(props)
     useEffect(() => {
         console.log(props,"123")
     })
