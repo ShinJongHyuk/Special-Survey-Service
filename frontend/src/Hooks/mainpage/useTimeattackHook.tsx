@@ -8,20 +8,24 @@ const useTimeattackHook = () => {
 
   useEffect(() => {
     const fetchList = async () => {
-      const accessToken = localStorage.getItem('accessToken');
+      const accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken) {
         const data = await normalListGet();
-        const sortData = data.map((prev: any) => {
-          return { ...prev, remainTime: useTimerHook(prev.endTime) };
-        })
-        setCards([...sortData.slice(0, 5), ...sortData.slice(0, 5), ...sortData.slice(0, 5)]);
+        if (data) {
+          const sortData = data.map((prev: any) => {
+            return { ...prev, remainTime: useTimerHook(prev.endTime) };
+          });
+          setCards([...sortData.slice(0, 5), ...sortData.slice(0, 5), ...sortData.slice(0, 5)]);
+        }
       } else {
         const data = await userNormalListGet(accessToken);
-        const sortData = data.map((prev: any) => {
-          return { ...prev, remainTime: useTimerHook(prev.endTime) };
-        })
-        setCards([...sortData.slice(0, 5), ...sortData.slice(0, 5), ...sortData.slice(0, 5)]);
+        if (data) {
+          const sortData = data.map((prev: any) => {
+            return { ...prev, remainTime: useTimerHook(prev.endTime) };
+          });
+          setCards([...sortData.slice(0, 5), ...sortData.slice(0, 5), ...sortData.slice(0, 5)]);
+        }
       }
     };
     fetchList();

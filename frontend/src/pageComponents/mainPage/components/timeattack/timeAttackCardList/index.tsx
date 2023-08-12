@@ -14,21 +14,22 @@ const TimeAttackCardList = (props: any) => {
         transition: "transform 0.5s ease-out",
       }}
     >
-      {cards.map((survey: any, index: any) => (
-        <div key={index}>
-          <div style={{ width: "440px" }}>
-            <Card2
-              title={survey.title}
-              nickname={survey.writerName}
-              giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
-              probability={survey.winningPercent + "%"}
-              remaintime={survey.remainTime || ""}
-              id={survey.id}
-              onClick={() => router.push("/surveydetail/" + survey.id)}
-            />
+      {cards &&
+        cards.map((survey: any, index: any) => (
+          <div key={index}>
+            <div style={{ width: "440px" }}>
+              <Card2
+                title={survey.title}
+                nickname={survey.writerName}
+                giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
+                probability={survey.winningPercent + "%"}
+                remaintime={survey.remainTime || ""}
+                id={survey.id}
+                onClick={() => router.push("/surveydetail/" + survey.id)}
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </StyledCardList>
   );
 };
