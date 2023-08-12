@@ -1,6 +1,6 @@
 "use client";
 import Mobiletitle from "../../mobileComponents/mobiletitle";
-import { StyledContainer, StyledBox, StyledName, StyledText, StyledLeft, StyledWoman } from "./Mobilemain.styled";
+import { StyledContainer, StyledBox, StyledName, StyledText, StyledLeft } from "./Mobilemain.styled";
 import { useRouter } from "next/navigation";
 
 const Mobilemain = () => {
@@ -39,23 +39,12 @@ const Mobilemain = () => {
         >
           <StyledLeft>
             <img src="/mainpage/good.svg" style={{ width: "35px", height: "35px" }} />
-            <StyledName>Normal List</StyledName>
+            <StyledName>Time Attack</StyledName>
           </StyledLeft>
           <StyledText> 마감시간이 얼마 남지 않은 설문 순이에요! </StyledText>
         </StyledBox>
-        {/* <StyledBox
-          onClick={() => {
-            router.push("/timeattacklist");
-          }}
-        >
-          <StyledLeft>
-            <img src="/mainpage/good.svg" style={{ width: "35px", height: "35px" }} />
-            <StyledName>Time Attack</StyledName>
-          </StyledLeft>
-          <StyledText> 종료 임박 타임어택 설문이에요! </StyledText>
-        </StyledBox> */}
       </StyledContainer>
-      <StyledWoman src="/mobile/mainwoman.png" />
+      {/* <img src="/mobile/mainwoman.png" style={{ width: "170px", height: "170px" }} /> */}
     </>
   );
 };

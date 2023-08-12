@@ -6,7 +6,7 @@ const StyledBox = styled.div.attrs<any>((props) => ({}))`
     const white = props.theme.colors.white;
 
     return css`
-      width: 334px;
+      width: 80%;
       height: 140px;
       padding-right: 8px;
       border: 1px solid ${lightgray};
@@ -70,13 +70,4 @@ const StyledLeft = styled.div`
   gap: 8px;
   width: 50%;
 `;
-
-const StyledWoman = styled.img`
-  width: 170px;
-  height: 170px;
-  position: fixed;
-  left: 0;
-  z-index: -1;
-  bottom: -25px;
-`;
-export { StyledContainer, StyledBox, StyledName, StyledText, StyledLeft, StyledWoman };
+export { StyledContainer, StyledBox, StyledName, StyledText, StyledLeft };
