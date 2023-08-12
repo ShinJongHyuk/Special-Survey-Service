@@ -27,8 +27,8 @@ function MakeQuestion() {
 
   useEffect(() => {
       const storedData = loadComponentDataFromLocalStorage();
-      if (storedData) {
-        setImg('')
+      if (storedData.img) {
+        setImg(storedData.img)
       }
     }, []);
 

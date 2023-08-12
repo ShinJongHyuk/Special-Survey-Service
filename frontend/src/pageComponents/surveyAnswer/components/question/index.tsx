@@ -50,11 +50,11 @@ const QuestionComponent = (props:any) => {
                 <Surveycontent disabled={disabled}>
                     {props.content}
                 </Surveycontent>
-                {props.imgAddress &&
                 <SurveyImage>
-                {<Image src="/" alt={props.id} width={100} height={100}></Image>}
+                {props.imgAddress ? <Image src={props.imgAddress} alt={props.id} width={100} height={100} unoptimized={true}></Image> :
+                                    <Image src="/" alt={props.id} width={100} height={100}></Image>}
                 </SurveyImage>
-                }
+                
                 </SurveyQuestionContainer>
                 {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props} disabled={disabled}></MultipleChoice>}
                 {props.type === "CHECK_BOX" && <CheckBox {...props} disabled={disabled}></CheckBox>}

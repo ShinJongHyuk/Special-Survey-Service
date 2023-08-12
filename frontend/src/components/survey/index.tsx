@@ -80,7 +80,7 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
             essential : checked,
             title : headerText,
             content : headerDetailText,
-            img : imgurl
+            imgAddress : imgurl
             };
         saveComponentDataToLocalStorage(componentKey, componentData);
         setSurveyList(componentKey,SendData); 

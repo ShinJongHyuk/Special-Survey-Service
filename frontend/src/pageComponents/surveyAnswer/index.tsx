@@ -37,7 +37,6 @@ const SurveyAnswer = (props:any) => {
     
     return (
         <SurveyAnswerPage>
-
             <div style={{position:"fixed", height:"250px", width:"100%",zIndex:"1"}}>
             <div style={{display:"flex", backgroundColor:"white"}}>
             <BackButtonContainer bgcolor="white">
