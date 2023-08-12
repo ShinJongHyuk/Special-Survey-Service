@@ -1,7 +1,5 @@
-import Login from "@/pageComponents/login"
+import Viewcheck from "@/pageComponents/viewcheck";
 
 export default function () {
-    return (
-       <Login/>
-    )
+  return <Viewcheck page="login" />;
 }
