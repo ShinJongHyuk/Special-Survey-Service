@@ -1,7 +1,6 @@
-import Signup from "@/pageComponents/signup"
+import Signup from "@/pageComponents/signup";
+import Viewcheck from "@/pageComponents/viewcheck";
 
 export default function () {
-    return (
-        <Signup/>
-    )
+  return <Viewcheck page="signup" />;
 }
