@@ -27,6 +27,7 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 border-radius: 48px;
                 background-color: ${yellow};
                 color : ${black};
+                font-size:${small};
             `,
       gender: `
                 background-color: ${gender === name ? yellow : lightgray};
