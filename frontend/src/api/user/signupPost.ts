@@ -1,20 +1,16 @@
 import api from "../api";
 
-const signupPost = async (user:any) => {
-    try {
-        const res = await api({
-            method : 'post',
-            url : '/signup',
-            data : {...user}
-        })
-        console.log(res)
-        return res
-    } catch (err) {
-        console.log(err)
-        throw(err)
-    }
-    
-    
-}
+const signupPost = async (user: any) => {
+  try {
+    const res = await api({
+      method: "post",
+      url: "/signup",
+      data: { ...user },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
 
-export default signupPost
+export default signupPost;

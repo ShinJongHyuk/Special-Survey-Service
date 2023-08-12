@@ -99,6 +99,7 @@ export const useSignupHook = (): SignupHookType => {
       };
     });
   };
+
   // 이메일 중복 체크
   const duplicationEmail = async (e: any) => {
     if (!emailRegx.test(user.email)) {
@@ -117,6 +118,7 @@ export const useSignupHook = (): SignupHookType => {
       alert("이메일인증에 성공하였습니다.");
     }
   };
+
   // 휴대폰 중복 체크
   const duplicationPhoneNumber = async () => {
     const trimmedValue = user.tel.replace(/-/g, "");
@@ -185,8 +187,6 @@ export const useSignupHook = (): SignupHookType => {
     const trimmedValue = user.tel.replace(/-/g, "");
     const newPhoneNumber = trimmedValue.replace(/(\d{3})(\d{3,4})(\d{4})/, "$1-$2-$3");
 
-    // 패스워드 체크
-
     const data = {
       email: e.target.email.value,
       password: e.target.password.value,
@@ -199,7 +199,6 @@ export const useSignupHook = (): SignupHookType => {
       age: user.gender,
     };
 
-    console.log(data);
     if (!isCert.email) {
       alert("이메일 중복확인을 해주세요");
     } else if (!isCert.tel) {
@@ -228,13 +227,12 @@ export const useSignupHook = (): SignupHookType => {
     } else if (user.age == "") {
       alert("나이대를 선택해주세요");
     } else {
-      if (isCert.certNum && isCert.email && isCert.tel) {
+      if (isCert.certNum === "true" && isCert.email === "true" && isCert.tel === "true") {
         const res = await signupPost(data);
         if (!res.data.success) {
           alert(res.data.apiError.message);
           return;
         }
-
         alert("회원가입에 성공하였습니다");
         const loginData = {
           email: data.email,
@@ -249,6 +247,8 @@ export const useSignupHook = (): SignupHookType => {
         const response = await loginGet(loginRes.data.response.accessToken);
         await setUserInformation(response.data.response);
         router.push("/");
+      } else {
+        alert("이메일 , 휴대폰 , 문자 인증을 모두 마쳐야합니다.");
       }
     }
   };

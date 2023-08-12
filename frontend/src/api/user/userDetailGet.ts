@@ -9,9 +9,8 @@ const userDetailGet = async () => {
     });
     if (response.data.success) {
       return response.data.response;
-    } else {
-      console.log("error: ", response.data.apiError.message);
     }
+    return [];
   } catch (error) {
     console.error("Error: ", error);
     throw error;

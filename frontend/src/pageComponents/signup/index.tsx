@@ -10,6 +10,7 @@ import {
   SignUpContainer,
   PasswordCondition,
   DuplicationButton,
+  InputButtonBox,
 } from "./Signup.styled";
 import { useSignupHook } from "@/Hooks/user/useSignupHook";
 import InputBoxItem from "./components/InputBox";
@@ -48,20 +49,20 @@ const Signup = () => {
       <SignUpContainer onSubmit={handleSubmit}>
         <InputBoxItem title="이메일">
           <DuplicationBox>
-            <InputBox>
+            <InputButtonBox>
               <Input type="email" name="email" inputState={isCert.email} onChange={changeUserValue} />
-            </InputBox>
-            <DuplicationButton type="button" iscert={isCert.email} onClick={duplicationEmail}>
-              {isCert.email == "true" ? "인증완료" : "중복확인"}
+            </InputButtonBox>
+            <DuplicationButton disabled={isCert.email === "true"} type="button" iscert={isCert.email} onClick={duplicationEmail}>
+              {isCert.email === "true" ? "인증완료" : "중복확인"}
             </DuplicationButton>
           </DuplicationBox>
         </InputBoxItem>
 
         <InputBoxItem title="휴대폰 번호">
           <DuplicationBox>
-            <InputBox>
+            <InputButtonBox>
               <Input type="tel" name="phoneNumber" disabled={isCert.tel === "true"} inputState={isCert.tel} onChange={changeUserValue} />
-            </InputBox>
+            </InputButtonBox>
             {isCert.tel === "true" ? (
               <DuplicationButton type="button" iscert={isCert.tel} onClick={SendCertNum}>
                 인증번호 발송
@@ -74,13 +75,13 @@ const Signup = () => {
           </DuplicationBox>
         </InputBoxItem>
 
-        {isCert.tel == "true" && (
+        {isCert.tel === "true" && (
           <InputBoxItem title="인증번호">
             <DuplicationBox>
-              <InputBox>
+              <InputButtonBox>
                 <Input type="text" name="certNum" onChange={changeUserValue} />
-              </InputBox>
-              <DuplicationButton type="button" iscert={isCert.certNum} onClick={Certification}>
+              </InputButtonBox>
+              <DuplicationButton type="button" disabled={isCert.certNum === "true"} iscert={isCert.certNum} onClick={Certification}>
                 {isCert.certNum === "true" ? "인증완료" : "인증하기"}
               </DuplicationButton>
             </DuplicationBox>

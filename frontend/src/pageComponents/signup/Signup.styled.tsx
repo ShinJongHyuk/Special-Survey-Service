@@ -30,7 +30,7 @@ const SignupText = styled.div.attrs<any>((props) => ({}))`
 
 const DuplicationBox = styled.div.attrs<any>((props) => ({}))`
   display: flex;
-  width: 550px;
+  width: 430px;
   align-items: center;
 `;
 
@@ -42,6 +42,14 @@ const DuplicationButton = styled.button.attrs<any>((props) => ({}))`
   font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
   font-size: ${(props) => props.theme.fontSizes.xsmall};
   border: none;
+  margin-right: 8px;
+  &:enabled {
+    &:active {
+      margin-right: 7px;
+      margin-top: 3px;
+    }
+  }
+
   cursor: pointer;
 `;
 
@@ -49,6 +57,15 @@ const InputBox = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     return css`
       width: 410px;
+      height: 40px;
+      margin: 10px;
+    `;
+  }}
+`;
+const InputButtonBox = styled.div.attrs<any>((props) => ({}))`
+  ${(props) => {
+    return css`
+      width: 310px;
       height: 40px;
       margin: 10px;
     `;
@@ -104,4 +121,5 @@ export {
   InputBox,
   PasswordCondition,
   DuplicationButton,
+  InputButtonBox,
 };

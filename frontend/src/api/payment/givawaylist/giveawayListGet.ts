@@ -4,17 +4,15 @@ const giveawayListGet = async () => {
   try {
     const accessToken = localStorage.getItem("accessToken");
     const response = await api.get("/giveaway", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
-   
+
     if (response.data.success) {
       return response.data.response;
-    } else {
-      console.log("errors: ", response.data.apiError.message);
     }
-
+    return [];
   } catch (error) {
     console.error("Error: ", error);
     throw error;

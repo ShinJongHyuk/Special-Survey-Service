@@ -13,5 +13,8 @@ const nextConfig = {
     }
     return config;
   },
+  removeConsole: {
+    exclude: ["error", "warn"],
+  },
 };
 module.exports = nextConfig;
