@@ -2,7 +2,6 @@
 import React,{useState,useEffect} from 'react';
 import fireStore from '../../../../../firebase/firestore';
 import imgStorage from '../../../../../firebase/firebaseStorage'
-import { collection, addDoc } from "firebase/firestore"
 import { ref,uploadBytes,getDownloadURL, deleteObject } from "firebase/storage"
 import Toolbar from '@/components/survey/toolbar';
 import {Component_Container,Survey_Inner_Container,ImagePreiew_Box,ImagePreview,Image_Delete_Button,UploadImage,Image_Text_Content,Image_Text_Header,Inner_Icon_Container,Inner_Text_Container,Image_Inner_Container,Title_Content,Title_input,Title_Inner_Container,Survey_Container, Background_Container, Survey_MainImage_Container,Survey_Title_Container } from './MakeQuestion.styled';
@@ -62,22 +61,19 @@ function MakeQuestion() {
   };     
   const handleImageChange = async (event: any) => {
     const file = event.target.files[0];
-    const uploadFileName = uuid() + ".png";
-    
+
+
     if (file) {
-      const imageRef = ref(imgStorage, `images/${uploadFileName}`);
-      const uploadTask = uploadBytes(imageRef, file);
-  
+      const uploadFileName = uuid();
+      const reference = ref(imgStorage, uploadFileName);
+      const uploadTask = uploadBytes(reference, file);
+
+
       uploadTask.then(async () => {
-        setImg(uploadFileName);
-        
-        await addDoc(collection(fireStore,'MainImage'), {
-          uploadFileName,
-        });
+        const imgUrl = await getDownloadURL(reference);
+        setImg(imgUrl);
 
       }).then(async () => {
-          
-        const reference = ref(imgStorage, `images/${uploadFileName}`);
         const imgUrl = await getDownloadURL(reference);
         setPreviewImg(imgUrl);
         event.target.value = null;

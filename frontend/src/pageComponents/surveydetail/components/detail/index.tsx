@@ -21,14 +21,10 @@ import { useEffect, useState } from "react";
 import { convertToDetailProps } from "../../SurveyDetailType.type";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
-import imgStorage from "../../../../../firebase/firebaseStorage";
-import {ref, getDownloadURL} from "firebase/storage"
- 
 
 const DetailComponent = (props: any) => {
 
   const [hasAccessToken, setHasAccessToken] = useState(false);
-
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     setHasAccessToken(!!token);
@@ -37,17 +33,7 @@ const DetailComponent = (props: any) => {
   const router = useRouter();
 
   const { surveyDetail, cananswer } = props;
-  // console.log("DetailComponent- can answer : ", cananswer);
-  useEffect(() => {
-    const uploadTitleImage = async () => {
-      if (surveyDetail.img !== undefined && surveyDetail.img !== "이미지") {
-        const reference = ref(imgStorage, `images/${surveyDetail.img}`);
-        const imgUrl = await getDownloadURL(reference);
-        setSurveyImage(imgUrl)
-      }
-    }
-    uploadTitleImage();
-  },[surveyDetail])
+  // console.log("DetailComponent- can answer : ", cananswer); 
   const [isOpen, setIsOpen] = useState(false);
   const [toModalData, setToModalData] = useState({
     surveyid: "",
@@ -55,9 +41,7 @@ const DetailComponent = (props: any) => {
     smalltext: "",
     confirm: ""
   });
-  const [surveyImage,setSurveyImage] = useState("")
-
-
+  
 
   const detailProps = convertToDetailProps(surveyDetail);
 
@@ -70,6 +54,7 @@ const DetailComponent = (props: any) => {
   const endtimestr = formatDate(detailProps.endtime || "");
   const starttimestr = formatDate(detailProps.starttime || "");
 
+  
   const now = moment();
   const endTime = moment(detailProps.endtime, "YYYY-MM-DD-HH-mm");
   // const isExpired = now.isAfter(endTime);
@@ -82,7 +67,6 @@ const DetailComponent = (props: any) => {
       typeName = "타임어택";
     }
   }
-
   const [remaintime, setRemainTime] = useState("00분, 00초");
 
   useEffect(() => {
@@ -98,14 +82,15 @@ const DetailComponent = (props: any) => {
   const [value2, label2] = unit2.split(":");
 
 
+
   let currentUrl = "/";
   if (typeof window !== "undefined") {
     currentUrl = window.location.href;
   }
   return (
     <StyledDetailContainer>
-      {surveyImage ? (
-        <Image src={surveyImage} alt="surveyTitleImage" width={450} height={600} />
+      {surveyDetail.img ? (
+        <Image src={surveyDetail.img} alt="surveyTitleImage" width={450} height={600} unoptimized={true} />
       ) : (
         <Image src="/surveyDetail/SurveyDetailTest.png" alt="nodetailImg" width={450} height={600} />
       )}
