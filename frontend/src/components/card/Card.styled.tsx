@@ -27,6 +27,10 @@ const StyledCard = styled.div.attrs<CardType>((props) => ({}))`
       background-color: ${bgcolor};
 
       padding: 30px;
+      &:active {
+        margin-top: 3px;
+        margin-left: 3px;
+      }
       cursor: pointer;
     `;
   }};
@@ -90,11 +94,10 @@ const StyledCardHeader = styled.div.attrs<CardType>((props) => ({}))`
       width: 100%;
       text-align: center;
 
-      
       .titletext {
         font-size: ${small};
         //
-        width:150px;
+        width: 150px;
         height: 20px;
         white-space: nowrap;
         overflow: hidden;

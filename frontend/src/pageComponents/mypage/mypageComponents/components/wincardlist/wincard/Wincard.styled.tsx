@@ -22,6 +22,10 @@ const StyledCard = styled.div.attrs<WincardType>((props) => ({}))`
       background-color: ${bgcolor};
 
       padding: 30px;
+      &:active {
+        margin-top: 3px;
+        margin-left: 3px;
+      }
       cursor: pointer;
     `;
   }};

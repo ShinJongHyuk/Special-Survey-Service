@@ -9,7 +9,7 @@ const NormalCard = ({ index, survey }: any) => {
 
   return (
     <div key={index} style={{ display: "flex", justifyContent: "center" }}>
-      <div style={{ width: "220px" }}>
+      <div style={{ width: "220px", height: "323px" }}>
         <Card
           title={survey.title}
           nickname={survey.writerName}

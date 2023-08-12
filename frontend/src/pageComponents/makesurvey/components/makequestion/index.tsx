@@ -1,17 +1,21 @@
 "use client";
 import React,{useState,useEffect} from 'react';
+import fireStore from '../../../../../firebase/firestore';
+import imgStorage from '../../../../../firebase/firebaseStorage'
+import { ref,uploadBytes,getDownloadURL, deleteObject } from "firebase/storage"
 import Toolbar from '@/components/survey/toolbar';
 import {Component_Container,Survey_Inner_Container,ImagePreiew_Box,ImagePreview,Image_Delete_Button,UploadImage,Image_Text_Content,Image_Text_Header,Inner_Icon_Container,Inner_Text_Container,Image_Inner_Container,Title_Content,Title_input,Title_Inner_Container,Survey_Container, Background_Container, Survey_MainImage_Container,Survey_Title_Container } from './MakeQuestion.styled';
 import Main_Image from '/public/survey/Main_Image.png'
 import Image from 'next/image'
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import useSettingSurveyApiStore from '@/stores/makesurvey/useSettingSurveyApiStore';
-import axios from 'axios'
+import { v4 as uuid } from 'uuid';
+
 
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
   const {title,setTitle,titleContent,setTitleContent,img,setImg} = useSettingSurveyApiStore();
-
+  const [previewImg, setPreviewImg] = useState('');
   const saveComponentDataToLocalStorage = (data: any) => {
       localStorage.setItem('entire', JSON.stringify(data));
     };
@@ -24,7 +28,7 @@ function MakeQuestion() {
   useEffect(() => {
       const storedData = loadComponentDataFromLocalStorage();
       if (storedData) {
-        setImg(storedData.img);
+        setImg('')
       }
     }, []);
 
@@ -55,21 +59,46 @@ function MakeQuestion() {
       uploadButton.click();
     }
   };     
-
-  const handleImageChange = (event: any) => {
+  const handleImageChange = async (event: any) => {
     const file = event.target.files[0];
 
+
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImg(imageUrl);
-      event.target.value = null;
+      const uploadFileName = uuid();
+      const reference = ref(imgStorage, uploadFileName);
+      const uploadTask = uploadBytes(reference, file);
+
+
+      uploadTask.then(async () => {
+        const imgUrl = await getDownloadURL(reference);
+        setImg(imgUrl);
+
+      }).then(async () => {
+        const imgUrl = await getDownloadURL(reference);
+        setPreviewImg(imgUrl);
+        event.target.value = null;
+      })
     }
 
   };
 
-  const handleImageDelete = () => {
-    setImg('');
+
+
+
+  const handleImageDelete = async () => {
+    if (img) {
+      const imageRef = ref(imgStorage, `images/${img}`);
+
+      try {
+        await deleteObject(imageRef);
+        setImg('');
+      } catch(error) {
+        console.error("이미지 삭제 실패",error)
+      }
+    }
+
   };
+
   return (
     
       <Survey_Container>
@@ -89,7 +118,7 @@ function MakeQuestion() {
               <UploadImage id={`upload-button`} onChange={(e: any) => handleImageChange(e)} />
               {img ?  (
                 <ImagePreiew_Box>
-                  <ImagePreview src={img} alt='메인 이미지' />
+                  <ImagePreview src={previewImg} alt='메인 이미지' />
                   <Image_Delete_Button onClick={() => handleImageDelete()}>X</Image_Delete_Button>
                 </ImagePreiew_Box>
               )  : <Inner_Icon_Container onClick={() => handleImageClick()}>
