@@ -18,8 +18,8 @@ const CheckBoxInput = styled.input.attrs<any>((props) =>({
 }))`
   position: relative;
   margin-right: 8px;
-  width: 16px;
-  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
   appearance: none;
   -webkit-appearance: none;
   border: 1px solid #ccc;
