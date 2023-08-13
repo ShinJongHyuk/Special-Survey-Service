@@ -24,8 +24,8 @@ const RadioInput = styled.input.attrs<any>((props) => ({
 }))`
   position: relative; /* Add this */
   margin-right: 8px;
-  width: 16px;
-  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
   appearance: none;
   border: 1px solid #ccc;
   border-radius: 50%;
