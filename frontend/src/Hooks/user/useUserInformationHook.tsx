@@ -10,7 +10,7 @@ export const useLoginHook = () => {
   const ignorePathName = ["/", "/surveylist", "/login", "/signup"];
   const refreshUserInformation = async () => {
     const userInfo = await userDetailGet();
-    if (userInfo) {
+    if (userInfo?.email) {
       login();
       setUserInformation(userInfo);
       return;
