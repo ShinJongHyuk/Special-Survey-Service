@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { RadioContainer, RadioInput, RadioLabel, RadioFlex } from "./Radiobutton.styled";
+import { RadioContainer, RadioFlex, RadioButton } from "./Radiobutton.styled";
 import useSurveyAnswerStore from "@/stores/useSurveyAnswer";
 
 interface resultType {
@@ -12,10 +12,24 @@ const Radiobutton = (props: any) => {
   const questionId = props.id;
   const questionNumber = props.questionNumber;
   const multipleChoices = props.multipleChoices;
-  const [result, setResult] = useState<resultType>({
-    questionId: "",
-    multipleChoiceAnswer: "",
-  });
+
+  const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
+  const onButtonClick = (multipleChoice: any) => {
+    setSelectedChoice(multipleChoice.id);
+
+    if (multipleChoice.linkNumber) {
+      setLinkNumber(multipleChoice.linkNumber);
+    }
+
+    const updateResult = {
+      questionId: String(questionId),
+      multipleChoiceAnswer: multipleChoice.id,
+    };
+
+    setAnswer(updateResult);
+    removeLinkNumber(multipleChoice.linkNumber);
+  };
+
   const setAnswer = useSurveyAnswerStore((state: any) => state.setAnswer);
   const setLinkNumber = useSurveyAnswerStore((state: any) => state.setLinkNumber);
   const linkNumber = useSurveyAnswerStore((state: any) => state.linkNumber);
@@ -27,39 +41,15 @@ const Radiobutton = (props: any) => {
     }
   }, [linkNumber]);
 
-  const onClick = (multipleChoice: any) => async (e: any) => {
-    await multipleChoices.map((multipleChoice: any) => {
-      if (multipleChoice.linkNumber) {
-        setLinkNumber(multipleChoice.linkNumber);
-      }
-    });
-    const updateResult = {
-      ...result,
-      ["questionId"]: String(questionId),
-      ["multipleChoiceAnswer"]: e.target.id,
-    };
-    setResult(updateResult);
-    setAnswer(updateResult);
-    removeLinkNumber(multipleChoice.linkNumber);
-  };
-
   return (
     <RadioContainer disabled={props.disabled}>
       {multipleChoices &&
         multipleChoices.map((multipleChoice: any) => {
           return (
             <RadioFlex key={multipleChoice.id}>
-              <RadioInput
-                id={multipleChoice.id}
-                surveyCategoryType={props.surveyCategoryType}
-                name={questionNumber}
-                onClick={onClick(multipleChoice)}
-                goQuestion={multipleChoice.linkNumber}
-                label={multipleChoice.content}
-              />
-              <RadioLabel htmlFor={multipleChoice.id} {...props}>
+              <RadioButton selected={selectedChoice === multipleChoice.id} onClick={() => onButtonClick(multipleChoice)} {...props}>
                 {multipleChoice.content}
-              </RadioLabel>
+              </RadioButton>
             </RadioFlex>
           );
         })}

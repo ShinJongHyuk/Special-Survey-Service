@@ -1,18 +1,17 @@
 import styled, { css } from "styled-components";
 
-const RadioContainer = styled.div.attrs<any>((props) => ({}))`
+const CheckBoxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
-const RadioFlex = styled.div.attrs<any>((props) => ({}))`
+const CheckBoxFlex = styled.div.attrs<any>((props) => ({}))`
   display: flex;
   align-items: center;
-  margin-top: 7px;
+  margin: 5px;
 `;
 
-const RadioButton = styled.button<any>`
+const CheckboxButton = styled.button<any>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,6 +21,7 @@ const RadioButton = styled.button<any>`
   height: auto;
   min-height: 40px;
   word-break: break-all;
+  /* overflow-wrap: break-word; */
   white-space: pre-wrap;
   background-color: ${(props) =>
     props.selected ? (props.surveyCategoryType === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange) : props.theme.colors.white};
@@ -35,4 +35,16 @@ const RadioButton = styled.button<any>`
     background-color 0.3s;
 `;
 
-export { RadioContainer, RadioFlex, RadioButton };
+const StyledCheckboxNotice = styled.div.attrs<any>((props) => ({}))`
+  ${(props) => {
+    const color = props.surveyCategoryType === "NORMAL" ? props.theme.colors.purple : props.theme.colors.orange;
+
+    return css`
+      text-align: right;
+      color: ${color};
+      font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+      font-size: ${(props) => props.theme.fontSizes.xsmall};
+    `;
+  }};
+`;
+export { StyledCheckboxNotice, CheckboxButton, CheckBoxContainer, CheckBoxFlex };
