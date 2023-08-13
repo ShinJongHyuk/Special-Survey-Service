@@ -12,8 +12,11 @@ import Signup from "../signup";
 import MobileSignup from "@/mobilePageComponents/signup";
 import SurveyAnswer from "../surveyAnswer";
 import MobileSurveyanswer from "@/mobilePageComponents/surveyanswer";
+import Mypage from "../mypage";
+import MobileMypage from "@/mobilePageComponents/mypage";
 import InstantWinCheck from "@/pageComponents/instantwincheck";
 import MobileInstantwincheck from "@/mobilePageComponents/instantwincheck";
+
 const Viewcheck = ({ page, id }: { page: string; id?: string }) => {
   const isMobile = useIsMobileHook();
   const currentView = isMobile ? "mobile" : "desktop";
@@ -26,6 +29,7 @@ const Viewcheck = ({ page, id }: { page: string; id?: string }) => {
       {page === "surveylist" && (currentView === "desktop" ? <Surveylist /> : <Speedyattacklist from="main" />)}
       {page === "surveydetail" && (currentView === "desktop" ? <SurveyDetail id={id} /> : <MobileSurveyDetail id={id} />)}
       {page === "surveyanswer" && (currentView === "desktop" ? <SurveyAnswer id={id} /> : <MobileSurveyanswer id={id} />)}
+      {page === "mypage" && (currentView === "desktop" ? <Mypage /> : <MobileMypage />)}
       {page === "instantwincheck" && (currentView === "desktop" ? <InstantWinCheck id={id} /> : <MobileInstantwincheck id={id} />)}
     </>
   );
