@@ -7,6 +7,7 @@ import { SignUpText, SignUpItem } from "../signup/Signup.styled";
 import { useRouter } from "next/navigation";
 import { useLoginHook } from "@/Hooks/user/useLoginHook";
 import { useEffect } from "react";
+import Link from "next/link";
 const Login = () => {
   const { handleChange, handleSubmit, handleOnChange, inputState, user, isRemember } = useLoginHook();
 
@@ -48,9 +49,13 @@ const Login = () => {
         </label>
       </LoginContainer>
 
-      <div style={{ display: "flex" }}>
-        <LoginFont2>아이디 찾기</LoginFont2>
-        <LoginFont2>비밀번호 찾기</LoginFont2>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <Link href="/find-id">
+          <LoginFont2>아이디 찾기</LoginFont2>
+        </Link>
+        <Link href="/reset-password">
+          <LoginFont2>비밀번호 재설정</LoginFont2>
+        </Link>
       </div>
     </LoginPage>
   );
