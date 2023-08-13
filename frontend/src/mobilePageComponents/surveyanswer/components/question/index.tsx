@@ -10,13 +10,13 @@ import {
   SurveyImage,
 } from "./Question.styled";
 import ShortForm from "@/components/surveyanswer/shortfrom";
-import TimeForm from "@/components/surveyanswer/timeform";
 import { useEffect, useState } from "react";
 import useSurveyAnswerStore from "@/stores/useSurveyAnswer";
 import Image from "next/image";
 import Radiobutton from "../forms/radiobutton";
 import Date from "../forms/date";
 import CheckBox from "../forms/checkbox";
+import Time from "../forms/time";
 
 const QuestionComponent = (props: any) => {
   const questionNumber = props.questionNumber;
@@ -64,7 +64,7 @@ const QuestionComponent = (props: any) => {
             {props.type === "CHECK_BOX" && <CheckBox {...props} disabled={disabled}></CheckBox>}
             {props.type === "SHORT_FORM" && <ShortForm {...props} disabled={disabled}></ShortForm>}
             {props.type === "DATE_FORM" && <Date {...props} disabled={disabled}></Date>}
-            {props.type === "TIME_FORM" && <TimeForm {...props} disabled={disabled}></TimeForm>}
+            {props.type === "TIME_FORM" && <Time {...props} disabled={disabled}></Time>}
           </Survey_Title_Container>
         </Survey_Container>
       )}
