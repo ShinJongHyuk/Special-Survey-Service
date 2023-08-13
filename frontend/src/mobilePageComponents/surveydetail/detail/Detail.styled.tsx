@@ -66,6 +66,7 @@ const SurveyTitle = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => props.theme.colors.black};
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.mediumlarge};
+  word-wrap: break-word;
 `;
 
 const SurveyPurpose = styled.div.attrs<any>((props) => ({}))`

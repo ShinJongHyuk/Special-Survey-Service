@@ -23,25 +23,23 @@ import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
 
 const DetailComponent = (props: any) => {
-
   const [hasAccessToken, setHasAccessToken] = useState(false);
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     setHasAccessToken(!!token);
   }, []);
 
   const router = useRouter();
 
   const { surveyDetail, cananswer } = props;
-  // console.log("DetailComponent- can answer : ", cananswer); 
+  // console.log("DetailComponent- can answer : ", cananswer);
   const [isOpen, setIsOpen] = useState(false);
   const [toModalData, setToModalData] = useState({
     surveyid: "",
     bigtext: "",
     smalltext: "",
-    confirm: ""
+    confirm: "",
   });
-  
 
   const detailProps = convertToDetailProps(surveyDetail);
 
@@ -54,7 +52,6 @@ const DetailComponent = (props: any) => {
   const endtimestr = formatDate(detailProps.endtime || "");
   const starttimestr = formatDate(detailProps.starttime || "");
 
-  
   const now = moment();
   const endTime = moment(detailProps.endtime, "YYYY-MM-DD-HH-mm");
   // const isExpired = now.isAfter(endTime);
@@ -80,8 +77,6 @@ const DetailComponent = (props: any) => {
   const [unit1, unit2] = remaintime ? remaintime.split(", ") : ["00분", "00초"];
   const [value1, label1] = unit1.split(":");
   const [value2, label2] = unit2.split(":");
-
-
 
   let currentUrl = "/";
   if (typeof window !== "undefined") {
@@ -189,8 +184,8 @@ const DetailComponent = (props: any) => {
         </div>
 
         <div style={{ display: "flex", gap: "12px" }}>
-          <CopyToClipboard text={currentUrl} onCopy={() => alert("클립보드에 복사되었습니다.")} >
-            <StyledShare src="/surveyDetail/share.png" alt="share" ></StyledShare>
+          <CopyToClipboard text={currentUrl} onCopy={() => alert("클립보드에 복사되었습니다.")}>
+            <StyledShare src="/surveyDetail/share.png" alt="share"></StyledShare>
           </CopyToClipboard>
 
           {(() => {
@@ -216,14 +211,14 @@ const DetailComponent = (props: any) => {
                           surveyid: detailProps.surveyid,
                           bigtext: "설문을 시작하시겠습까?",
                           smalltext: "",
-                          confirm: "응답하기"
+                          confirm: "응답하기",
                         });
                       } else {
                         setToModalData({
                           surveyid: detailProps.surveyid,
                           bigtext: "로그인이 필요합니다.",
                           smalltext: "",
-                          confirm: "로그인하기"
+                          confirm: "로그인하기",
                         });
                       }
                       setIsOpen(true);
@@ -232,7 +227,6 @@ const DetailComponent = (props: any) => {
                 );
             }
           })()}
-
         </div>
       </StyledSurveyContent>
 
@@ -255,7 +249,6 @@ const DetailComponent = (props: any) => {
           }
         }}
       />
-
     </StyledDetailContainer>
   );
 };

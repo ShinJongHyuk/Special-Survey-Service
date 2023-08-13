@@ -49,9 +49,14 @@ const StyledCardHeader = styled.div.attrs<WincardType>((props) => ({}))`
       width: 100%;
       text-align: center;
 
-      .title {
+      .titletext {
         font-size: ${small};
         color: ${black};
+        width: 150px;
+        height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .writer {
