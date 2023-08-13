@@ -28,11 +28,17 @@ const SurveyQuestion = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => (props.disabled ? props.theme.colors.lightgray : props.theme.colors.black)};
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.medium};
+
+  width: 70vw;
+  word-wrap: break-word;
 `;
 const Surveycontent = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => (props.disabled ? props.theme.colors.lightgray : "#6D7075")};
   font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
   font-size: ${(props) => props.theme.fontSizes.small};
+
+  width: 70vw;
+  word-wrap: break-word;
 `;
 
 const StyledTag = styled.div.attrs<any>((props) => ({}))`
