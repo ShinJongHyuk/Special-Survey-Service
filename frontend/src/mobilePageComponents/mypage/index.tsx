@@ -4,10 +4,13 @@ import { TabType } from "@/mobileComponents/tabmenu/tabmenu.type";
 import { useState } from "react";
 import useAnsweredListHook from "@/Hooks/mypage/useAnsweredListHook";
 import Cardlist from "@/mobileComponents/cardlist";
+import useWinListHook from "@/Hooks/mypage/useWinListHook";
+import { StyledText } from "./Mypage.styled";
 
 const MobileMypage = () => {
   const [selectedTab, setSelectedTab] = useState<TabType>("SURVEY");
   const { surveys } = useAnsweredListHook();
+  const { winConfirmList, refreshList } = useWinListHook();
 
   return (
     <div>
@@ -21,8 +24,8 @@ const MobileMypage = () => {
         </div>
       )}
       {selectedTab === "PRIZE" && (
-        <div style={{ paddingTop: "210px" }}>
-          <div>PRIZE </div>
+        <div style={{ paddingTop: "410px", display: "flex", justifyContent: "center" }}>
+          <StyledText>당첨된 상품 목록은 컴퓨터로 확인해주세요! </StyledText>
         </div>
       )}
     </div>
