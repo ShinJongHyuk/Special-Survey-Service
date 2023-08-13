@@ -57,6 +57,7 @@ const Title_Text = styled.label.attrs({})`
     font-size: ${props => props.theme.fontSizes.large};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
     color : ${props => props.theme.colors.black};
+    
     @media (max-width: 800px) {
         font-size: ${props => props.theme.fontSizes.medium}; 
     }
