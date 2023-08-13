@@ -6,6 +6,7 @@ import Toolbar from '@/components/survey/toolbar';
 import {Component_Container,Survey_Inner_Container,ImagePreiew_Box,ImagePreview,Image_Delete_Button,UploadImage,Image_Text_Content,Image_Text_Header,Inner_Icon_Container,Inner_Text_Container,Image_Inner_Container,Title_Content,Title_input,Title_Inner_Container,Survey_Container, Background_Container, Survey_MainImage_Container,Survey_Title_Container } from './MakeQuestion.styled';
 import Main_Image from '/public/survey/Main_Image.png'
 import Image from 'next/image'
+import useMakeSurveyApiStore from '@/stores/makesurvey/useMakeSurveyApiStore';
 import useSurveyStore from '@/stores/makesurvey/useSurveyStore';
 import useSettingSurveyApiStore from '@/stores/makesurvey/useSettingSurveyApiStore';
 import { v4 as uuid } from 'uuid';
@@ -14,8 +15,9 @@ import { v4 as uuid } from 'uuid';
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
   const {title,setTitle,titleContent,setTitleContent,img,setImg} = useSettingSurveyApiStore();
+  const {uploadFileName,setUploadFileName} = useMakeSurveyApiStore();
   const [previewImg, setPreviewImg] = useState('');
-  const [uploadFileName,setUploadFileName] = useState('')
+
   const saveComponentDataToLocalStorage = (data: any) => {
       localStorage.setItem('entire', JSON.stringify(data));
     };
@@ -26,10 +28,9 @@ function MakeQuestion() {
     };
 
   useEffect(() => {
-      const storedData = loadComponentDataFromLocalStorage();
-      if (storedData && storedData.img) {
-        setImg(storedData.img)
-      }
+    if (img) {
+      setPreviewImg(img)
+    }
     }, []);
 
   useEffect(() => {
@@ -71,6 +72,7 @@ function MakeQuestion() {
 
 
       uploadTask.then(async () => {
+        
         const imgUrl = await getDownloadURL(reference);
         setImg(imgUrl);
 
@@ -88,9 +90,8 @@ function MakeQuestion() {
 
   const handleImageDelete = async () => {
     if (img) {
-      const imageRef = ref(imgStorage, uploadFileName);
-
       try {
+        const imageRef = ref(imgStorage, uploadFileName);
         await deleteObject(imageRef);
         setImg('');
       } catch(error) {

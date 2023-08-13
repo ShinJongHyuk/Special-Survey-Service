@@ -29,6 +29,7 @@ import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import giveawayListGet from "@/api/payment/givawaylist/giveawayListGet";
 import paymentDataPost from "@/api/payment/paymentdata/paymentDataPost";
 import usePaymentInfoStore from "@/stores/paymentinfo/usePaymentInfo";
+import useSurveyFocus from "@/stores/makesurvey/useSurveyFocusStore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Woman_Img from "/public/payment/Woman_Img.svg";
@@ -57,9 +58,10 @@ function Payment(props: any) {
   const { title, setTitle, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img,resetSettingSurveyData} = useSettingSurveyApiStore();
   const StoreId = process.env.NEXT_PUBLIC_STOREID;
   const {price,increment,decrement} = usePriceStore();
-  const {surveyList} = useMakeSurveyApiStore();
+  const {surveyList,reset} = useMakeSurveyApiStore();
   const {orders,setOrderInfo} = usePaymentInfoStore();
   const {surveyComponents,resetSurveyComponents} = useSurveyStore();
+  const {resetSelectedSurvey} = useSurveyFocus();
   const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([]);
   const [selectedOption,setSelectedOption] = useState<any[]>([]);
   const userInformation = useUserStore((state:any) => state.userInformation)
@@ -190,6 +192,8 @@ function Payment(props: any) {
 
                 resetSettingSurveyData(); 
                 resetSurveyComponents();
+                reset();
+                resetSelectedSurvey();
                 setIsSuccessed(true);
 
                 } else {
