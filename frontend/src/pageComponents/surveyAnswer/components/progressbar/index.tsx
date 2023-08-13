@@ -35,6 +35,21 @@ const ProgressBarComponent = (props: propsType) => {
         resetLinkNumber()
     },[])
 
+
+    useEffect(() => {
+        console.log(answer.length, "객관식+주관식")
+        console.log(count.length, "체크박스 개수")
+        console.log(dateAnswer.length, "날짜 개수")
+        console.log(timeAnswer.length, "시간 개수")
+        console.log(props.questionsCount, "문항 개수")
+        console.log(linkNumber, "링크 개수")
+    },[checkBoxAnswer])
+
+    // useEffect(() => {
+    //     console.log(count,"카운트")
+    //     console.log(checkBoxAnswer,"체크박스")
+    // },[count,checkBoxAnswer])
+
     useEffect(() => {
         console.log(answer.length)
         if (checkBoxAnswer.length === 0) {

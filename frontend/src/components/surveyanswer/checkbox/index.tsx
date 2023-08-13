@@ -24,7 +24,9 @@ const CheckBoxComponent = (props:any) => {
             ["multipleChoiceAnswer"] : e.target.id
         }
         setCheckBoxAnswer(newResult)
-        removeCheckBoxLinkNumver(multipleChoice.linkNumber)
+        if (multipleChoice.linkNumber !== 0) {
+            removeCheckBoxLinkNumver(multipleChoice.linkNumber)
+        }
     }
 
     return (

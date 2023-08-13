@@ -32,10 +32,10 @@ const QuestionComponent = (props:any) => {
             }
         });
     }, [multipleChoices]);
-    console.log(props)
-    useEffect(() => {
-        console.log(props,"123")
-    })
+    // console.log(props)
+    // useEffect(() => {
+    //     console.log(props,"123")
+    // })
     return (
         <>
         {!disabled &&  <Survey_Container>
