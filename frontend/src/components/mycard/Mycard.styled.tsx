@@ -83,9 +83,14 @@ const StyledCardHeader = styled.div.attrs<MycardType>((props) => ({}))`
       width: 100%;
       text-align: center;
 
-      .title {
+      .title-text {
         font-size: ${small};
         color: ${black};
+        width: 150px;
+        height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .writer {

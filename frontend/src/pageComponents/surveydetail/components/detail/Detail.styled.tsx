@@ -1,16 +1,15 @@
 import styled, { css } from "styled-components";
 
 const StyledShare = styled.img`
-  width:48px;
-  height:48px;
+  width: 48px;
+  height: 48px;
   cursor: pointer;
 
   border-radius: 48px;
   &:hover {
-    background-color:${(props) => props.theme.colors.lightgray};
+    background-color: ${(props) => props.theme.colors.lightgray};
   }
-
-`
+`;
 const StyledDetailContainer = styled.div.attrs<any>((props) => ({}))`
   display: flex;
   width: 100%;
@@ -23,7 +22,7 @@ const StyledDetailContainer = styled.div.attrs<any>((props) => ({}))`
 const StyledSurveyContent = styled.div.attrs<any>((props) => ({}))`
   width: 450px;
   padding: 20px 0px;
-
+  gap: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -67,13 +66,13 @@ const SurveyTitle = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => props.theme.colors.black};
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.large};
+  word-wrap: break-word;
 `;
 
 const SurveyPurpose = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => props.theme.colors.black};
   font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
 `;
-
 
 const StyledText = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
@@ -100,7 +99,6 @@ const StyledText = styled.div.attrs<any>((props) => ({}))`
     `;
   }};
 `;
-
 
 const SurveyCard = styled.div.attrs<any>((props) => ({}))`
   display: flex;
