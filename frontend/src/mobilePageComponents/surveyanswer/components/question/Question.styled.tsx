@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const Survey_Container = styled.div.attrs<any>((props) => ({}))`
   display: flex;
-  /* margin: 20px; */
+  margin-bottom: 20px;
   justify-content: center;
 `;
 

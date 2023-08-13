@@ -35,7 +35,7 @@ const MobileSurveyanswer = (props: any) => {
           type={surveyInformation?.surveyCategoryType}
         ></ProgressBar>
       </div>
-      <div style={{ paddingTop: "60px" }}>
+      <div style={{ paddingTop: "80px" }}>
         {questions &&
           questions.map((question: questionType) => {
             return (
