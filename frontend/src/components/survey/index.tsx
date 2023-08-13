@@ -74,14 +74,17 @@ const SurveyComponent = ({ componentKey, index }: { componentKey: string, index:
             imgurl
           };
 
-        const SendData = {
+          const SendData = {
             componentKey,
-            type : surveyState,
-            essential : checked,
-            title : headerText,
-            content : headerDetailText,
-            imgAddress : imgurl
-            };
+            type: surveyState,
+            essential: checked,
+            title: headerText,
+            content: headerDetailText,
+            imgAddress: imgurl,
+            ...(surveyState === "MULTIPLE_CHOICE" || surveyState === "CHECK_BOX"
+              ? { multipleChoices: surveyList[componentKey]?.multipleChoices }
+              : {}),
+          };
         saveComponentDataToLocalStorage(componentKey, componentData);
         setSurveyList(componentKey,SendData); 
       }, [surveyState, selectedOption, checked, headerText, headerDetailText, listOption,imgurl]);

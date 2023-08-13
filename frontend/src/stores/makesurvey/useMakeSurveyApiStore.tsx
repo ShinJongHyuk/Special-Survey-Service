@@ -18,6 +18,7 @@ interface SurveyStore {
   removeSurveyItem: (componentKey: string) => void;
   setMultipleChoices: (componentKey: string, multipleChoices: any[]) => void;
   setCheckBox: (componentKey: string, checkBox: any[]) => void;
+  reset: () => void; // Add the reset function
 }
 
 const useMakeSurveyApiStore = create<SurveyStore>()(
@@ -57,7 +58,10 @@ const useMakeSurveyApiStore = create<SurveyStore>()(
             },
           },
         })),
-    
+      reset: () =>
+        set(() => ({
+          surveyList: {},
+        })),
     }),
     {
       name: 'makeSurveyApiStore',
