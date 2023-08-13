@@ -20,7 +20,23 @@ const ChartContainer = styled.div.attrs<any>((props) => ({}))`
 `
 const ChartInfoContainer = styled.div.attrs<any>((props) => ({}))`
     width: auto;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `
 
-export {SurveyResult, ChartColor, ChartInfo, ChartContainer, ChartInfoContainer}
+const ShortFormStatistics = styled.div.attrs<any>((props) => ({}))`
+    display: flex;
+    width: 500px;
+    margin: 20px 0px 20px 0px; 
+    padding: 10px;
+    align-items: center;
+    gap: 12px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: ${(props) => props.surveyCategoryType ==="NORMAL" ?  "#F0E9FF": "#FFFFCC"};
+    font-size: ${(props) => props.theme.fontSizes.small};
+    font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+`
+
+export {SurveyResult, ChartColor, ChartInfo, ChartContainer, ChartInfoContainer, ShortFormStatistics}
