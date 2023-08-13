@@ -9,7 +9,6 @@ import {
   Surveycontent,
   SurveyImage,
 } from "./Question.styled";
-import ShortForm from "@/components/surveyanswer/shortfrom";
 import { useEffect, useState } from "react";
 import useSurveyAnswerStore from "@/stores/useSurveyAnswer";
 import Image from "next/image";
@@ -17,6 +16,7 @@ import Radiobutton from "../forms/radiobutton";
 import Date from "../forms/date";
 import CheckBox from "../forms/checkbox";
 import Time from "../forms/time";
+import ShortForm from "../forms/short";
 
 const QuestionComponent = (props: any) => {
   const questionNumber = props.questionNumber;
