@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Selected_Box,
@@ -28,6 +28,7 @@ import authenticationDataPost from "@/api/payment/authenticationdata/authenticat
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import giveawayListGet from "@/api/payment/givawaylist/giveawayListGet";
 import paymentDataPost from "@/api/payment/paymentdata/paymentDataPost";
+import usePaymentInfoStore from "@/stores/paymentinfo/usePaymentInfo";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Woman_Img from "/public/payment/Woman_Img.svg";
@@ -57,13 +58,15 @@ function Payment(props: any) {
   const StoreId = process.env.NEXT_PUBLIC_STOREID;
   const {price,increment,decrement} = usePriceStore();
   const {surveyList} = useMakeSurveyApiStore();
+  const {orders,setOrderInfo} = usePaymentInfoStore();
   const {surveyComponents,resetSurveyComponents} = useSurveyStore();
   const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([]);
   const [selectedOption,setSelectedOption] = useState<any[]>([]);
   const userInformation = useUserStore((state:any) => state.userInformation)
   const [isSuccessed, setIsSuccessed] = useState(false);
+  const [surveyid,setSurveyId] = useState(0);
   const router = useRouter();
-  console.log(surveyList)
+
   const questions = surveyComponents.map((component, index) => {
     const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
     return {
@@ -127,6 +130,7 @@ function Payment(props: any) {
     // API 로직
     makeSurveyPost(surveyData)
       .then((responseData) => {
+        setSurveyId(parseInt(responseData.id));
         if (responseData) {
           const paymentdata = {
             giveaways: selectedOption.map((selected) => ({
@@ -155,7 +159,23 @@ function Payment(props: any) {
               };
 
             function callback(response : any) {
-            
+              console.log(response,"콜백")
+        
+              setOrderInfo(surveyid, {
+                id : surveyid,
+                pay_method: response.pay_method,
+                merchant_uid: response.merchant_uid,
+                buyer_email: response.buyer_email,
+                buyer_name: response.buyer_name,
+                buyer_tel: response.buyer_tel,
+                buyer_addr: response.buyer_addr,
+                paid_amount: response.paid_amount,
+                pg_provider: response.pg_provider,
+                status: response.status,
+                success: response.success,
+                imp_uid: response.imp_uid,
+              });
+  
               const authenticateData = {
                 amount : response.paid_amount,
                 orderId : response.merchant_uid,
@@ -167,6 +187,7 @@ function Payment(props: any) {
               .then((response) => {
                 if (response.isSucess === "paid") {
                 console.log(response,"결제 완료")
+
                 resetSettingSurveyData(); 
                 resetSurveyComponents();
                 setIsSuccessed(true);
@@ -330,7 +351,7 @@ function Payment(props: any) {
                 cancel="확인"
                 onConfirmClick={() => {
                   setIsSuccessed(false);
-                  router.push("/mypage")
+                  router.push(`/surveyresult/${surveyid}`)
                 }}
               />
               )}
