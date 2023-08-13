@@ -35,7 +35,9 @@ const CheckBox = (props: any) => {
       ["multipleChoiceAnswer"]: e.target.id,
     };
     setCheckBoxAnswer(newResult);
-    removeCheckBoxLinkNumver(multipleChoice.linkNumber);
+    if (multipleChoice.linkNumber !== 0) {
+      removeCheckBoxLinkNumver(multipleChoice.linkNumber);
+    }
   };
 
   return (
@@ -48,6 +50,8 @@ const CheckBox = (props: any) => {
               <CheckboxButton
                 surveyCategoryType={props.surveyCategoryType}
                 onClick={onClick(multipleChoice)}
+                id={multipleChoice.id}
+                name={questionNumber}
                 selected={selected.includes(multipleChoice.id)} // 선택된 상태 전달
               >
                 {multipleChoice.content}

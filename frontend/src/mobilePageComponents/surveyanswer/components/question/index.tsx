@@ -1,5 +1,4 @@
 "use client";
-// import { StyledTag } from '@/components/card/Card.styled'
 import {
   Survey_Container,
   SurveyQuestionContainer,
@@ -41,10 +40,7 @@ const QuestionComponent = (props: any) => {
       }
     });
   }, [multipleChoices]);
-  console.log(props);
-  useEffect(() => {
-    console.log(props, "123");
-  });
+
   return (
     <>
       {!disabled && (
