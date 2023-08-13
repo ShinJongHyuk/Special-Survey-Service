@@ -1,10 +1,10 @@
 "use client";
 import Input from "@/components/input";
 import Button from "@/components/button";
-import Image from "next/image";
-import { LoginPage, LoginText, LoginFont2, LoginContainer, Uptext } from "./Mobilelogin.styled";
+import { LoginPage, LoginText, LoginFont2, LoginContainer, Uptext } from "./Login.styled";
 import { useRouter } from "next/navigation";
 import { useLoginHook } from "@/Hooks/user/useLoginHook";
+
 const Mobilelogin = () => {
   const { handleChange, handleSubmit, user } = useLoginHook();
 
