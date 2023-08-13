@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const LoginPage = styled.div.attrs<any>((props) => ({}))`
+const FindIdPage = styled.div.attrs<any>((props) => ({}))`
   height: 100vh;
   padding-top: 56px;
   display: flex;
@@ -21,11 +21,11 @@ const LoginPage = styled.div.attrs<any>((props) => ({}))`
   }
 `;
 
-const LoginText = styled.div.attrs<any>((props) => ({}))`
+const FindIdTitle = styled.div.attrs<any>((props) => ({}))`
   margin-top: 30px;
   font-size: 60px;
-  font-family: ${(props) => props.theme.fonts.EnglishFontBold};
-  color: ${(props) => props.theme.colors.purple};
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  color: ${(props) => props.theme.colors.black};
 `;
 
 const InputBox = styled.div.attrs<any>((props) => ({}))`
@@ -54,10 +54,10 @@ const LoginFont = styled.div.attrs<any>((props) => ({}))`
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `;
 const LoginFont2 = styled.p.attrs<any>((props) => ({}))`
-  width: 100%;
+  width: 100px;
   height: 20px;
 
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `;
 
-export { LoginPage, LoginText, InputBox, LoginFont, LoginFont2, LoginContainer };
+export { FindIdPage, FindIdTitle, InputBox, LoginFont, LoginFont2, LoginContainer };

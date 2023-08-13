@@ -10,7 +10,7 @@ const userDetailGet = async () => {
     if (response.data.success) {
       return response.data.response;
     }
-    return [];
+    return response;
   } catch (error) {
     console.error("Error: ", error);
     throw error;
