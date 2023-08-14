@@ -2,7 +2,7 @@ import React from "react";
 import { StyledBanner, StyledBannerText } from "./Banner.styled";
 
 const Banner = (props: any) => {
-  const path = props.selectBtn;
+  const path = props.selectbtn;
 
   let eng;
   let title;

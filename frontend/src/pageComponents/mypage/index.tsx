@@ -6,7 +6,7 @@ import userDetailGet from "@/api/user/userDetailGet";
 import { useState, useEffect } from "react";
 
 const Mypage = () => {
-  const selectBtn = useMypageStore((state) => state.selectBtn);
+  const selectbtn = useMypageStore((state) => state.selectbtn);
 
   const [userInformation, setUserInformation] = useState<any>({});
 
@@ -24,7 +24,7 @@ const Mypage = () => {
     <div>
       <>
         <Banner userInfo={userInformation} />
-        <MypageComponents selectBtn={selectBtn} />
+        <MypageComponents selectbtn={selectbtn} />
       </>
     </div>
   );

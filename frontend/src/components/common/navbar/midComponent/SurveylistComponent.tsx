@@ -5,15 +5,15 @@ import { useSurveylistStore } from "@/stores/surveylist/useSurveylistStore";
 
 const SurveylistComponent = (props: any) => {
   const pathname = props.pathname;
-  const setSelectBtn = useSurveylistStore((state) => state.setSelectBtn);
-  const selectBtn = useSurveylistStore((state) => state.selectBtn);
+  const setselectbtn = useSurveylistStore((state) => state.setselectbtn);
+  const selectbtn = useSurveylistStore((state) => state.selectbtn);
 
   return (
     <StyledMidComp pathname={pathname}>
-      <StyledSurveyListNavBtn isactive={selectBtn === "1"} btntype="1" onClick={() => setSelectBtn("1")}>
+      <StyledSurveyListNavBtn isactive={selectbtn === "1"} btntype="1" onClick={() => setselectbtn("1")}>
         일 반
       </StyledSurveyListNavBtn>
-      <StyledSurveyListNavBtn isactive={selectBtn === "2"} btntype="2" onClick={() => setSelectBtn("2")}>
+      <StyledSurveyListNavBtn isactive={selectbtn === "2"} btntype="2" onClick={() => setselectbtn("2")}>
         즉시당첨
       </StyledSurveyListNavBtn>
     </StyledMidComp>

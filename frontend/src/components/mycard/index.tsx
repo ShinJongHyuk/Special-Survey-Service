@@ -13,7 +13,7 @@ const Mycard = (props: MycardType) => {
   const imgsrc = images[props.giveaways];
 
   const typeName = props.type === "INSTANT_WIN" ? "즉시당첨" : "일  반";
-  const selectBtn = useMypageStore((state) => state.selectBtn);
+  const selectbtn = useMypageStore((state) => state.selectbtn);
 
   const tmp = parseFloat(props.probability || "");
   const formattedProbability = tmp % 1 === 0 ? Math.round(tmp) + "%" : tmp.toFixed(1) + "%";
@@ -30,7 +30,7 @@ const Mycard = (props: MycardType) => {
       value: props.headcount + "/" + props.closedheadcount,
     },
   };
-  const { imagePath, text, value } = settingByBtn[selectBtn] || {};
+  const { imagePath, text, value } = settingByBtn[selectbtn] || {};
 
   const [unit1, unit2] = props.remaintime ? props.remaintime.split(", ") : ["00분", "00초"];
   const [value1, label1] = unit1.split(":");

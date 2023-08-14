@@ -11,7 +11,7 @@ import Mobilenavbar from "./mobilenavbar";
 
 const NavbarComponent = () => {
   const pathname = usePathname();
-  const selectBtn = useSurveylistStore((state) => state.selectBtn);
+  const selectbtn = useSurveylistStore((state) => state.selectbtn);
 
   const isMobile = useIsMobileHook();
 
@@ -20,7 +20,7 @@ const NavbarComponent = () => {
       {isMobile ? (
         <Mobilenavbar />
       ) : (
-        <StyledNavbar pathname={pathname} selectBtn={selectBtn}>
+        <StyledNavbar pathname={pathname} selectbtn={selectbtn}>
           <StyledStartComp pathname={pathname}>
             <Link href="/">
               <Image src="/Logo.svg" priority={true} width={21} height={21} alt="Logo"></Image>
