@@ -61,8 +61,7 @@ const MakesruveyComponent = (props: any) => {
             };
           })
         }
-
-      console.log(surveyData)
+      console.log(surveyComponents)
         const Inner_hasEmptyValue = surveyData.questions.some((questionData: any, questionIndex: number) => {
           if (questionData.title === "" || questionData.type === "") {
               alert(`질문 ${questionIndex + 1}의 모든 필드를 채워주시기 바랍니다.`);
@@ -101,6 +100,8 @@ const MakesruveyComponent = (props: any) => {
             (alert("설문 시작 시간을 선택해주세요."), true) :
             surveyData.endTime === "" ?
             (alert("설문 마감 시간을 선택해주세요."), true) :
+            (surveyComponents.length === 0) ?
+            (alert("설문 문항은 최소 1개 이상 존재해야 합니다"),true) :
             false;
       if (Inner_hasEmptyValue || Outer_hasEmptyValue) {
           return;
