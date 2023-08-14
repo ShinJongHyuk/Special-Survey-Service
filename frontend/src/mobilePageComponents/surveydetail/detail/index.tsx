@@ -10,8 +10,9 @@ import {
   SurveyCardText,
   SurveyCardTime,
   StyledButton,
+  StyledShare,
 } from "./Detail.styled";
-// import { CopyToClipboard } from "react-copy-to-clipboard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
@@ -96,12 +97,19 @@ const DetailComponent = (props: any) => {
             )}
             <div className="type-text">{typeName}</div>
           </StyledTag>
-          {/* <CopyToClipboard text={currentUrl} onCopy={() => alert("클립보드에 복사되었습니다.")}>
-            <StyledShare src="/surveyDetail/share.png" alt="share"></StyledShare>
-          </CopyToClipboard> */}
 
-          <SurveyTitle>{detailProps.title}</SurveyTitle>
-          <SurveyPurpose>{detailProps.content || "많은 관심과 참여 부탁드립니다."}</SurveyPurpose>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+            <div>
+
+              <SurveyTitle>{detailProps.title}</SurveyTitle>
+              <SurveyPurpose>{detailProps.content || "많은 관심과 참여 부탁드립니다."}</SurveyPurpose>
+            </div>
+            <CopyToClipboard text={currentUrl} onCopy={() => alert("클립보드에 복사되었습니다.")}>
+              <StyledShare src="/surveyDetail/share.png" alt="share"></StyledShare>
+            </CopyToClipboard>
+          </div>
+          {/* <SurveyPurpose>{detailProps.content || "많은 관심과 참여 부탁드립니다."}</SurveyPurpose> */}
         </div>
 
         <div>
