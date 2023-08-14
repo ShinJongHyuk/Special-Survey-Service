@@ -253,7 +253,7 @@ function Payment(props: any) {
               src={Woman_Img}
               width={170}
               height={150}
-              alt="컴퓨터 하는 여자"
+              alt="컴퓨터 여자 asset"
               style={{ display: "flex", alignItems: "flex-end", marginTop: "32px" }}
             />
           </Top_Container>
