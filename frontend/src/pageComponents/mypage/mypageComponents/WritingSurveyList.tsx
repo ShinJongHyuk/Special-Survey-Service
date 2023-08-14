@@ -23,7 +23,7 @@ const WritingSurveyList = (props: any) => {
                 endtime={survey.endTime}
                 headcount={survey.headCount}
                 closedheadcount={survey.closedHeadCount}
-                onClick={() => router.push("/surveydetail/" + survey.id)}
+                onClick={() => router.push("/surveyresult/" + survey.id)}
               />
             </div>
           </div>
