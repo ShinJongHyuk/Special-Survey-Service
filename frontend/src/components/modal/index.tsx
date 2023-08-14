@@ -9,7 +9,7 @@ const Modal = (props: ModalType) => {
     <StyledModalWrapper>
       <StyledModal style={{ backgroundColor: "white", width: "350px", height: "230px" }}>
         {props.imgsrc ? (
-          <img src={props.imgsrc} alt="Image from props" />
+          <img src={props.imgsrc} alt="Image from props" style={{ width: "25%" }} />
         ) : (
           <img src="/modal/screamer.png" alt="Default Image" style={{ width: "25%" }} />
         )}
