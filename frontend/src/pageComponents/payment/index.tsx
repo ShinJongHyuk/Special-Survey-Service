@@ -162,23 +162,9 @@ function Payment(props: any) {
 
             function callback(response : any) {
               console.log(response,"콜백")
-        
-              setOrderInfo(surveyid, {
-                id : surveyid,
-                pay_method: response.pay_method,
-                merchant_uid: response.merchant_uid,
-                buyer_email: response.buyer_email,
-                buyer_name: response.buyer_name,
-                buyer_tel: response.buyer_tel,
-                buyer_addr: response.buyer_addr,
-                paid_amount: response.paid_amount,
-                pg_provider: response.pg_provider,
-                status: response.status,
-                success: response.success,
-                imp_uid: response.imp_uid,
-              });
-  
+    
               const authenticateData = {
+                surveyId : surveyid,
                 amount : response.paid_amount,
                 orderId : response.merchant_uid,
                 status : response.status,
