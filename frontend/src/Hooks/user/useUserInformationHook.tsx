@@ -31,13 +31,12 @@ export const useLoginHook = () => {
 
     if (pathname === "/payment" || pathname === "/makesurvey") {
       if (userInfo?.email) {
+        console.log(userInfo.email)
         if (userInfo.email !== "admin@naver.com") {
+
           alert("설문 등록자가 아닙니다.")
           router.push("/")
         }
-      } else {
-        alert("설문 등록자가 아닙니다.")
-        router.push("/")
       }
     }
   }, [pathname])
