@@ -17,13 +17,17 @@ const ResultComponent = (props: any) => {
   const imgsrc = images[resultProps.giveawaytype];
 
   const transformToDesiredArray = (value: any) => {
-    let strValue = value.toString();
+    const numericValue = (typeof value === 'number') ? value : parseFloat(value);
+    let strValue = numericValue.toFixed(1);
     const dotIndex = strValue.indexOf(".");
-    if (dotIndex !== -1) {
-      strValue = strValue.slice(0, dotIndex + 2);
+
+    if (dotIndex !== -1 && strValue[dotIndex + 1] === "0") {
+      strValue = strValue.slice(0, dotIndex);
     }
+
     return strValue.split("");
   };
+
 
   const [percentArray, setPercentArray] = useState(["0"]);
   useEffect(() => {

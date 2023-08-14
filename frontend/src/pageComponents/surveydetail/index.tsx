@@ -27,7 +27,6 @@ const SurveyDetail = (props: any) => {
       <StyledSurveyResultContainer>
         <Result surveyDetail={surveyDetail}></Result>
         <Board answerlog={answerlog} surveyDetail={surveyDetail} ></Board>
-        {/* {answerlog.length !== 0 ? <Board answerlog={answerlog}></Board> : <></>} */}
       </StyledSurveyResultContainer>
     </div>
   );
