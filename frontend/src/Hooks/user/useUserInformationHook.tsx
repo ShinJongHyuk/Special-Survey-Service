@@ -7,7 +7,7 @@ export const useLoginHook = () => {
   const login = useUserStore((state: any) => state.login);
   const router = useRouter();
   const pathname: string = usePathname();
-  const ignorePathName = ["/", "/surveylist", "/login", "/signup"];
+  const ignorePathName = ["/", "/surveylist", "/login", "/signup", "/reset-password", "/find-id"];
   const refreshUserInformation = async () => {
     const userInfo = await userDetailGet();
     if (userInfo?.email) {
