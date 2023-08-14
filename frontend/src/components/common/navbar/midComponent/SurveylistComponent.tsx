@@ -10,10 +10,10 @@ const SurveylistComponent = (props: any) => {
 
   return (
     <StyledMidComp pathname={pathname}>
-      <StyledSurveyListNavBtn isactive={selectbtn === "1"} btntype="1" onClick={() => setselectbtn("1")}>
+      <StyledSurveyListNavBtn isactive={(selectbtn === "1").toString()} btntype="1" onClick={() => setselectbtn("1")}>
         일 반
       </StyledSurveyListNavBtn>
-      <StyledSurveyListNavBtn isactive={selectbtn === "2"} btntype="2" onClick={() => setselectbtn("2")}>
+      <StyledSurveyListNavBtn isactive={(selectbtn === "2").toString()} btntype="2" onClick={() => setselectbtn("2")}>
         즉시당첨
       </StyledSurveyListNavBtn>
     </StyledMidComp>

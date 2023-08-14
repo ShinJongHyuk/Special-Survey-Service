@@ -108,7 +108,8 @@ const StyledSurveyListNavBtn = styled.button.attrs<any>((props) => ({}))`
     const orange = props.theme.colors.orange;
     const black = props.theme.colors.black;
 
-    const color = props.isactive ? (props.btntype === "1" ? purple : orange) : black;
+    const color = props.isactive === "true" ? (props.btntype === "1" ? purple : orange) : black;
+
     return css`
       background: transparent;
       border: none;
