@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Info_Inner_Box, Info_Bottom_Box, Info_Top_Box, Info_LR_Box, Image_Wrapper, Information_Container, PaymentInfoPage, Main_Container, Main_Inner_Container, Top_Container, Bottom_Container, Title_Text } from './PaymentInfo.Styled';
-import usePaymentInfoStore from '@/stores/paymentinfo/usePaymentInfo';
 import Image from 'next/image';
 import purple_man from '/public/paymentInfo/payment_man_purple.svg'
 import yellow_man from '/public/paymentInfo/payment_man_yellow.svg'
@@ -16,15 +15,8 @@ import ListCheck from "/public/paymentInfo/ListCheck.svg"
 
 
 function PaymentInfo() {
-    const { orders } = usePaymentInfoStore();
     const [showBackSide, setShowBackSide] = useState(false);
-    useEffect(() => {
-        const orderId = 47;
 
-        console.log('Order Info:', orders[0]);
-    }, [orders]);
-
-    console.log(orders)
     return (
         <PaymentInfoPage>
             <Main_Container>
