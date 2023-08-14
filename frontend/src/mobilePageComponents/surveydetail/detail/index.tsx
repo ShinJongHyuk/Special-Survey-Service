@@ -189,15 +189,15 @@ const DetailComponent = (props: any) => {
           {(() => {
             switch (cananswer) {
               case "TIMEOVER":
-                return <Button use="bgGray" label="마감된 설문입니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="마감된 설문입니다."></Button>;
               case "TIMEBEFORE":
-                return <Button use="bgGray" label="설문 시작 전입니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="설문 시작 전입니다."></Button>;
               case "DIDANSWER":
-                return <Button use="bgGray" label="이미 응답한 설문입니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="이미 응답한 설문입니다."></Button>;
               case "HEADFULL":
-                return <Button use="bgGray" label="인원 마감입니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="인원 마감입니다."></Button>;
               case "TYPENOTMATCH":
-                return <Button use="bgGray" label="설문 대상자가 아닙니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="설문 대상자가 아닙니다."></Button>;
               default: // case "CANANSWER":
                 return (
                   <Button
