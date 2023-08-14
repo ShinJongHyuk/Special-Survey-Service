@@ -112,99 +112,96 @@ function Payment(props: any) {
     checkLoginStatus();
   }, []);
 
-  const handlePaymentButtonClick = () => {
-    const surveyData = {
-      title,
-      content: titleContent,
-      closedHeadCount,
-      startTime,
-      endTime,
-      type,
-      surveyTarget,
-      img,
-      questions,
+  const handlePaymentButtonClick = () => { 
+
+    const paymentdata = {
       giveaways: selectedOption.map((selected) => ({
-        id: selected.option.id,
-        count: (selected.option.count),
+        giveawayName: selected.option.name,
+        giveawayNumber: selected.option.count,
       })),
     };
 
-    // API 로직
-    makeSurveyPost(surveyData)
+    paymentDataPost(paymentdata)
       .then((responseData) => {
-        setSurveyId(parseInt(responseData.id));
-        if (responseData) {
-          const paymentdata = {
-            giveaways: selectedOption.map((selected) => ({
-              giveawayName: selected.option.name,
-              giveawayNumber: selected.option.count,
-            })),
-          };
+        const { IMP } = window;
+        if (!window.IMP) return;
+        IMP.init(StoreId);
+   
+        const orderInfo = {
+          pg: "kakaopay",
+          pay_method: "card",
+          merchant_uid: responseData.orderId,
+          name: "주문명:결제테스트",
+          amount: responseData.orderAmount,
+          buyer_email: userInformation.email,
+          buyer_name: userInformation.name,
+          buyer_tel: userInformation.phoneNumber,
+          buyer_addr: "부산광역시 강서구 명지동",
+          buyer_postcode: "123-456",
+        };
 
-          paymentDataPost(paymentdata)
-            .then((responseData) => {
-              const { IMP } = window;
-              if (!window.IMP) return;
-              IMP.init(StoreId);
-
-              const orderInfo = {
-                pg: "kakaopay",
-                pay_method: "card",
-                merchant_uid: responseData.orderId,
-                name: "주문명:결제테스트",
-                amount: responseData.orderAmount,
-                buyer_email: userInformation.email,
-                buyer_name: userInformation.name,
-                buyer_tel: userInformation.phoneNumber,
-                buyer_addr: "부산광역시 강서구 명지동",
-                buyer_postcode: "123-456",
-              };
-
-              function callback(response: any) {
-
-
-                const authenticateData = {
-                  surveyId: surveyid,
-                  amount: response.paid_amount,
-                  orderId: response.merchant_uid,
-                  status: response.status,
-                  impUid: response.imp_uid
-                }
-
-                authenticationDataPost(authenticateData)
-                  .then((response) => {
-                    if (response.isSucess === "paid") {
-                      console.log(response, "결제 완료")
-
-                      resetSettingSurveyData();
-                      resetSurveyComponents();
-                      reset();
-                      resetSelectedSurvey();
-                      setIsSuccessed(true);
-
-                    } else {
-                      console.log("결제 실패")
-                      alert("결제에 실패하였습니다")
-                      return
-                    }
-                  })
-                  .catch((error => {
-                    console.log("검증에 실패하였습니다", error)
-                    alert("결제에 실패하였습니다")
-                    return
-                  }))
+      function callback(response : any) {
+        console.log(response,"콜백")
+        const surveyData = {
+          title,
+          titleContent,
+          closedHeadCount,
+          startTime,
+          endTime,
+          type,
+          surveyTarget,
+          img,
+          questions,
+          giveaways: selectedOption.map((selected) => ({
+            id: selected.option.id,
+            count: (selected.option.count),
+          })),
+        };
+    
+        // API 로직
+        makeSurveyPost(surveyData)
+          .then((responseData) => {
+            setSurveyId(parseInt(responseData.id));
+            if (responseData) {
+              const authenticateData = {
+                surveyId : surveyid,
+                amount : response.paid_amount,
+                orderId : response.merchant_uid,
+                status : response.status,
+                impUid : response.imp_uid
               }
-              IMP.request_pay(orderInfo, callback)
+            
+              authenticationDataPost(authenticateData)
+              .then((response) => {
+                if (response.isSucess === "paid") {
+                console.log(response,"결제 완료")
 
-            }).catch((error) => {
-              console.error("상품 정보 제출에 실패하였습니다", error);
-            });
+                resetSettingSurveyData(); 
+                resetSurveyComponents();
+                reset();
+                resetSelectedSurvey();
+                setIsSuccessed(true);
+
+                } else {
+                  console.log("결제 실패")
+                  alert("결제에 실패하였습니다")
+                  return
+                }
+              })
+              .catch((error => {
+                console.log("검증에 실패하였습니다",error)
+                alert("결제에 실패하였습니다")
+                return
+              }))
+            }
+          })
         }
-      })
-      .catch((error) => {
-        console.error("설문 제출에 실패하였습니다", error);
-      });
-  };
+      IMP.request_pay(orderInfo,callback)
+
+    })
+  
+};
+
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedIndex = event.target.selectedIndex;
