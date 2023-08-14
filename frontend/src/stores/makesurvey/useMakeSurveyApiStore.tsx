@@ -12,19 +12,22 @@ interface UseMakeSurveyApiState {
   componentKey?: string;
 }
 
-interface SurveyStore {
+interface SurveyStore extends UseMakeSurveyApiState {
   surveyList: { [key: string]: UseMakeSurveyApiState };
+  uploadFileName: string;
   setSurveyList: (componentKey: string, data: UseMakeSurveyApiState) => void;
   removeSurveyItem: (componentKey: string) => void;
   setMultipleChoices: (componentKey: string, multipleChoices: any[]) => void;
   setCheckBox: (componentKey: string, checkBox: any[]) => void;
-  reset: () => void; // Add the reset function
+  reset: () => void;
+  setUploadFileName: (filename: string) => void;
 }
 
 const useMakeSurveyApiStore = create<SurveyStore>()(
   persist(
     (set) => ({
       surveyList: {},
+      uploadFileName: '',
       setSurveyList: (componentKey: string, data: UseMakeSurveyApiState) =>
         set((state) => ({
           surveyList: {
@@ -62,10 +65,14 @@ const useMakeSurveyApiStore = create<SurveyStore>()(
         set(() => ({
           surveyList: {},
         })),
+      setUploadFileName: (filename: string) =>
+        set(() => ({
+          uploadFileName: filename,
+        })),
     }),
     {
       name: 'makeSurveyApiStore',
-      getStorage: () => localStorage,
+
     }
   )
 );

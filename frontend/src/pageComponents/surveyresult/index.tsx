@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Toggle_Component,Top_Option_Container, StyledTag, Top_Option } from './SurveyResult.styled';
 import Question from './components/question';
 import Statistics from './components/statistics';
-import Payment from './components/payment';
+import PaymentInfo from './components/paymentinfo';
 import { useSurveyAnswerHook } from '@/Hooks/useSurveyAnswerHook';
 import Image from 'next/image';
 import moment from 'moment';
@@ -54,8 +54,8 @@ function SurveyResult(props : any) {
       </StyledTag>
         </Toggle_Component>
         <Toggle_Component
-          onClick={() => handleButtonClick('payment')}
-          isSelected={selectedOption === 'payment'}
+          onClick={() => handleButtonClick('PaymentInfo')}
+          isSelected={selectedOption === 'PaymentInfo'}
           type={surveyResult?.surveyCategoryType}
         >
           <Top_Option>결제 정보</Top_Option>
@@ -68,7 +68,7 @@ function SurveyResult(props : any) {
        questionAnswers={surveyResult?.questionAnswers}
        title={surveyResult?.title}
        content={surveyResult?.content}/> :
-       selectedOption === 'payment' ? <Payment /> : null }
+       selectedOption === 'PaymentInfo' ? <PaymentInfo /> : null }
     </>
   );
 }
