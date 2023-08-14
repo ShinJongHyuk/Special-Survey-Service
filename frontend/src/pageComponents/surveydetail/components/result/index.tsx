@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 const ResultComponent = (props: any) => {
   const { surveyDetail } = props;
 
+  console.log(surveyDetail);
   const images: { [key: string]: string } = {
     CHICKEN: "/card/chicken.png",
     COFFEE: "/card/coffee.png",
@@ -18,7 +19,10 @@ const ResultComponent = (props: any) => {
 
   const transformToDesiredArray = (value: any) => {
     const numericValue = (typeof value === 'number') ? value : parseFloat(value);
-    let strValue = numericValue.toFixed(1);
+
+    let adjustedValue = Math.ceil(numericValue * 10) / 10;
+    let strValue = adjustedValue.toFixed(1);
+
     const dotIndex = strValue.indexOf(".");
 
     if (dotIndex !== -1 && strValue[dotIndex + 1] === "0") {
@@ -27,7 +31,6 @@ const ResultComponent = (props: any) => {
 
     return strValue.split("");
   };
-
 
   const [percentArray, setPercentArray] = useState(["0"]);
   useEffect(() => {

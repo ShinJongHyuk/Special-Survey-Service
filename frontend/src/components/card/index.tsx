@@ -28,12 +28,18 @@ const CardComponent = (props: CardType) => {
   const [value1, label1] = unit1.split(':');
   const [value2, label2] = unit2.split(':');
 
-
   const value = parseFloat(props.probability);
 
-  const formattedProbability = value % 1 === 0
-    ? Math.round(value) + '%'
-    : value.toFixed(1) + '%';
+  let formattedProbability;
+  if (value % 1 === 0) {
+    formattedProbability = Math.round(value) + '%';
+  } else if ((value * 10) % 10 === 0) {
+    formattedProbability = Math.round(value) + '%';
+  } else {
+    formattedProbability = (Math.ceil(value * 10) / 10).toFixed(1) + '%';
+  }
+
+
 
   const newProps = { ...props, typename: typeName };
   return (
