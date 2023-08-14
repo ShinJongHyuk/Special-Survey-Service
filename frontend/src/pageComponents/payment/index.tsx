@@ -55,28 +55,28 @@ declare const window: typeof globalThis & {
 };
 
 function Payment(props: any) {
-  const { title, setTitle, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img,resetSettingSurveyData} = useSettingSurveyApiStore();
+  const { title, setTitle, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img, resetSettingSurveyData } = useSettingSurveyApiStore();
   const StoreId = process.env.NEXT_PUBLIC_STOREID;
-  const {price,increment,decrement} = usePriceStore();
-  const {surveyList,reset} = useMakeSurveyApiStore();
-  const {orders,setOrderInfo} = usePaymentInfoStore();
-  const {surveyComponents,resetSurveyComponents} = useSurveyStore();
-  const {resetSelectedSurvey} = useSurveyFocus();
-  const [giveawaydata,setGiveaWayData] = useState<GiveawayData[]>([]);
-  const [selectedOption,setSelectedOption] = useState<any[]>([]);
-  const userInformation = useUserStore((state:any) => state.userInformation)
+  const { price, increment, decrement } = usePriceStore();
+  const { surveyList, reset } = useMakeSurveyApiStore();
+  const { orders, setOrderInfo } = usePaymentInfoStore();
+  const { surveyComponents, resetSurveyComponents } = useSurveyStore();
+  const { resetSelectedSurvey } = useSurveyFocus();
+  const [giveawaydata, setGiveaWayData] = useState<GiveawayData[]>([]);
+  const [selectedOption, setSelectedOption] = useState<any[]>([]);
+  const userInformation = useUserStore((state: any) => state.userInformation)
   const [isSuccessed, setIsSuccessed] = useState(false);
-  const [surveyid,setSurveyId] = useState(0);
+  const [surveyid, setSurveyId] = useState(0);
   const router = useRouter();
 
   const questions = surveyComponents.map((component, index) => {
     const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
     return {
       ...dataWithoutComponentKey,
-      questionNumber: index + 1 
+      questionNumber: index + 1
     };
   })
-  .filter(data => data !== undefined);
+    .filter(data => data !== undefined);
 
   const surveyTargetDict: any = {
     MAN: "남성",
@@ -112,10 +112,10 @@ function Payment(props: any) {
     checkLoginStatus();
   }, []);
 
-  const handlePaymentButtonClick = () => { 
+  const handlePaymentButtonClick = () => {
     const surveyData = {
       title,
-      titleContent,
+      content: titleContent,
       closedHeadCount,
       startTime,
       endTime,
@@ -140,13 +140,13 @@ function Payment(props: any) {
               giveawayNumber: selected.option.count,
             })),
           };
-      
+
           paymentDataPost(paymentdata)
             .then((responseData) => {
               const { IMP } = window;
               if (!window.IMP) return;
               IMP.init(StoreId);
-         
+
               const orderInfo = {
                 pg: "kakaopay",
                 pay_method: "card",
@@ -160,45 +160,45 @@ function Payment(props: any) {
                 buyer_postcode: "123-456",
               };
 
-            function callback(response : any) {
-              
-    
-              const authenticateData = {
-                surveyId : surveyid,
-                amount : response.paid_amount,
-                orderId : response.merchant_uid,
-                status : response.status,
-                impUid : response.imp_uid
-              }
-             
-              authenticationDataPost(authenticateData)
-              .then((response) => {
-                if (response.isSucess === "paid") {
-                console.log(response,"결제 완료")
+              function callback(response: any) {
 
-                resetSettingSurveyData(); 
-                resetSurveyComponents();
-                reset();
-                resetSelectedSurvey();
-                setIsSuccessed(true);
 
-                } else {
-                  console.log("결제 실패")
-                  alert("결제에 실패하였습니다")
-                  return
+                const authenticateData = {
+                  surveyId: surveyid,
+                  amount: response.paid_amount,
+                  orderId: response.merchant_uid,
+                  status: response.status,
+                  impUid: response.imp_uid
                 }
-              })
-              .catch((error => {
-                console.log("검증에 실패하였습니다",error)
-                alert("결제에 실패하였습니다")
-                return
-              }))
-            }
-            IMP.request_pay(orderInfo,callback)
 
-          }).catch((error) => {
-            console.error("상품 정보 제출에 실패하였습니다", error);
-          });
+                authenticationDataPost(authenticateData)
+                  .then((response) => {
+                    if (response.isSucess === "paid") {
+                      console.log(response, "결제 완료")
+
+                      resetSettingSurveyData();
+                      resetSurveyComponents();
+                      reset();
+                      resetSelectedSurvey();
+                      setIsSuccessed(true);
+
+                    } else {
+                      console.log("결제 실패")
+                      alert("결제에 실패하였습니다")
+                      return
+                    }
+                  })
+                  .catch((error => {
+                    console.log("검증에 실패하였습니다", error)
+                    alert("결제에 실패하였습니다")
+                    return
+                  }))
+              }
+              IMP.request_pay(orderInfo, callback)
+
+            }).catch((error) => {
+              console.error("상품 정보 제출에 실패하였습니다", error);
+            });
         }
       })
       .catch((error) => {
@@ -221,9 +221,9 @@ function Payment(props: any) {
       prevSelectedOption.map((selected) =>
         selected.countKey === countKey
           ? {
-              ...selected,
-              option: { ...selected.option, count: newCount },
-            }
+            ...selected,
+            option: { ...selected.option, count: newCount },
+          }
           : selected,
       ),
     );
@@ -298,59 +298,59 @@ function Payment(props: any) {
                 <Image src={Kite} alt="연" style={{ transform: "rotate(30deg)", width: "150px", marginLeft: "300px", marginBottom: "20%" }} />
                 <Image src={Present} alt="선물상자 " />
               </Image_Wrapper>
-          </Information_Container>
-          <Pay_Container>
-            <Info_Inner_Box style={{ alignItems: "flex-start", height: "9%", padding: "0px 12px" }}>
-              상품리스트
-            </Info_Inner_Box>
-            <SelectBox>
-              <SelectBox_List onChange={handleOptionChange}>
-                <option key="0" value="">상품을 선택하세요</option>
-                {giveawaydata && giveawaydata.map((item: any) => (
-                  <SelectBox_Option key={item.id} value={item}>
-                    {item.name}
-                  </SelectBox_Option>
-                ))}
-              </SelectBox_List>
-            </SelectBox>
-            <Selected_Box>
-              {selectedOption.length > 0 && (
-                <div>
-                  {selectedOption.map((selected, index: number) => (
-                    <div key={selected.componentKey}>
-                      <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange} />
-                      <Button onClick={() => handleOptionRemove(index)} use="blackwhite" label="삭제하기" style={{alignItems : "center", height : "6%", fontSize : "16px", marginTop : "2px",borderRadius : "4px",border : "3px solid yellow"}} />       
-                </div>
+            </Information_Container>
+            <Pay_Container>
+              <Info_Inner_Box style={{ alignItems: "flex-start", height: "9%", padding: "0px 12px" }}>
+                상품리스트
+              </Info_Inner_Box>
+              <SelectBox>
+                <SelectBox_List onChange={handleOptionChange}>
+                  <option key="0" value="">상품을 선택하세요</option>
+                  {giveawaydata && giveawaydata.map((item: any) => (
+                    <SelectBox_Option key={item.id} value={item}>
+                      {item.name}
+                    </SelectBox_Option>
                   ))}
-                </div>
+                </SelectBox_List>
+              </SelectBox>
+              <Selected_Box>
+                {selectedOption.length > 0 && (
+                  <div>
+                    {selectedOption.map((selected, index: number) => (
+                      <div key={selected.componentKey}>
+                        <ItemBox selectedOption={selected.option} countKey={selected.countKey} handleCountChange={handleCountChange} />
+                        <Button onClick={() => handleOptionRemove(index)} use="blackwhite" label="삭제하기" style={{ alignItems: "center", height: "6%", fontSize: "16px", marginTop: "2px", borderRadius: "4px", border: "3px solid yellow" }} />
+                      </div>
+                    ))}
+                  </div>
                 )}
-            </Selected_Box>
-            <Info_Inner_Box style={{alignItems : "center", height : "6%", fontSize : "18px", marginTop : "10px"}}>총 금액 : {price}원</Info_Inner_Box>
-            <div style={{ width: "90%", height: "8%" }}>
-                 <Button onClick={handlePaymentButtonClick} use="longYellow" label="결제하기" />
-            </div>
+              </Selected_Box>
+              <Info_Inner_Box style={{ alignItems: "center", height: "6%", fontSize: "18px", marginTop: "10px" }}>총 금액 : {price}원</Info_Inner_Box>
+              <div style={{ width: "90%", height: "8%" }}>
+                <Button onClick={handlePaymentButtonClick} use="longYellow" label="결제하기" />
+              </div>
               {isSuccessed && (
-              <Modal
-                isOpen={isSuccessed}
-                onClose={() => {
-                  setIsSuccessed(false);
-                  router.push("/");
-                }}
-                bigtext="결제가 완료되었습니다!"
-                imgsrc="/modal/greencheck.png"
-                confirm="주문 정보 확인"
-                cancel="확인"
-                onConfirmClick={() => {
-                  setIsSuccessed(false);
-                  router.push(`/surveyresult/${surveyid}`)
-                }}
-              />
+                <Modal
+                  isOpen={isSuccessed}
+                  onClose={() => {
+                    setIsSuccessed(false);
+                    router.push("/");
+                  }}
+                  bigtext="결제가 완료되었습니다!"
+                  imgsrc="/modal/greencheck.png"
+                  confirm="주문 정보 확인"
+                  cancel="확인"
+                  onConfirmClick={() => {
+                    setIsSuccessed(false);
+                    router.push(`/surveyresult/${surveyid}`)
+                  }}
+                />
               )}
-          </Pay_Container>
-        </Bottom_Container>
-      </Main_Inner_Container>
-    </Main_Container>
-  </>
+            </Pay_Container>
+          </Bottom_Container>
+        </Main_Inner_Container>
+      </Main_Container>
+    </>
   );
 }
 
