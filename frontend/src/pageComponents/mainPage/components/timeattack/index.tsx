@@ -13,9 +13,9 @@ const Timeattack = () => {
   const { transformValue, handlePrevClick, handleNextClick } = useMovelistHook(cards);
 
   const router = useRouter();
-  const setSelectBtn = useSurveylistStore((state) => state.setSelectBtn);
+  const setselectbtn = useSurveylistStore((state) => state.setselectbtn);
   const goList = () => {
-    setSelectBtn("1");
+    setselectbtn("1");
     router.push("/surveylist");
   };
 

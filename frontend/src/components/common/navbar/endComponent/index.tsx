@@ -32,8 +32,8 @@ const EndComponent = () => {
 
           {isLogin && userInformation && (
             <StyledPropfileLink href="/mypage">
-              <Image src={profileImg} alt="man" width={20} height={20} style={{ border: "1px solid black", borderRadius: "50%" }}></Image>
-              <StyledProfileName>{userInformation.name}</StyledProfileName>
+              {profileImg && <Image src={profileImg} alt="man" width={20} height={20} style={{ border: "1px solid black", borderRadius: "50%" }}></Image>
+              }<StyledProfileName>{userInformation.name}</StyledProfileName>
             </StyledPropfileLink>
           )}
         </>

@@ -6,12 +6,12 @@ import UserInfoList from "./components/userinfo";
 import Winlist from "./Winlist";
 
 const MypageComponents = (props: any) => {
-  const path = props.selectBtn;
+  const path = props.selectbtn;
 
   if (path === "2") {
-    return <AnsweredSurveyList selectBtn={path} />;
+    return <AnsweredSurveyList selectbtn={path} />;
   } else if (path === "3") {
-    return <WritingSurveyList selectBtn={path} />;
+    return <WritingSurveyList selectbtn={path} />;
   } else if (path === "4") {
     return <Winlist />;
   }

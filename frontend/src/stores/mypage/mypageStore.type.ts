@@ -1,4 +1,4 @@
 export type MypageType = {
-  selectBtn: string;
-  setSelectBtn: (button: string) => void;
+  selectbtn: string;
+  setselectbtn: (button: string) => void;
 };

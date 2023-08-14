@@ -23,7 +23,7 @@ const StyledPlusBtn = styled.div.attrs<any>((props) => ({}))`
     const yellow = props.theme.colors.yellow;
     const white = props.theme.colors.white;
     const font = props.theme.fonts.HangeulFontSemiBold;
-    const color = props.selectBtn === "1" ? purple : yellow;
+    const color = props.selectbtn === "1" ? purple : yellow;
 
     return css`
       width: 60px;

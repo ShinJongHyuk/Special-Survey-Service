@@ -1,8 +1,7 @@
 "use client";
 import { Board, BoardTop, BoardCount, BoardTopLiveFont, TableContainer, TableHead, TableRow, TableHeaderCell, TableDataCell } from "./Board.styled";
 import { useRef, useEffect, useState } from "react";
-import { SSEToBoardProps, convertToBoardProps } from "../../SurveyDetailType.type";
-import useSSEHook from "@/Hooks/sse/useSSEHook";
+import { convertToBoardProps } from "../../SurveyDetailType.type";
 
 function formatAnswerTime(answerTime: string): string {
   const date = new Date(answerTime);
@@ -33,18 +32,10 @@ const BoardComponent = (props: any) => {
 
   const [answerPropsArray, setAnswerPropsArray] = useState((Array.isArray(answerlog) ? answerlog : [answerlog]).map(convertToBoardProps));
 
-  const SSEdata = useSSEHook(surveyDetail.id, "응답인원추가");
   useEffect(() => {
     setAnswerPropsArray((Array.isArray(answerlog) ? answerlog : [answerlog]).map(convertToBoardProps));
   }, [answerlog]);
 
-  useEffect(() => {
-    if (SSEdata) {
-      const jsonData = JSON.parse(SSEdata);
-      const newEntry = SSEToBoardProps(jsonData);
-      setAnswerPropsArray((prevArray) => [...prevArray, newEntry]);
-    }
-  }, [SSEdata]);
 
   return (
     <Board>

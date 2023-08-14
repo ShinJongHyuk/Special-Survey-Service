@@ -15,7 +15,6 @@ const SurveyDetail = (props: any) => {
   const { answerlog } = useAnswerLogHook(props.id);
   const { cananswer } = useAnswerPossibleHook(props.id);
   const cananswertype = surveyDetail.closed ? "TIMEOVER" : cananswer;
-  console.log(surveyDetail)
   const router = useRouter();
 
   return (
@@ -28,7 +27,6 @@ const SurveyDetail = (props: any) => {
       <StyledSurveyResultContainer>
         <Result surveyDetail={surveyDetail}></Result>
         <Board answerlog={answerlog} surveyDetail={surveyDetail} ></Board>
-        {/* {answerlog.length !== 0 ? <Board answerlog={answerlog}></Board> : <></>} */}
       </StyledSurveyResultContainer>
     </div>
   );
