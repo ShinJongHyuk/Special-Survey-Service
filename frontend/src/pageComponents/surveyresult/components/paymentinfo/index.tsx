@@ -7,7 +7,7 @@ import yellow_man from '/public/paymentInfo/payment_man_yellow.svg'
 import Number from "/public/paymentInfo/Number.svg"
 import Address from "/public/paymentInfo/Address.svg"
 import Email from "/public/paymentInfo/Email.svg"
-import isPay from "/public/paymentInfo/isPay.svg"
+import isPay from "/public/paymentInfo/IsPay.svg"
 import Name from "/public/paymentInfo/Name.svg"
 import Phone from "/public/paymentInfo/Phone.svg"
 import PaymentMethod from "/public/paymentInfo/PaymentMethod.svg"
