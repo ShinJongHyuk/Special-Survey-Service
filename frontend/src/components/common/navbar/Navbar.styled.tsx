@@ -29,7 +29,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
     }
 
     if (props.pathname.includes("surveyAnswer")) {
-      bgColor = "#white";
+      bgColor = "white";
     }
 
     return css`
@@ -42,7 +42,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       padding: 8px 30px;
       min-width: ${minwidth};
       position: fixed;
-      z-index: 1;
+      z-index: 100;
     `;
   }};
 `;
