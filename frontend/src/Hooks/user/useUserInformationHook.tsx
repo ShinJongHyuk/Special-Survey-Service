@@ -1,6 +1,7 @@
 import useUserStore from "@/stores/useUserStore";
 import userDetailGet from "@/api/user/userDetailGet";
 import { useRouter, usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 export const useLoginHook = () => {
   const setUserInformation = useUserStore((state: any) => state.setUserInformation);
@@ -11,6 +12,7 @@ export const useLoginHook = () => {
   const refreshUserInformation = async () => {
     const userInfo = await userDetailGet();
     if (userInfo?.email) {
+      console.log(userInfo)
       login();
       setUserInformation(userInfo);
       return;
@@ -21,6 +23,24 @@ export const useLoginHook = () => {
 
     router.push("/");
   };
+  useEffect(() => {
+    const getUserInfo = async () => {
+      return await userDetailGet();
+    }
+    const userInfo: any = getUserInfo();
+
+    if (pathname === "/payment" || pathname === "/makesurvey") {
+      if (userInfo?.email) {
+        if (userInfo.email !== "admin@naver.com") {
+          alert("설문 등록자가 아닙니다.")
+          router.push("/")
+        }
+      } else {
+        alert("설문 등록자가 아닙니다.")
+        router.push("/")
+      }
+    }
+  }, [pathname])
 
   return { refreshUserInformation };
 };
