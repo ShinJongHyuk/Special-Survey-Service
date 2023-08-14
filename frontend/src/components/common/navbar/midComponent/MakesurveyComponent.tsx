@@ -11,7 +11,7 @@ import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import useSurveyStore from "@/stores/makesurvey/useSurveyStore";
 import usePriceStore from "@/stores/usePriceStore";
 import useSurveyFocus from "@/stores/makesurvey/useSurveyFocusStore";
-
+import Modal from "@/components/modal";
 
 
 const MakesruveyComponent = (props: any) => {
@@ -22,7 +22,9 @@ const MakesruveyComponent = (props: any) => {
     const {surveyComponents,resetSurveyComponents} = useSurveyStore();
     const {price,decrement} = usePriceStore();
     const {resetSelectedSurvey} = useSurveyFocus();
-    
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalText, setModalText] = useState("");
+
     const {
       title,
       setTitle,
@@ -62,60 +64,54 @@ const MakesruveyComponent = (props: any) => {
           })
         }
 
-      console.log(surveyData)
-        const Inner_hasEmptyValue = surveyData.questions.some((questionData: any, questionIndex: number) => {
-          if (questionData.title === "" || questionData.type === "") {
-              alert(`질문 ${questionIndex + 1}의 모든 필드를 채워주시기 바랍니다.`);
-              return true;
-          }
-          if (questionData.multipleChoices) {
-              const emptyChoiceIndex = questionData.multipleChoices.findIndex((choice: any) => choice.content === "");
-              if (emptyChoiceIndex !== -1) {
-                  alert(`질문 ${questionIndex + 1}의 선택지 ${emptyChoiceIndex + 1}의 내용을 채워주시기 바랍니다.`);
-                  return true;
-              }     
-              if (questionData.multipleChoices.length <= 1) {
-                  alert(`질문 ${questionIndex + 1}의 선택지 개수는 2개 이상이어야 합니다.`);
-                  return true;
-              }
-          }
-          return false;
-          });
+      const Inner_hasEmptyValue = surveyData.questions.some((questionData: any, questionIndex: number) => {
+        if (questionData.title === "" || questionData.type === "") {
+            setModalText(`질문 ${questionIndex + 1}의 모든 필드를 채워주시기 바랍니다.`);
+            setModalVisible(true);
+            return true;
+        }
+
+        if (questionData.multipleChoices) {
+            const emptyChoiceIndex = questionData.multipleChoices.findIndex((choice: any) => choice.content === "");
+            if (emptyChoiceIndex !== -1) {
+                setModalText(`질문 ${questionIndex + 1}의 선택지 ${emptyChoiceIndex + 1}의 내용을 채워주시기 바랍니다.`);
+                setModalVisible(true);
+                return true;
+            }     
+            if (questionData.multipleChoices.length <= 1) {
+                setModalText(`질문 ${questionIndex + 1}의 선택지 개수는 2개 이상이어야 합니다.`);
+                setModalVisible(true);
+                return true;
+            }
+            }
+            return false;
+        });
 
         const Outer_hasEmptyValue =
-            surveyData.title === "" ?
-            (alert("설문 제목을 입력해주세요."), true) :
-            surveyData.titleContent === "" ?
-            (alert("설문 부가 설명을 입력해주세요."), true) :
-            surveyData.closedHeadCount === 0 ?
-            (alert("설문 인원을 입력해주세요."), true) :
-            surveyData.endTime === 0 ?
-            (alert("종료 시간을 선택해주세요."), true) :
-            surveyData.startTime === 0 ?
-            (alert("시작 시간을 선택해주세요."), true) :
-            (surveyData.surveyTarget === undefined || surveyData.surveyTarget.length === 0) ?
-            (alert("설문 대상을 선택해주세요."), true) :
-            surveyData.type === "" ?
-            (alert("설문 유형을 선택해주세요."), true) :
-            surveyData.startTime === "" ?
-            (alert("설문 시작 시간을 선택해주세요."), true) :
-            surveyData.endTime === "" ?
-            (alert("설문 마감 시간을 선택해주세요."), true) :
-            false;
-      if (Inner_hasEmptyValue || Outer_hasEmptyValue) {
-          return;
-      } else {
-        router.push(`/payment`);
-      };
+            surveyData.title === "" ? (() => { setModalText("설문 제목을 입력해주세요"); return true; })() :
+            surveyData.titleContent === "" ? (() => { setModalText("설문 부가 설명을 입력해주세요."); return true; })() :
+            surveyData.closedHeadCount === 0 ? (() => { setModalText("설문 인원을 입력해주세요."); return true; })() :
+            surveyData.endTime === 0 ? (() => { setModalText("종료 시간을 선택해주세요."); return true; })() :
+            surveyData.startTime === 0 ? (() => { setModalText("시작 시간을 선택해주세요."); return true; })() :
+            (surveyData.surveyTarget === undefined || surveyData.surveyTarget.length === 0) ? (() => { setModalText("설문 대상을 선택해주세요."); return true; })() :
+            surveyData.type === "" ? (() => { setModalText("설문 유형을 선택해주세요."); return true; })() :
+            surveyData.startTime === "" ? (() => { setModalText("설문 시작 시간을 선택해주세요."); return true; })() :
+            surveyData.endTime === "" ? (() => { setModalText("설문 마감 시간을 선택해주세요."); return true; })() : 
+            surveyComponents.length === 0 ? (() => { setModalText("설문 문항은 최소 1개 이상 존재해야 합니다."); return true; })() : false;
 
+        if (Inner_hasEmptyValue || Outer_hasEmptyValue) {
+            setModalVisible(true);
 
-    };
-    const handleResetButtonClick = () => {
-      resetSettingSurveyData(); 
-      resetSurveyComponents();
-      reset();
-      resetSelectedSurvey();
-    };
+        } else {
+            router.push(`/payment`);
+              }
+          };
+          const handleResetButtonClick = () => {
+            resetSettingSurveyData(); 
+            resetSurveyComponents();
+            reset();
+            resetSelectedSurvey();
+          };
 
     return (
         <StyledMidComp pathname={pathname}>
@@ -135,6 +131,9 @@ const MakesruveyComponent = (props: any) => {
                     <Button use="longYellow" label="생성하기" onClick={handleCreateButtonClick} />
                 </div>
             </div>
+            {modalVisible && (    
+                <Modal isOpen={modalVisible} bigtext={modalText} confirm="확인" cancel="취소" onConfirmClick={() => setModalVisible(false)} onClose={() => setModalVisible(false)} />
+            )}
         </StyledMidComp>
     );
 };
