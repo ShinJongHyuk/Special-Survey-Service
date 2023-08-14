@@ -81,11 +81,11 @@ const Information_Container = styled.div.attrs({})`
     padding : 30px 30px 0px 30px;
     cursor: pointer; 
     transform-style: preserve-3d; 
-
+    transition: transform 1.0s ease-in-out;
 
     &:hover {
         transform: rotateY(180deg);
-        transition: transform 0.8s ease-in-out; 
+       
     }
 `;
 
