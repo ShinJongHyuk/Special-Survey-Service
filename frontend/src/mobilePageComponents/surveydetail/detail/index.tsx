@@ -85,7 +85,7 @@ const DetailComponent = (props: any) => {
   }
 
   return (
-    <div style={{ paddingTop: "90px" }}>
+    <div style={{ paddingTop: "90px", paddingBottom: "90px" }}>
       <StyledSurveyContent>
         <div style={{ display: "flex", gap: "14px", flexDirection: "column" }}>
           <StyledTag {...detailProps}>
