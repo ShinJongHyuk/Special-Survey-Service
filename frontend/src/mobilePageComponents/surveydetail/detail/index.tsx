@@ -10,8 +10,9 @@ import {
   SurveyCardText,
   SurveyCardTime,
   StyledButton,
+  StyledShare,
 } from "./Detail.styled";
-// import { CopyToClipboard } from "react-copy-to-clipboard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 import Button from "@/components/button";
 import moment from "moment";
@@ -85,7 +86,7 @@ const DetailComponent = (props: any) => {
   }
 
   return (
-    <div style={{ paddingTop: "90px" }}>
+    <div style={{ paddingTop: "90px", paddingBottom: "90px" }}>
       <StyledSurveyContent>
         <div style={{ display: "flex", gap: "14px", flexDirection: "column" }}>
           <StyledTag {...detailProps}>
@@ -96,12 +97,19 @@ const DetailComponent = (props: any) => {
             )}
             <div className="type-text">{typeName}</div>
           </StyledTag>
-          {/* <CopyToClipboard text={currentUrl} onCopy={() => alert("클립보드에 복사되었습니다.")}>
-            <StyledShare src="/surveyDetail/share.png" alt="share"></StyledShare>
-          </CopyToClipboard> */}
 
-          <SurveyTitle>{detailProps.title}</SurveyTitle>
-          <SurveyPurpose>{detailProps.content || "많은 관심과 참여 부탁드립니다."}</SurveyPurpose>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+            <div>
+
+              <SurveyTitle>{detailProps.title}</SurveyTitle>
+              <SurveyPurpose>{detailProps.content || "많은 관심과 참여 부탁드립니다."}</SurveyPurpose>
+            </div>
+            <CopyToClipboard text={currentUrl} onCopy={() => alert("클립보드에 복사되었습니다.")}>
+              <StyledShare src="/surveyDetail/share.png" alt="share"></StyledShare>
+            </CopyToClipboard>
+          </div>
+          {/* <SurveyPurpose>{detailProps.content || "많은 관심과 참여 부탁드립니다."}</SurveyPurpose> */}
         </div>
 
         <div>
@@ -189,15 +197,15 @@ const DetailComponent = (props: any) => {
           {(() => {
             switch (cananswer) {
               case "TIMEOVER":
-                return <Button use="bgGray" label="마감된 설문입니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="마감된 설문입니다."></Button>;
               case "TIMEBEFORE":
-                return <Button use="bgGray" label="설문 시작 전입니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="설문 시작 전입니다."></Button>;
               case "DIDANSWER":
-                return <Button use="bgGray" label="이미 응답한 설문입니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="이미 응답한 설문입니다."></Button>;
               case "HEADFULL":
-                return <Button use="bgGray" label="인원 마감입니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="인원 마감입니다."></Button>;
               case "TYPENOTMATCH":
-                return <Button use="bgGray" label="설문 대상자가 아닙니다."></Button>;
+                return <Button style={{ borderRadius: "0px" }} use="bgGray" label="설문 대상자가 아닙니다."></Button>;
               default: // case "CANANSWER":
                 return (
                   <Button
