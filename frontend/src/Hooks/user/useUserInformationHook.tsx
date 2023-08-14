@@ -12,7 +12,7 @@ export const useLoginHook = () => {
   const refreshUserInformation = async () => {
     const userInfo = await userDetailGet();
     if (userInfo?.email) {
-      console.log(userInfo)
+      //console.log(userInfo)
       login();
       setUserInformation(userInfo);
       return;
@@ -31,7 +31,7 @@ export const useLoginHook = () => {
 
     if (pathname === "/payment" || pathname === "/makesurvey") {
       if (userInfo?.email) {
-        console.log(userInfo.email)
+        //console.log(userInfo.email)
         if (userInfo.email !== "admin@naver.com") {
 
           alert("설문 등록자가 아닙니다.")

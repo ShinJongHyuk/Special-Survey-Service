@@ -13,18 +13,18 @@ interface propsType {
 
 const ProgressBarComponent = (props: propsType) => {
     const router = useRouter()
-    const answer = useSurveyAnswerStore((state:any) => state.answer)
-    const resetAnswer = useSurveyAnswerStore((state:any) => state.resetAnswer)
-    const checkBoxAnswer = useSurveyAnswerStore((state:any) => state.checkBoxAnswer)
-    const resetCheckBox = useSurveyAnswerStore((state:any) => state.resetCheckBox)
-    const dateAnswer = useSurveyAnswerStore((state:any) => state.dateAnswer)
-    const resetDateAnswer = useSurveyAnswerStore((state:any) => state.resetDateAnswer)
-    const timeAnswer = useSurveyAnswerStore((state:any) => state.timeAnswer)
-    const resetTimeAnswer = useSurveyAnswerStore((state:any) => state.resetTimeAnswer)
-    const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
-    const resetLinkNumber = useSurveyAnswerStore((state:any) => state.resetLinkNumber)
-    const [count, setCount] = useState<any>([]) 
-    const percentage = answer && ((answer.length + count.length + dateAnswer.length + timeAnswer.length)/(props.questionsCount-linkNumber.length)) * 100
+    const answer = useSurveyAnswerStore((state: any) => state.answer)
+    const resetAnswer = useSurveyAnswerStore((state: any) => state.resetAnswer)
+    const checkBoxAnswer = useSurveyAnswerStore((state: any) => state.checkBoxAnswer)
+    const resetCheckBox = useSurveyAnswerStore((state: any) => state.resetCheckBox)
+    const dateAnswer = useSurveyAnswerStore((state: any) => state.dateAnswer)
+    const resetDateAnswer = useSurveyAnswerStore((state: any) => state.resetDateAnswer)
+    const timeAnswer = useSurveyAnswerStore((state: any) => state.timeAnswer)
+    const resetTimeAnswer = useSurveyAnswerStore((state: any) => state.resetTimeAnswer)
+    const linkNumber = useSurveyAnswerStore((state: any) => state.linkNumber)
+    const resetLinkNumber = useSurveyAnswerStore((state: any) => state.resetLinkNumber)
+    const [count, setCount] = useState<any>([])
+    const percentage = answer && ((answer.length + count.length + dateAnswer.length + timeAnswer.length) / (props.questionsCount - linkNumber.length)) * 100
     const viewPercentage = Math.round(percentage)
 
     useEffect(() => {
@@ -33,25 +33,25 @@ const ProgressBarComponent = (props: propsType) => {
         resetDateAnswer()
         resetTimeAnswer()
         resetLinkNumber()
-    },[])
+    }, [])
 
 
     useEffect(() => {
-        console.log(answer.length, "객관식+주관식")
-        console.log(count.length, "체크박스 개수")
-        console.log(dateAnswer.length, "날짜 개수")
-        console.log(timeAnswer.length, "시간 개수")
-        console.log(props.questionsCount, "문항 개수")
-        console.log(linkNumber, "링크 개수")
-    },[checkBoxAnswer])
+        //console.log(answer.length, "객관식+주관식")
+        //console.log(count.length, "체크박스 개수")
+        //console.log(dateAnswer.length, "날짜 개수")
+        //console.log(timeAnswer.length, "시간 개수")
+        //console.log(props.questionsCount, "문항 개수")
+        //console.log(linkNumber, "링크 개수")
+    }, [checkBoxAnswer])
 
     // useEffect(() => {
-    //     console.log(count,"카운트")
-    //     console.log(checkBoxAnswer,"체크박스")
+    //     //console.log(count,"카운트")
+    //     //console.log(checkBoxAnswer,"체크박스")
     // },[count,checkBoxAnswer])
 
     useEffect(() => {
-        console.log(answer.length)
+        //console.log(answer.length)
         if (checkBoxAnswer.length === 0) {
             setCount([])
         } else {

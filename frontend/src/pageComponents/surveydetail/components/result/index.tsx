@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 const ResultComponent = (props: any) => {
   const { surveyDetail } = props;
 
-  console.log(surveyDetail);
+  //console.log(surveyDetail);
   const images: { [key: string]: string } = {
     CHICKEN: "/card/chicken.png",
     COFFEE: "/card/coffee.png",

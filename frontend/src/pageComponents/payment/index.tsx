@@ -112,7 +112,7 @@ function Payment(props: any) {
     checkLoginStatus();
   }, []);
 
-  const handlePaymentButtonClick = () => { 
+  const handlePaymentButtonClick = () => {
 
     const paymentdata = {
       giveaways: selectedOption.map((selected) => ({
@@ -126,7 +126,7 @@ function Payment(props: any) {
         const { IMP } = window;
         if (!window.IMP) return;
         IMP.init(StoreId);
-   
+
         const orderInfo = {
           pg: "kakaopay",
           pay_method: "card",
@@ -140,67 +140,67 @@ function Payment(props: any) {
           buyer_postcode: "123-456",
         };
 
-      function callback(response : any) {
-        console.log(response,"콜백")
-        const surveyData = {
-          title,
-          titleContent,
-          closedHeadCount,
-          startTime,
-          endTime,
-          type,
-          surveyTarget,
-          img,
-          questions,
-          giveaways: selectedOption.map((selected) => ({
-            id: selected.option.id,
-            count: (selected.option.count),
-          })),
-        };
-    
-        // API 로직
-        makeSurveyPost(surveyData)
-          .then((responseData) => {
-            setSurveyId(parseInt(responseData.id));
-            if (responseData) {
-              const authenticateData = {
-                surveyId : surveyid,
-                amount : response.paid_amount,
-                orderId : response.merchant_uid,
-                status : response.status,
-                impUid : response.imp_uid
-              }
-            
-              authenticationDataPost(authenticateData)
-              .then((response) => {
-                if (response.isSucess === "paid") {
-                console.log(response,"결제 완료")
+        function callback(response: any) {
+          //console.log(response,"콜백")
+          const surveyData = {
+            title,
+            titleContent,
+            closedHeadCount,
+            startTime,
+            endTime,
+            type,
+            surveyTarget,
+            img,
+            questions,
+            giveaways: selectedOption.map((selected) => ({
+              id: selected.option.id,
+              count: (selected.option.count),
+            })),
+          };
 
-                resetSettingSurveyData(); 
-                resetSurveyComponents();
-                reset();
-                resetSelectedSurvey();
-                setIsSuccessed(true);
-
-                } else {
-                  console.log("결제 실패")
-                  alert("결제에 실패하였습니다")
-                  return
+          // API 로직
+          makeSurveyPost(surveyData)
+            .then((responseData) => {
+              setSurveyId(parseInt(responseData.id));
+              if (responseData) {
+                const authenticateData = {
+                  surveyId: surveyid,
+                  amount: response.paid_amount,
+                  orderId: response.merchant_uid,
+                  status: response.status,
+                  impUid: response.imp_uid
                 }
-              })
-              .catch((error => {
-                console.log("검증에 실패하였습니다",error)
-                alert("결제에 실패하였습니다")
-                return
-              }))
-            }
-          })
-        }
-      IMP.request_pay(orderInfo,callback)
 
-    })
-  
-};
+                authenticationDataPost(authenticateData)
+                  .then((response) => {
+                    if (response.isSucess === "paid") {
+                      //console.log(response,"결제 완료")
+
+                      resetSettingSurveyData();
+                      resetSurveyComponents();
+                      reset();
+                      resetSelectedSurvey();
+                      setIsSuccessed(true);
+
+                    } else {
+                      //console.log("결제 실패")
+                      alert("결제에 실패하였습니다")
+                      return
+                    }
+                  })
+                  .catch((error => {
+                    //console.log("검증에 실패하였습니다",error)
+                    alert("결제에 실패하였습니다")
+                    return
+                  }))
+              }
+            })
+        }
+        IMP.request_pay(orderInfo, callback)
+
+      })
+
+  };
 
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

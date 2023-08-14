@@ -109,7 +109,7 @@ export const useUserUpdateHook = () => {
           alert(res.data.apiError.message);
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     }
   };

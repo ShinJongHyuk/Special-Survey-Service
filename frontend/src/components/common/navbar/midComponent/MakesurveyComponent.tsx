@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { StyledText, StyledMidComp, StyledTitleInput } from "../Navbar.styled";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,17 +15,37 @@ import useSurveyFocus from "@/stores/makesurvey/useSurveyFocusStore";
 
 
 const MakesruveyComponent = (props: any) => {
-    const pathname = props.pathname;
-    const router = useRouter();
-    const {resetSettingSurveyData} = useSettingSurveyApiStore();
-    const {surveyList,setSurveyList,reset} = useMakeSurveyApiStore();
-    const {surveyComponents,resetSurveyComponents} = useSurveyStore();
-    const {price,decrement} = usePriceStore();
-    const {resetSelectedSurvey} = useSurveyFocus();
-    
-    const {
+  const pathname = props.pathname;
+  const router = useRouter();
+  const { resetSettingSurveyData } = useSettingSurveyApiStore();
+  const { surveyList, setSurveyList, reset } = useMakeSurveyApiStore();
+  const { surveyComponents, resetSurveyComponents } = useSurveyStore();
+  const { price, decrement } = usePriceStore();
+  const { resetSelectedSurvey } = useSurveyFocus();
+
+  const {
+    title,
+    setTitle,
+    titleContent,
+    closedHeadCount,
+    startTime,
+    endTime,
+    type,
+    surveyTarget,
+    img,
+  } = useSettingSurveyApiStore();
+
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  const handleCreateButtonClick = () => {
+
+    decrement(price);
+
+    const surveyData = {
       title,
-      setTitle,
       titleContent,
       closedHeadCount,
       startTime,
@@ -33,111 +53,91 @@ const MakesruveyComponent = (props: any) => {
       type,
       surveyTarget,
       img,
-    } = useSettingSurveyApiStore();
-
-
-    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.target.value);
-      };
-
-    const handleCreateButtonClick = () => { 
-
-      decrement(price);
-
-      const surveyData = {
-        title,
-        titleContent,
-        closedHeadCount,
-        startTime,
-        endTime,
-        type,
-        surveyTarget,
-        img,
-        questions: surveyComponents.map((component, index) => {
-          const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
-          return {
-            ...dataWithoutComponentKey,
-            questionNumber: index + 1 
-            };
-          })
+      questions: surveyComponents.map((component, index) => {
+        const { componentKey, ...dataWithoutComponentKey } = surveyList[component.componentKey];
+        return {
+          ...dataWithoutComponentKey,
+          questionNumber: index + 1
+        };
+      })
+    }
+    //console.log(surveyComponents)
+    const Inner_hasEmptyValue = surveyData.questions.some((questionData: any, questionIndex: number) => {
+      if (questionData.title === "" || questionData.type === "") {
+        alert(`질문 ${questionIndex + 1}의 모든 필드를 채워주시기 바랍니다.`);
+        return true;
+      }
+      if (questionData.multipleChoices) {
+        const emptyChoiceIndex = questionData.multipleChoices.findIndex((choice: any) => choice.content === "");
+        if (emptyChoiceIndex !== -1) {
+          alert(`질문 ${questionIndex + 1}의 선택지 ${emptyChoiceIndex + 1}의 내용을 채워주시기 바랍니다.`);
+          return true;
         }
-      console.log(surveyComponents)
-        const Inner_hasEmptyValue = surveyData.questions.some((questionData: any, questionIndex: number) => {
-          if (questionData.title === "" || questionData.type === "") {
-              alert(`질문 ${questionIndex + 1}의 모든 필드를 채워주시기 바랍니다.`);
-              return true;
-          }
-          if (questionData.multipleChoices) {
-              const emptyChoiceIndex = questionData.multipleChoices.findIndex((choice: any) => choice.content === "");
-              if (emptyChoiceIndex !== -1) {
-                  alert(`질문 ${questionIndex + 1}의 선택지 ${emptyChoiceIndex + 1}의 내용을 채워주시기 바랍니다.`);
-                  return true;
-              }     
-              if (questionData.multipleChoices.length <= 1) {
-                  alert(`질문 ${questionIndex + 1}의 선택지 개수는 2개 이상이어야 합니다.`);
-                  return true;
-              }
-          }
-          return false;
-          });
+        if (questionData.multipleChoices.length <= 1) {
+          alert(`질문 ${questionIndex + 1}의 선택지 개수는 2개 이상이어야 합니다.`);
+          return true;
+        }
+      }
+      return false;
+    });
 
-        const Outer_hasEmptyValue =
-            surveyData.title === "" ?
-            (alert("설문 제목을 입력해주세요."), true) :
-            surveyData.titleContent === "" ?
-            (alert("설문 부가 설명을 입력해주세요."), true) :
-            surveyData.closedHeadCount === 0 ?
+    const Outer_hasEmptyValue =
+      surveyData.title === "" ?
+        (alert("설문 제목을 입력해주세요."), true) :
+        surveyData.titleContent === "" ?
+          (alert("설문 부가 설명을 입력해주세요."), true) :
+          surveyData.closedHeadCount === 0 ?
             (alert("설문 인원을 입력해주세요."), true) :
             surveyData.endTime === 0 ?
-            (alert("종료 시간을 선택해주세요."), true) :
-            surveyData.startTime === 0 ?
-            (alert("시작 시간을 선택해주세요."), true) :
-            (surveyData.surveyTarget === undefined || surveyData.surveyTarget.length === 0) ?
-            (alert("설문 대상을 선택해주세요."), true) :
-            surveyData.type === "" ?
-            (alert("설문 유형을 선택해주세요."), true) :
-            surveyData.startTime === "" ?
-            (alert("설문 시작 시간을 선택해주세요."), true) :
-            surveyData.endTime === "" ?
-            (alert("설문 마감 시간을 선택해주세요."), true) :
-            (surveyComponents.length === 0) ?
-            (alert("설문 문항은 최소 1개 이상 존재해야 합니다"),true) :
-            false;
-      if (Inner_hasEmptyValue || Outer_hasEmptyValue) {
-          return;
-      } else {
-        router.push(`/payment`);
-      };
-
-
-    };
-    const handleResetButtonClick = () => {
-      resetSettingSurveyData(); 
-      resetSurveyComponents();
-      reset();
-      resetSelectedSurvey();
+              (alert("종료 시간을 선택해주세요."), true) :
+              surveyData.startTime === 0 ?
+                (alert("시작 시간을 선택해주세요."), true) :
+                (surveyData.surveyTarget === undefined || surveyData.surveyTarget.length === 0) ?
+                  (alert("설문 대상을 선택해주세요."), true) :
+                  surveyData.type === "" ?
+                    (alert("설문 유형을 선택해주세요."), true) :
+                    surveyData.startTime === "" ?
+                      (alert("설문 시작 시간을 선택해주세요."), true) :
+                      surveyData.endTime === "" ?
+                        (alert("설문 마감 시간을 선택해주세요."), true) :
+                        (surveyComponents.length === 0) ?
+                          (alert("설문 문항은 최소 1개 이상 존재해야 합니다"), true) :
+                          false;
+    if (Inner_hasEmptyValue || Outer_hasEmptyValue) {
+      return;
+    } else {
+      router.push(`/payment`);
     };
 
-    return (
-        <StyledMidComp pathname={pathname}>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "4px",maxWidth : "600px"}} >
-                <StyledTitleInput onChange={handleTitleChange} value={title} style={{minWidth : "600px",maxWidth : "600px"}}></StyledTitleInput>
-                <StyledText>
-                    <Image src='/survey/check.png' width={12} height={12} style={{ marginRight: "10px" }} alt="체크" />
-                    모든 변경사항이 반영되었습니다.
-                </StyledText>
-            </div>
-            <div style={{ display: "flex", gap: "10px" }}>
-                <div style={{ width: "93px", height: "35px" }}>
-                    <Button use="gray" label="초기화" onClick={handleResetButtonClick} />
-                </div>
-                <div style={{ width: "93px", height: "35px" }}>
-                    <Button use="longYellow" label="생성하기" onClick={handleCreateButtonClick} />
-                </div>
-            </div>
-        </StyledMidComp>
-    );
+  };
+  const handleResetButtonClick = () => {
+    resetSettingSurveyData();
+    resetSurveyComponents();
+    reset();
+    resetSelectedSurvey();
+  };
+
+  return (
+    <StyledMidComp pathname={pathname}>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "4px", maxWidth: "600px" }} >
+        <StyledTitleInput onChange={handleTitleChange} value={title} style={{ minWidth: "600px", maxWidth: "600px" }}></StyledTitleInput>
+        <StyledText>
+          <Image src='/survey/check.png' width={12} height={12} style={{ marginRight: "10px" }} alt="체크" />
+          모든 변경사항이 반영되었습니다.
+        </StyledText>
+      </div>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ width: "93px", height: "35px" }}>
+          <Button use="gray" label="초기화" onClick={handleResetButtonClick} />
+        </div>
+        <div style={{ width: "93px", height: "35px" }}>
+          <Button use="longYellow" label="생성하기" onClick={handleCreateButtonClick} />
+        </div>
+      </div>
+    </StyledMidComp>
+  );
 };
 
 export default MakesruveyComponent;

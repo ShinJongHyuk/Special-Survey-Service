@@ -41,7 +41,6 @@ const FindId = () => {
     };
 
     const res = await messageCertPost2(data);
-    console.log(res)
     if (res.data.success === true) {
       setIsCert(() => {
         return {

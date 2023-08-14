@@ -9,9 +9,9 @@ const myGiveawayCheckPatch = async (surveyid: any) => {
     });
 
     if (response.data.success) {
-      console.log("myGiveawayCheckPath : ", response.data);
+      //console.log("myGiveawayCheckPath : ", response.data);
     } else {
-      console.log("error: ", response.data.apiError.message);
+      //console.log("error: ", response.data.apiError.message);
     }
 
   } catch (error) {

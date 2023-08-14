@@ -18,9 +18,6 @@ const Date = (props: any) => {
     }
   }, [linkNumber]);
 
-  useEffect(() => {
-    console.log(dateAnswer, "날짜");
-  }, [dateAnswer]);
 
   const onChange = (e: any) => {
     const date = {

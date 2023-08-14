@@ -8,7 +8,7 @@ const paymentDataPost = async (paymentData : any) => {
               Authorization: `Bearer ${accessToken}`
           }
       });
-      console.log("Post PaymentData: ", response.data.response)
+      //console.log("Post PaymentData: ", response.data.response)
       return response.data.response;
     } catch (error) {
       console.error("Error: ", error);

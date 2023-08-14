@@ -10,7 +10,7 @@ const GetSurvey = async (survey_id: any) => {
     })
     return res.data.response
 } catch(err) {
-    console.log(err)
+    //console.log(err)
 } 
 };
 

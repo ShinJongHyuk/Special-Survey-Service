@@ -11,7 +11,7 @@ const useAnswerLogHook = (id: any) => {
       if (data.success) {
         setAnswerlog(data.response);
       } else {
-        console.log(data);
+        //console.log(data);
       }
     };
     fetchList();

@@ -9,14 +9,14 @@ import TimeForm from "@/components/surveyanswer/timeform"
 import { useEffect, useState } from 'react'
 import useSurveyAnswerStore from '@/stores/useSurveyAnswer'
 import Image from 'next/image'
-const QuestionComponent = (props:any) => {
+const QuestionComponent = (props: any) => {
     const questionNumber = props.questionNumber
-    const [ disabled, setDisabled] = useState(true)
+    const [disabled, setDisabled] = useState(true)
     const questionId = props.id
-    const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
-    const removeLinkTimeAnswer = useSurveyAnswerStore((state:any) => state.removeLinkTimeAnswer)
+    const linkNumber = useSurveyAnswerStore((state: any) => state.linkNumber)
+    const removeLinkTimeAnswer = useSurveyAnswerStore((state: any) => state.removeLinkTimeAnswer)
     const multipleChoices = props.multipleChoices
-    const setLinkNumber = useSurveyAnswerStore((state:any) => state.setLinkNumber)
+    const setLinkNumber = useSurveyAnswerStore((state: any) => state.setLinkNumber)
     useEffect(() => {
         if (linkNumber.includes(questionNumber)) {
             setDisabled(true)
@@ -24,7 +24,7 @@ const QuestionComponent = (props:any) => {
         } else {
             setDisabled(false)
         }
-    },[linkNumber])
+    }, [linkNumber])
     useEffect(() => {
         multipleChoices.map((multipleChoice: any) => {
             if (multipleChoice.linkNumber) {
@@ -32,39 +32,39 @@ const QuestionComponent = (props:any) => {
             }
         });
     }, [multipleChoices]);
-    // console.log(props)
+    // //console.log(props)
     // useEffect(() => {
-    //     console.log(props,"123")
+    //     //console.log(props,"123")
     // })
     return (
         <>
-        {!disabled &&  <Survey_Container>
-            <Survey_Title_Container>
-                <SurveyQuestionContainer>
-                <StyledTag type={props.surveyCategoryType} disabled={disabled}>
-                    <div className="type-text">Q{props.questionNumber}</div>
-                </StyledTag>
-                <SurveyQuestion disabled={disabled}>
-                    {props.title}
-                </SurveyQuestion>
-                <Surveycontent disabled={disabled}>
-                    {props.content}
-                </Surveycontent>
-                <SurveyImage>
-                {props.imgAddress && (
-                    <Image src={props.imgAddress} alt={props.id} width={100} height={100} unoptimized={true}></Image>)}
-                                
-                </SurveyImage>
-                
-                </SurveyQuestionContainer>
-                {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props} disabled={disabled}></MultipleChoice>}
-                {props.type === "CHECK_BOX" && <CheckBox {...props} disabled={disabled}></CheckBox>}
-                {props.type === "SHORT_FORM" && <ShortForm {...props} disabled={disabled}></ShortForm>}
-                {props.type === "DATE_FORM" && <DateForm {...props} disabled={disabled}></DateForm>}
-                {props.type === "TIME_FORM" && <TimeForm {...props} disabled={disabled}></TimeForm>}
-            </Survey_Title_Container>
-        </Survey_Container>}
-       </>
+            {!disabled && <Survey_Container>
+                <Survey_Title_Container>
+                    <SurveyQuestionContainer>
+                        <StyledTag type={props.surveyCategoryType} disabled={disabled}>
+                            <div className="type-text">Q{props.questionNumber}</div>
+                        </StyledTag>
+                        <SurveyQuestion disabled={disabled}>
+                            {props.title}
+                        </SurveyQuestion>
+                        <Surveycontent disabled={disabled}>
+                            {props.content}
+                        </Surveycontent>
+                        <SurveyImage>
+                            {props.imgAddress && (
+                                <Image src={props.imgAddress} alt={props.id} width={100} height={100} unoptimized={true}></Image>)}
+
+                        </SurveyImage>
+
+                    </SurveyQuestionContainer>
+                    {props.type === "MULTIPLE_CHOICE" && <MultipleChoice {...props} disabled={disabled}></MultipleChoice>}
+                    {props.type === "CHECK_BOX" && <CheckBox {...props} disabled={disabled}></CheckBox>}
+                    {props.type === "SHORT_FORM" && <ShortForm {...props} disabled={disabled}></ShortForm>}
+                    {props.type === "DATE_FORM" && <DateForm {...props} disabled={disabled}></DateForm>}
+                    {props.type === "TIME_FORM" && <TimeForm {...props} disabled={disabled}></TimeForm>}
+                </Survey_Title_Container>
+            </Survey_Container>}
+        </>
     )
 }
 

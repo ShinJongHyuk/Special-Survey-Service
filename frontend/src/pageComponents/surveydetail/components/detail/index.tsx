@@ -32,7 +32,7 @@ const DetailComponent = (props: any) => {
   const router = useRouter();
 
   const { surveyDetail, cananswer } = props;
-  // console.log("DetailComponent- can answer : ", cananswer);
+  // //console.log("DetailComponent- can answer : ", cananswer);
   const [isOpen, setIsOpen] = useState(false);
   const [toModalData, setToModalData] = useState({
     surveyid: "",

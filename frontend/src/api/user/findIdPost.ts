@@ -1,7 +1,7 @@
 import api from "../api";
 
 const findIdPost = async (phoneNumber: string) => {
-  console.log(phoneNumber);
+  //console.log(phoneNumber);
   const res = await api({
     method: "post",
     url: "/user/find/email",

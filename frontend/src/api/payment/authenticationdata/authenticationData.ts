@@ -8,10 +8,10 @@ const authenticationDataPost = async (authenticationData : any) => {
               Authorization: `Bearer ${accessToken}`
           }
       });
-      console.log("Post AuthenticationData: ", response.data.response)
+      // //console.log("Post AuthenticationData: ", response.data.response)
       return response.data.response;
     } catch (error) {
-      console.error("Error: ", error);
+      // console.error("Error: ", error);
       throw error;
     }
   };
