@@ -11,4 +11,6 @@ export interface ModalType {
 
   onConfirmClick?: () => void;
   onDelete?: () => void;
+
+  imgsrc?: string;
 }
