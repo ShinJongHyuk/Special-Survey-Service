@@ -18,14 +18,6 @@ const StyledMobileNavbar = styled.div.attrs<any>((props) => ({}))`
   }};
 `;
 
-const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
-  ${(props) => {
-    return css`
-      padding-left: 15px;
-    `;
-  }};
-`;
-
 const StyledEndComp = styled.div.attrs<any>((props) => ({}))`
   ${(props) => {
     const size = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "10%" : "20%";
@@ -38,13 +30,6 @@ const StyledEndComp = styled.div.attrs<any>((props) => ({}))`
   }};
 `;
 
-const StyledProfileName = styled.div`
-  margin-left: 5px;
-  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
-  font-size: ${(props) => props.theme.fontSizes.small};
-  color: ${(props) => props.theme.colors.black};
-`;
-
 const StyledNavLink = styled(Link)`
   padding: 0px 10px;
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
@@ -52,4 +37,12 @@ const StyledNavLink = styled(Link)`
   color: ${(props) => props.theme.colors.black};
 `;
 
-export { StyledMobileNavbar, StyledStartComp, StyledEndComp, StyledProfileName, StyledNavLink };
+const StyleLogout = styled.div`
+  padding: 0px 10px;
+  font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  color: ${(props) => props.theme.colors.black};
+  cursor: pointer;
+`;
+
+export { StyledMobileNavbar, StyleLogout, StyledEndComp, StyledNavLink };

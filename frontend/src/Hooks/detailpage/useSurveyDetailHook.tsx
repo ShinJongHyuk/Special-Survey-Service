@@ -13,7 +13,7 @@ const useSurveyDetailHook = (id: any) => {
                 setSurveyDetail(data.response);
 
             } else {
-                console.log(data.apiError)
+                //console.log(data.apiError)
             }
         };
         fetchList();

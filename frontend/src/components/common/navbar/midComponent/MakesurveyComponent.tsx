@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { StyledText, StyledMidComp, StyledTitleInput } from "../Navbar.styled";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -38,13 +38,13 @@ const MakesruveyComponent = (props: any) => {
     } = useSettingSurveyApiStore();
 
 
-    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.target.value);
-      };
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
 
-    const handleCreateButtonClick = () => { 
+  const handleCreateButtonClick = () => {
 
-      decrement(price);
+    decrement(price);
 
       const surveyData = {
         title,
@@ -113,8 +113,8 @@ const MakesruveyComponent = (props: any) => {
             resetSelectedSurvey();
           };
 
-    return (
-        <StyledMidComp pathname={pathname}>
+  return (
+    <StyledMidComp pathname={pathname}>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "4px",maxWidth : "600px"}} >
                 <StyledTitleInput onChange={handleTitleChange} value={title} style={{minWidth : "600px",maxWidth : "600px"}}></StyledTitleInput>

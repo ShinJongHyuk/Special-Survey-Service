@@ -1,11 +1,9 @@
 import Card from "@/components/card";
 import React from "react";
 import { useRouter } from "next/navigation";
-import useSSEHook from "@/Hooks/sse/useSSEHook";
 
 const NormalCard = ({ index, survey }: any) => {
   const router = useRouter();
-  const percent = useSSEHook(survey.id, "확률변동");
 
   return (
     <div key={index} style={{ display: "flex", justifyContent: "center" }}>
@@ -15,7 +13,7 @@ const NormalCard = ({ index, survey }: any) => {
           nickname={survey.writerName}
           type={survey.surveyCategoryType}
           giveaways={survey.surveyGiveaways[0].giveawayResponse.giveawayType}
-          probability={percent ? percent + "%" : survey.winningPercent + "%"}
+          probability={survey.winningPercent + "%"}
           remaintime={survey.remainTime || ""}
           endtime={survey.endTime}
           onClick={() => router.push("/surveydetail/" + survey.id)}

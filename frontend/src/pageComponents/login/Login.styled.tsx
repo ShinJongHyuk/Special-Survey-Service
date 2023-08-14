@@ -54,7 +54,7 @@ const LoginFont = styled.div.attrs<any>((props) => ({}))`
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `;
 const LoginFont2 = styled.p.attrs<any>((props) => ({}))`
-  width: 100px;
+  width: 100%;
   height: 20px;
 
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};

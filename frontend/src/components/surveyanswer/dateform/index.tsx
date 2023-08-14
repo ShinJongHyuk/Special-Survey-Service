@@ -4,12 +4,12 @@ import useSurveyAnswerStore from "@/stores/useSurveyAnswer"
 import { Dateinput } from "./DateForm.styled"
 import { useEffect, useState } from "react"
 
-const DateForm = (props:any) => {
-    const dateAnswer = useSurveyAnswerStore((state:any) => state.dateAnswer)
-    const setDateAnswer = useSurveyAnswerStore((state:any) => state.setDateAnswer)
+const DateForm = (props: any) => {
+    const dateAnswer = useSurveyAnswerStore((state: any) => state.dateAnswer)
+    const setDateAnswer = useSurveyAnswerStore((state: any) => state.setDateAnswer)
     const questionNumber = props.questionNumber
-    const linkNumber = useSurveyAnswerStore((state:any) => state.linkNumber)
-    const removeLinkDateAnswer = useSurveyAnswerStore((state:any) => state.removeLinkDateAnswer)
+    const linkNumber = useSurveyAnswerStore((state: any) => state.linkNumber)
+    const removeLinkDateAnswer = useSurveyAnswerStore((state: any) => state.removeLinkDateAnswer)
     const questionId = props.id
 
 
@@ -17,16 +17,16 @@ const DateForm = (props:any) => {
         if (linkNumber.includes(questionNumber)) {
             removeLinkDateAnswer(questionId)
         }
-    },[linkNumber])
+    }, [linkNumber])
 
     useEffect(() => {
-        console.log(dateAnswer, "날짜")
-    },[dateAnswer])
+        //console.log(dateAnswer, "날짜")
+    }, [dateAnswer])
 
-    const onChange = (e:any) => {
+    const onChange = (e: any) => {
         const date = {
-            questionId : String(questionId),
-            shortFormAnswer : e.target.value
+            questionId: String(questionId),
+            shortFormAnswer: e.target.value
         }
         setDateAnswer(date)
     }

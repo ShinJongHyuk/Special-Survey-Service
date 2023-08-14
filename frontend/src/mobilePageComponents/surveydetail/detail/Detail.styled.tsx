@@ -66,12 +66,17 @@ const SurveyTitle = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => props.theme.colors.black};
   font-family: ${(props) => props.theme.fonts.HangeulFontSemiBold};
   font-size: ${(props) => props.theme.fontSizes.mediumlarge};
+  word-wrap: break-word;
+  width: 78vw;
+  margin-bottom:10px;
 `;
 
 const SurveyPurpose = styled.div.attrs<any>((props) => ({}))`
   color: ${(props) => props.theme.colors.black};
   font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
   font-size: ${(props) => props.theme.fontSizes.small};
+  word-wrap: break-word;
+  width: 78vw;
 `;
 
 const StyledText = styled.div.attrs<any>((props) => ({}))`

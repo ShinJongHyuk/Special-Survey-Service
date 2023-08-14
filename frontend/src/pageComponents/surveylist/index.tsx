@@ -4,8 +4,8 @@ import { useSurveylistStore } from "@/stores/surveylist/useSurveylistStore";
 import SurveylistComponents from "./surveylistComponents";
 
 const Surveylist = () => {
-  const selectBtn = useSurveylistStore((state) => state.selectBtn);
-  return <SurveylistComponents selectBtn={selectBtn} />;
+  const selectbtn = useSurveylistStore((state) => state.selectbtn);
+  return <SurveylistComponents selectbtn={selectbtn} />;
 };
 
 export default Surveylist;

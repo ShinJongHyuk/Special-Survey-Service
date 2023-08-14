@@ -83,7 +83,7 @@ const SignUpContainer = styled.form.attrs<any>((props) => ({}))`
 const SignUpText = styled.div.attrs<any>((props) => ({}))`
   display: flex;
   margin-left: 10px;
-  width: 100px;
+  width: 100%;
   height: 100%;
   font-size: 16px;
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};

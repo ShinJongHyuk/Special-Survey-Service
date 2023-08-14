@@ -2,7 +2,7 @@
 import { Doughnut } from "react-chartjs-2"; 
 import { Chart } from "chart.js"
 import { CategoryScale, LinearScale, ArcElement } from "chart.js"
-import { SurveyResult, ChartColor, ChartInfo, ChartContainer, ChartInfoContainer } from "./QuestionAnswer.styled";
+import { SurveyResult, ChartColor, ChartInfo, ChartContainer, ChartInfoContainer, ShortFormStatistics } from "./QuestionAnswer.styled";
 
 Chart.register(CategoryScale, LinearScale, ArcElement);
 
@@ -49,23 +49,48 @@ const questionAnswer = (props:any) => {
     };
     return (
         <>
-        {type === "MULTIPLE_CHOICE" ? (<div style={{display:"flex", gap:"50px"}}>
+        {type === "MULTIPLE_CHOICE" ?
 
-        <ChartContainer>
-            <Doughnut data={data} options={options}></Doughnut>
-        </ChartContainer>
+        <div style={{display:"flex", gap:"30px", paddingTop:"10px"}}>
+            <ChartContainer>
+                <Doughnut data={data} options={options}></Doughnut>
+            </ChartContainer>
 
-        <ChartInfoContainer>
-        {Object.keys(countMap).map((key, index) => {
-            return (
-                <ChartInfo>
-                <ChartColor color={backgroundColors[index]} key={index}>■</ChartColor>
-                <SurveyResult>{key} : {countMap[key]}명</SurveyResult>
-                </ChartInfo>
-            );
-            })}
-        </ChartInfoContainer>
-    </div>) : null}
+            <ChartInfoContainer>
+            {Object.keys(countMap).map((key, index) => {
+                return (
+                    <ChartInfo>
+                    <ChartColor color={backgroundColors[index]} key={index}>■</ChartColor>
+                    <SurveyResult>{key} : {countMap[key]}명</SurveyResult>
+                    </ChartInfo>
+                );
+                })}
+            </ChartInfoContainer>
+        </div> 
+    :
+    type === "CHECK_BOX" ?
+    <div style={{display:"flex", gap:"30px", paddingTop:"10px"}}>
+            <ChartContainer>
+                <Doughnut data={data} options={options}></Doughnut>
+            </ChartContainer>
+
+            <ChartInfoContainer>
+            {Object.keys(countMap).map((key, index) => {
+                return (
+                    <ChartInfo>
+                    <ChartColor color={backgroundColors[index]} key={index}>■</ChartColor>
+                    <SurveyResult>{key} : {countMap[key]}명</SurveyResult>
+                    </ChartInfo>
+                );
+                })}
+            </ChartInfoContainer>
+        </div> 
+    :
+    <div>
+        {answers && answers.map((e:any) => {
+            return <ShortFormStatistics surveyCategoryType={props.surveyCategoryType}>{e}</ShortFormStatistics>
+        })}
+    </div> }
     </>
     )
 }

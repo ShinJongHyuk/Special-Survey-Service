@@ -8,7 +8,7 @@ const makeSurveyPost = async (surveyDatas : any) => {
             Authorization: `Bearer ${accessToken}`
         }
     });
-    console.log("Post SurveyInformation: ", response.data.response)
+    // //console.log("Post SurveyInformation: ", response.data.response)
 
     return response.data.response;
   } catch (error) {

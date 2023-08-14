@@ -7,7 +7,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
     const yellow = props.theme.colors.yellow;
     const white = props.theme.colors.white;
 
-    const surveylistcolor = props.selectBtn === "1" ? "#C6B6FF" : "#FFFAAE";
+    const surveylistcolor = props.selectbtn === "1" ? "#C6B6FF" : "#FFFAAE";
 
     const height = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "72px" : "56px";
 
@@ -29,7 +29,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
     }
 
     if (props.pathname.includes("surveyAnswer")) {
-      bgColor = "#white";
+      bgColor = "white";
     }
 
     return css`
@@ -42,7 +42,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
       padding: 8px 30px;
       min-width: ${minwidth};
       position: fixed;
-      z-index: 1;
+      z-index: 100;
     `;
   }};
 `;
@@ -63,8 +63,8 @@ const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
       props.pathname === "/makesurvey" || props.pathname === "/surveyresult"
         ? "space-between"
         : props.pathname === "/payment"
-        ? "space-between"
-        : "center";
+          ? "space-between"
+          : "center";
     const ai = props.pathname === "/makesurvey" || props.pathname === "/surveyresult" ? "center" : "";
     return css`
       width: ${size};
@@ -108,7 +108,8 @@ const StyledSurveyListNavBtn = styled.button.attrs<any>((props) => ({}))`
     const orange = props.theme.colors.orange;
     const black = props.theme.colors.black;
 
-    const color = props.isactive ? (props.btntype === "1" ? purple : orange) : black;
+    const color = props.isactive === "true" ? (props.btntype === "1" ? purple : orange) : black;
+
     return css`
       background: transparent;
       border: none;
@@ -125,7 +126,7 @@ const StyledMypageNavBtn = styled.button.attrs<any>((props) => ({}))`
     const orange = props.theme.colors.orange;
     const black = props.theme.colors.black;
 
-    const color = props.selectBtn === props.colorCode ? orange : black;
+    const color = props.selectbtn === props.colorCode ? orange : black;
     return css`
       background: transparent;
       border: none;

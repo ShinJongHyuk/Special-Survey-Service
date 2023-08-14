@@ -17,7 +17,7 @@ const Wincard = (props: WincardType) => {
   return (
     <StyledCard {...props}>
       <StyledCardHeader {...props}>
-        <div className="title">{props.surveytitle}</div>
+        <div className="title-text">{props.surveytitle}</div>
         <div className="writer" {...props}>
           {props.surveywriter}
         </div>

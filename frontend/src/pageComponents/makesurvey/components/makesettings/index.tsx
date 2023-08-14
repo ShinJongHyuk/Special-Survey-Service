@@ -50,19 +50,26 @@ function MakeSettings() {
       const { value } = event.target;
       const parsedDate = new Date(value);
       const formattedDate = `${parsedDate.getFullYear()}-${formatNumber(parsedDate.getMonth() + 1)}-${formatNumber(parsedDate.getDate())} ${formatNumber(parsedDate.getHours())}:${formatNumber(parsedDate.getMinutes())}`;
+  
+      const currentDateTime = new Date();
+      if (parsedDate < currentDateTime) {
+        alert("설문 시작 시간은 현재 시간 이후여야 합니다.");
+        setStartTime("");
+        return;
+    }
       if (endTime) {
-        const parsedStartTime = new Date(formattedDate);
-        const parsedEndTime = new Date(endTime);
-        if (parsedEndTime <= parsedStartTime) {
-          alert("시작 시간보다 마감 시간 이 빠릅니다.");
-          return
-        } else {
-          setStartTime(formattedDate)
-        }
+          const parsedStartTime = new Date(formattedDate);
+          const parsedEndTime = new Date(endTime);
+          if (parsedEndTime <= parsedStartTime) {
+              alert("시작 시간보다 마감 시간이 빠릅니다.");
+              return;
+          } else {
+              setStartTime(formattedDate);
+          }
       } else {
-          setStartTime(formattedDate)
+          setStartTime(formattedDate);
       }
-    };
+  };
 
     const handleEndTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
@@ -72,6 +79,7 @@ function MakeSettings() {
       if (startTime) {
         const parsedStartTime = new Date(startTime);
         const parsedEndTime = new Date(formattedDate);
+        
         if (parsedEndTime <= parsedStartTime) {
           alert("시작 시간보다 마감 시간이 빠릅니다.");
           return

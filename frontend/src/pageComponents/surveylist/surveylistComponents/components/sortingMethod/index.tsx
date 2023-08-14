@@ -18,13 +18,13 @@ const buttonType = [
   },
 ];
 const SortingMethod = (props: any) => {
-  const path = props.selectBtn;
+  const path = props.selectbtn;
   const { sortType, setSortType } = useSortTypeStore();
   const [buttonUse, setButtonUser] = useState(path === "1" ? "sortingPurple" : "sortingYellow");
   useEffect(() => {
     setButtonUser(path === "1" ? "sortingPurple" : "sortingYellow");
     setSortType("recommend");
-  }, [props.selectBtn]);
+  }, [props.selectbtn]);
 
   return (
     <>

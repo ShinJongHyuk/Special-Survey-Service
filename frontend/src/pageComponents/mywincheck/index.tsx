@@ -10,7 +10,7 @@ import myGiveawayCheckPatch from "@/api/win/myGiveawayCheckPatch";
 const Mywincheck = (props: any) => {
 
   const [winConfirm, setWinConfirm] = useState<any>([]);
-  const setSelectBtn = useMypageStore((state) => state.setSelectBtn);
+  const setselectbtn = useMypageStore((state) => state.setselectbtn);
 
   useEffect(() => {
     const fetchList = async () => {
@@ -28,7 +28,7 @@ const Mywincheck = (props: any) => {
 
   const router = useRouter();
   const goList = () => {
-    setSelectBtn("4");
+    setselectbtn("4");
     router.push("/mypage");
   };
 

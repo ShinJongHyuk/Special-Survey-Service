@@ -15,7 +15,7 @@ const useAnswerPossibleHook = (id: any) => {
                 if (data.success) {
                     setCananswer(data.response);
                 } else {
-                    console.log(data.apiError);
+                    //console.log(data.apiError);
                 }
             }
         };

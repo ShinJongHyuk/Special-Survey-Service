@@ -10,10 +10,10 @@ import { useSurveylistStore } from "@/stores/surveylist/useSurveylistStore";
 const Instantwin = () => {
   const { cards } = useInstantHook();
   const router = useRouter();
-  const setSelectBtn = useSurveylistStore((state) => state.setSelectBtn);
+  const setselectbtn = useSurveylistStore((state) => state.setselectbtn);
 
   const goList = () => {
-    setSelectBtn("2");
+    setselectbtn("2");
     router.push("/surveylist");
   };
 

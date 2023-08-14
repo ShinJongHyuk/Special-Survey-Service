@@ -196,7 +196,7 @@ export const useSignupHook = (): SignupHookType => {
       phoneNumber: newPhoneNumber,
       // 밑에 두개는 따로 처리바람
       gender: user.gender,
-      age: user.gender,
+      age: user.age,
     };
 
     if (!isCert.email) {

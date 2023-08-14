@@ -8,7 +8,11 @@ const Modal = (props: ModalType) => {
   return props.isOpen ? (
     <StyledModalWrapper>
       <StyledModal style={{ backgroundColor: "white", width: "350px", height: "230px" }}>
-        <img src="/modal/screamer.png" style={{ width: "25%" }}></img>
+        {props.imgsrc ? (
+          <img src={props.imgsrc} alt="Image from props" style={{ width: "25%" }} />
+        ) : (
+          <img src="/modal/screamer.png" alt="Default Image" style={{ width: "25%" }} />
+        )}
         <StyledBigText>
           <div className="title">{props.bigtext}</div>
           {props.smalltext !== "" ? <div className="subtitle"> {props.smalltext} </div> : null}

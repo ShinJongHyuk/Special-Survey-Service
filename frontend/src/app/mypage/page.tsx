@@ -1,5 +1,6 @@
 import Mypage from "@/pageComponents/mypage";
+import Viewcheck from "@/pageComponents/viewcheck";
 
 export default function () {
-  return <Mypage />;
+  return <Viewcheck page="mypage" />;
 }

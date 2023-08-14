@@ -30,13 +30,13 @@ const useSortSurveyListHook = (surveys: any[], sortType: string, useTimerHook: a
             });
         } else if (type === "percent") {
             const sorted = [...surveys].sort((a, b) => {
-                const aPercent = parseInt(a.probability, 10);
-                const bPercent = parseInt(b.probability, 10);
+                const aPercent = parseInt(a.winningPercent, 10);
+                const bPercent = parseInt(b.winningPercent, 10);
 
                 if (aPercent < bPercent) {
-                    return -1;
-                } else {
                     return 1;
+                } else {
+                    return -1;
                 }
             });
 

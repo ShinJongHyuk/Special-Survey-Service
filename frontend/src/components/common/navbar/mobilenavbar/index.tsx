@@ -1,4 +1,4 @@
-import { StyledMobileNavbar, StyledStartComp, StyledEndComp, StyledProfileName, StyledNavLink } from "./Mobilenavbar.styled";
+import { StyledMobileNavbar, StyleLogout, StyledEndComp, StyledNavLink } from "./Mobilenavbar.styled";
 import Link from "next/link";
 import Image from "next/image";
 import { useLoginHook } from "@/Hooks/user/useUserInformationHook";
@@ -10,6 +10,7 @@ const Mobilenavbar = () => {
   const [isLogin, userInformation] = useUserStore((state: any) => [state.isLogin, state.userInformation]);
   const { refreshUserInformation } = useLoginHook();
   const [mounted, setMounted] = useState<boolean>(false);
+  const { hanedleLogout } = useLogoutHook();
 
   useEffect(() => {
     setMounted(true);
@@ -30,7 +31,7 @@ const Mobilenavbar = () => {
       <StyledEndComp>
         {mounted && (
           <>
-            {!isLogin && <StyledNavLink href="/login">로그인</StyledNavLink>}
+            {isLogin ? <StyleLogout onClick={hanedleLogout}>로그아웃</StyleLogout> : <StyledNavLink href="/login">로그인</StyledNavLink>}
             {isLogin && userInformation && <StyledNavLink href="/mypage">{userInformation.name}</StyledNavLink>}
           </>
         )}

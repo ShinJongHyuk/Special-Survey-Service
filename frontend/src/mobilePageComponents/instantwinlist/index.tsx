@@ -5,7 +5,6 @@ import useInstantHook from "@/Hooks/mobilelistpage/useInstantHook";
 
 const Instantwinlist = () => {
   const { cards } = useInstantHook();
-  // console.log(cards);
 
   return (
     <>
