@@ -125,7 +125,7 @@ function Payment(props: any) {
       questions,
       giveaways: selectedOption.map((selected) => ({
         id: selected.option.id,
-        count: selected.option.count,
+        count: (selected.option.count),
       })),
     };
 
@@ -137,16 +137,16 @@ function Payment(props: any) {
           const paymentdata = {
             giveaways: selectedOption.map((selected) => ({
               giveawayName: selected.option.name,
-              giveawayNumber: selected.option.id,
+              giveawayNumber: selected.option.count,
             })),
           };
-
+      
           paymentDataPost(paymentdata)
             .then((responseData) => {
               const { IMP } = window;
               if (!window.IMP) return;
               IMP.init(StoreId);
-
+         
               const orderInfo = {
                 pg: "kakaopay",
                 pay_method: "card",
@@ -161,7 +161,7 @@ function Payment(props: any) {
               };
 
             function callback(response : any) {
-              console.log(response,"콜백")
+              
     
               const authenticateData = {
                 surveyId : surveyid,
@@ -337,6 +337,7 @@ function Payment(props: any) {
                   router.push("/");
                 }}
                 bigtext="결제가 완료되었습니다!"
+                imgsrc="/modal/greencheck.png"
                 confirm="주문 정보 확인"
                 cancel="확인"
                 onConfirmClick={() => {
