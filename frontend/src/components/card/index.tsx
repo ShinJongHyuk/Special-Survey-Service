@@ -4,7 +4,6 @@ import Image from "next/image";
 import { CardType } from "./Card.type";
 import { StyledCard, StyledTag, StyledCardHeader, StyledRemainTime, StyledImg, StyledProbability } from "./Card.styled";
 import moment from "moment";
-import useSSEHook from "@/Hooks/sse/useSSEHook";
 
 const CardComponent = (props: CardType) => {
   const images: { [key: string]: string } = {
@@ -30,10 +29,7 @@ const CardComponent = (props: CardType) => {
   const [value2, label2] = unit2.split(':');
 
 
-  const percent = props.type === "NORMAL" ? useSSEHook(props.id, "확률변동") : null;
-  const value = percent
-    ? parseFloat(percent)
-    : parseFloat(props.probability);
+  const value = parseFloat(props.probability);
 
   const formattedProbability = value % 1 === 0
     ? Math.round(value) + '%'

@@ -1,5 +1,4 @@
 "use client";
-import useSSEHook from "@/Hooks/sse/useSSEHook";
 import { convertToResultProps } from "../../SurveyDetailType.type";
 import { SurveyResultComent, StyledImg, StyledMsg, Percentage, PercentageCard } from "./Result.styled";
 import Image from "next/image";
@@ -17,8 +16,6 @@ const ResultComponent = (props: any) => {
 
   const imgsrc = images[resultProps.giveawaytype];
 
-  // const percentSSE = (resultProps.type === "NORMAL") ? useSSEHook(resultProps.id, "확률변동") : null;
-  const percentSSE = useSSEHook(resultProps.id, "확률변동");
   const transformToDesiredArray = (value: any) => {
     let strValue = value.toString();
     const dotIndex = strValue.indexOf(".");
@@ -33,11 +30,6 @@ const ResultComponent = (props: any) => {
     setPercentArray(transformToDesiredArray(resultProps.percent));
   }, [resultProps.percent]);
 
-  useEffect(() => {
-    if (percentSSE) {
-      setPercentArray(transformToDesiredArray(percentSSE));
-    }
-  }, [percentSSE]);
 
   return (
     <>

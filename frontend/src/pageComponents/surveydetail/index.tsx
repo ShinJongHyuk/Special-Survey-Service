@@ -15,7 +15,6 @@ const SurveyDetail = (props: any) => {
   const { answerlog } = useAnswerLogHook(props.id);
   const { cananswer } = useAnswerPossibleHook(props.id);
   const cananswertype = surveyDetail.closed ? "TIMEOVER" : cananswer;
-  console.log(surveyDetail)
   const router = useRouter();
 
   return (
