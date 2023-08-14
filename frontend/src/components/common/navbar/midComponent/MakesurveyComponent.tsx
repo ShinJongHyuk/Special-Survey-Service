@@ -70,7 +70,7 @@ const MakesruveyComponent = (props: any) => {
             setModalVisible(true);
             return true;
         }
-
+ 
         if (questionData.multipleChoices) {
             const emptyChoiceIndex = questionData.multipleChoices.findIndex((choice: any) => choice.content === "");
             if (emptyChoiceIndex !== -1) {
