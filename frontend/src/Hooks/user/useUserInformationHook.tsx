@@ -8,9 +8,13 @@ export const useLoginHook = () => {
   const login = useUserStore((state: any) => state.login);
   const router = useRouter();
   const pathname: string = usePathname();
+
   const ignorePathName = ["/", "/surveylist", "/login", "/signup", "/reset-password", "/find-id"];
+  const getUserInfo = async () => {
+    return await userDetailGet();
+  }
   const refreshUserInformation = async () => {
-    const userInfo = await userDetailGet();
+    const userInfo = await getUserInfo();
     if (userInfo?.email) {
       //console.log(userInfo)
       login();
@@ -23,23 +27,7 @@ export const useLoginHook = () => {
 
     router.push("/");
   };
-  useEffect(() => {
-    const getUserInfo = async () => {
-      return await userDetailGet();
-    }
-    const userInfo: any = getUserInfo();
 
-    if (pathname === "/payment" || pathname === "/makesurvey") {
-      if (userInfo?.email) {
-        //console.log(userInfo.email)
-        if (userInfo.email !== "admin@naver.com") {
 
-          alert("설문 등록자가 아닙니다.")
-          router.push("/")
-        }
-      }
-    }
-  }, [pathname])
-
-  return { refreshUserInformation };
+  return { refreshUserInformation, getUserInfo };
 };
