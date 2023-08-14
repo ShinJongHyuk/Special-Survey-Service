@@ -38,6 +38,16 @@ const InputBox = styled.div.attrs<any>((props) => ({}))`
   }}
 `;
 
+const DuplInput = styled.div.attrs<any>((props) => ({}))`
+  ${(props) => {
+    return css`
+      width: 310px;
+      height: 50px;
+      margin: 10px;
+    `;
+  }}
+`;
+
 const LoginContainer = styled.form.attrs<any>((props) => ({}))`
   width: 430px;
   height: auto;
@@ -60,4 +70,30 @@ const LoginFont2 = styled.p.attrs<any>((props) => ({}))`
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `;
 
-export { FindIdPage, FindIdTitle, InputBox, LoginFont, LoginFont2, LoginContainer };
+const DuplicationButton = styled.button.attrs<any>((props) => ({}))`
+  width: 90px;
+  height: 40px;
+  background-color: ${(props) => (props.iscert === "true" ? props.theme.colors.yellow : props.theme.colors.lightgray)};
+  color: ${(props) => props.theme.colors.black};
+  font-family: ${(props) => props.theme.fonts.HangeulFontMedium};
+  font-size: ${(props) => props.theme.fontSizes.xsmall};
+  border: none;
+  margin-right: 8px;
+  &:enabled {
+    &:active {
+      margin-right: 7px;
+      margin-top: 3px;
+    }
+  }
+
+  cursor: pointer;
+`;
+
+const DuplBox = styled.div.attrs<any>((props) => ({}))`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export { DuplInput, DuplBox, DuplicationButton, FindIdPage, FindIdTitle, InputBox, LoginFont, LoginFont2, LoginContainer };
