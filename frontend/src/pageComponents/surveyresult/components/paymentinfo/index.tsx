@@ -16,9 +16,22 @@ import ListCheck from "/public/paymentInfo/ListCheck.svg"
 
 
 function PaymentInfo(props : any) {
-    
-    const [showBackSide, setShowBackSide] = useState(false);
 
+    const [showBackSide, setShowBackSide] = useState(false);
+    const id = props.id
+    const paymentInformation = props.paymentInformation 
+    const surveyResult = props.surveyResult
+
+    function formatNumber(number : number) {
+        return number.toString().padStart(2, '0');
+      }   
+    const startTime = new Date(surveyResult.startTime);
+    const formattedStartTime = `${startTime.getFullYear()}-${formatNumber(startTime.getMonth() + 1)}-${formatNumber(startTime.getDate())} ${formatNumber(startTime.getHours())}:${formatNumber(startTime.getMinutes())}`;
+    
+    // surveyResult.endTime 변환
+    const endTime = new Date(surveyResult.endTime);
+    const formattedEndTime = `${endTime.getFullYear()}-${formatNumber(endTime.getMonth() + 1)}-${formatNumber(endTime.getDate())} ${formatNumber(endTime.getHours())}:${formatNumber(endTime.getMinutes())}`;
+    
     return (
         <PaymentInfoPage>
             <Main_Container>
@@ -38,37 +51,47 @@ function PaymentInfo(props : any) {
                                             <Info_Inner_Box>
                                                 <Info_Top_Box>
                                                     <Image src={Name} alt="이름" width={30} height={30} style={{ marginRight: "12px" }} />
-                                                    구매자 성명
+                                                    설문자 이름
                                                 </Info_Top_Box>
                                                 <Info_Bottom_Box style={{ gap: "4%", border: '3.5px solid gold' }}>
-
+                                                    {surveyResult.writerName}
                                                 </Info_Bottom_Box>
                                             </Info_Inner_Box>
                                             <Info_Inner_Box>
                                                 <Info_Top_Box>
                                                     <Image src={Phone} alt="번호" width={30} height={30} style={{ marginRight: "12px" }} />
-                                                    구매자 번호
+                                                    설문 이름
                                                 </Info_Top_Box>
-                                                <Info_Bottom_Box style={{ gap: "4%", border: '3.5px solid gold' }}>
-
+                                                <Info_Bottom_Box style={{ gap: "1%", border: '3.5px solid gold' }}>
+                                                    {surveyResult.title}
                                                 </Info_Bottom_Box>
                                             </Info_Inner_Box>
                                             <Info_Inner_Box>
                                                 <Info_Top_Box>
                                                     <Image src={Email} alt="이메일" width={30} height={30} style={{ marginRight: "12px" }} />
-                                                    구매자 email
+                                                    설문 인원
                                                 </Info_Top_Box>
                                                 <Info_Bottom_Box style={{ gap: "4%", border: '3.5px solid gold' }}>
-
+                                                    {surveyResult.closedHeadCount}
                                                 </Info_Bottom_Box>
                                             </Info_Inner_Box>
                                             <Info_Inner_Box>
                                                 <Info_Top_Box>
                                                     <Image src={Address} alt="주소" width={30} height={30} style={{ marginRight: "12px" }} />
-                                                    구매자 주소
+                                                    설문 유형
                                                 </Info_Top_Box>
                                                 <Info_Bottom_Box style={{ gap: "4%", border: '3.5px solid gold' }}>
-
+                                                    {surveyResult.surveyCategoryType === "NORMAL" ?  "일반" : "즉시 당첨"}
+                                                </Info_Bottom_Box>
+                                            </Info_Inner_Box>
+                                            <Info_Inner_Box>
+                                                <Info_Top_Box>
+                                                    <Image src={Address} alt="주소" width={30} height={30} style={{ marginRight: "12px" }} />
+                                                    설문 기간
+                                                </Info_Top_Box>
+                                                <Info_Bottom_Box style={{ gap: "4%", border: '3.5px solid gold' }}>
+                                                
+                                                    {formattedStartTime} ~ {formattedEndTime}
                                                 </Info_Bottom_Box>
                                             </Info_Inner_Box>
                                         </Info_LR_Box>
@@ -83,10 +106,10 @@ function PaymentInfo(props : any) {
                                         <Info_Inner_Box>
                                             <Info_Top_Box>
                                                 <Image src={Number} alt="인원" width={30} height={30} style={{ marginRight: "12px", marginBottom: "2px" }} />
-                                                설문지 번호
+                                                설문지 번호 / 주문번호
                                             </Info_Top_Box>
                                             <Info_Bottom_Box style={{ gap: "4%" }}>
-
+                                               {`${id}번 / ${paymentInformation.pgTid}`} 
                                             </Info_Bottom_Box>
                                         </Info_Inner_Box>
                                         <Info_Inner_Box>
@@ -95,7 +118,7 @@ function PaymentInfo(props : any) {
                                                 결제 방법
                                             </Info_Top_Box>
                                             <Info_Bottom_Box style={{ gap: "4%" }}>
-
+                                            {paymentInformation.pgProvider}
                                             </Info_Bottom_Box>
                                         </Info_Inner_Box>
                                         <Info_Inner_Box>
@@ -104,7 +127,7 @@ function PaymentInfo(props : any) {
                                                 상품 결제 금액
                                             </Info_Top_Box>
                                             <Info_Bottom_Box style={{ gap: "4%" }}>
-
+                                                {`${paymentInformation.amount}원`}
                                             </Info_Bottom_Box>
                                         </Info_Inner_Box>
                                         <Info_Inner_Box>
@@ -113,7 +136,7 @@ function PaymentInfo(props : any) {
                                                 결제 여부
                                             </Info_Top_Box>
                                             <Info_Bottom_Box>
-
+                                                {paymentInformation.status === "paid" ? "결제 완료" : "결제 미완료"}
                                             </Info_Bottom_Box>
                                         </Info_Inner_Box>
                                     </Info_LR_Box>

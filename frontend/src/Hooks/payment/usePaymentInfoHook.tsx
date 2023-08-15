@@ -9,8 +9,8 @@ const usePaymentInfoHook = () => {
     const getPaymentInfo = async (id : any) => {
 
         const res = await PaymentInfoGet(id);
-        if (res.data.success) {
-            setPaymentInfo(res.data.response);
+        if (res.response && res.response.status === "paid") {
+            setPaymentInfo(res.response);
         }
     };
 

@@ -72,7 +72,7 @@ function SurveyResult(props: any) {
           questionAnswers={surveyResult?.questionAnswers}
           title={surveyResult?.title}
           content={surveyResult?.content} /> :
-          selectedOption === 'PaymentInfo' ? <PaymentInfo /> : null}
+          selectedOption === 'PaymentInfo' ? <PaymentInfo surveyResult={surveyResult} id={props.id} paymentInformation={paymentInfo} /> : null}
     </>
   );
 }

@@ -28,7 +28,6 @@ import authenticationDataPost from "@/api/payment/authenticationdata/authenticat
 import makeSurveyPost from "@/api/makesurvey/makeSurveyPost";
 import giveawayListGet from "@/api/payment/givawaylist/giveawayListGet";
 import paymentDataPost from "@/api/payment/paymentdata/paymentDataPost";
-import usePaymentInfoStore from "@/stores/paymentinfo/usePaymentInfo";
 import useSurveyFocus from "@/stores/makesurvey/useSurveyFocusStore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -55,11 +54,10 @@ declare const window: typeof globalThis & {
 };
 
 function Payment(props: any) {
-  const { title, setTitle, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img, resetSettingSurveyData } = useSettingSurveyApiStore();
+  const { title, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img, resetSettingSurveyData } = useSettingSurveyApiStore();
   const StoreId = process.env.NEXT_PUBLIC_STOREID;
-  const { price, increment, decrement } = usePriceStore();
+  const { price, decrement } = usePriceStore();
   const { surveyList, reset } = useMakeSurveyApiStore();
-  const { orders, setOrderInfo } = usePaymentInfoStore();
   const { surveyComponents, resetSurveyComponents } = useSurveyStore();
   const { resetSelectedSurvey } = useSurveyFocus();
   const [giveawaydata, setGiveaWayData] = useState<GiveawayData[]>([]);
@@ -157,14 +155,15 @@ function Payment(props: any) {
               count: (selected.option.count),
             })),
           };
-
+          
           // API 로직
           makeSurveyPost(surveyData)
-            .then((responseData) => {
-              setSurveyId(parseInt(responseData.id));
+         
+            .then((responseData : any) => {
               if (responseData) {
+                setSurveyId(responseData.id)
                 const authenticateData = {
-                  surveyId: surveyid,
+                  surveyId: responseData.id,
                   amount: response.paid_amount,
                   orderId: response.merchant_uid,
                   status: response.status,

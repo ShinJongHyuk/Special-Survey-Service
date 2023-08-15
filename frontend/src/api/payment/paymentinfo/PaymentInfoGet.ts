@@ -9,7 +9,6 @@ const PaymentInfoGet = async (id : any) => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log(response.data,"페이데이타")
         return response.data;
       } catch (error) {
         console.error("Error: ", error);
