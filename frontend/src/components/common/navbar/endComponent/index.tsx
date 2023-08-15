@@ -9,7 +9,7 @@ import { useRouter, usePathname } from "next/navigation";
 const EndComponent = () => {
   const [isLogin, userInformation] = useUserStore((state: any) => [state.isLogin, state.userInformation]);
   const { hanedleLogout } = useLogoutHook();
-  const { refreshUserInformation, getUserInfo } = useLoginHook();
+  const { refreshUserInformation } = useLoginHook();
   const [mounted, setMounted] = useState<boolean>(false);
   const [profileImg, setProfileImg] = useState<string>("");
   const router = useRouter();

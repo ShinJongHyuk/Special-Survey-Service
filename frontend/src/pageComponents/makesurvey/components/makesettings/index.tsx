@@ -1,9 +1,6 @@
 "use client";
-import React,{useState,useEffect} from 'react';
-import Toolbar from '@/components/survey/toolbar';
+import React from 'react';
 import {MarkText,Target_Button,Condition_Select_Container,Bottom_Type2_Container,Bottom_Type1_Container,Element_Bottom_Row_Container,Element_Detail_Title,Element_Input,Element_Title,Element_Top_Container,Element_Bottom_Container,Element_Detail_Inner_Container,Element_Detail_Container,Condition_Detail_Content,Condition_Detail_Title,Survey_Title_Container,Condition_Content,Condition_Inner_Container,Condition_Title, Survey_Container,Survey_Inner_Container,Survey_Detail_Container,Title_Inner_Container,Title_Content,Title_input } from './MakeSettings.Styled'; 
-import List_Down from '/public/survey/List_Down.png'
-import List_Up from '/public/survey/List_Up.png'
 import Target from '/public/survey/Target.png'
 import Calendar from '/public/survey/Calendar.png'
 import People from '/public/survey/People.png'
