@@ -26,20 +26,20 @@ const EndComponent = () => {
     refreshUserInformation();
   }, []);
 
-  useEffect(() => {
-    if (pathname === "/payment" || pathname === "/makesurvey") {
-      if (userInformation.email) {
-        console.log(userInformation.email)
-        if (userInformation.email !== "admin@naver.com") {
-          alert("설문 등록자가 아닙니다.")
-          router.push("/")
-        }
-        return;
-      }
-      alert("설문 등록자가 아닙니다.")
-      router.push("/")
-    }
-  }, [pathname])
+  // useEffect(() => {
+  //   if (pathname === "/payment" || pathname === "/makesurvey") {
+  //     if (userInformation.email) {
+  //       console.log(userInformation.email)
+  //       if (userInformation.email !== "admin@naver.com") {
+  //         alert("설문 등록자가 아닙니다.")
+  //         router.push("/")
+  //       }
+  //       return;
+  //     }
+  //     alert("설문 등록자가 아닙니다.")
+  //     router.push("/")
+  //   }
+  // }, [pathname])
 
   return (
     <StyledEndComp>

@@ -1,10 +1,10 @@
 export interface ModalType {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
   bigtext: string;
   smalltext?: string;
   cancel?: string;
-  confirm: string;
+  confirm?: string;
 
   contenttype?: string;
   surveyid?: string;

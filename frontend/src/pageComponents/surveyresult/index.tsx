@@ -7,18 +7,23 @@ import PaymentInfo from './components/paymentinfo';
 import { useSurveyAnswerHook } from '@/Hooks/useSurveyAnswerHook';
 import Image from 'next/image';
 import moment from 'moment';
+import usePaymentInfoHook from '@/Hooks/payment/usePaymentInfoHook';
 import surveyResultGet from '@/api/surveyresult/surveyResultGet';
 import { useSurveyResultHook } from '@/Hooks/useSurveyResultHook';
 
 function SurveyResult(props: any) {
   const [selectedOption, setSelectedOption] = useState('Statistics');
   const { surveyResult, getSurveyResult } = useSurveyResultHook()
+  const {paymentInfo,getPaymentInfo} = usePaymentInfoHook();
+
   const handleButtonClick = (option: any) => {
     setSelectedOption(option);
   };
 
   useEffect(() => {
     getSurveyResult(props.id)
+    getPaymentInfo(props.id)
+
   }, [])
 
   // useEffect(() => {
@@ -26,7 +31,6 @@ function SurveyResult(props: any) {
   //     //console.log(surveyResult)
   //   }
   // },[surveyResult])
-
 
   return (
     <>
@@ -68,7 +72,7 @@ function SurveyResult(props: any) {
           questionAnswers={surveyResult?.questionAnswers}
           title={surveyResult?.title}
           content={surveyResult?.content} /> :
-          selectedOption === 'PaymentInfo' ? <PaymentInfo /> : null}
+          selectedOption === 'PaymentInfo' ? <PaymentInfo surveyResult={surveyResult} id={props.id} paymentInformation={paymentInfo} /> : null}
     </>
   );
 }
