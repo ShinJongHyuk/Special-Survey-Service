@@ -1,101 +1,94 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { ProgressContainer, ProgressBar, ProgressBarPercentage } from './ProgressBar.styeld'
-import useSurveyAnswerStore from '@/stores/useSurveyAnswer'
-import surveyPost from '@/api/surveyAnswer/surveyPost'
-import { useRouter } from 'next/navigation'
+"use client";
+import { useEffect, useState } from "react";
+import { ProgressContainer, ProgressBar, ProgressBarPercentage } from "./ProgressBar.styeld";
+import useSurveyAnswerStore from "@/stores/useSurveyAnswer";
+import surveyPost from "@/api/surveyAnswer/surveyPost";
+import { useRouter } from "next/navigation";
+import Modal from "@/components/modal";
 
 interface propsType {
-    id: any
-    questionsCount: any
-    type: any
+  id: any;
+  questionsCount: any;
+  type: any;
 }
 
 const ProgressBarComponent = (props: propsType) => {
-    const router = useRouter()
-    const answer = useSurveyAnswerStore((state: any) => state.answer)
-    const resetAnswer = useSurveyAnswerStore((state: any) => state.resetAnswer)
-    const checkBoxAnswer = useSurveyAnswerStore((state: any) => state.checkBoxAnswer)
-    const resetCheckBox = useSurveyAnswerStore((state: any) => state.resetCheckBox)
-    const dateAnswer = useSurveyAnswerStore((state: any) => state.dateAnswer)
-    const resetDateAnswer = useSurveyAnswerStore((state: any) => state.resetDateAnswer)
-    const timeAnswer = useSurveyAnswerStore((state: any) => state.timeAnswer)
-    const resetTimeAnswer = useSurveyAnswerStore((state: any) => state.resetTimeAnswer)
-    const linkNumber = useSurveyAnswerStore((state: any) => state.linkNumber)
-    const resetLinkNumber = useSurveyAnswerStore((state: any) => state.resetLinkNumber)
-    const [count, setCount] = useState<any>([])
-    const percentage = answer && ((answer.length + count.length + dateAnswer.length + timeAnswer.length) / (props.questionsCount - linkNumber.length)) * 100
-    const viewPercentage = Math.round(percentage)
+  const router = useRouter();
+  const answer = useSurveyAnswerStore((state: any) => state.answer);
+  const resetAnswer = useSurveyAnswerStore((state: any) => state.resetAnswer);
+  const checkBoxAnswer = useSurveyAnswerStore((state: any) => state.checkBoxAnswer);
+  const resetCheckBox = useSurveyAnswerStore((state: any) => state.resetCheckBox);
+  const dateAnswer = useSurveyAnswerStore((state: any) => state.dateAnswer);
+  const resetDateAnswer = useSurveyAnswerStore((state: any) => state.resetDateAnswer);
+  const timeAnswer = useSurveyAnswerStore((state: any) => state.timeAnswer);
+  const resetTimeAnswer = useSurveyAnswerStore((state: any) => state.resetTimeAnswer);
+  const linkNumber = useSurveyAnswerStore((state: any) => state.linkNumber);
+  const resetLinkNumber = useSurveyAnswerStore((state: any) => state.resetLinkNumber);
+  const [count, setCount] = useState<any>([]);
+  const percentage =
+    answer && ((answer.length + count.length + dateAnswer.length + timeAnswer.length) / (props.questionsCount - linkNumber.length)) * 100;
+  const viewPercentage = Math.round(percentage);
 
-    useEffect(() => {
-        resetAnswer()
-        resetCheckBox()
-        resetDateAnswer()
-        resetTimeAnswer()
-        resetLinkNumber()
-    }, [])
+  useEffect(() => {
+    resetAnswer();
+    resetCheckBox();
+    resetDateAnswer();
+    resetTimeAnswer();
+    resetLinkNumber();
+  }, []);
 
-
-    useEffect(() => {
-        //console.log(answer.length, "객관식+주관식")
-        //console.log(count.length, "체크박스 개수")
-        //console.log(dateAnswer.length, "날짜 개수")
-        //console.log(timeAnswer.length, "시간 개수")
-        //console.log(props.questionsCount, "문항 개수")
-        //console.log(linkNumber, "링크 개수")
-    }, [checkBoxAnswer])
-
-    // useEffect(() => {
-    //     //console.log(count,"카운트")
-    //     //console.log(checkBoxAnswer,"체크박스")
-    // },[count,checkBoxAnswer])
-
-    useEffect(() => {
-        //console.log(answer.length)
-        if (checkBoxAnswer.length === 0) {
-            setCount([])
-        } else {
-            checkBoxAnswer.map((e: any) => {
-                if (!count.includes(e.questionId)) {
-                    setCount([
-                        ...count,
-                        e.questionId
-                    ])
-                }
-            })
+  useEffect(() => {
+    //console.log(answer.length)
+    if (checkBoxAnswer.length === 0) {
+      setCount([]);
+    } else {
+      checkBoxAnswer.map((e: any) => {
+        if (!count.includes(e.questionId)) {
+          setCount([...count, e.questionId]);
         }
-
-    }, [checkBoxAnswer])
-
-    const onClick = async () => {
-        if (percentage === 100) {
-            const answers = [
-                ...answer,
-                ...checkBoxAnswer,
-                ...dateAnswer,
-                ...timeAnswer
-            ]
-
-            const res = await surveyPost(answers, props.id)
-            if (res?.data.success === true) {
-                if (props.type === "NORMAL") {
-                    alert('설문응답을 완료하였습니다')
-                    router.push("/")
-                } else {
-                    alert('설문응답을 완료하였습니다')
-                    router.push("/instantwincheck/" + props.id)
-                }
-            } else if (res?.data.success === false) {
-                alert(res.data.apiError.message)
-            }
-        }
+      });
     }
-    return (
-        <ProgressContainer>
-            <ProgressBar type={props.type} width={percentage} onClick={onClick}></ProgressBar>
-            <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
-        </ProgressContainer>
-    )
-}
+  }, [checkBoxAnswer]);
 
-export default ProgressBarComponent
+  // modal
+  const [showModal, setShowModal] = useState(false);
+
+  const onCloseModal = () => {
+    setShowModal(false);
+    if (props.type === "NORMAL") {
+      router.push("/");
+    } else {
+      router.push("/instantwincheck/" + props.id);
+    }
+  };
+
+  const onClick = async () => {
+    if (percentage === 100) {
+      const answers = [...answer, ...checkBoxAnswer, ...dateAnswer, ...timeAnswer];
+
+      const res = await surveyPost(answers, props.id);
+      if (res?.data.success === true) {
+        setShowModal(true);
+      } else if (res?.data.success === false) {
+        alert(res.data.apiError.message);
+      }
+    }
+  };
+  return (
+    <ProgressContainer>
+      <ProgressBar type={props.type} width={percentage} onClick={onClick}></ProgressBar>
+      <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
+      <Modal
+        isOpen={showModal}
+        bigtext="설문 응답이 완료되었습니다"
+        cancel="닫기"
+        confirm="확인"
+        onClose={onCloseModal}
+        onConfirmClick={onCloseModal}
+        contenttype={props.type === "NORMAL" ? "NORMAL" : "INSTANT_WIN"}
+      />
+    </ProgressContainer>
+  );
+};
+
+export default ProgressBarComponent;
