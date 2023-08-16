@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Info_Inner_Box, Info_Bottom_Box, Info_Top_Box, Info_LR_Box, Image_Wrapper, Information_Container, PaymentInfoPage, Main_Container, Main_Inner_Container, Top_Container, Bottom_Container, Title_Text } from './PaymentInfo.Styled';
-import usePaymentInfoHook from '@/Hooks/payment/usePaymentInfoHook';
 import Image from 'next/image';
 import purple_man from '/public/paymentInfo/payment_man_purple.svg'
 import yellow_man from '/public/paymentInfo/payment_man_yellow.svg'
