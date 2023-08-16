@@ -53,7 +53,7 @@ const LoginContainer = styled.form.attrs<any>((props) => ({}))`
   height: auto;
   border-radius: 5px;
   padding: 10px 0px;
-  margin-top: 7%;
+  margin-top: 5%;
 `;
 
 const LoginFont = styled.div.attrs<any>((props) => ({}))`

@@ -26,7 +26,7 @@ const DuplicationButton = styled.button.attrs<any>((props) => ({}))`
 `;
 
 const SignUpContainer = styled.form.attrs<any>((props) => ({}))`
-  margin-top: 7%;
+  margin-top: 3%;
   display: flex;
   flex-direction: column;
   width: 90vw;

@@ -21,7 +21,7 @@ const Uptext = styled.div.attrs<any>((props) => ({}))`
 `;
 
 const LoginContainer = styled.form.attrs<any>((props) => ({}))`
-  margin-top: 7%;
+  margin-top: 3%;
   display: flex;
   flex-direction: column;
 `;

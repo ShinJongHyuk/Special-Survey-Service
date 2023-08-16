@@ -43,7 +43,7 @@ const LoginContainer = styled.form.attrs<any>((props) => ({}))`
   height: auto;
   border-radius: 5px;
   padding: 10px 0px;
-  margin-top: 7%;
+  margin-top: 3%;
 `;
 
 const LoginFont = styled.div.attrs<any>((props) => ({}))`
@@ -53,10 +53,8 @@ const LoginFont = styled.div.attrs<any>((props) => ({}))`
   margin-bottom: 3.5px;
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `;
-const LoginFont2 = styled.p.attrs<any>((props) => ({}))`
-  width: 100%;
-  height: 20px;
-
+const LoginFont2 = styled.div.attrs<any>((props) => ({}))`
+  cursor: pointer;
   font-family: ${(props) => props.theme.fonts.HangeulFontRegular};
 `;
 

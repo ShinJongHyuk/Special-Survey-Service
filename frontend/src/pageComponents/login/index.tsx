@@ -18,6 +18,8 @@ const Login = () => {
     }
   }, [isRemember]);
 
+  const router = useRouter();
+
   return (
     <LoginPage>
       <LoginText>Login</LoginText>
@@ -36,9 +38,11 @@ const Login = () => {
           </InputBox>
         </SignUpItem>
 
+        {/* <div style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: "20px" }}> */}
         <div style={{ height: "48px", width: "410px", marginTop: "10px", marginLeft: "10px" }}>
           <Button use="SignUpLogin" label="로그인" type="submit"></Button>
         </div>
+        {/* </div> */}
 
         <label htmlFor="LoginState" style={{ display: "flex", alignItems: "center", margin: "22px 0px 0px 0px", borderBottom: "2px solid black" }}>
           <div style={{ width: "15px", height: "15px", marginBottom: "10px" }}>
@@ -50,6 +54,10 @@ const Login = () => {
       </LoginContainer>
 
       <div style={{ display: "flex", gap: "10px" }}>
+        <Link href="/signup">
+          <LoginFont2>회원가입</LoginFont2>
+        </Link>
+        <p> / </p>
         <Link href="/find-id">
           <LoginFont2>아이디 찾기</LoginFont2>
         </Link>
