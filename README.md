@@ -112,3 +112,14 @@ SSS는 설문조사 후 투명하고 공정하게 리워드를 지급받는 서�
 > 결제 정보 확인 페이지
 - 설문 응답 시 제공할 리워드를 결제한 후 결제 정보를 확인할 수 있는 페이지
 ![결제 확인 페이지](/Image/paymentResult.png)
+
+
+## 4. ⚙️ 기술 스택
+[nextjs]: /image/stack/nextjs.svg
+[ts]: /image/stack/typescript.svg
+[react]: /image/stack/react.svg
+[node]: /image/stack/node.svg
+[eslint]: /image/stack/eslint.svg
+[prettier]: /image/stack/prettier-color.svg
+[sb]: /image/stack/storybook-color.svg
+[sc]: /image/stack/styledcomponents-color.svg
