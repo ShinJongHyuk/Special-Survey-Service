@@ -60,7 +60,7 @@ const Agreement = () => {
               </div>
             </div>
             <div style={{ width: "100%", height: "46px" }}>
-              <Button use='gender' style={{ backgroundColor: agreed ? theme.colors.lightpurple : theme.colors.red, width: "100%", fontSize: '16px' }} onClick={handleAgreeClick} label="회원가입 하러가기" />
+              <Button use='gender' style={{ backgroundColor: agreed ? theme.colors.lightpurple : "lightgray", width: "100% ", fontSize: '16px' }} onClick={handleAgreeClick} label="회원가입 하러가기" />
             </div>
           </div>
           {showModal && (
