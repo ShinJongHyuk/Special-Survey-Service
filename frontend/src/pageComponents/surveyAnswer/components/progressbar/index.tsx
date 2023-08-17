@@ -55,11 +55,6 @@ const ProgressBarComponent = (props: propsType) => {
 
   const onCloseModal = () => {
     setShowModal(false);
-    if (props.type === "NORMAL") {
-      router.push("/");
-    } else {
-      router.push("/instantwincheck/" + props.id);
-    }
   };
 
   const onClick = async () => {
@@ -68,23 +63,31 @@ const ProgressBarComponent = (props: propsType) => {
 
       const res = await surveyPost(answers, props.id);
       if (res?.data.success === true) {
-        setShowModal(true);
+        if (props.type === "NORMAL") {
+          router.push("/");
+        } else {
+          router.push("/instantwincheck/" + props.id);
+        }
       } else if (res?.data.success === false) {
         alert(res.data.apiError.message);
       }
     }
   };
+
+  const onModal = () => {
+    setShowModal(true);
+  }
   return (
     <ProgressContainer>
-      <ProgressBar type={props.type} width={percentage} onClick={onClick}></ProgressBar>
+      <ProgressBar type={props.type} width={percentage} onClick={onModal}></ProgressBar>
       <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
       <Modal
         isOpen={showModal}
-        bigtext="설문 응답이 완료되었습니다"
+        bigtext="설문 응답을 제출하시겠습니까?"
         cancel="닫기"
-        confirm="확인"
+        confirm="체출"
         onClose={onCloseModal}
-        onConfirmClick={onCloseModal}
+        onConfirmClick={onClick}
         contenttype={props.type === "NORMAL" ? "NORMAL" : "INSTANT_WIN"}
       />
     </ProgressContainer>
