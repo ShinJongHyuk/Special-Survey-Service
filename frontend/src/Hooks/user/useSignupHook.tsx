@@ -18,6 +18,7 @@ const phoneNumberRegex = /^\d{3}-\d{3,4}-\d{4}$/;
 export const useSignupHook = (): SignupHookType => {
   const login = useUserStore((state: any) => state.login);
   const setUserInformation = useUserStore((state: any) => state.setUserInformation);
+  const today = new Date()
   const [user, setUser] = useState({
     email: "",
     gender: "",
@@ -55,6 +56,39 @@ export const useSignupHook = (): SignupHookType => {
       setUser((prev) => {
         return { ...prev, password: e.target.value };
       });
+    }
+    if (e.target.name == "birthday") {
+      const birthYear = new Date(e.target.value)
+      const age = today.getFullYear() - birthYear.getFullYear()
+      if (0 <= age && age <= 9) {
+        setUser((prev) => {
+          return { ...prev, age : "UNDER_TEENS"};  
+        })
+      } else if (10 <= age && age <= 19) {
+        setUser((prev) => {
+          return { ...prev, age : "TEENS"};  
+        })
+      } else if (20 <= age && age <= 29) {
+        setUser((prev) => {
+          return { ...prev, age : "TWENTIES"};  
+        })
+      } else if (30 <= age && age <= 39) {
+        setUser((prev) => {
+          return { ...prev, age : "THIRTIES"};  
+        })
+      } else if (40 <= age && age <= 49) {
+        setUser((prev) => {
+          return { ...prev, age : "FORTIES"};  
+        })
+      } else if (50 <= age && age <= 59) {
+        setUser((prev) => {
+          return { ...prev, age : "FIFTIES"};  
+        })
+      } else if (60 <= age) {
+        setUser((prev) => {
+          return { ...prev, age : "SIXTIES"};  
+        })
+      }
     }
   };
 
