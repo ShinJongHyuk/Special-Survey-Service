@@ -46,7 +46,7 @@ const EndComponent = () => {
       {mounted && (
         <>
           {isLogin ? <StyleLogout onClick={hanedleLogout}>로그아웃</StyleLogout> : <StyledNavLink href="/login">로그인</StyledNavLink>}
-          {!isLogin && <StyledNavLink href="/signup">회원가입</StyledNavLink>}
+          {!isLogin && <StyledNavLink href="/agreement">회원가입</StyledNavLink>}
 
           {isLogin && userInformation && (
             <StyledPropfileLink href="/mypage">
