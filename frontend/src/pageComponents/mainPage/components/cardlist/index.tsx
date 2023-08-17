@@ -19,7 +19,7 @@ const CardList = (props: any) => {
                 probability={survey.winningPercent + "%"}
                 remaintime={survey.remainTime || ""}
                 endtime={survey.endTime}
-                responsedtime={survey.requiredTimeInSeconds + "분"}
+                responsedtime={survey.requiredTimeInSeconds + "초"}
                 id={survey.id}
                 contentype={props.contentType}
                 onClick={() => router.push("/surveydetail/" + survey.id)}

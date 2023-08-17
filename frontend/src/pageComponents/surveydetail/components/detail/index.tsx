@@ -164,7 +164,7 @@ const DetailComponent = (props: any) => {
             <SurveyCardTitle>예상 소요시간</SurveyCardTitle>
             <SurveyCardText style={{ display: "flex" }}>
               <div className="number">{detailProps.requiredtime}</div>
-              <div className="hangeul">분</div>
+              <div className="hangeul">초</div>
             </SurveyCardText>
           </SurveyCard>
 
