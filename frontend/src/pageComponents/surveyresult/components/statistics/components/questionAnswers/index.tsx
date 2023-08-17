@@ -19,7 +19,8 @@ const questionAnswer = (props:any) => {
         }
     });
 
-    
+    const totalCount = Object.values(countMap).reduce((sum, value) => sum + value, 0);
+
     const labels = Object.keys(countMap);
     const dataValues = labels.map((label) => countMap[label]);
     
@@ -61,7 +62,7 @@ const questionAnswer = (props:any) => {
                 return (
                     <ChartInfo>
                     <ChartColor color={backgroundColors[index]} key={index}>■</ChartColor>
-                    <SurveyResult>{key} : {countMap[key]}명</SurveyResult>
+                    <SurveyResult>{key} : {countMap[key]}명 / {Math.round(countMap[key]  * 100/totalCount)}%</SurveyResult>
                     </ChartInfo>
                 );
                 })}
@@ -79,7 +80,7 @@ const questionAnswer = (props:any) => {
                 return (
                     <ChartInfo>
                     <ChartColor color={backgroundColors[index]} key={index}>■</ChartColor>
-                    <SurveyResult>{key} : {countMap[key]}명</SurveyResult>
+                    <SurveyResult>{key} : {countMap[key]}명  / {Math.round(countMap[key] * 100/totalCount)}%</SurveyResult>
                     </ChartInfo>
                 );
                 })}
