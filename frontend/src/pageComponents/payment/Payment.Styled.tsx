@@ -112,7 +112,9 @@ const Info_Top_Box = styled.div.attrs({})`
 const Info_Bottom_Box = styled.div.attrs({})`
     display :flex;
     width : 100%;
-    height : 40%;
+    min-height : 40%;
+ 
+    flex-wrap : wrap;
     align-items : center;
     margin-left : 23%;
     background-color: white;

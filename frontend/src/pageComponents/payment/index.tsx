@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect} from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Selected_Box,
@@ -229,7 +229,7 @@ function Payment(props: any) {
     const removedOption = selectedOption[indexToRemove];
     if (removedOption) {
       setSelectedOption((prevSelectedOption) => prevSelectedOption.filter((_, index) => index !== indexToRemove));
-
+      
       decrement(parseInt(removedOption.option.price) * removedOption.option.count);
     }
   };

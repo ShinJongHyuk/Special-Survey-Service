@@ -54,7 +54,7 @@ const Login = () => {
       </LoginContainer>
 
       <div style={{ display: "flex", gap: "10px" }}>
-        <Link href="/signup">
+        <Link href="/agreement">
           <LoginFont2>회원가입</LoginFont2>
         </Link>
         <p> / </p>
