@@ -1,5 +1,5 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface UseMakeSurveyApiState {
   surveyState?: string;
@@ -27,7 +27,7 @@ const useMakeSurveyApiStore = create<SurveyStore>()(
   persist(
     (set) => ({
       surveyList: {},
-      uploadFileName: '',
+      uploadFileName: "",
       setSurveyList: (componentKey: string, data: UseMakeSurveyApiState) =>
         set((state) => ({
           surveyList: {
@@ -71,10 +71,9 @@ const useMakeSurveyApiStore = create<SurveyStore>()(
         })),
     }),
     {
-      name: 'makeSurveyApiStore',
-
-    }
-  )
+      name: "makeSurveyApiStore",
+    },
+  ),
 );
 
 export default useMakeSurveyApiStore;

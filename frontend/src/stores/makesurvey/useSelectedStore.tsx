@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from "zustand";
 
 export interface SelectedType {
   selected: string;
@@ -6,7 +6,7 @@ export interface SelectedType {
 }
 
 const useSelectedStore = create<SelectedType>((set) => ({
-  selected: 'question',
+  selected: "question",
   setSelected: (value) => set({ selected: value }),
 }));
 

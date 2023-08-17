@@ -1,5 +1,5 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface SettingSurveyApiState {
   title?: string;
@@ -36,15 +36,15 @@ export interface SettingSurveyApiState {
 const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
   persist(
     (set) => ({
-      title: '',
-      content: '',
-      conditionText: '',
-      conditionContent: '',
+      title: "",
+      content: "",
+      conditionText: "",
+      conditionContent: "",
       closedHeadCount: 0,
-      startTime: '',
-      endTime: '',
-      type: '',
-      img: '',
+      startTime: "",
+      endTime: "",
+      type: "",
+      img: "",
       surveyTarget: [],
       setTitle: (value) => set({ title: value }),
       setContent: (value) => set({ content: value }),
@@ -59,9 +59,7 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
         set((state: any) => {
           const index = state.surveyTarget.indexOf(value);
           if (index !== -1) {
-            const updatedsurveyTarget = state.surveyTarget.filter(
-              (category: string) => category !== value
-            );
+            const updatedsurveyTarget = state.surveyTarget.filter((category: string) => category !== value);
             return { surveyTarget: updatedsurveyTarget };
           } else {
             const updatedsurveyTarget = [...state.surveyTarget, value];
@@ -71,24 +69,24 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
       },
       resetSettingSurveyData: () => {
         set({
-          title: '',
-          content: '',
-          conditionText: '',
-          conditionContent: '',
+          title: "",
+          content: "",
+          conditionText: "",
+          conditionContent: "",
           closedHeadCount: 0,
-          startTime: '',
-          endTime: '',
-          type: '',
-          img: '',
+          startTime: "",
+          endTime: "",
+          type: "",
+          img: "",
           surveyTarget: [],
         });
       },
     }),
     {
-      name: 'settingSurveyApiStore',
+      name: "settingSurveyApiStore",
       getStorage: () => localStorage,
-    }
-  )
+    },
+  ),
 );
 
 export default useSettingSurveyApiStore;

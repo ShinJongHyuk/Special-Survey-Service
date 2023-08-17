@@ -1,5 +1,5 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface SurveyStore {
   surveyComponents: any[];
@@ -10,15 +10,15 @@ export interface SurveyStore {
 const useSurveyStore = create<SurveyStore>()(
   persist(
     (set) => ({
-      surveyComponents: [], 
+      surveyComponents: [],
       setSurveyComponents: (components) => set({ surveyComponents: components }),
       resetSurveyComponents: () => set({ surveyComponents: [] }),
     }),
     {
-      name: 'surveyStore',
+      name: "surveyStore",
       getStorage: () => localStorage,
-    }
-  )
+    },
+  ),
 );
 
 export default useSurveyStore;
