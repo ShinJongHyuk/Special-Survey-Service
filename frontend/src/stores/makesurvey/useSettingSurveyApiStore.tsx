@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export interface SettingSurveyApiState {
   title?: string;
@@ -84,7 +84,8 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
     }),
     {
       name: "settingSurveyApiStore",
-      getStorage: () => localStorage,
+      // getStorage: () => localStorage,
+      storage: createJSONStorage(() => localStorage),
     },
   ),
 );

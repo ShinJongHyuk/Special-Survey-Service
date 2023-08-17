@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export interface SurveyStore {
   surveyComponents: any[];
@@ -16,7 +16,8 @@ const useSurveyStore = create<SurveyStore>()(
     }),
     {
       name: "surveyStore",
-      getStorage: () => localStorage,
+      // getStorage: () => localStorage,
+      storage: createJSONStorage(() => localStorage),
     },
   ),
 );
