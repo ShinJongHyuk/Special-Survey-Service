@@ -115,10 +115,29 @@ SSS는 설문조사 후 투명하고 공정하게 리워드를 지급받는 서�
 
 
 ## 4. ⚙️ 기술 스택
-![nextjs](/Image/stack/nextjs.svg)
-![ts](/Image/stack/typescript.svg)
-![react](/Image/stack/react.svg)
-![node](/Image/stack/node.svg)
-![eslint](/Image/stack/eslint.svg)
-<!-- ![prettier](/Image/stack/prettier-color.svg)
-![sc](/Image/stack/styledcomponents-color.svg) -->
+
+## 사용 기술 스택
+
+| Next.js(v13.4.8) | React(v18.2.0) | TypeScript(v5.1.6) | Node(v16.20.1) |
+| :--------------: | :------------: | :----------------: | :------------: |
+|    ![nextjs]     |    ![react]    |        ![ts]       |     ![node]    |
+
+| styled-component(v6.0.2) | zustand(v4.3.9) |
+| :----------------------: | :-------------: |
+|           ![sc]          |                 |
+
+## 개발 환경
+
+|  Eslint(v8.2.0)   | Prettier(v3.0.0) |
+| :---------------: | :--------------: |
+|     ![eslint]     |    ![prettier]   |
+
+
+[nextjs]: /Image/stack/nextjs.svg
+[ts]: /Image/stack/typescript.svg
+[react]: /Image/stack/react.svg
+[node]: /Image/stack/node.svg
+[eslint]: /Image/stack/eslint.svg
+[prettier]: /Image/stack/prettier-color.svg
+[sb]: /Image/stack/storybook-color.svg
+[sc]: /Image/stack/styledcomponents-color.svg
