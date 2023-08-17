@@ -115,11 +115,11 @@ SSS는 설문조사 후 투명하고 공정하게 리워드를 지급받는 서�
 
 
 ## 4. ⚙️ 기술 스택
-[nextjs]: /image/stack/nextjs.svg
-[ts]: /image/stack/typescript.svg
-[react]: /image/stack/react.svg
-[node]: /image/stack/node.svg
-[eslint]: /image/stack/eslint.svg
-[prettier]: /image/stack/prettier-color.svg
-[sb]: /image/stack/storybook-color.svg
-[sc]: /image/stack/styledcomponents-color.svg
+[nextjs](/image/stack/nextjs.svg)
+[ts](/image/stack/typescript.svg)
+[react](/image/stack/react.svg)
+[node](/image/stack/node.svg)
+[eslint](/image/stack/eslint.svg)
+[prettier](/image/stack/prettier-color.svg)
+[sb](/image/stack/storybook-color.svg)
+[sc](/image/stack/styledcomponents-color.svg)
