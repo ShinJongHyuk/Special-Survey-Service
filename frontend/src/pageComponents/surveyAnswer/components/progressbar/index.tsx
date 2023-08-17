@@ -53,11 +53,8 @@ const ProgressBarComponent = (props: propsType) => {
   // modal
   const [showModal, setShowModal] = useState(false);
 
-  const onCloseModal = () => {
-    setShowModal(false);
-  };
 
-  const onClick = async () => {
+  const submitAnswer = async () => {
     if (percentage === 100) {
       const answers = [...answer, ...checkBoxAnswer, ...dateAnswer, ...timeAnswer];
 
@@ -75,22 +72,27 @@ const ProgressBarComponent = (props: propsType) => {
   };
 
   const onModal = () => {
-    setShowModal(true);
+    if (percentage === 100) {
+      setShowModal(true);
+    }
   }
   return (
-    <ProgressContainer>
-      <ProgressBar type={props.type} width={percentage} onClick={onModal}></ProgressBar>
-      <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
+    <div>
+
+      <ProgressContainer onClick={onModal}>
+        <ProgressBar type={props.type} width={percentage} ></ProgressBar>
+        <ProgressBarPercentage width={percentage}>{percentage === 100 ? "제출" : `${viewPercentage}%`}</ProgressBarPercentage>
+      </ProgressContainer>
       <Modal
         isOpen={showModal}
         bigtext="설문 응답을 제출하시겠습니까?"
         cancel="닫기"
-        confirm="체출"
-        onClose={onCloseModal}
-        onConfirmClick={onClick}
+        confirm="제출"
+        onClose={() => setShowModal(false)}
+        onConfirmClick={submitAnswer}
         contenttype={props.type === "NORMAL" ? "NORMAL" : "INSTANT_WIN"}
       />
-    </ProgressContainer>
+    </div>
   );
 };
 
