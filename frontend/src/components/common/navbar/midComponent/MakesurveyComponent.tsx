@@ -28,7 +28,7 @@ const MakesruveyComponent = (props: any) => {
     const {
       title,
       setTitle,
-      titleContent,
+      content,
       closedHeadCount,
       startTime,
       endTime,
@@ -48,7 +48,7 @@ const MakesruveyComponent = (props: any) => {
 
       const surveyData = {
         title,
-        titleContent,
+        content,
         closedHeadCount,
         startTime,
         endTime,
@@ -89,7 +89,7 @@ const MakesruveyComponent = (props: any) => {
 
         const Outer_hasEmptyValue =
             surveyData.title === "" ? (() => { setModalText("설문 제목을 입력해주세요"); return true; })() :
-            surveyData.titleContent === "" ? (() => { setModalText("설문 부가 설명을 입력해주세요."); return true; })() :
+            surveyData.content === "" ? (() => { setModalText("설문 부가 설명을 입력해주세요."); return true; })() :
             surveyData.closedHeadCount === 0 ? (() => { setModalText("설문 인원을 입력해주세요."); return true; })() :
             surveyData.endTime === 0 ? (() => { setModalText("종료 시간을 선택해주세요."); return true; })() :
             surveyData.startTime === 0 ? (() => { setModalText("시작 시간을 선택해주세요."); return true; })() :
