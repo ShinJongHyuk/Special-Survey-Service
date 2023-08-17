@@ -6,9 +6,9 @@ const AgreementPage = styled.div.attrs({})`
 
 const Main_Container = styled.div.attrs({})`
     display : flex;
-    position : absolute;
+    /* position : absolute;
     width : 100%;
-    height : 80%;
+    height : 80%; */
 
     justify-content : center;
     background-color: white;
@@ -17,15 +17,16 @@ const Information_Container = styled.div.attrs({})`
     display: flex;
     flex-direction: column;
     width: 480px;
-    min-width : 100px;
+    min-width : 400px;
     height: 82%;
     align-items : center;
     justify-content : center;
 
+    gap:20px;
     background-color : ${props => props.theme.colors.white};
     border : 1px solid ${props => props.theme.colors.lightgray};
     border-radius : 30px;
-    padding : 30px 30px 30px 30px;
+    padding : 40px 20px;
 
 `;
 
@@ -33,7 +34,6 @@ const Title_Text = styled.label.attrs({})`
     display : flex;
     align-items : center;
     width : 59%;
-
     height : 100%;
     font-size: ${props => props.theme.fontSizes.medium};
     font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
@@ -44,15 +44,13 @@ const Title_Text = styled.label.attrs({})`
     }
 `
 const StyledTable = styled.table.attrs({})`
-  border-collapse: collapse;
   width: 90%;
-  height: 0%;
-  overflow: auto;
-  margin: auto;
+
   font-size: ${props => props.theme.fontSizes.medium};
   font-family: ${props => props.theme.fonts.HangeulFontSemiBold};
   color: ${props => props.theme.colors.black};
 
+  margin-bottom: 30px;
 `;
 
 

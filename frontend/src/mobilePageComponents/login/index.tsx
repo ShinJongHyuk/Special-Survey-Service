@@ -35,7 +35,7 @@ const Mobilelogin = () => {
 
           <LoginFont2
             onClick={() => {
-              router.push("/signup");
+              router.push("/agreement");
             }}
           >
             SSS 회원가입

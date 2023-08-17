@@ -25,12 +25,12 @@ const Agreement = () => {
           <StyledTable>
             <thead>
               <tr>
-                <StyledTitleTh colSpan={3} style={{ textAlign: 'center', fontSize: "18px" }}>개인정보 수집 및 이용에 동의해주세요.</StyledTitleTh>
+                <StyledTitleTh colSpan={3} style={{ textAlign: 'center', fontSize: "20px" }}>개인정보 수집 및 이용 동의</StyledTitleTh>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <StyledTd colSpan={3} style={{ textAlign: 'center' }}>동의한 인원에 한하여 이벤트 추첨이 진행됩니다.</StyledTd>
+                <StyledTd colSpan={3} style={{ textAlign: 'center', color: "gray", fontFamily: theme.fonts.HangeulFontMedium, fontSize: "14px" }}>서비스 가입을 위해 개인정보에 동의해주세요</StyledTd>
               </tr>
               <tr>
                 <StyledTd colSpan={3} style={{ textAlign: 'center' }}>[세부 내용]</StyledTd>
@@ -49,13 +49,20 @@ const Agreement = () => {
               </tr>
             </tbody>
           </StyledTable>
-          <ButtonBox>
-            <Button use='gender' style={{ backgroundColor: agreed === true ? theme.colors.yellow : theme.colors.lightgray, width: "50%", fontSize: '16px' }} onClick={() => { setAgreed(true), setShowModal(false) }} label="동의할래요" />
-            <Button use='gender' style={{ backgroundColor: theme.colors.lightgray, width: "50%", fontSize: '16px' }} onClick={() => { setAgreed(false), setShowModal(true) }} label="동의하지 않을래요" />
-          </ButtonBox>
-          <ButtonBox>
-            <Button use='gender' style={{ backgroundColor: agreed ? theme.colors.lightpurple : theme.colors.red, width: "100%", fontSize: '16px' }} onClick={handleAgreeClick} label="회원가입 하러가기" />
-          </ButtonBox>
+          <div style={{ width: "90%" }}>
+
+            <div style={{ display: "flex", width: "100%" }}>
+              <div style={{ width: "50%", height: "46px" }}>
+                <Button use='gender' style={{ backgroundColor: agreed === true ? theme.colors.yellow : theme.colors.lightgray, fontSize: '16px' }} onClick={() => { setAgreed(true), setShowModal(false) }} label="동의할래요" />
+              </div>
+              <div style={{ width: "50%", height: "46px" }}>
+                <Button use='gender' style={{ backgroundColor: theme.colors.lightgray, fontSize: '16px' }} onClick={() => { setAgreed(false), setShowModal(true) }} label="동의하지 않을래요" />
+              </div>
+            </div>
+            <div style={{ width: "100%", height: "46px" }}>
+              <Button use='gender' style={{ backgroundColor: agreed ? theme.colors.lightpurple : theme.colors.red, width: "100%", fontSize: '16px' }} onClick={handleAgreeClick} label="회원가입 하러가기" />
+            </div>
+          </div>
           {showModal && (
             <Modal isOpen={showModal} bigtext="동의하지 않으시면 설문을 진행하실 수 없습니다" confirm="확인" cancel="취소" onConfirmClick={() => setShowModal(false)} onClose={() => setShowModal(false)} />
           )}
