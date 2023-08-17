@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 
 export interface SettingSurveyApiState {
   title?: string;
-  titleContent?: string;
+  content?: string;
   conditionText?: string;
   conditionContent?: string;
   conditionVisible?: boolean;
@@ -21,7 +21,7 @@ export interface SettingSurveyApiState {
   img?: string;
 
   setTitle: (value: string) => void;
-  setTitleContent: (value: string) => void;
+  setContent: (value: string) => void;
   setConditionText: (value: string) => void;
   setConditionContent: (value: string) => void;
   setClosedHeadCount: (value: string) => void;
@@ -37,7 +37,7 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
   persist(
     (set) => ({
       title: '',
-      titleContent: '',
+      content: '',
       conditionText: '',
       conditionContent: '',
       closedHeadCount: 0,
@@ -47,7 +47,7 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
       img: '',
       surveyTarget: [],
       setTitle: (value) => set({ title: value }),
-      setTitleContent: (value) => set({ titleContent: value }),
+      setContent: (value) => set({ content: value }),
       setConditionText: (value) => set({ conditionText: value }),
       setConditionContent: (value) => set({ conditionContent: value }),
       setClosedHeadCount: (value) => set({ closedHeadCount: parseInt(value) }),
@@ -72,7 +72,7 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
       resetSettingSurveyData: () => {
         set({
           title: '',
-          titleContent: '',
+          content: '',
           conditionText: '',
           conditionContent: '',
           closedHeadCount: 0,
