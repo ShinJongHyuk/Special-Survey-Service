@@ -140,4 +140,3 @@ SSS는 설문조사 후 투명하고 공정하게 리워드를 지급받는 서�
 [eslint]: /Image/stack/eslint.svg
 [prettier]: /Image/stack/prettier-color.svg
 [sc]: /Image/stack/styledcomponents-color.svg
-[zustand]: /Image/stack/bear.jpg
