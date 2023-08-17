@@ -21,15 +21,6 @@ const Signup = () => {
     { title: "이름", type: "text", name: "name" },
     { title: "생년월일", type: "date", name: "birthday" },
   ];
-  const AgeButtons = [
-    { label: "~9", id: "UNDER_TEENS" },
-    { label: "10~19", id: "TEENS" },
-    { label: "20~29", id: "TWENTIES" },
-    { label: "30~39", id: "THIRTIES" },
-    { label: "40~49", id: "FORTIES" },
-    { label: "50~59", id: "FIFTIES" },
-    { label: "60~", id: "SIXTIES" },
-  ];
   const {
     user,
     isCert,
@@ -99,7 +90,7 @@ const Signup = () => {
           return (
             <InputBoxItem title={title}>
               <InputBox>
-                <Input inputState="true" type={type} name={name} />
+                <Input inputState="true" type={type} name={name} onChange={changeUserValue} />
               </InputBox>
             </InputBoxItem>
           );
@@ -109,14 +100,6 @@ const Signup = () => {
           <InputRadioBox>
             <Button use="gender" label="남성" type="button" name="MAN" checkgender={user.gender} onClick={handleClick}></Button>
             <Button use="gender" label="여성" type="button" name="WOMAN" checkgender={user.gender} onClick={handleClick}></Button>
-          </InputRadioBox>
-        </InputBoxItem>
-
-        <InputBoxItem title="나이">
-          <InputRadioBox>
-            {AgeButtons.map(({ label, id }) => {
-              return <Button use="age" label={label} type="button" id={id} checkage={user.age} onClick={handleClick}></Button>;
-            })}
           </InputRadioBox>
         </InputBoxItem>
 
