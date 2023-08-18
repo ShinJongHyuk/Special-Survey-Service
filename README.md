@@ -106,14 +106,15 @@ SSS는 설문조사 후 투명하고 공정하게 리워드를 지급받는 서�
 ## 4. ⚙️ 기술 스택
 
 ### 사용 기술 스택
+> Front-End
+| Next.js(v13.4.8) | React(v18.2.0) | TypeScript(v5.1.6) | Node(v16.20.1) | styled-component(v6.0.2) | zustand(v4.3.9) |
+| :--------------: | :------------: | :----------------: | :------------: | :----------------------: | :-------------: |
+|    ![nextjs]     |    ![react]    |        ![ts]       |     ![node]    |           ![sc]          |                 |
 
-| Next.js(v13.4.8) | React(v18.2.0) | TypeScript(v5.1.6) | Node(v16.20.1) |
-| :--------------: | :------------: | :----------------: | :------------: |
-|    ![nextjs]     |    ![react]    |        ![ts]       |     ![node]    |
-
-| styled-component(v6.0.2) | zustand(v4.3.9) |
-| :----------------------: | :-------------: |
-|           ![sc]          |                 |
+> Back-End
+| Spring Boot(v3.1.1) | MySQL(v8.1) | redis(v3.1.2) | 
+| :-----------------: | :---------: | :-----------: |
+|        ![sb]        |   ![MySQL]  |    ![redis]   |
 
 ### 개발 환경
 
@@ -129,6 +130,9 @@ SSS는 설문조사 후 투명하고 공정하게 리워드를 지급받는 서�
 [eslint]: /Image/stack/eslint.svg
 [prettier]: /Image/stack/prettier-color.svg
 [sc]: /Image/stack/styledcomponents-color.svg
+[sb]: /Image/stack/springboot-color.svg
+[MySQL]: /Image/stack/mysql-color.svg
+[redis]: /Image/stack/redis-color.svg
 
 
 ## 5. 📝 참고사항
