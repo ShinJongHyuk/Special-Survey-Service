@@ -216,7 +216,7 @@ const DetailComponent = (props: any) => {
                       if (hasAccessToken) {
                         setToModalData({
                           surveyid: detailProps.surveyid,
-                          bigtext: "설문을 시작하시겠습까?",
+                          bigtext: "설문을 시작하시겠습니까?",
                           smalltext: "",
                           confirm: "응답하기",
                         });
@@ -242,7 +242,7 @@ const DetailComponent = (props: any) => {
         onClose={() => {
           setIsOpen(false);
         }}
-        bigtext={hasAccessToken ? "설문을 시작하시겠습까?" : toModalData.bigtext}
+        bigtext={hasAccessToken ? "설문을 시작하시겠습니까?" : toModalData.bigtext}
         smalltext={toModalData.smalltext}
         cancel="닫기"
         confirm={hasAccessToken ? "응답하기" : toModalData.confirm}
