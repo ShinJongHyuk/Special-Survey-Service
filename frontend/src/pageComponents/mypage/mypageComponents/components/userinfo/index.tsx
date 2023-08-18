@@ -57,7 +57,7 @@ const UserInfoList = () => {
                     </InputBox>
                 </SignUpItem>
 
-                <SignUpItem>
+                {/* <SignUpItem>
                     <SignUpText>나이</SignUpText>
                     <InputRadioBox>
                         <Button use="age" label="~9" type="button" id="UNDER_TEENS" checkage={newUser.age} onClick={handleage}></Button>
@@ -68,7 +68,7 @@ const UserInfoList = () => {
                         <Button use="age" label="50~59" type="button" id="FIFTIES " checkage={newUser.age} onClick={handleage}></Button>
                         <Button use="age" label="60~" type="button" id="SIXTIES " checkage={newUser.age} onClick={handleage}></Button>
                     </InputRadioBox>
-                </SignUpItem>
+                </SignUpItem> */}
 
                 <SignUpItem>
                     <SignUpText>휴대폰 번호</SignUpText>
