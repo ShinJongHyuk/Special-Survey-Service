@@ -1,5 +1,5 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface SelectedType {
   selected: string;
@@ -9,13 +9,13 @@ export interface SelectedType {
 const useSelectedStore = create<SelectedType>()(
   persist(
     (set) => ({
-      selected: 'question',
+      selected: "question",
       setSelected: (value) => set({ selected: value }),
     }),
     {
-      name: 'selected-store', 
-    }
-  )
+      name: "selected-store",
+    },
+  ),
 );
 
 export default useSelectedStore;

@@ -54,7 +54,7 @@ declare const window: typeof globalThis & {
 };
 
 function Payment(props: any) {
-  const { title, titleContent, closedHeadCount, startTime, endTime, type, surveyTarget, img, resetSettingSurveyData } = useSettingSurveyApiStore();
+  const { title, content, closedHeadCount, startTime, endTime, type, surveyTarget, img, resetSettingSurveyData } = useSettingSurveyApiStore();
   const StoreId = process.env.NEXT_PUBLIC_STOREID;
   const { price, decrement } = usePriceStore();
   const { surveyList, reset } = useMakeSurveyApiStore();
@@ -139,10 +139,9 @@ function Payment(props: any) {
         };
 
         function callback(response: any) {
-          //console.log(response,"콜백")
           const surveyData = {
             title,
-            titleContent,
+            content,
             closedHeadCount,
             startTime,
             endTime,
@@ -157,10 +156,10 @@ function Payment(props: any) {
           };
           
           // API 로직
-          makeSurveyPost(surveyData)
-         
+          makeSurveyPost(surveyData) 
             .then((responseData : any) => {
               if (responseData) {
+
                 setSurveyId(responseData.id)
                 const authenticateData = {
                   surveyId: responseData.id,
@@ -169,11 +168,10 @@ function Payment(props: any) {
                   status: response.status,
                   impUid: response.imp_uid
                 }
-
                 authenticationDataPost(authenticateData)
                   .then((response) => {
                     if (response.isSucess === "paid") {
-                      //console.log(response,"결제 완료")
+                      // console.log(response,"결제 완료")
 
                       resetSettingSurveyData();
                       resetSurveyComponents();
@@ -182,13 +180,13 @@ function Payment(props: any) {
                       setIsSuccessed(true);
 
                     } else {
-                      //console.log("결제 실패")
+                      // console.log("결제 실패")
                       alert("결제에 실패하였습니다")
                       return
                     }
                   })
                   .catch((error => {
-                    //console.log("검증에 실패하였습니다",error)
+                    // console.log("검증에 실패하였습니다",error)
                     alert("결제에 실패하였습니다")
                     return
                   }))

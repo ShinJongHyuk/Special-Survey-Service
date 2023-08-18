@@ -13,8 +13,8 @@ function MakeSettings() {
     const {
       title,
       setTitle,
-      titleContent,
-      setTitleContent,
+      content,
+      setContent,
       closedHeadCount,
       setClosedHeadCount,
       startTime,
@@ -34,8 +34,8 @@ function MakeSettings() {
     const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTitle(event.target.value)
     };
-    const handleTitleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setTitleContent(event.target.value);
+    const handlecontentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(event.target.value);
     };
     
     const handleClosedHeadCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -183,7 +183,7 @@ function MakeSettings() {
           <Survey_Title_Container>
             <Title_Inner_Container>
                 <Title_input minRows={1} maxRows={2} placeholder="설문지 제목" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput} onChange={handleTitleChange} value={title}/>
-                <Title_Content minRows={1} maxRows={4} placeholder="설문에 대한 설명을 적어주세요 (필수사항)" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}  onChange={handleTitleContentChange} value={titleContent} />
+                <Title_Content minRows={1} maxRows={4} placeholder="설문에 대한 설명을 적어주세요 (필수사항)" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}  onChange={handlecontentChange} value={content} />
             </Title_Inner_Container>
           </Survey_Title_Container>
           <Survey_Detail_Container>

@@ -1,9 +1,9 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export interface SettingSurveyApiState {
   title?: string;
-  titleContent?: string;
+  content?: string;
   conditionText?: string;
   conditionContent?: string;
   conditionVisible?: boolean;
@@ -21,7 +21,7 @@ export interface SettingSurveyApiState {
   img?: string;
 
   setTitle: (value: string) => void;
-  setTitleContent: (value: string) => void;
+  setContent: (value: string) => void;
   setConditionText: (value: string) => void;
   setConditionContent: (value: string) => void;
   setClosedHeadCount: (value: string) => void;
@@ -36,18 +36,18 @@ export interface SettingSurveyApiState {
 const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
   persist(
     (set) => ({
-      title: '',
-      titleContent: '',
-      conditionText: '',
-      conditionContent: '',
+      title: "",
+      content: "",
+      conditionText: "",
+      conditionContent: "",
       closedHeadCount: 0,
-      startTime: '',
-      endTime: '',
-      type: '',
-      img: '',
+      startTime: "",
+      endTime: "",
+      type: "",
+      img: "",
       surveyTarget: [],
       setTitle: (value) => set({ title: value }),
-      setTitleContent: (value) => set({ titleContent: value }),
+      setContent: (value) => set({ content: value }),
       setConditionText: (value) => set({ conditionText: value }),
       setConditionContent: (value) => set({ conditionContent: value }),
       setClosedHeadCount: (value) => set({ closedHeadCount: parseInt(value) }),
@@ -59,9 +59,7 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
         set((state: any) => {
           const index = state.surveyTarget.indexOf(value);
           if (index !== -1) {
-            const updatedsurveyTarget = state.surveyTarget.filter(
-              (category: string) => category !== value
-            );
+            const updatedsurveyTarget = state.surveyTarget.filter((category: string) => category !== value);
             return { surveyTarget: updatedsurveyTarget };
           } else {
             const updatedsurveyTarget = [...state.surveyTarget, value];
@@ -71,24 +69,25 @@ const useSettingSurveyApiStore = create<SettingSurveyApiState>()(
       },
       resetSettingSurveyData: () => {
         set({
-          title: '',
-          titleContent: '',
-          conditionText: '',
-          conditionContent: '',
+          title: "",
+          content: "",
+          conditionText: "",
+          conditionContent: "",
           closedHeadCount: 0,
-          startTime: '',
-          endTime: '',
-          type: '',
-          img: '',
+          startTime: "",
+          endTime: "",
+          type: "",
+          img: "",
           surveyTarget: [],
         });
       },
     }),
     {
-      name: 'settingSurveyApiStore',
-      getStorage: () => localStorage,
-    }
-  )
+      name: "settingSurveyApiStore",
+      // getStorage: () => localStorage,
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
 );
 
 export default useSettingSurveyApiStore;

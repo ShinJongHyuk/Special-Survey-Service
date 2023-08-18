@@ -14,7 +14,7 @@ import { v4 as uuid } from 'uuid';
 
 function MakeQuestion() {
   const {surveyComponents} = useSurveyStore();
-  const {title,setTitle,titleContent,setTitleContent,img,setImg} = useSettingSurveyApiStore();
+  const {title,setTitle,content,setContent,img,setImg} = useSettingSurveyApiStore();
   const {uploadFileName,setUploadFileName} = useMakeSurveyApiStore();
   const [previewImg, setPreviewImg] = useState('');
 
@@ -51,8 +51,8 @@ function MakeQuestion() {
     const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTitle(event.target.value);
     };
-    const handleTitleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setTitleContent(event.target.value);
+    const handlecontentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(event.target.value);
     };
   const handleImageClick = () => {
     const uploadButton = document.getElementById(`upload-button`);
@@ -108,7 +108,7 @@ function MakeQuestion() {
         <Survey_Title_Container>
           <Title_Inner_Container>
           <Title_input minRows={1} maxRows={2} placeholder="설문지 제목" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput} onChange={handleTitleChange} value={title}/>
-          <Title_Content minRows={1} maxRows={4} placeholder="설문에 대한 설명을 적어주세요 (필수사항)" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}  onChange={handleTitleContentChange} value={titleContent} />
+          <Title_Content minRows={1} maxRows={4} placeholder="설문에 대한 설명을 적어주세요 (필수사항)" onKeyDown={handleTextareaInput} onKeyUp={handleTextareaInput}  onChange={handlecontentChange} value={content} />
           </Title_Inner_Container>
         </Survey_Title_Container>
         <Survey_MainImage_Container>
